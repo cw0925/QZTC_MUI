@@ -1,0 +1,461 @@
+<!doctype html>
+<html>
+ 
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/passkey.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+	</head>
+	<style type="text/css">
+		.content{
+			background: #FFFFFF;
+		}
+		.order-info{
+			margin-top: 1rem;
+			/*color: #FF0000;*/
+			border-bottom: 0.75rem solid #EFEFEF;
+		}
+		.order-top{
+			margin-bottom: 1rem;
+			
+		}
+		.order-number span{
+			margin-left: 1.5rem;
+			line-height: 3rem;
+		}
+		.order-time span{
+			margin-left: 1.5rem;
+			line-height: 3rem;
+		}
+		.order-total-price span{
+			margin-left: 1.5rem;
+			line-height: 3rem;
+		}
+		
+		.title-fkfs{
+			color: #4C4C4C;
+			text-align: center;
+			line-height: 4rem;
+			border-bottom: 0.1rem solid #C6C6C6;
+			
+		}
+		.Payment-type{
+			margin-top: 1rem;
+			color: #4C4C4C;
+			position: relative;
+		}
+		.Payment-type img{
+			width: 3rem;
+			height: 3rem;
+			margin-right: 2rem;
+		}
+		.remainingsum{
+			margin-bottom: 1rem;
+			margin-left: 2rem;
+		}
+		
+		.remainingsum span{
+			position: absolute;
+			top: 1rem;
+		}
+		
+		.remainingsum input{
+			position: absolute;
+			top: 1rem;
+			right: 1.8rem;
+		}
+		
+		.Alipay{
+			margin-bottom: 1rem;
+			margin-left: 2rem;
+		}
+		
+		.Alipay span{
+			position: absolute;
+			top: 5rem;
+		}
+		
+		.Alipay input{
+			position: absolute;
+			top: 5rem;
+			right: 1.8rem;
+		}
+		
+		.Wechat{
+			margin-bottom: 1rem;
+			margin-left: 2rem;
+		}
+		
+		.Wechat span{
+			position: absolute;
+			top: 9.5rem;
+		}
+		
+		.Wechat input{
+			position: absolute;
+			top: 9.5rem;
+			right: 1.8rem;
+		}
+		
+		.submit-order{
+			width: 100%;
+			height: 4rem;
+			position: fixed;
+			bottom: 0;
+			border-top: 1px solid #EFEFEF;
+		}
+		.price-total{
+		
+			width: 60%;
+			float: left;
+		}
+		.submit-heji{
+			color: #000000;
+			font-size: 1.3rem;
+			line-height: 4rem;
+			margin-left: 2rem;
+		}
+		.heji-price{
+			color:#E8192D;
+			font-size: 1.3rem;
+			
+		}
+		.order-bt{
+			float: left;
+			width: 40%;
+			
+		}
+		.order-bt input{
+			width: 100%;
+			height: 4rem;
+			border: 0;
+			background: #E8192D;
+			color: #FFFFFF;
+			font-size: 1.3rem;
+			border-radius: 0;
+		}
+		#yezftc{
+			position: fixed;	
+			top: 0;
+			background: #F0F0F0;
+			width: 100%;
+			height: 100%;
+			border-radius: 0;
+			z-index: 1111;
+			/*opacity: 0.9;*/
+			
+		}
+	</style>
+	<body style="background: #FFFFFF;">
+		<header style="background: #FF0000;" class="mui-bar mui-bar-nav">
+		    <a id="fanhui" style="color: #FFFFFF;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 style="color: #FFFFFF;" class="mui-title">收银台</h1>
+		</header>
+		<div class="mui-content content">
+			<div class="order-info">
+				<div class="order-top">
+					<div class="order-total-price">
+						<span>总金额：</span>
+					</div>
+					<div  class="order-number">
+						<span>订单号：</span>					
+					</div>
+					<div  class="order-time">
+						<span>订单生成时间：</span>
+					</div>		
+					
+				</div>
+			</div>    
+			<!--余额支付密码弹窗-->
+			<div id="yezftc" class="mui-popover">
+				<div class="yezf"> 
+					<div class="pwd-box" style="position: relative;">
+						<p class="p-order">订单号：</p>
+						<i style="position: absolute; top: -7rem;right: 0rem;" class="fa fa-close fa-2x"></i>
+						<input autofocus="autofocus" type="tel" maxlength="6" class="pwd-input" id="pwd-input">
+						<div class="fake-box">
+							<input type="password" readonly="">
+							<input type="password" readonly="">
+							<input type="password" readonly="">
+							<input type="password" readonly="">
+							<input type="password" readonly="">
+							<input type="password" readonly="">
+						</div>
+						<span style="position: absolute; left: 30%;top: -3rem;color: red;font-size: 3rem;" class="price-total-span"></span>
+					</div>  
+			    </div>
+			</div>
+			<div class="pay">
+				<div class="title-fkfs">
+					<span>选择付款方式</span>
+					
+				</div>
+				<div class="Payment-type">
+				<!--余额-->
+				<div class="remainingsum">
+					<img  src="../../img/ye.png"/>
+					<span>余额 </span>
+					<input type="radio" checked name="payment" value="1" />	
+				</div>
+				<!--支付宝-->
+				
+				<div class="Alipay">
+					<img src="../../img/zfb.png"/>
+					<span>支付宝</span>
+					<input type="radio" name="payment" value="2" />	
+				</div>
+				
+				<!--微信-->
+				<div class="Wechat">
+					<img src="../../img/wx.png"/>
+					<span>微信</span>
+					<input type="radio" name="payment" value="3" />	
+				</div>
+			</div>
+			<div class="submit-order">
+				<div class="price-total"> 
+					<span class="submit-heji">合计：</span><span class="heji-price">0.00</span>				
+				</div>
+				<div class="order-bt">
+					<input type="button" name="submitorder"  value="付款" />				
+				</div>
+			</div>	
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/rem.js"></script>
+		<script type="text/javascript"> 
+			mui.init()
+			var wxChannel = null; // 微信支付  
+			var aliChannel = null; // 支付宝支付
+			var channel = null;
+	         
+			document.addEventListener("plusready",function(){
+				
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var order = self.order;
+				var token = window.localStorage.getItem('qztc');
+				var num = self.num;   
+				
+				mui("body").on("tap",".fa-close",function(){
+					mui('#yezftc').popover("hide"); 
+					document.activeElement.blur(); 
+				}) 
+				
+				//禁止返回
+				if(num != '2'){
+					mui("body").on("tap","#fanhui",function(e){
+						e.stopPropagation();
+						mui.confirm('您还未付款,如要付款请点击继续支付。','确定要离开收银台？',['继续支付','确认离开'],function(e){
+							if(e.index == 1){
+								//确定离开
+								$("#is-fanhui").val(0);
+								var wobj = plus.webview.getWebviewById("./housekeeping-order.html"); 
+								wobj.close();
+								plus.webview.close(plus.webview.currentWebview());
+								mui.openWindow({ 
+										url: '../../bottom_nav.html',
+								});
+							}else{
+								
+							}
+							return false;
+						});
+					})
+				}
+				
+				
+				// 获取支付通道
+				plus.payment.getChannels(function(channels){
+	
+						wxChannel=channels[1]; 
+						aliChannel=channels[0];
+	
+ 
+				},function(e){
+				 mui.toast("获取支付通道失败："+e.message);
+				}); 
+				
+				
+				mui.ajax(APIPATH+'Enter/get_order',{
+					data:{token:token,order:order},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data;
+						
+						$(".order-total-price").html('<span>总金额：￥'+datas['total_price']+'</span>');
+						$(".order-number").html('<span>订单号：'+datas['order']+'</span>');
+						$(".order-time").html('<span>订单生成时间：'+datas['time']+'</span>');
+						$(".heji-price").html('<span>'+datas['total_price']+'</span>');
+						 
+						mui("body").on("tap","input[name=submitorder]",function(){
+							var checked = $("input[name=payment]:checked").val();
+							
+							if(checked == 1){
+								
+								mui('#yezftc').popover("show");					
+								//余额支付
+								var input = $(".fake-box input");
+								$("#pwd-input").on("input", function() {
+									var pwd = $(this).val().trim();
+									for (var i = 0, len = pwd.length; i < len; i++) {
+										input.eq("" + i + "").val(pwd[i]);
+									}
+									input.each(function() {
+										
+										var index = $(this).index();
+										
+										if (index >= len) {
+											$(this).val("");
+										}
+									});
+									if (len == 6) {
+										plus.nativeUI.showWaiting();
+										
+										//拿到输入框的密码
+										var userpassword = $("input[type=tel]").val();
+								
+								
+										mui.ajax(APIPATH+'Enter/pay',{
+											data:{token:token,type:1,order_number:order,userpassword:userpassword},
+											dataType:'json',//服务器返回json格式数据
+											type:'post',//HTTP请求类型
+											timeout:10000,//超时时间设置为10秒；
+											// headers:{'Content-Type':'application/json'},	              
+											success:function(res){
+												if(res.status == 1){
+													mui.toast(res.msg);
+													plus.nativeUI.closeWaiting();
+													window.localStorage.removeItem('order');
+												
+													plus.webview.close(plus.webview.currentWebview());
+													mui.openWindow({
+														url: 'payment-success.html',
+														extras :{
+															"totalprice":datas['total_price'],
+																"ifs":"1"
+															}
+													});
+												}else{ 
+													$("input[type=tel]").val('');
+													$("input[type=password]").val('');
+													mui.toast(res.msg);	
+													plus.nativeUI.closeWaiting();
+												}
+											},
+											error:function(xhr,type,errorThrown){
+												//异常处理；
+												console.log(type);
+											}
+										});
+										
+									}
+								});
+							}else if(checked == 2){
+						
+								plus.nativeUI.showWaiting();
+								
+								mui.ajax(APIPATH+'Enter/pay',{
+									data:{token,token,type:2,order_number:order},
+									dataType:'json',//服务器返回json格式数据
+									type:'get',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(res){
+										if(res.status == 200){
+											plus.nativeUI.closeWaiting();
+											var xmlres = res.data;
+											plus.payment.request(aliChannel,xmlres,function(result){
+												plus.nativeUI.alert("支付成功！",function(){
+													window.localStorage.removeItem('order');
+													mui.openWindow({
+														url: 'payment-success.html',
+														extras :{
+															"totalprice":datas['total_price'],
+																"ifs":"1"
+														}
+													});
+												});
+											},function(error){
+											   console.log(JSON.stringify(error));
+											   mui.toast("支付没有成功");
+											});
+										}else{
+											 mui.toast('获取订单信息失败');
+										}
+		
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+										console.log(JSON.stringify(xhr))
+										console.log(JSON.stringify(errorThrown))
+									}
+								});
+								
+							}else if(checked == 3){
+								plus.nativeUI.showWaiting();
+							
+								
+								mui.ajax(APIPATH+'Enter/pay',{
+									data:{token,token,type:3,order_number:order},
+									dataType:'json',//服务器返回json格式数据
+									type:'get',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(res){
+										if(res.status == 200){
+																				
+											var xmlres = JSON.stringify(res.data);
+											plus.payment.request(wxChannel,xmlres,function(result){
+												plus.nativeUI.alert("支付成功！",function(){
+													window.localStorage.removeItem('order');
+													mui.openWindow({
+														url: 'payment-success.html',
+														extras :{
+															"totalprice":datas['total_price'],
+																	"ifs":"1"
+														}
+													});
+												});
+											},function(error){
+		//										   mui.toast(JSON.stringify(error));
+											   console.log(JSON.stringify(error));
+											   plus.nativeUI.closeWaiting();
+											   mui.toast("支付没有成功");
+											});
+										}else{
+											 mui.toast('获取订单信息失败');
+										}
+		
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+								
+							} 
+						});
+						
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+							
+			})
+		</script>
+	</body>
+
+</html>

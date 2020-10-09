@@ -1,0 +1,542 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.goods_info{
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.info-div{
+			border-bottom: 1px dashed #DDDDDD;
+			overflow: hidden;
+		}
+		.key{
+			width: 25%;
+			float: left;
+			line-height: 5rem;
+			text-align: center;
+			color: #4A4A4A;
+		}
+		.val{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+			
+		}
+		input[type=text]{
+			width: 95%;
+			border: 0;	
+		}
+		.key-img{
+			text-align: center;
+			line-height: 5rem;
+		}
+		.val-img {
+			width: 100%;
+			margin-left: 5%;
+			margin-bottom: 10%;
+		}
+		/* 封面图 */
+		.fm-ts{
+			width:10rem;
+			height: 10rem;
+			vertical-align: middle;
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+			margin-right: 2rem;
+		}
+		.fm-ys{
+			display: none;
+		}
+		.fm-btn{
+			color:#ACACAC;
+			border-bottom: 1px solid #ACACAC;
+		}
+		.fm-ck{
+			color:#ACACAC;
+			border-bottom: 1px solid #ACACAC;
+			margin-left: 1rem;
+		}
+		
+		/* 详情图 */
+		.xq-ts{
+			width:10rem;
+			height: 10rem;
+			vertical-align: middle;
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+			margin-right: 2rem;
+		}
+		.xq-ys{
+			display: none;
+		}
+		.xq-btn{
+			color:#ACACAC;
+			border-bottom: 1px solid #ACACAC;
+		}
+		.xq-ck{
+			color:#ACACAC;
+			border-bottom: 1px solid #ACACAC;
+			margin-left: 1rem;
+		}
+		
+		/* 轮播图 */
+		.lbt-img img{
+			width:42%;
+			height: 14rem;
+			margin-right: 3%;
+			margin-left: 1%;
+			margin-bottom: 1%;
+		}
+		.lbt-ys{
+			display: none;
+		}
+		.add-ys{
+			display: none;
+		}
+		
+		.lbt-ck{
+			width: 100%;
+			text-align: center;
+			color: #CCCCCC;
+			line-height: 5rem;
+		}
+	</style>
+	<body>
+		<input type="hidden" value="" name="shopid">
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">商品编辑</h1>
+				<span class="update" style="float: right; line-height: 4rem; color: #ACACAC;">保存</span>
+		</header>
+		<div class="mui-content">
+			<div class="goods_info">
+			<div class="info-div">
+				<div class="key">
+					标题
+				</div>
+				<div class="val title">
+					<input type="text" name="title" value="">
+				</div>
+			</div>
+		
+			
+			<div class="info-div">
+				<div class="key">
+					库存
+				</div>
+				<div class="val stock">
+					<input type="text" name="stock" value="">
+				</div>
+	
+			</div>
+			
+			<div class="info-div">
+				<div class="key">
+					价格
+				</div>
+				<div class="val price">
+					<input type="text" name="price" value="">
+				</div>
+			</div>
+			<div class="info-div">
+				<div  class="key">
+					状态
+				</div>
+				<div class="val status">
+					
+				</div>
+			</div>
+			<div class="info-div">
+				<div style="line-height: 12rem;" class="key">
+					封面图
+				</div>
+				<div class="val fm-img">
+					
+				</div>
+			</div>
+			<div class="info-div">
+				<div style="line-height: 12rem;" class="key">
+					详情图
+				</div>
+				<div class="val xq-img">
+					
+				</div>
+			</div>
+			<div class="info-div">
+				<div class="key-img">
+					轮播图
+				</div>
+				<div class="lbt-ck">
+					确定
+				</div>
+				<div class="val-img lbt-img">
+					
+				</div>
+			</div>
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/view-js/me/me-shopUp.js"></script> 
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var gid = self.gid;
+				var token = window.localStorage.getItem('qztc');
+			
+				mui.ajax(APIPATH+'user/getgoods',{
+					data:{token:token,gid:gid},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					$("input[name=shopid]").attr("value",datas.shop_id);
+					$(".title input[type=text]").attr("value",datas.title);
+					$(".stock input[type=text]").attr("value",datas.stock);
+					$(".price input[type=text]").attr("value",datas.price);
+					if(datas.status == '1'){
+						$(".status").html('<input type="radio" name="status" value="1" checked > 上架 &nbsp;&nbsp; |&nbsp;&nbsp; '+
+										  '<input type="radio" name="status" value="2"  > 下架');
+					}else if(datas.status == '2'){
+						$(".status").html('<input type="radio" name="status" value="1"  > 上架&nbsp;&nbsp; |&nbsp;&nbsp; '+
+										  '<input type="radio" name="status" value="2" checked > 下架');
+					}
+					//封面图
+					$(".fm-img").html('<img  class="fm-ts" src="'+datas.fm_img_str+'" ></img>'+
+					'<img class="fm-ys" val="'+datas.fm_img+'" src="'+datas.fm_img_str+'">'+
+					'<span class="fm-btn">更换</span> 	<span class="fm-ck">确定</span>');
+					//封面图 更换图片
+					mui("body").on("tap",".fm-btn",function(){
+						if (mui.os.plus) {
+						var buttonTit = [{ 
+							title: "拍照"
+						}, {
+							title: "从手机相册选择"
+						}]; 
+						
+						plus.nativeUI.actionSheet({
+							title: "更换图片",
+							cancel: "取消",
+							buttons: buttonTit
+						}, function(b) { /*actionSheet 按钮点击事件*/
+							switch (b.index) {
+								case 0:
+									break;
+								case 1:
+									getImageUP("fm"); /*拍照*/
+									
+									break;
+								case 2:
+									galleryImgUP(1,"fm");/*打开相册*/ 
+									
+									break;
+								default:
+									break;
+							}
+						})
+						} 
+					})
+					
+					mui("body").on("tap",".fm-ck",function(){
+							plus.nativeUI.showWaiting();
+							if(!$(".fm-ys").attr("src")){
+								plus.nativeUI.closeWaiting();
+								mui.toast('请上传图片后在点击确定');
+							}
+							var base_fm = getBase64Image($(".fm-ys")[0]);
+							dealImage({
+								base64:base_fm,
+								w:800,
+								callback:function(base64){
+									
+									mui.ajax(APIPATH+'Enter/fm_img',{
+										data:{fm_img:base64},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(data){
+										$(".fm-ys").attr("val",data.data);
+										plus.nativeUI.closeWaiting();
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});	
+								}
+							}); 
+					})
+					
+					//详情图
+					$(".xq-img").html('<img class="xq-ts" src="'+datas.xq_img_str+'" ></img>'+
+					'<img class="xq-ys" val="'+datas.xq_img+'" src="'+datas.xq_img_str+'">'+
+					'<span class="xq-btn">更换</span>  <span class="xq-ck">确定</span>');
+					//详情图 更换图片
+					mui("body").on("tap",".xq-btn",function(){
+						if (mui.os.plus) {
+						var buttonTit = [{ 
+							title: "拍照"
+						}, {
+							title: "从手机相册选择"
+						}]; 
+						
+						plus.nativeUI.actionSheet({
+							title: "更换图片",
+							cancel: "取消",
+							buttons: buttonTit
+						}, function(b) { /*actionSheet 按钮点击事件*/
+							switch (b.index) {
+								case 0:
+									break;
+								case 1:
+									getImageUP("xq"); /*拍照*/
+									
+									break;
+								case 2:
+									galleryImgUP(1,"xq");/*打开相册*/ 
+									
+									break;
+								default:
+									break;
+							}
+						})
+						} 
+					})
+					mui("body").on("tap",".xq-ck",function(){
+							plus.nativeUI.showWaiting();
+							if(!$(".xq-ys").attr("src")){
+								plus.nativeUI.closeWaiting();
+								mui.toast('请上传图片后在点击确定');
+							}
+							var base_xq = getBase64Image($(".xq-ys")[0]);
+							dealImage({
+								base64:base_xq,
+								w:800,
+								callback:function(base64){
+									
+									mui.ajax(APIPATH+'Enter/xq_img',{
+										data:{xq_img:base64},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(data){
+										$(".xq-ys").attr("val",data.data);
+										plus.nativeUI.closeWaiting();
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+								}
+							}); 
+					})
+					
+					
+					//轮播图
+					var lbt = '';
+					
+					if(datas.lbt_img_str.length == '4'){
+						//如果是4个的话 直接遍历上  
+						for(i=0;i<datas.lbt_img_str.length;i++){
+							lbt += '<img class="lbt-ts" src="'+datas['lbt_img_str'][i]+'">'+
+								'<img class="lbt-ys" val="'+datas['lbt_img_path'][i]+'" src="'+datas['lbt_img_str'][i]+'">';
+						}
+						$(".lbt-img").html(lbt);
+					}else{
+						//如果不足四个的话就补充上传标志   
+						var quecount = 4 - datas.lbt_img_str.length;
+						//可以更换的
+						for(i=0;i<datas.lbt_img_str.length;i++){
+							lbt += '<img class="lbt-ts" src="'+datas['lbt_img_str'][i]+'">'+
+								'<img class="lbt-ys" val="'+datas['lbt_img_path'][i]+'" src="'+datas['lbt_img_str'][i]+'">';
+								
+						}
+						//可以上传的
+						for(i=0;i<quecount;i++){
+							lbt += '<img class="add-ts" src="../../img/addimg.png">'+
+								'<img class="add-ys" src="../../img/addimg.png">';
+						}
+						$(".lbt-img").html(lbt);
+					}
+					//轮播图 更改的 
+					mui("body").on("tap",".lbt-ts",function(){
+						var ob = $(".lbt-img .lbt-ts").index(this);
+						if (mui.os.plus) {
+						var buttonTit = [{ 
+							title: "拍照"
+						}, {
+							title: "从手机相册选择"
+						}]; 
+						
+						plus.nativeUI.actionSheet({
+							title: "更换图片",
+							cancel: "取消",
+							buttons: buttonTit
+						}, function(b) { /*actionSheet 按钮点击事件*/
+							switch (b.index) {
+								case 0:
+									break;
+								case 1:
+									
+									getImageUP("lbt",ob); /*拍照*/
+									break;
+								case 2:
+									galleryImgUP(1,"lbt",ob);/*打开相册*/ 
+									
+									break;
+								default:
+									break;
+							}
+						})
+						} 
+					})
+					//轮播图 添加的 
+					mui("body").on("tap",".add-ts",function(){
+						var ob = $(".lbt-img .add-ts").index(this);
+						if (mui.os.plus) {
+						var buttonTit = [{ 
+							title: "拍照"
+						}, {
+							title: "从手机相册选择"
+						}]; 
+						
+						plus.nativeUI.actionSheet({
+							title: "上传图片",
+							cancel: "取消",
+							buttons: buttonTit
+						}, function(b) { /*actionSheet 按钮点击事件*/
+							switch (b.index) {
+								case 0:
+									break;
+								case 1:
+									
+									getImageUP("lbtadd",ob); /*拍照*/
+									break;
+								case 2:
+									galleryImgUP(1,"lbtadd",ob);/*打开相册*/ 
+									
+									break;
+								default:
+									break;
+							}
+						})
+						} 
+					}) 
+					
+							mui("body").on("tap",".lbt-ck",function(){
+								plus.nativeUI.showWaiting();
+								var lbtarr = $(".lbt-ys"); 
+								var gh = $(".gh"); //谁更改过
+								if(!gh.length){
+									plus.nativeUI.closeWaiting();
+									mui.toast('请更换图片后再点击确定');
+								}else{
+									for(i=0;i<gh.length;i++){
+										var base_lbt = getBase64Image(lbtarr[gh.eq(i).attr("gh")]);
+										var ob = gh.eq(i).attr("gh");
+										
+										dealImage({
+											base64:base_lbt,
+											w:800,
+											ob:ob,
+											callback:function(base64,ob){
+												
+												mui.ajax(APIPATH+'Enter/lbt_img',{
+													data:{lbt_img:base64},
+													dataType:'json',//服务器返回json格式数据
+													type:'post',//HTTP请求类型
+													timeout:10000,//超时时间设置为10秒；
+													// headers:{'Content-Type':'application/json'},	              
+													success:function(data){
+													$(".lbt-ys").eq(ob).attr("val",data.data);
+													plus.nativeUI.closeWaiting(); 
+													},
+													error:function(xhr,type,errorThrown){
+														//异常处理；
+														console.log(type);
+													}
+												});
+											} 
+										});
+									}
+								}
+								
+						}) 
+					
+					
+					//保存编辑
+					mui("body").on("tap",".update",function(){
+						plus.nativeUI.showWaiting(); 
+						var shop_id = $("input[name=shopid]").attr("value");//Shop_id
+						var title = $("input[name=title]").val();//标题
+						var stock = $("input[name=stock]").val();//库存
+						var price = $("input[name=price]").val();//价格
+						var status = $("input[name=status]:checked ").val();//类型 1 上架 2 下架
+						var fm_img = $(".fm-ys").attr("val");//封面图 base64
+						var xq_img = $(".xq-ys").attr("val");//详情图 base64
+						var lbt = $(".lbt-ys");
+						var lbt_img = '';
+						for(i=0;i<lbt.length;i++){
+							lbt_img += ','+lbt.eq(i).attr("val");
+						}
+						var base_lbt_img = lbt_img.substring(1); //轮播图 base64
+						
+						mui.ajax(APIPATH+'user/upgoods',{
+							data:{token:token,shop_id,gid:gid,title:title,stock:stock,price:price,status:status,fm_img:fm_img,xq_img:xq_img,lbt_img:base_lbt_img},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(data){
+							if(data.status == '1'){
+								mui.toast(data.msg); 
+								setTimeout(function(){
+									var prePage1 = plus.webview.getWebviewById("./me-goodsUp.html");
+									prePage1.reload(true);
+									var prePage2 = plus.webview.getWebviewById("./me-goodsInfo.html");
+									prePage2.reload(true);
+								},500);
+							}else{
+								mui.toast(data.msg);
+							}
+							plus.nativeUI.closeWaiting(); 
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+						
+					})
+					
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

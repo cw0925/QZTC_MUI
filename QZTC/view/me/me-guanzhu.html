@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.mui-content>.mui-table-view:first-child{
+			margin: 0;
+		}
+		.mui-table-view-cell .btn_box{
+			float: right;
+			font-size: 0.8rem;
+			border: 0.05rem solid #808080;
+			padding: 0.1rem 0.3rem;
+			border-radius: 0.15rem;
+		}
+		.mui-table-view-cell img{
+			width: 3rem;
+			height: 3rem;
+			border-radius: 50%;
+			vertical-align: middle;
+		}
+		.mui-table-view-cell span{
+			font-size: 0.8rem;
+			color: #333333;
+			margin-left: 0.5rem;	
+		}
+		.mui-table-view-cell .btn_box{
+			margin-top: 0.7rem;
+			font-size: 0.8rem;
+		}
+	</style>
+
+	<body>
+		<header class="header-bg mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的关注</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+			       
+			</ul>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			document.addEventListener("plusready",function(){		
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+		
+				
+				mui.ajax(APIPATH+'User/guanzhu',{
+					data:{token:token}, 
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data;
+						var hh = '';
+						if(data.status == '1'){
+							for(i=0;i<datas.length;i++){
+								hh += '<li  class="mui-table-view-cell">'+
+												 '<p style="border:1px solid #ACACAC;color:#ACACAC" uid="'+datas[i]['gid']+'" class="btn_box">已关注</p>'+
+												 '<img src="'+datas[i]['avatar']+'"/><span>'+datas[i]['nick']+'</span>'+
+											'</li>';
+							}
+							$(".mui-table-view").html(hh);
+							mui('body').on("tap",".btn_box",function(){
+								var uid = $(this).attr("uid");
+								var ob = $(this);
+						
+								
+								mui.ajax(APIPATH+'Forum/fwiuser',{
+									data:{token:token,gid:uid},
+									dataType:'json',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(res){
+										if(res.msg == '关注成功'){
+											mui.toast(res.msg);
+											ob.css("color","#ACACAC");
+											ob.css("border","1px solid #ACACAC");
+											ob.html('已关注');
+										}else if(res.msg == '取消关注'){ 
+											mui.toast(res.msg);
+											ob.css("color","red");
+											ob.css("border","1px solid red");
+											ob.html('关注');
+										}
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+								
+							})
+						}else{
+							hh += '<div style="width: 100%;line-height: 30rem;text-align: center;">'+
+												'<span>暂无关注人</span>'+
+										'</div>';
+							$(".mui-content").html(hh);
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

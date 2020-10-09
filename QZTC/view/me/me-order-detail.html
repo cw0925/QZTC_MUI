@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.order_info{
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.info-div{
+			border-bottom: 1px dashed #DDDDDD;
+			overflow: hidden;
+		}
+		.key{
+			width: 25%;
+			float: left;
+			line-height: 5rem;
+			text-align: center;
+			color: #4A4A4A;
+		}
+		.val{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+		}
+		.title{
+			width: 100%;
+			line-height: 4rem;
+			text-align: center;
+			border-bottom: 1px dashed #DDDDDD;
+		}
+		
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">订单详情</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="order_info">
+				<div class="info-div">
+					<div class="key">
+						订单编号
+					</div>
+					<div class="val order_number">
+						
+					</div>
+				</div> 
+				<div class="info-div">
+					<div class="key">
+						收件人
+					</div>
+					<div class="val order_name">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						联系电话
+					</div>
+					<div class="val order_phone">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						收货地址
+					</div>
+					<div style="width: 70%;" class="val order_address">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						快递公司
+					</div>
+					<div class="val express_company">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						快递单号
+					</div>
+					<div class="val express_number">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						订单状态
+					</div>
+					<div class="val status_str">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						买家备注
+					</div>
+					<div class="val depict">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						付款金额
+					</div>
+					<div class="val order_price">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						订单生成
+					</div>
+					<div class="val time">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						付款时间
+					</div>
+					<div class="val payment_time">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						订单完成
+					</div>
+					<div class="val wc_time">
+						
+					</div>
+				</div>
+				<div class="title">
+					商品
+				</div>
+				<div class="info-div">
+					<div class="key">
+						商品封面图
+					</div>
+					<div class="val goods-fmimg">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						商品单价
+					</div>
+					<div class="val goods-price">
+						
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						购买数量
+					</div>
+					<div class="val goods-num">
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+				var self = plus.webview.currentWebview();
+				var order = self.order;
+			
+				mui.ajax(APIPATH+'User/order_detail',{
+					data:{token:token,order:order},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					$(".order_number").html(datas.order);
+					$(".order_name").html(datas.name);
+					$(".order_phone").html(datas.phone);
+					$(".order_address").html(datas.address);
+					$(".express_company").html(datas.sal_shop);
+					$(".express_number").html(datas.express_number);
+					$(".status_str").html(datas.status_str);
+					$(".order_price").html(datas.total_price+" 元");
+					$(".time").html(datas.time);
+					$(".payment_time").html(datas.payment_time);
+					$(".wc_time").html(datas.wc_time);
+					$(".goods-fmimg").html("<img src='"+datas.fm_img+"' style='padding-top:2rem; width:13rem;height:15rem'></img>");
+					$(".goods-num").html(datas.num+" 件");
+					$(".goods-price").html(datas.price+"元");
+					$(".depict").html(datas.depict);
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

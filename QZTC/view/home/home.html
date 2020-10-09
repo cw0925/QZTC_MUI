@@ -1,0 +1,452 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title> 
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../css/view-css/home/home.css" rel="stylesheet">
+	</head> 
+		<style type="text/css">
+			.lb{
+				width: 100%;
+				height: 12.4rem;
+			}
+			.tuijian_main img{
+				height: 10rem;
+			}
+		</style>
+	<body>
+		<div class="header">
+			<!--<div class="city">-->
+				<!--<div class="city_item">-->
+					<!--<span class="city_box">浦北</span><span class="mui-icon mui-icon-arrowdown"></span>-->
+				<!--</div>-->
+			<!--</div>-->
+			<div class="search">
+				<input type="text" name="sousuo" id="search_box" value="" placeholder="输入类别或关键字" />
+				<span class="mui-icon mui-icon-search"></span>
+			</div>
+			<!-- <div class="jia_box">
+				<span class="mui-icon mui-icon-plus"></span>
+			</div> -->
+		</div>
+		<div class="mui-scroll-wrapper">
+    <div style="margin-top: 2rem;" class="mui-scroll">
+		<div class="mui-slider" id="top-img-div">
+		  <div id="Top-img" class="mui-slider-group mui-slider-loop">
+		    <!--支持循环，需要重复图片节点-->
+		    <div  id="top"  class="mui-slider-item mui-slider-item-duplicate"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+		    <div id="img-lbt-1" class="mui-slider-item img-lbt"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+		    <div id="img-lbt-2" class="mui-slider-item img-lbt"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+		    <div id="img-lbt-3" class="mui-slider-item img-lbt"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+		    <div id="img-lbt-4" class="mui-slider-item img-lbt"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+				<div id="img-lbt-5" class="mui-slider-item img-lbt"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+				<div id="img-lbt-6" class="mui-slider-item img-lbt"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+				<div id="img-lbt-7" class="mui-slider-item img-lbt"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+				<div id="img-lbt-8" class="mui-slider-item img-lbt"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+		    <!--支持循环，需要重复图片节点-->
+		    <div id="out" class="mui-slider-item mui-slider-item-duplicate"><a class="lb" href="#"><img src="../../imgs/home_nrq_banner.png" /></a></div>
+		  </div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator "></div>
+				<div class="mui-indicator "></div>
+				<div class="mui-indicator "></div>
+				<div class="mui-indicator "></div>
+				<div class="mui-indicator "></div>
+				<div class="mui-indicator "></div>
+				<div class="mui-indicator "></div>
+			</div>
+		</div>
+		<!--九宫格-->
+	    <div id="Gallery" class="mui-slider">  
+            <div class="mui-slider-group">  
+                <div class="mui-slider-item ">  
+                    <ul class="mui-table-view mui-grid-view mui-grid-9 oneserver">  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('housekeeping.html')"> 
+                            	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon1.png" alt="" />
+                                <div class="mui-media-body">便民家政</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('ziyingshangcheng.html')"><img style="width: 2.5rem;" src="../../imgs/home_nrq_icon2.png" alt="" />
+                                <div class="mui-media-body">折扣商城</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('fangchan.html')">	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon3.png" alt="" />  
+                                <div class="mui-media-body">房产租房</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('zhaopinzhuanrang.html')"> 	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon4.png" alt="" />  
+                                <div class="mui-media-body">招聘转让</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('meishizhusu.html')"> 	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon5.png" alt="" />  
+                                <div class="mui-media-body">美食住宿</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('yingyuanktv.html')"> 	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon6.png" alt="" />  
+                                <div class="mui-media-body">影院KTV</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('qiche4s.html')"> 	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon7.png" alt="" /> 
+                                <div class="mui-media-body">汽车4S二手车</div>  
+                        </a>  
+                        </li>  
+                        <li 
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a href="#"> 	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon8.png" alt="" />  
+                                <div class="mui-media-body">实体店铺</div>  
+                        </a>  
+                        </li>  
+                    </ul>  
+                </div>  
+                <div class="mui-slider-item">  
+                    <ul class="mui-table-view mui-grid-view mui-grid-9 twoserver">  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('miaomuxianhua.html')">	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon9.png" alt="" />  
+                                <div class="mui-media-body">苗木鲜花</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('jiaoyupeixun.html')">	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon10.png" alt="" />  
+                                <div class="mui-media-body">教育培训</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('jianshenmeirong.html')">	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon11.png" alt="" />  
+                                <div class="mui-media-body">健身美容</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('chaoshishengxian.html')"> 	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon12.png" alt="" /> 
+                                <div class="mui-media-body">超市生鲜</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('falvfuwu.html')"><img style="width: 2.5rem;" src="../../imgs/home_nrq_icon13.png" alt="" />   
+                                <div class="mui-media-body">法律服务</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('jinrongbaoxian.html')"><img style="width: 2.5rem;" src="../../imgs/home_nrq_icon14.png" alt="" />  
+                                <div class="mui-media-body">金融保险</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a onclick="jump('chongwu.html')"><img style="width: 2.5rem;" src="../../imgs/home_nrq_icon15.png" alt="" />  
+                                <div class="mui-media-body">宠物</div>  
+                        </a>  
+                        </li>  
+                        <li  
+                            class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+                            <a href="#" ><img style="width: 2.5rem;" src="../../imgs/home_nrq_icon16.png" alt="" />  
+                                <div class="mui-media-body">其它</div>  
+                        </a>  
+                        </li>  
+                    </ul>  
+                </div>  
+            </div>
+            <div class="mui-slider-indicator">  
+                <div class="mui-indicator mui-active"></div>  
+                <div class="mui-indicator"></div>  
+            </div>  
+       	</div>  
+		<div id="content">
+			<div class="bulletin">
+				<div class="img_box"><img src="../../imgs/home_nrq_wenzi.png" alt="" /></div>
+				<div id="tckb" class="text">
+					<!--<div><span class="icon_box">推荐</span><span class="text-box">阳台用来晾衣服真浪费，我家这样设计的胜多负少的递四方速递水电费是的</span></div>-->
+					<!--<div><span class="icon_box">关注</span><span class="text-box">开发商开发商开发商开发商开发商</span></div>-->
+				</div>
+				
+			</div>
+			<!--店铺推荐-->
+			<div id="shop_lbt" class="mui-slider" style="margin-top: 0.5rem;">
+				<div class="mui-slider-group mui-slider-loop shop_lbt">
+					<div  class="mui-slider-item tuijian">
+						<p class="title">店铺推荐</p>
+						<div class="tuijian_main">
+							<img src="../../img/Login-top.png">
+						</div>
+					</div>
+					<div class="mui-slider-item tuijian">
+						<p class="title">店铺推荐</p>
+						<div class="tuijian_main">
+							<img src="../../img/Login-top.png">
+						</div>
+					</div>
+					<div class="mui-slider-item tuijian">
+						<p class="title">店铺推荐</p>
+						<div class="tuijian_main">
+							<img src="../../img/Login-top.png">
+						</div>
+					</div>
+					<div class="mui-slider-item tuijian">
+						<p class="title">店铺推荐</p>
+						<div class="tuijian_main">
+							<img src="../../img/Login-top.png">
+						</div>
+					</div>
+					<div  class="mui-slider-item mui-slider-item-duplicate tuijian">
+						<p class="title">店铺推荐</p>
+						<div class="tuijian_main">
+							<img src="../../img/Login-top.png">
+						</div>
+					</div>
+				</div>
+			<div class="mui-slider-indicator">  
+                <div class="mui-indicator mui-active"></div>  
+                <div class="mui-indicator"></div>  
+                  <div class="mui-indicator"></div>  
+            </div> 
+			</div>
+			<!--特价商品-->
+		
+		<!--	热卖-->
+		<div class="commodity">
+		<p class="title">热卖商品</p>
+		<ul class="commodity_ul" id="remai">
+			<li>
+				<div style="text-align: center;"><img src="../../imgs/home_nrq_image14.png" alt="" /></div>
+				<p>隔壁老王科比科比科比科比</p>
+				<div class="price"><span class="col">￥12.00</span><span class="dz">￥34.20</span></div>
+			</li>
+			<li>
+				<div style="text-align: center;"><img src="../../imgs/home_nrq_image14.png" alt="" /></div>
+				<p>隔壁老王科比科科比科比科比科比科比科比科科比科科比科科比科比</p>
+				<div class="price"><span class="col">￥15.56</span><span class="dz">￥20.38</span></div>
+			</li>
+			<li>
+				<div style="text-align: center;"><img src="../../imgs/home_nrq_image11.png" alt="" /></div>
+				<p>隔壁老王科比科科比科比科比科比科比科比科科比科科比科科比科比</p>
+				<div class="price"><span class="col">￥15.56</span><span class="dz">￥20.38</span></div>
+			</li>
+			<li>
+				<div style="text-align: center;"><img src="../../imgs/home_nrq_image13.png" alt="" /></div>
+				<p>隔壁老王科比科科比科比科比科比科比科比科科比科科比科科比科比</p>
+				<div class="price"><span class="col">￥15.56</span><span class="dz">￥20.38</span></div>
+			</li>
+		</ul>
+		<div class="more-rm" value='2'>更多</div> 
+		</div>
+		   
+		</div>
+		
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/view-js/home/home-index.js"></script>
+		
+		<script type="text/javascript">
+		mui.init()	
+		var gallery = mui('#top-img-div');
+		gallery.slider({
+		  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+		});
+		
+		var gallery = mui('#shop_lbt');
+		gallery.slider({
+		  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+		});
+		mui.plusReady(function() 
+		{ 
+			mui("body").on("tap",".mui-icon-search",function(){
+				var text = $("input[name=sousuo]").val();
+				if(text){
+					document.activeElement.blur();
+					mui.openWindow({//目标页面
+						url: './home-sousuo.html',
+						extras: {
+								text: text
+						},
+					});
+				}else{
+					mui.toast("内容不能为空")
+				}
+			})
+			plus.nativeUI.showWaiting();
+			mui.ajax(APIPATH+"Index/index", 
+			{    		
+			  type:'POST',//HTTP请求类型 
+			  dataType:'json',//服务器返回json格式数据 
+			  timeout:10000,//超时时间设置为10秒； 
+			  // headers:{'Content-Type':'application/json'},          
+			  success:function(data) 
+			  { 
+				  // console.log('home服务分类：'+JSON.stringify(data))
+				var datas = data.data;		
+								 
+				//头部轮播图
+				var outnum = datas.toplbt.length - 1;	 
+				var num;
+				for(i = 1;i < $(".img-lbt").length+1;i++){//轮播图
+					num = i-1;
+					$("#img-lbt-"+i).html('<a onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+datas.toplbt[num]['gid']+'\')"><img style="width:100%;height:15rem" src="'+datas.toplbt[num]['img']+'"></a>');
+				}  
+				$("#top").html('<a onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+datas.toplbt[0]['gid']+'\')"><img style="width:100%;height:15rem" src="'+datas.toplbt[0]['img']+'"></a>');
+				$("#out").html('<a onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+datas.toplbt[outnum]['gid']+'\')"><img style="width:100%;height:15rem" src="'+datas.toplbt[outnum]['img']+'"></a>');
+			$("#tckb").html('<div><span class="icon_box">推荐</span><a href="javascript:;" class="text-ck" val="'+datas.tckb['kb']['id']+'"><span class="text-box">'+datas.tckb['kb']['title']+'</span></a></div><div><span class="icon_box">热门</span><a class="text-ck" href="javascript:;" val="'+datas.tckb['gz']['id']+'"><span class="text-box">'+datas.tckb['gz']['title']+'</span></a></div>');
+				
+					mui("body").on("tap",".text-ck",function(){
+						var xwid = $(this).attr("val");
+						mui.openWindow({//目标页面
+							url: '../headline/toutiao-content.html',
+							extras: {
+								essay_id: xwid
+							},
+						});
+					})
+		
+				//服务分类
+				var one_server = '';
+				var two_server = ''; 
+				for(i = 0 ;i<datas.server.length;i++){
+					
+					if(i <= 7){ 
+						one_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+  
+										'<a onclick="jump(\''+datas.server[i]['url_str']+'?id='+datas.server[i]['id']+'\')">	<img style="width: 2.5rem;" src="'+datas.server[i]['img']+'"  />'+
+											'<div class="mui-media-body">'+datas.server[i]['name']+'</div>'+  
+										'</a>'+  
+									   '</li>';
+					}else{ 
+						two_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+
+										'<a onclick="jump(\''+datas.server[i]['url_str']+'?id='+datas.server[i]['id']+'\')">	<img style="width: 2.5rem;" src="'+datas.server[i]['img']+'"  />'+
+											'<div class="mui-media-body">'+datas.server[i]['name']+'</div>'+  
+										'</a>'+  
+									   '</li>';
+					}
+					
+				}
+				
+				$(".oneserver").html(one_server);
+				$(".twoserver").html(two_server);
+					
+					//店铺推荐
+					var shophh = '';
+					shophh += '<div class="mui-slider-item tuijian shop_ck" val="'+datas['shop_lbt'][0]['shop_id']+'">'+
+													'<p class="title">店铺推荐</p>'+
+													'<div class="tuijian_main">'+
+														'<img src="'+datas['shop_lbt'][0]['img']+'">'+
+													'</div>'+
+												'</div>';
+												
+					for(i=0;i<datas.shop_lbt.length;i++){
+						shophh += '<div class="mui-slider-item tuijian shop_ck" val="'+datas['shop_lbt'][i]['shop_id']+'">'+
+													'<p class="title">店铺推荐</p>'+
+													'<div class="tuijian_main">'+
+														'<img src="'+datas['shop_lbt'][i]['img']+'">'+
+													'</div>'+
+												'</div>';
+					}
+					shophh += '<div class="mui-slider-item mui-slider-item-duplicate tuijian shop_ck" val="'+datas['shop_lbt'][datas.shop_lbt.length-1]['shop_id']+'">'+
+													'<p class="title">店铺推荐</p>'+
+													'<div class="tuijian_main">'+
+														'<img src="'+datas['shop_lbt'][datas.shop_lbt.length-1]['img']+'">'+
+													'</div>'+
+												'</div>';
+					$(".shop_lbt").html(shophh);
+					
+					mui("body").on("tap",".shop_ck",function(){
+						var fid = $(this).attr("val");
+						mui.openWindow({//目标页面
+							url: 'housekeeping-i3-detail.html',
+							extras: {
+									fid: fid
+							},
+						});
+					})
+				//热卖
+				var hh = '';
+				for(i = 0;i<datas.remai.length;i++){
+					 hh += '<li onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+datas.remai[i]['id']+'\')" >'+
+								'<div style="text-align: center;"><img src="'+datas.remai[i]['cover_img']+'" /></div>'+
+								'<p>'+datas.remai[i]['title']+'</p>'+
+								'<div class="price"><span class="col">￥'+datas.remai[i]['minprice']+'</span></div>'+
+							'</li>';
+				} 
+				$("#remai").html(hh);	
+				
+				//点击加载更多
+				$(".more-rm").on("tap",function (){
+					
+				
+					var pages = $(this).attr("value");
+					
+					plus.nativeUI.showWaiting();
+				
+					
+					mui.ajax(APIPATH+'Index/home_remai',{
+						data:{pages:pages},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(ress){
+							plus.nativeUI.closeWaiting();
+							if(ress.status == 1){
+							var moreGood = '';
+							for(var i = 0; i < ress.data.length;i++){
+								moreGood += '<li onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+ress['data'][i]['id']+'\')" >'+
+												'<div style="text-align: center;"><img src="'+ress['data'][i]['cover_img']+'" /></div>'+
+												'<p>'+ress['data'][i]['title']+'</p>'+
+												'<div class="price"><span class="col">￥'+ress['data'][i]['minprice']+'</span></div>'+
+											'</li>'; 
+							}
+							$("#remai").append(moreGood);
+							$(".more-rm").attr("value",ress.msg);
+							}else{
+							$(".more-rm").hide();
+							mui.toast(ress.msg);
+							} 
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+					
+					
+						
+				})
+				
+				
+				plus.nativeUI.closeWaiting(); 
+			  }, 
+			  error:function(xhr,type,errorThrown) 
+			  { 
+				//异常处理；                
+				// mui.alert(type); 
+				console.log(type); 
+			  } 
+			});  
+		}); 
+		</script>
+	</body>
+
+</html>

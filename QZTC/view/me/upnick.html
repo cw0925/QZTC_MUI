@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+		<style type="text/css">
+			.info{
+				
+				width: 100%;
+				background: #FFFFFF;
+				overflow: hidden;
+				border-bottom: 1px solid #DCDCDC;
+			}
+			.name-span{
+				margin-top: 1rem;
+				width: 20%;
+				float: left;
+			}
+			.name-span span{
+				line-height: 2rem;
+				margin-left: 1.8rem;
+			}
+			.name-ipt{
+				margin-top: 1rem;
+				width: 70%;
+				float: left;
+			}
+			.name-ipt input{
+				border: 0;
+			}
+			
+			.bt-ok{
+				position: fixed;
+				bottom: 0;
+				line-height: 2.5rem;
+				text-align: center;
+				width: 100%;
+				background: #FF0000;
+				color: #FFFFFF;
+			}
+			input::-webkit-input-placeholder{color:#ACACAC;}
+			
+		</style>
+	<body style="background: #FFFFFF;">
+		<header style="background: #FF0000;" class="mui-bar mui-bar-nav">
+		    <a style="color: #FFFFFF;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 style="color: #FFFFFF;" class="mui-title">更改昵称</h1>
+		</header>
+		<div  class="mui-content">
+		    <div class="info">
+		    	<div class="name-span">
+		    		<span>昵称</span>
+		    	</div>
+				<div class="name-ipt">
+					<input type="text" name="name" placeholder="请填写您的用户昵称" />
+				</div>
+		    </div>
+		</div>
+		<div class="bt-ok">
+			确定
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script src="../../js/page.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var name = self.name;
+				$(".name-ipt").html('<input type="text" value="'+name+'" name="name" placeholder="请填写您的用户昵称" />');
+				plus.nativeUI.closeWaiting(); 
+				mui("body").on("tap",".bt-ok",function(){
+					var name = $("input[name=name]").val();
+//					console.log(JSON.stringify(plus.webview.all()));
+				    var view=plus.webview.getWebviewById("gerenxinxi.html");
+			        mui.fire(view,'doit',{   
+                        name:name   
+                    });   
+                    mui.back();
+				})
+			})
+		</script>
+	</body>
+
+</html>

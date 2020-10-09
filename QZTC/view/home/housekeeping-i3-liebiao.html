@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../fonts/iconfont.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css"/>
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.mui-title input{
+			border-radius:0.25rem ;
+			border: none;
+			margin: 0 ;
+			height:1.5rem;
+			padding:0;
+			background: #E5E5E5;
+			padding-left: 1.5rem;
+			font-size: 0.8rem;
+		}
+		.mui-title{
+			padding-left: 0.5rem;
+		}
+		.mui-title .mui-icon{
+			position: absolute;
+			top: 1rem;
+			left: 0.8rem;
+			font-size: 1rem;
+		}
+		input::-webkit-input-placeholder { /* WebKit browsers */ 
+		color:#7C7C7C;
+		font-size: 0.8rem; 
+		}
+		.mui-bar{
+			
+			background: #FFFFFF;
+		}
+		.mui-bar a{
+			color:#353535 ;
+		}
+		.nav_bar{
+			display: flex;
+			background: #FFFFFF; 
+			border-top:0.05rem solid #F7F7F7;
+			border-bottom: 0.05rem solid #F7F7F7;
+		}
+		.nav_bar div{
+			width: 100%;
+			text-align: center;
+			padding: 0.5rem 0;
+			
+		}
+		.nav_bar div span{
+			font-size: 0.8rem;
+		}
+		.mui-table-view-cell>a:not(.mui-btn){
+			display: flex;
+			white-space:inherit;
+		}
+		.img_box img{
+			width:7.5rem ;
+			height: 6rem;
+		}
+		.detail .jieshao{
+			font-size: 0.85rem;
+			color: #434343;
+		  height: 3rem;
+		  width: 80%;
+		}
+		.detail .weizhi{
+			margin-top: 0.95rem;
+		}
+		.mui-navigate-right .detail{
+			padding-left: 0.75rem;
+		}
+		.null-div{
+			
+			width: 100%;
+			text-align: center;
+		}
+		.null-div span{
+			color: #C6C6C6;
+			line-height:15rem;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">
+		    	<input type="text"  id="ipt-value" value=""  placeholder="请输入搜索相关字"/>
+		    	<span style="line-height: 0.6rem;" class="mui-icon mui-icon-search">
+		    			
+		    	</span>
+		    </h1>
+		</header>
+		<div style="margin-top: 2.6rem;">
+			<div class="nav_bar">
+				<div style="border-right: 0.05rem solid #DDDDDD;"><span id="sou">广西壮族自治区 钦州市 钦南区</span><span class="iconfont icon-sanjiaoxia"></span></div>
+			
+			</div>
+			<ul  class="mui-table-view" >
+			
+ 			      
+			</ul>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/page.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.picker.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script src="../../js/city.data-3.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){	
+				plus.nativeUI.showWaiting();
+				var value = getRequest();
+				var zisort_id = value.id;
+				var area = $("#sou").html();
+		
+				
+				mui.ajax(APIPATH+'Enter/table',{
+					data:{zisort_id:zisort_id,area:area},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data.data;
+						$("#sou").html(data.data.area);
+						var hh = '';
+						if(datas.length){
+							for(i=0;i<datas.length;i++){
+								  hh += '<li  fid="'+datas[i]['id']+'" class="mui-table-view-cell click-detail">'+
+												'<a class="mui-navigate-right">'+
+													 '<div class="img_box">'+
+														'<img src="'+datas[i]['fm_img']+'"/>'+
+													 '</div>'+
+													 '<div class="detail">'+
+														'<p class="jieshao">'+datas[i]['title']+'</p>'+
+														'<p class="weizhi">'+datas[i]['address']+'</p>'+
+													 '</div>'+
+												'</a>'+
+										'</li>'; 
+							}
+						}else{
+								hh ='<li class="null-div"><div ><span>抱歉,没有相关的店铺</span></div></li>';
+						}
+						$(".mui-table-view").html(hh);
+						
+						mui("body").on("tap",".mui-icon-search",function(){
+							plus.nativeUI.showWaiting();
+							var title = $("#ipt-value").val();
+							var area = $("#sou").html();
+					
+							
+							mui.ajax(APIPATH+'Enter/table',{
+								data:{zisort_id:zisort_id,area:area,title:title},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(dataSou){
+									var datas = dataSou.data.data;
+									$("#sou").html(dataSou.data.area);
+									var hh = '';
+									if(datas.length){
+										for(i=0;i<datas.length;i++){
+												hh += '<li fid="'+datas[i]['id']+'" class="mui-table-view-cell click-detail">'+
+																	'<a class="mui-navigate-right">'+
+																		'<div class="img_box">'+
+																			'<img src="'+datas[i]['fm_img']+'"/>'+ 
+																		'</div>'+
+																		'<div class="detail">'+
+																			'<p class="jieshao">'+datas[i]['title']+'</p>'+
+																			'<p class="weizhi">'+datas[i]['address']+'</p>'+
+																		'</div>'+
+																	'</a>'+
+															'</li>'; 
+										}
+									}else{
+											hh ='<li class="null-div"><div><span>抱歉,没有相关的店铺</span></div></li>';
+									}
+									$(".mui-table-view").html(hh);
+									plus.nativeUI.closeWaiting();
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+							
+						})
+						
+						//地区
+						mui("body").on("tap","#sou",function(){
+							var adressStr = '';
+							var address = '';
+							//显示几层，我们要显示省、市、区，所以我们这里写三层，如果不写默认是一层
+							var addressPicker = new mui.PopPicker({
+									layer: 3
+							});
+							addressPicker.setData(cityData3);
+									
+							addressPicker.show(function (selectItems) {
+									//将选择的省、市、区显示到屏幕上
+									for (var i = 0; i < selectItems.length; i++) {
+											adressStr += ' '+selectItems[i].text;
+											// address += ' '+selectItems[i].text;
+									}
+									document.getElementById('sou').innerHTML = adressStr.substring(1);
+									console.log(zisort_id)
+									console.log(title)
+									//加载数据 
+									plus.nativeUI.showWaiting();
+									var title = $("#ipt-value").val();
+									var area = $("#sou").html();
+						
+									mui.ajax(APIPATH+'Enter/table',{
+										data:{zisort_id:zisort_id,area:area,title:title},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(dataipt){
+											var datas = dataipt.data.data;
+											$("#sou").html(dataipt.data.area);
+											var hh = ''; 
+											if(datas.length){
+												for(i=0;i<datas.length;i++){
+														hh += '<li fid="'+datas[i]['id']+'" class="mui-table-view-cell click-detail">'+
+																			'<a class="mui-navigate-right">'+
+																				'<div class="img_box">'+
+																					'<img src="'+datas[i]['fm_img']+'"/>'+
+																				'</div>'+
+																				'<div class="detail">'+
+																					'<p class="jieshao">'+datas[i]['title']+'</p>'+
+																					'<p class="weizhi">'+datas[i]['address']+'</p>'+
+																				'</div>'+
+																			'</a>'+
+																	'</li>'; 
+												}
+											}else{
+													hh ='<li class="null-div"><div ><span>抱歉,没有相关的店铺</span></div></li>';
+											}
+											$(".mui-table-view").html(hh);
+											plus.nativeUI.closeWaiting();
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+							});
+						})
+						mui("body").on("tap",".click-detail",function(){
+								var id = $(this).attr("fid");
+								mui.openWindow({
+									url: 'housekeeping-i3-detail.html',
+									extras:{
+										fid:id
+									}									
+								});
+								
+						})
+						
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

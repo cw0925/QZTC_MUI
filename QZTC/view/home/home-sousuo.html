@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.mui-content{
+			background: #FFFFFF;
+		}
+		.select{
+			overflow: hidden;
+			border: 1px solid #DDDDDD;
+		}
+		.select .server{
+			float: left;
+			width: 50%;
+			text-align: center;
+			line-height: 3rem;
+			border-right: 1px dashed #DDDDDD;
+		}
+		.select .zysc{
+			float: left;
+			width: 50%;
+			text-align: center;
+			line-height: 3rem;
+		}
+		.red{
+			background: red;
+			color: #FFFFFF;
+		}
+		.content{
+			width: 100%;
+			padding-top: 0.5rem;
+		}
+		.null{
+			line-height: 25rem;
+			text-align: center;
+			color: #CCCCCC;
+		}
+		.shop{
+			width: 45%;
+			height: 15rem;
+			border: 1px solid #DCDCDC;
+			float: left;
+			margin-left: 2.5%;
+			margin-right: 2.5%;
+			margin-bottom: 1rem;
+		}
+		.shop img{
+			margin-left: auto;
+			width: 90%;
+			margin-left: 5%;
+			margin-top: 0.4rem;
+			height: 75%;
+		}
+		.shop p{
+			width: 92%;
+			margin-left: 5%;
+			color: #303030;
+			font-weight: 500;
+			text-overflow: -o-ellipsis-lastline;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+	</style>
+	<body>
+		<header style="background: red;" class="mui-bar mui-bar-nav">
+		    <a style="color: #fff;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 style="color: #fff;" class="mui-title">搜索</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="select">
+				<div val="1" class="server red">店铺</div>
+				<div val="2" class="zysc">自营商城</div>
+			</div>
+			<div class="content">
+				<div class="null">抱歉,没有找到您想找的店铺或商品</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/page.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){	
+			plus.nativeUI.showWaiting();
+			var self = plus.webview.currentWebview();
+			var text = self.text;
+			var token = window.localStorage.getItem('qztc');
+			
+			mui.ajax(APIPATH+'Index/sousuo',{
+				data:{type:1,text:text},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				// headers:{'Content-Type':'application/json'},	              
+				success:function(data){
+				var datas = data.data;
+				if(datas.length){
+					var hh =  ''; 
+					for(i=0;i<datas.length;i++){
+						 hh += '<div class="shop server-ck" val="'+datas[i]['id']+'">'+
+									'<img src="'+datas[i]['img']+'">'+
+									'<p>'+datas[i]['title']+'</p>'+
+								'</div>';
+					}
+					$(".content").html(hh);
+					
+					mui("body").on("tap",".server-ck",function(){
+						var fid = $(this).attr("val");
+						mui.openWindow({//目标页面
+							url: 'housekeeping-i3-detail.html',
+							extras: {
+									fid: fid
+							},
+						});
+					})
+				}else{
+					$(".content").html("<div class='null'>抱歉,没有找到您想找的店铺或商品</div>");
+				}
+				plus.nativeUI.closeWaiting();
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+			
+			mui("body").on("tap",".select div",function(){
+				plus.nativeUI.showWaiting()
+				var selected = $(this).attr("val");
+				if(selected == '1'){
+					//店铺
+					$(".zysc").attr("class","zysc");
+					$(".server").attr("class","server red");
+					
+					mui.ajax(APIPATH+'Index/sousuo',{
+						data:{type:1,text:text},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+							var datas = data.data;
+							if(datas.length){
+								var hh =  ''; 
+								for(i=0;i<datas.length;i++){
+									hh += '<div class="shop server-ck"  val="'+datas[i]['id']+'">'+
+												'<img src="'+datas[i]['img']+'">'+
+												'<p>'+datas[i]['title']+'</p>'+
+											'</div>';
+								}
+								$(".content").html(hh);
+							}else{
+								$(".content").html("<div class='null'>抱歉,没有找到您想找的店铺或商品</div>");
+							}
+							plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+					
+				}else if(selected == '2'){
+					//自营商城
+					$(".server").attr("class","server");
+					$(".zysc").attr("class","zysc red");
+				
+					mui.ajax(APIPATH+'Index/sousuo',{
+						data:{type:2,text:text},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+						var datas = data.data;
+						if(datas.length){
+							var hh =  ''; 
+							for(i=0;i<datas.length;i++){
+								hh += '<div class="shop mall-ck" onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+datas[i]['id']+'\')">'+ 
+											'<img src="'+datas[i]['img']+'">'+
+											'<p>'+datas[i]['title']+'</p>'+
+										'</div>';
+							}
+							$(".content").html(hh);
+							
+						}else{
+							$(".content").html("<div class='null'>抱歉,没有找到您想找的店铺或商品</div>");
+						}
+						plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+			})
+			})
+			function jump(_this){
+				mui.openWindow({
+					url: _this
+				});
+			}
+		</script>
+	</body>
+	
+</html>

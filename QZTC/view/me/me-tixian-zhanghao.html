@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+	</head>
+	<style>
+		body{
+			background: #FFFFFF;
+		}
+		.zhanghao{
+			width: 100%;
+			height: 12rem;
+			border-bottom: 1px dashed #DDDDDD;
+			overflow: hidden;
+		}
+		.zhanghao-img{
+			width: 33%;
+			height: 100%;
+			/* border-right: 1px solid #DD524D; */
+			float: left;
+		}
+		.zhanghao-img img{
+			width: 100%;
+			height: 100%;
+		}
+		.zhanghao-info{
+			width: 53%;
+			height: 100%;
+			float: left;
+			/* border-right: 1px solid #000000; */
+		}
+		.zhanghao-info p{
+			color: #303030;
+			margin-top: 0.5rem;
+			margin-left: 1rem;
+			line-height: 2rem;
+		}
+		.check{
+			float: left;
+			text-align: center;
+			margin-right: 0.5rem;
+			font-size: 2rem;
+			width: 10%;
+			line-height: 6rem;
+		}
+		.red{
+			color: red;
+		}
+		.add-zhanghao{
+			color: #FFFFFF;
+			float: right;
+			margin-right: 0.5rem;
+			line-height: 4rem;
+		}
+		.null{
+			color: #ccc;
+			text-align: center;
+			line-height: 45rem;
+			font-size: 2rem;
+		}
+		.del{
+			line-height: 6rem;
+			float: left;
+			text-align: center;
+			width: 10%;
+			font-size: 2rem;
+		}
+	</style>
+	<body>
+		<header style="background: red;" class="mui-bar mui-bar-nav">
+		    <a style="color: #FFFFFF;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 style="color: #FFFFFF;" class="mui-title">提现帐号</h1>
+			<span onclick="jump('me-add-zhanghao.html')" class="add-zhanghao">添加</span>
+		</header>
+		<div style="background: #FFFFFF;" class="mui-content">
+		    
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener('plusready',function(){
+				var token = window.localStorage.getItem('qztc');
+				plus.nativeUI.showWaiting();
+			
+				
+					mui.ajax(APIPATH+'User/tixian_zhanghao',{
+						data:{token:token},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+							var datas = data.data;
+							if(datas.length){
+								var hh = '';
+								for(i=0;i<datas.length;i++){
+									
+									//银行
+									switch(datas[i]['type'])
+									{
+									case '1':
+									  //中国银行
+									  var img = '<img src="../../img/zg.jpg" >';
+									  var yh = '中国银行';
+									  break;
+									case '2':
+									  //农业银行
+									  var img = '<img src="../../img/ny.png" >';
+									  var yh = '中国农业银行';
+									  break;
+									case '3':
+									  //工商银行
+									  var img = '<img src="../../img/zggs.png" >';
+									  var yh = '中国工商银行';
+									  break;
+									case '4':
+									  //建设银行
+									  var img = '<img src="../../img/zgjs.jpg" >';
+									  var yh = '中国建设银行';
+									  break;
+									case '5':
+									  //交通银行
+									  var img = '<img src="../../img/zgjt.jpg" >';
+									  var yh = '中国交通银行';
+									  break;
+									case '6':
+									  //中信银行
+									  var img = '<img src="../../img/zgzx.jpg" >';
+									  var yh = '中国中信银行';
+									  break;
+									case '7':
+									  //广西农村信用社
+									  var img = '<img src="../../img/ncxys.jpg" >';
+									  var yh = '广西农村信用社';
+									  break;
+									}
+									 
+									//状态
+									if(datas[i]['status'] == '1'){
+										var zt = '<div val="'+datas[i]['id']+'" class="check red" ><i class="fa fa-check-circle"></i></div>';
+									}else if(datas[i]['status'] == '2'){
+										var zt = '<div val="'+datas[i]['id']+'" class="check" ><i class="fa fa-check-circle"></i></div>';
+									}
+									
+									
+									hh += '<div class="zhanghao">'+
+												'<div class="zhanghao-img">'+
+													img+
+												'</div>'+
+												'<div class="zhanghao-info">'+
+													'<p>银行：'+yh+'</p>'+
+													'<p>账号：'+datas[i]['number']+'</p>'+
+													'<p>姓名：'+datas[i]['name']+'</p>'+
+													'<p>电话：'+datas[i]['phone']+'</p>'+
+												'</div>'+
+												'<div>'+
+													zt+
+													'<div val="'+datas[i]['id']+'" class="del"><i class="fa fa-trash-o fa-fw"></i></div>'+
+												'</div>'+
+											'</div>';
+								}
+							
+								//点击默认
+								mui("body").on("tap",".check",function(){
+									plus.nativeUI.showWaiting();
+									var zid = $(this).attr("val");
+								
+									
+									mui.ajax(APIPATH+'User/zhanghao_cheked',{
+										data:{token:token,zid:zid},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(res){
+										if(res.status == '1'){
+											plus.nativeUI.closeWaiting();
+											mui.toast(res.msg);
+											setTimeout(function(){
+												var wobj = plus.webview.getWebviewById("me-tixian-zhanghao.html");
+												wobj.reload(true);
+											},500); 
+										}else{
+											plus.nativeUI.closeWaiting();
+											mui.toast(res.msg);
+										}
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+									
+								})
+								
+								mui("body").on("tap",".del",function(){
+									plus.nativeUI.showWaiting();
+									var zid = $(this).attr("val");
+								
+									
+										mui.ajax(APIPATH+'User/zhanghao_del',{
+											data:{token:token,zid:zid},
+											dataType:'json',//服务器返回json格式数据
+											type:'post',//HTTP请求类型
+											timeout:10000,//超时时间设置为10秒；
+											// headers:{'Content-Type':'application/json'},	              
+											success:function(res){
+											if(res.status == '1'){
+												plus.nativeUI.closeWaiting();
+												mui.toast(res.msg);
+												setTimeout(function(){
+													var wobj = plus.webview.getWebviewById("me-tixian-zhanghao.html");
+													wobj.reload(true);
+												},500); 
+											}else{
+												plus.nativeUI.closeWaiting();
+												mui.toast(res.msg);
+											}
+											},
+											error:function(xhr,type,errorThrown){
+												//异常处理；
+												console.log(type);
+											}
+										});
+									
+								})
+	// 							
+	// 							mui("body").on("tap",".add-zhanghao",function(){
+	// 								mui.openWindow({
+	// 									url: 'me-add-zhanghao.html', 
+	// 								})
+	// 							})
+									
+								$(".mui-content").html(hh);
+							}else{
+								$(".mui-content").html("<div class='null'>暂无帐号</div>");
+							}
+							plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+				
+			})
+		</script>
+	</body> 
+
+</html>

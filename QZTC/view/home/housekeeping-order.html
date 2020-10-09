@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/view-css/home/shopping-order.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/passkey.css"/>
+	</head>
+	<style type="text/css">
+		.have{
+			color: #EE7900;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">订单详情</h1>
+		</header>
+		<div class="mui-content content"> 
+		    <div class="addressinfo">
+		    	<div>
+		    		<span class="address-name">收货人： </span>
+		    		<span class="address-phone">联系方式： </span>
+		    	</div>
+		    		<img src="../../img/weizhi.png"/>
+		    <div class="address">
+		    		<span>收货地址：</span>					
+		    </div>
+		    <a class="fa fa-angle-right expand" href="#"></a>
+		    </div>
+			<div class="goods-info">
+				<div class="info-top">
+					<span>商品清单</span>
+				</div>
+				<div class="goods"> 
+					<div class="goods-img">
+						<img src="../../imgs/bmjz_image5.png"/>
+					</div>
+					<div class="info">
+						<span class="info-title"></span>
+					</div>
+					<div class="info-price">
+						<span class="price"></span>
+						<span class="num">x 1</span>
+					</div>
+					<div class="info-subprice">
+						<span>小计：</span>
+					</div>
+				</div>
+				<div class="peison">
+					<span class="peison-psfs">优惠券</span>
+					<span val="" class="peison-fs"></span>
+				</div>
+				<div class="message">
+					<span>买家留言：</span>
+					<input type="text" name="depict" class="words" placeholder="备注" />
+				</div>
+				<div class="goods-count">
+					<span>共  件商品</span>
+				</div>
+				
+				
+				
+				<div class="submit-order">
+					<div class="price-total">
+						<span class="submit-heji">合计：</span><span class="heji-price">0.00元</span>				
+					</div>
+					<div class="order-bt">
+						<input type="button" name="submitorder"  value="提交订单" />				
+					</div>
+				</div>	
+			</div>
+		</div>	
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/rem.js"></script>
+		<script src="../../js/page.js"></script>
+		<script src="../../js/fastclick.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){	
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview(); 
+				var token = window.localStorage.getItem('qztc');
+				var gid = self.gid;
+				var num = self.num;
+					 
+				
+				mui.ajax(APIPATH+'Enter/order_detail',{
+					data:{token:token,gid:gid,num:num},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					
+					mui("body").on("tap",".addressinfo",function(){
+						mui.openWindow({
+								url: '../me/shouhuodizhi.html',
+						});
+					})
+							
+					if(datas.address == null){
+						mui.confirm('获取收货地址失败,如果您尚未设置收货地址，请点击设置','提示',['取消','设置'],function(e){
+							if(e.index == 1){
+								//设置的
+								
+								mui.openWindow({
+										url: '../me/shouhuodizhi.html',
+								});
+							}else{
+								//取消的 
+								mui.back(); 
+							}
+						});
+					}else{
+						
+						$(".address-name").html("收货人："+datas.address.nick);
+						$(".address-phone").html("联系方式："+datas.address.phone);
+						$(".address").html("<span>收货地址："+datas.address.address+"&nbsp;"+datas.address.detailedaddress+"</span>");
+						$(".goods-img").html('<img src="'+datas.goods.fm_img+'"/>');
+						$(".info-title").html(datas.goods.title);
+						$(".price").html(datas.goods.price+" 元");
+						$(".num").html('x '+datas.num);
+						$(".info-subprice").html("<span>小计："+datas.subprice+" 元</span>");
+						$(".goods-count").html("<span>共"+datas.num+"件商品</span>");
+						$(".heji-price").html(datas.subprice+" 元");
+						
+						if(datas.if_yhj){
+							$(".peison-fs").html("有优惠券可用");
+							$(".peison-fs").attr("class","peison-fs have");
+							
+							mui("body").on("tap",".have",function(){
+								var gid = datas.goods.id;
+								var total = datas.subprice;
+								
+								mui.openWindow({
+									url: 'housekeeping-order-youhuijuan.html',
+									extras:{ 
+										gid:gid,
+										total:total
+									}									
+								});
+							})
+						}else{
+							$(".peison-fs").html("无优惠券可用");
+						}
+						
+						//返回回来要执行的方法   
+						function fun1(e){   
+							var val=e.detail   
+							var jid = val.jid;   
+							var price = val.price;
+							var total = datas.subprice - parseInt(price); 
+							$(".peison-fs").html("- "+price);
+							$(".peison-fs").attr("val",jid);
+							$(".peison-fs").attr("class","peison-fs zk");
+							$(".heji-price").html(total +" 元");
+							
+						}   
+						
+						//自定义窗体事件  doit 要和b页面定义的 事件名称一致   
+						window.addEventListener('doit',fun1);   
+					
+						//订单提交
+						mui("body").on("tap",".order-bt",function(){
+							plus.nativeUI.showWaiting();
+							var reg=/[\u4E00-\u9FA5]/g;//正则
+							var depict = $("input[name=depict]").val();//买家留言
+							var name = datas.address.nick; //收件人
+							var phone = datas.address.phone; //收件人
+							var address = datas.address.address + " " + datas.address.detailedaddress;//地址
+							var shop_id = datas.goods.shop_id //该商品是哪个店铺的
+						  var gid = datas.goods.id;//购买的商品id
+							var num = datas.num;//总购买的数量
+							var total = $(".heji-price").html().replace(reg,'');//总价
+							var jid  = $('.zk').attr("val");//优惠券的ID
+							
+							
+							
+							mui.ajax(APIPATH+'Enter/create_order',{
+								data:{token:token,depict:depict,name:name,phone:phone,address:address,shop_id:shop_id,gid:gid,num:num,total:total,jid:jid},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(data){
+								
+								plus.nativeUI.closeWaiting();
+								
+								if(data.status){
+									  
+									mui.openWindow({
+										url: '../shoppingCart/server-payment.html',
+										extras:{ 
+											order:data.data.order,
+											num:111
+										}									
+									});
+									
+								}else{
+									mui.toast(data.msg);
+								}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+						})
+					} 
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+		</script>
+	</body>
+ 
+</html> 

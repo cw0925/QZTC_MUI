@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.mui-bar{
+			background: #E8192D;
+			
+		}
+		.mui-bar a{
+			color: #FFFFFF;
+		}
+		.mui-bar h1{
+			color: #FFFFFF;
+		}
+		body{
+			background: #FFFFFF;
+		}
+		.content .img_box{
+			text-align: center;
+			padding: 0 3rem;
+			padding-bottom: 2rem;
+		}
+		.yaoqingma{
+			padding: 0.5rem 0;
+			text-align: center;
+			margin-top: 15rem;
+			/* border-bottom: 0.05rem solid #C1C1C1; */
+		}
+		.yaoqingma span{
+			color: #8b8b8b;
+			font-size: 0.85rem;
+		}
+		.fenxiang_box .lianjie_box{
+			padding: 0.7rem 0;
+			text-align: center;
+			color: #434343;
+		}
+		.fenxiang_box .inp{
+			margin-top: 1rem;
+		}
+		.inp_box{
+			padding: 0 0.75rem;
+		}
+		.inp_box .inp{
+			border: 0.05rem solid #C8C8C8;
+			display: inline-block;
+			width: 80%;
+			padding: 0.2rem 0.5rem;
+			
+		}
+		.inp_box .btn{
+			background: #E7192D;
+			padding: 0.3rem 0.5rem ;
+			color: #FFFFFF;
+			font-size: 0.8rem;
+		}
+		.foot_box{
+			position: fixed;
+			bottom: 0rem;
+			width: 100%;
+		}
+		.foot_box span{
+			display: inline-block;
+			width: 100%;
+			text-align: center;
+			box-sizing: border-box;
+			padding: 0.5rem 0 ;
+			font-size: 0.85rem;
+			color: #FFFFFF;
+		}
+		.foot_box span.left_box{
+			background: #F9330C;
+		}
+		.foot_box span.right_box{
+			background: #E8192D;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的邀请</h1>
+		</header>
+		<div class="content" style="margin-top:2.6rem">
+			<!-- <div class="img_box"> -->
+				<!-- <img src="../../imgs/2018-01-02_141658.png" alt="" /> -->
+				<!-- <p style="font-size: 1.1rem;color: #343434;padding: 0.3rem 0;">二维码</p> -->
+				<!-- <p>让你的好友扫描你的二维码下载注册软件钦州同城APP和你一起赚钱，你会获得丰厚的奖励</p> -->
+			<!-- </div> -->
+			<!-- <div style="height: 0.4rem; background: #E5E5E5;"></div> -->
+			<div class="yaoqingma">
+				<span>我的邀请码</span>
+				<p class="code_hao"></p>
+			</div>
+			<!-- <div class="fenxiang_box">
+				<p class="lianjie_box">我的邀请链接</p>
+				<div class="inp_box">
+					<span class="inp">www.baidu.com.sdsd</span><span class="btn">分享</span>
+				</div>
+			</div> -->
+			<div class="foot_box">
+				<span onclick="jump('me-yaoqing-detail.html')" class="left_box">我邀请的会员</span>
+				<!-- <span class="right_box">邀请奖励</span>	 -->
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){	
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+			
+				mui.ajax(APIPATH+'User/index',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					$(".code_hao").html(data.data.invitecode);
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

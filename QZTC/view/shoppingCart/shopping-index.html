@@ -1,0 +1,378 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../css/view-css/shopping/shopping-index.css" rel="stylesheet">
+	</head>
+	<style>
+		.del{
+			line-height: 2.3rem;
+			color: #FFFFFF;
+			float: right;
+			margin-right: 0.5rem;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">购物车()</h1>
+				<span class="del">移除</span>
+		</header>
+		<div class="mui-scroll-wrapper">
+    	<div class="mui-scroll">
+		<div class="content" >  
+			<ul class="content_ul">
+					<!--商品-->
+			</ul> 
+		</div>
+		<div  class="compute">
+			<div id="qx" style="display: none;" class="mui-input-row mui-checkbox mui-left">
+				  <label style="width: 30%;">全选</label>
+				  <input id="checkall" style="top:0.9rem" type="checkbox">
+				  <span style="margin-left: -0.5rem;" class="item0">合计:</span>
+				  <span class="item1">￥0</span>
+				  <button id="accounts">结算</button> 
+			</div>		
+		</div>
+		</div>
+		</div>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui('.mui-scroll-wrapper').scroll({
+                    deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006 
+			});
+			
+//			window.localStorage.removeItem('qztc');
+			 
+			document.addEventListener("plusready",function(){
+			token = window.localStorage.getItem('qztc');
+			plus.nativeUI.showWaiting();
+			if(token){
+			
+			mui.ajax(APIPATH+'Shop/showshopping',{
+				data:{token:token},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				// headers:{'Content-Type':'application/json'},	              
+				success:function(data){
+					if(data.status == -2){
+						//token 过期了 就提示让用户去登录  
+						mui.confirm('您的帐号在别的设备上登录过','提示',['取消','去登录'],function(e){
+							if(e.index == 1){
+								//去登录
+									window.localStorage.removeItem('qztc');
+									//判断当前设备类型
+									if(mui.os.ios || mui.os.ipad || mui.os.android) {
+										// 获取当前webview窗口对象
+										var curr = plus.webview.currentWebview();
+										
+										//获取所有已经打开的webview窗口
+										var wvs = plus.webview.all();
+										
+										
+										for(var i = 0, len = wvs.length; i < len; i++) {
+										//关闭除当前页面外的其他页面
+										if(wvs[i].getURL() == curr.getURL())
+										
+										//遇到当前页跳过
+										continue;
+										
+										//非当前页执行关闭
+										plus.webview.close(wvs[i]); 
+										}
+										//打开login页面
+									  
+										plus.webview.open('../../login.html');
+										//执行关闭当前页面
+										curr.close();
+									} else{ 
+									
+										//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+										plus.runtime.quit();
+									
+									}  
+							}
+						})
+						
+						
+						
+						
+						$(".mui-title").html('购物车(0)');
+						var hh = '<li>'+
+								  		'<span  style="margin-left: 28% ;line-height: 4rem;">请登录,<a id="login">登录请点击这里</a></span>'+
+								 '</li>';
+						$(".content_ul").html(hh);
+						plus.nativeUI.closeWaiting();
+						mui("body").on("tap",'#login',function(){
+							mui.confirm('确定要去登录吗？','提示',['取消','去登录'],function(e){
+								if(e.index == 1){
+									//去登录
+									window.localStorage.removeItem('qztc');
+									//判断当前设备类型
+									if(mui.os.ios || mui.os.ipad || mui.os.android) {
+										// 获取当前webview窗口对象
+										var curr = plus.webview.currentWebview();
+										
+										//获取所有已经打开的webview窗口
+										var wvs = plus.webview.all();
+										
+										
+										for(var i = 0, len = wvs.length; i < len; i++) {
+										//关闭除当前页面外的其他页面
+										if(wvs[i].getURL() == curr.getURL())
+										
+										//遇到当前页跳过
+										continue;
+										
+										//非当前页执行关闭
+										plus.webview.close(wvs[i]); 
+										}
+										//打开login页面
+									  
+										plus.webview.open('../../login.html');
+										//执行关闭当前页面
+										curr.close();
+									} else{ 
+									
+										//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+										plus.runtime.quit();
+									
+									} 
+								}
+							})
+						})
+					}else{	
+						var datas = data.data;
+						var hh = '';
+						$(".mui-title").html('购物车('+datas.length+')');
+						if(datas.length){
+						for(i=0;i<datas.length;i++){
+							hh += '<li>'+
+										'<div class="mui-input-row mui-checkbox mui-left">'+
+										  '<label style="width: 70%;">钦州同城自营店</label>'+
+										  '<input shopid="'+datas[i]['id']+'" gwcid="'+datas[i]['id']+'" sku="'+datas[i]['sku']+'" subprice="'+datas[i]['subprice']+'" num="'+datas[i]['num']+'" class="check'+[i]+'" name="checkbox" value="'+datas[i]['gid']+'" type="checkbox">'+
+										  '<span>'+datas[i]['time']+'</span>'+
+										'</div>'+
+										'<div class="list_con">'+
+											'<div class="imgs_box"><img src="'+datas[i]['cover_img']+'"/></div>'+
+											'<div class="list_con_detail">'+
+												'<p class="text">'+datas[i]['title']+'</p>'+
+												'<div><span style="line-height: 2rem;" class="col">￥'+datas[i]['price']+'</span><span class="mui-pull-right">x '+datas[i]['num']+'</span></div>'+
+												'<span style="color:#EC2110;font-size:0.8rem;">小计 :</span><span style="color:#EC2110;font-size:0.8rem;">'+datas[i]['subprice']+'</span>'+
+											'</div>'+
+										'</div>'+
+									'</li>';
+						}
+						}else{
+							hh += '<li>'+
+									  '<span  style="margin-left: 30% ;line-height: 4rem;">购物车是空的哦~</span>'+
+								  '</li>';
+						}
+						$("#qx").show();
+						$(".content_ul").html(hh);
+						plus.nativeUI.closeWaiting();
+						//计算价格
+						$("input[type='checkbox']").change(function(){
+							var cart = $("input[name='checkbox']");
+							var total = 0;
+							for(i=0;i<cart.length;i++){
+								if(cart.eq(i).is(':checked')){
+								    total +=  parseFloat(cart.eq(i).attr('subprice'));
+								}
+							}
+							$(".item1").html("￥"+total.toFixed(2));
+							total.toFixed(2);
+						});	
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});		
+					
+			
+			}else{
+				
+				$(".mui-title").html('购物车(0)');
+				var hh = '<li>'+
+						  		'<span  style="margin-left: 28% ;line-height: 4rem;">请登录,<a id="login">登录请点击这里</a></span>'+
+						 '</li>';
+				$(".content_ul").html(hh);
+				plus.nativeUI.closeWaiting();
+				mui("body").on("tap",'#login',function(){
+					mui.confirm('确定要去登录吗？','提示',['取消','去登录'],function(e){
+						if(e.index == 1){
+							//去登录
+							window.localStorage.removeItem('qztc');
+							//判断当前设备类型
+							if(mui.os.ios || mui.os.ipad || mui.os.android) {
+								// 获取当前webview窗口对象
+								var curr = plus.webview.currentWebview();
+								
+								//获取所有已经打开的webview窗口
+								var wvs = plus.webview.all();
+								
+								
+								for(var i = 0, len = wvs.length; i < len; i++) {
+								//关闭除当前页面外的其他页面
+								if(wvs[i].getURL() == curr.getURL())
+								
+								//遇到当前页跳过
+								continue;
+								
+								//非当前页执行关闭
+								plus.webview.close(wvs[i]); 
+								}
+								//打开login页面
+							  
+								plus.webview.open('../../login.html');
+								//执行关闭当前页面
+								curr.close();
+							} else{ 
+							
+								//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+								plus.runtime.quit();
+							
+							} 
+						}
+					})
+				})
+			}
+			
+			//反选
+			$("#checkall").change(function(){
+				var isall = $(this).is(':checked');
+				if(isall){
+					var cart = $("input[name='checkbox']");
+					for(i=0;i<cart.length;i++){
+						if(cart.eq(i).is(':checked') == false){
+							cart.eq(i).prop('checked',true);
+						}
+					}	
+				}else{
+					var cart = $("input[name='checkbox']");
+					for(i=0;i<cart.length;i++){
+						if(cart.eq(i).is(':checked') == true){
+							cart.eq(i).prop('checked',false);
+						}
+					}	
+			 	}
+				
+			});
+			
+			mui("body").on("click","#accounts",function(){
+				var json = {};
+				var arr = [];
+				var goods = $("input[name='checkbox'][type='checkbox']:checked");
+				if(goods.length){
+			
+					
+					mui.ajax(APIPATH+"User/index",{
+						data:{token:token},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+							var datas = data.data;
+							if(datas.patpass == null){
+								mui.confirm('您还没设置余额支付密码,是否前往设置？','提示',['取消','去设置'],function(e){
+								if(e.index == 1){
+									mui.openWindow({
+								    	url: '../me/me-setpass.html'
+									});
+								}
+								});
+							}else{
+								
+								for(i=0;i<goods.length;i++){
+													
+									json["gid"] = goods.eq(i).val();	
+									json["skuid"] = goods.eq(i).attr("sku");
+									json["num"] = goods.eq(i).attr("num");
+									json["gwcid"] = goods.eq(i).attr("gwcid");
+									arr[i] = JSON.stringify(json);
+								}
+								var jsonstr = "'["+arr+"]'";
+								
+								mui.openWindow({
+								    url: "./shopping-order.html",
+								    extras :{
+								    	"token":token,
+								    	"orderinfo":jsonstr,
+								    	"gwcif":1
+								    }
+								});
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+					  
+						
+					
+				}else{
+					mui.toast('请选中需购买的物品'); 
+				}
+				  
+			})
+			//移除购物车物品
+			mui("body").on("tap",".del",function(){
+				var goods = $("input[name='checkbox'][type='checkbox']:checked");
+				var arr = [];
+				if(goods.length){
+					plus.nativeUI.showWaiting();
+					for(i=0;i<goods.length;i++){
+					 arr.push(goods.eq(i).attr("shopid"));
+					}
+					var goodsId = arr.join(',');
+					
+					
+					mui.ajax(APIPATH+'shop/delShopGoods',{
+						data:{token:token,goodsId:goodsId},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(res){
+							plus.nativeUI.closeWaiting();
+							if(res.status){
+								mui.toast('移除成功');
+								setTimeout(function(){
+									var prePage1 = plus.webview.getWebviewById("view/shoppingCart/shopping-index.html");
+									prePage1.reload(true);
+								},500)
+								
+							}else{
+								mui.toast(res.msg);
+							}
+							
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}else{
+					mui.toast('请勾起需移除的商品'); 
+				}
+			})
+			
+			
+			});
+			
+		</script>
+	</body>
+
+</html>

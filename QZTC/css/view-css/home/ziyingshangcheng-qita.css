@@ -1,0 +1,71 @@
+header{
+	background: #FFFFFF;
+	border-bottom: 1px solid #D4D4D4;
+	height: 4rem;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 6666;
+}
+
+.left-return{
+    width: 15%;
+    text-align: center;
+
+}
+
+.left-return a{
+	line-height: 4.25rem;
+	color: #000;
+}
+
+.title{
+	width: 70%;
+	text-align: center;
+}
+
+.title span{
+	font-family: "微软雅黑";
+	line-height: 4.5rem;
+}
+
+.content{
+	width: 100%;
+	background: #FFFFFF;
+	margin-top: 5rem;
+}
+
+.top{
+	margin-left: 1.5rem;
+	padding-top: 1.5rem;
+	height: 5rem;
+}
+
+.top span{
+	color: #EA3243;
+	font-family: "微软雅黑";
+	font-size: 1.6rem;
+	line-height: 1rem;
+}
+
+.sort{
+	width: 100%;
+	border-top: 0.25rem solid #DDDDDD;
+}
+
+.sort-div{
+	padding-top: 2rem;
+	width: 90%;
+	margin-left: 5%;
+	padding-bottom: 2rem;
+}
+
+.sort-div span{
+	color: #6E6E6E;
+	font-size: 1.4rem;
+	font-weight: 500;
+	margin-right: 2.8rem;
+	line-height: 4rem;
+}

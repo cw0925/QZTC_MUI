@@ -1,0 +1,377 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.content{
+			width: 100%;
+		}
+		.content textarea{
+			border: 0;
+			color: #585858;
+		}
+		.img{
+			width: 90%;
+			/* border: 1px solid #0062CC; */
+			margin-left: 1rem;
+		}
+		.img img{
+			width: 6rem;
+			height: 6rem;
+			margin-right: 1.5rem;
+		}
+		.fabu{
+			position: fixed;
+			bottom: 0;
+			text-align: center;
+			width: 100%;
+			font-size: 1rem;
+			background: #FF0000;
+			color: #FFFFFF;
+			line-height: 2.5rem;
+		}
+		#ts{
+			display: none;
+		}
+		#ts img{
+			display: none;
+		}
+		.uplode{
+			color: #000000;
+			width: 100%;
+			text-align: center;
+			line-height: 3rem;
+			border-top: 1px solid #ccc;
+			border-bottom:  1px solid #ccc;  
+			margin-bottom: 2rem;
+		}
+		.uplode-gq{
+			color: #CCCCCC;
+			width: 100%;
+			text-align: center;
+			line-height: 3rem;
+			border-top: 1px solid #ccc;
+			border-bottom:  1px solid #ccc; 
+			margin-bottom: 2rem;
+		}
+	</style>
+	<body style="background: #FFFFFF;">
+		<header style="background: #FF0000;" class="mui-bar mui-bar-nav">
+			<a style="color: #FFFFFF" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 style="color: #FFFFFF" class="mui-title">发布贴子</h1>
+		</header>
+		<div style="background: #FFFFFF;" class="mui-content">
+			<div class="content">
+				<textarea id="text-content" rows="10" placeholder="来畅谈交友,吐槽八卦"></textarea>
+			</div>
+			<div class="uplode" val="">
+				点击上传
+			</div>
+			<div class="img">
+				<img id="addimg" src="../../img/addimg.png" >
+			</div>
+			<div id="ts">
+				
+			</div>
+			<div class="fabu">
+				<span>发布</span>
+			</div>
+		</div>
+		
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery-1.11.3.js" ></script>
+		<script src="../../js/rem.js" ></script>
+		<script src="../../js/public.js" ></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener('plusready',function(){
+			var token = window.localStorage.getItem('qztc');
+			// console.log(JSON.stringify(plus.webview.all()))
+// 			plus.geolocation.getCurrentPosition(translatePoint,function(e){
+// 				mui.toast("异常:" + e.message);
+// 			console.log(e.message)
+// 			});	
+			
+			// function translatePoint(position){
+				// var city = position.address.city;
+				mui("body").on("tap","#addimg",function(){
+					
+					if (mui.os.plus) {
+						var buttonTit = [{
+							title: "拍照"
+						}, {
+							title: "从手机相册选择"
+						}];
+						
+						plus.nativeUI.actionSheet({
+							title: "上传图片",
+							cancel: "取消",
+							buttons: buttonTit
+						}, function(b) { /*actionSheet 按钮点击事件*/
+							switch (b.index) {
+								case 0:
+									break;
+								case 1:
+									
+									var length = $(".upimg").length;
+									switch (length) {  
+										case 0:
+											getImage(); /*拍照*/
+											break;
+										case 1:
+											getImage(); /*拍照*/
+											break;
+										case 2:
+											getImage(); /*拍照*/
+											break;
+										case 3:
+											getImage(); /*拍照*/
+											break;
+										default:
+											mui.toast('最多只能上传4张'); 
+											break;
+									}
+									break;
+								case 2:
+									var length = $(".upimg").length;
+									switch (length) {  
+										case 0:
+											galleryImg(4);/*打开相册*/ 
+											break;
+										case 1:
+											galleryImg(3);/*打开相册*/ 
+											break;
+										case 2:
+											galleryImg(2);/*打开相册*/ 
+											break;
+										case 3:
+											galleryImg(1);/*打开相册*/ 
+											break;
+										default:
+											mui.toast('最多只能上传4张'); 
+											break;
+									}
+									
+									break;
+								default:
+									break;
+							}
+						})
+					}        
+				})
+			
+			// plus.nativeUI.closeWaiting()
+			mui("body").on("tap",".uplode",function(){
+				plus.nativeUI.showWaiting();
+				var imgarr = $(".ts");  
+				if(!imgarr.length){
+					plus.nativeUI.closeWaiting();
+					mui.toast('请上传图片后在点击确定');
+				}
+				for(i=0;i<imgarr.length;i++){
+					
+					var base_lbt = getBase64Image(imgarr[i])
+					
+					dealImage({
+						base64:base_lbt,
+						w:800,
+						callback:function(base64){
+								
+								mui.ajax(APIPATH+'Enter/xq_img',{
+									data:{xq_img:base64},
+									dataType:'json',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(data){
+									var val = $(".uplode").attr("val");
+									 
+									$(".uplode").attr("val",val+","+data.data);	
+									$(".uplode").html("图片已上传");
+									$(".uplode").attr("class","uplode uplode-gq");
+									plus.nativeUI.closeWaiting();
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+						}
+					});
+				}
+			})
+			
+			
+			// 拍照获取图片
+			function getImage() {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径
+						var fileSrc = [];
+						fileSrc[0] = imgSrc;
+						setHtml(fileSrc);
+						base64_img(fileSrc);
+						
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("error" + s);
+				}, {
+					filename: "_doc/camera/"
+				}) 
+			} 
+
+			// 从相册中选择图片 
+			function galleryImg(num){
+					// 从相册中选择图片
+					plus.gallery.pick( function(e){
+						var fileSrc = [];
+						for(var i in e.files){
+							fileSrc[i] = e.files[i];
+						}
+						
+						setHtml(fileSrc);
+						
+						// upload(fileSrc);
+					}, function (e) {
+						console.log( "取消选择图片" );
+					},{
+						filter: "image",
+						multiple: true,
+						maximum: num,
+						system: false,
+						onmaxed: function() {
+							plus.nativeUI.alert('最多只能选择'+num+'张图片');
+						}
+					});
+				}
+			
+			
+			
+			
+			//遍历上传图片 
+			function setHtml(img)
+			{
+				var imghh = ''; 
+				var tshh = '';
+				for(i=0;i<img.length;i++){
+					imghh += '<img class="upimg" src="'+img[i]+'" >';
+					tshh += '<img class="ts" src="'+img[i]+'">';
+				} 
+				$("#ts").html(tshh);
+				$("#addimg").before(imghh);
+				var imglenght = $(".upimg").length;
+			
+					$("#addimg").hide();
+			
+			}
+// 			var ck = plus.webview.all();
+// 			for(i=0;i<ck.length;i++){
+// 				console.log(ck[i]['id'])
+// 			}
+			mui("body").on("tap",".fabu",function(){
+				plus.nativeUI.showWaiting();
+				
+				var content = $("#text-content").val();
+				if(content == '来畅谈交友,吐槽八卦' || content.length < 1){
+					plus.nativeUI.closeWaiting();
+					mui.toast("内容不能为空");
+				}else{ 
+					//有上传图片的时候执行
+					
+						var base_lbt = $(".uplode").attr("val");
+						
+						var base_lbt_img_str = base_lbt.substring(1);
+						var base_lbt_img =  base_lbt_img_str.replace(/^\s*|\s*$/g,"");
+				
+						mui.ajax(APIPATH+'Forum/issuance',{
+							data:{token:token,base64_ImgStr:base_lbt_img,content:content},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(data){
+								if(data.status == '1'){
+									mui.toast(data.msg);
+									setTimeout(function(){
+										var prePage1 = plus.webview.getWebviewById("view/headline/headline-index.html");
+										prePage1.reload(true);
+										mui.back();
+									},100);
+								}else{
+									mui.toast(data.msg);
+								}
+								plus.nativeUI.closeWaiting();
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+					
+				} 
+				
+				
+			})
+	
+		
+		
+		 function getBase64Image(img) {
+            var canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            var dataURL = canvas.toDataURL("image/png"); 
+			// console.log(dataURL);
+			return dataURL; 
+			// return dataURL.replace("data:image/png;base64,", ""); 
+         }  
+		  //压缩方法
+		 function dealImage(obj) {
+		 	var newImage = new Image();
+		 	var quality = 0.6;    //压缩系数0-1之间
+		 	newImage.src = obj.base64;
+		 	newImage.setAttribute("crossOrigin", 'Anonymous');	//url为外域时需要
+		 	var imgWidth, imgHeight;
+		 	newImage.onload = function () {
+		 		imgWidth = this.width;
+		 		imgHeight = this.height;
+		 		var canvas = document.createElement("canvas");
+		 		var ctx = canvas.getContext("2d");
+		 		if (Math.max(imgWidth, imgHeight) > obj.w) {
+		 			if (imgWidth > imgHeight) {
+		 				canvas.width = obj.w;
+		 				canvas.height = obj.w * imgHeight / imgWidth;
+		 			} else {
+		 				canvas.height = obj.w;
+		 				canvas.width = obj.w * imgWidth / imgHeight;
+		 			}
+		 		} else {
+		 			canvas.width = imgWidth;
+		 			canvas.height = imgHeight;
+		 			quality = 0.6;
+		 		}
+		 		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		 		ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+		 	  var base64 = canvas.toDataURL("image/jpeg", quality); //压缩语句
+		 		obj.callback(base64,obj.ob);
+		 		
+		 	}
+		 
+		 }
+		
+		// }	
+			}); 
+		</script>
+	</body>
+	
+</html>

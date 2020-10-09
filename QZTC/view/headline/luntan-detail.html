@@ -1,0 +1,513 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../fonts/iconfont.css" rel="stylesheet">
+
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.info{
+			width: 100%;
+			background: #FFFFFF;
+			border-bottom: 0.5rem solid #E5E5E5;
+		}
+		
+		.info-top{
+			width: 100%;
+			
+		}
+		.personal-data{
+			width: 90%;
+			/* border: 1px solid #0062CC; */
+			margin-left: 1rem; 
+			
+		}
+		.data{
+			width: 100%;
+			height: 5rem;
+			/* border: 1px solid #0062CC; */
+			/* margin-top: 1rem; */
+			position: relative;
+		}
+		.data img{
+			position: absolute;
+			height: 3rem;
+			width: 3rem;
+			border-radius: 50%;
+			top: 1rem;
+		}
+		
+		
+		.content-guji{
+			width: 100%;
+			overflow: hidden;
+		}
+		.content-guji span{
+			font-size: 0.95rem;
+		}
+		.dianzan{
+			float: right;
+			margin-right: 1.5rem;
+		}
+		.pingjia_box{
+			float: right;
+			margin-right: 1rem;
+		}
+		.Comment-area{
+			width: 100%;
+			/* height: 2rem; */
+			background: #FFFFFF;
+		}
+		.head-title{
+			width: 100%;
+			border-bottom: 2px solid #E5E5E5;
+		}
+		.head-title span{
+			margin-left: 1rem;
+			line-height: 2.5rem;
+		}
+		.pinglun-content{
+			width: 100%;
+			
+		}
+	    ul{
+			padding:0;
+			margin:0;
+			list-style:none;
+		}
+		li{
+			overflow: hidden;
+			border-bottom: 2px solid #E5E5E5;
+		}
+		.pl-img{
+			width: 20%;
+			margin-top: 1rem;
+			margin-left: 1rem;
+			float: left;
+		}
+		.pl-img img{
+			width: 3rem;
+			height: 3rem;
+			border-radius: 50%;
+		}
+		.pl-info{
+			width: 73%;
+			margin-top: 1rem;
+			/* border: 1px solid #F01C08; */
+			float: left;: left;
+		}
+		.info-zan{
+			float: right;
+			font-size: 1rem;
+			color: #8F8F94;
+		}
+		.info-name{
+			font-size: 1rem;
+		}
+		.info-time{
+			font-size: 0.8rem;
+			color: #8F8F94;
+			line-height: 2rem;
+		}
+		.text-content{
+			margin-top: 0.5rem;
+			margin-left: 4.5rem;
+			margin-bottom: 0.5rem;
+			float: left;
+			width: 100%;
+		}
+		.text-content p {
+			width: 70%;
+			/* border: 1px solid #F01C08; */
+			color: #4C4C4C; 
+			font-size: 1rem;
+			margin-left: 1rem;
+			font-size: 0.8rem;
+		}
+		.bt-fabiao{
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			height: 3rem;
+			border-top: 1.5px solid #EEEEEE;
+			background: #FFFFFF;
+			overflow: hidden;
+		}
+		.fason-ipt{
+			width: 75%;
+			float: left;
+			margin-left: 1rem;
+		}
+		.fason-ipt input{
+			margin-top: 0.38rem;
+			/* margin-left: 1rem; */
+			border-radius: 2rem;
+		}
+		.bt-fason{
+			float: left;
+			width: 20%;
+			line-height: 3rem;
+			text-align: center;
+			color: #EC4654;
+			/* border:1px solid #000000; */
+		}
+		.data-name{
+			position: absolute;
+			top: 1.2rem;
+			left: 4rem;
+		}
+		.data-place{
+			position: absolute;
+			left: 4rem;
+			top: 2.8rem;
+			float: inherit;
+			font-size: 0.8rem;
+			color: #8F8F94;
+		}
+		.data-time{
+			position: absolute;
+			left: 7rem;
+			top: 2.8rem;
+			float: inherit;
+			font-size: 0.8rem;
+			color: #8F8F94;
+		}
+		.text{
+			width: 100%;
+			/* border: 1px solid #FF0000; */
+			margin-bottom: 2rem;
+		}
+		.text p {
+			color: #585858;
+			
+		}
+		.text img{
+			width: 6rem;
+			height: 6rem;
+			margin-right: 0.5rem;
+			margin-bottom: 0.5rem;
+			
+		}
+		
+		.red{
+			color: red;
+		}
+		.Comment-area{
+			margin-bottom: 5rem;
+		}
+		.zanwu{
+			padding-top: 2rem;
+			padding-bottom: 2rem;
+		}
+		.zanwu span{
+			margin-left: 4rem;
+		}
+	</style>	
+	<body>
+		<header style="background: #FF0000;" class="mui-bar mui-bar-nav">
+				<a style="color: #FFFFFF;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 style="color: #FFFFFF;" class="mui-title">详情</h1>
+		</header>
+		<div class="mui-content" >
+			<div class="info">
+				<div class="info-top">
+					<div class="personal-data">
+						<div class="data">
+							<img  class="data-img" src="../../img/l02.png" >
+							<span class="data-name"></span>
+							<span class="data-time"></span>
+							<span class="data-place"></span>
+						</div>
+						<div class="text">
+							
+						</div>
+					</div>
+				</div>
+				<div class="content-guji">
+					<p class="pingjia_box"><span class="iconfont icon-63"></span>&nbsp;&nbsp;<span>评论</span></p>
+					<p class="dianzan"><span class="iconfont icon-iconheji-"></span>&nbsp;&nbsp;<span>赞</span></p>
+				</div>
+			</div>
+			<div class="Comment-area">
+				<div class="head-title">
+					<span>全部评论</span>
+				</div>
+				<div class="pinglun-content">
+					<ul class="pl">
+						<!-- <li>
+							<div class="pl-img">
+								<img src="../../img/l02.png">
+							</div>
+							<div class="pl-info">
+								<div class="info-head">
+									<span class="info-name">Jack_415</span>
+									<span class="iconfont icon-iconheji- info-zan">&nbsp;&nbsp;<span style="font-size: 0.8rem;">765</span></span>
+								</div>
+								<span class="info-time">2018-05-03 12:03</span>
+							</div>
+							<div class="text-content">
+								<p>你这个是真的皮。。。。。</p>
+							</div>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="bt-fabiao">
+			<div class="fason-ipt">
+				<input type="text" id="content" placeholder="评论" />
+			</div>
+			<div class="bt-fason">
+				<span>发送</span>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener('plusready',function(){
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var fid = self.fid; 	
+				var token = window.localStorage.getItem('qztc');
+			
+				mui.ajax(APIPATH+'Forum/forum_detail',{
+					data:{token:token,forum_id:fid},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					$(".dianzan").attr("fid",datas['id']);
+					$(".data-img").attr("src",datas['avatar']);
+					$(".data-name").html(datas['nick']);
+					$(".data-time").html(datas['time']);
+					$(".data-place").html(datas['place']);
+					var imghh = '';  //图片
+					var plhh = ''; //评论
+					var plzanhh = ''; //评论赞
+					var pltext = '';//评论内容
+					infohh = '';
+					if(datas['img'].length){
+						for(i=0;i<datas['img'].length;i++){
+							imghh += '<img src="'+datas['img'][i]+'">';
+						}
+					}
+					
+					infohh += '<p>'+datas['content']+'</p>'+imghh;
+					$(".text").html(infohh);
+					
+					//是否本文有赞
+					if(datas['zancount'] == 0){
+						 $('.dianzan').html('<span class="iconfont icon-iconheji-"></span>&nbsp;&nbsp;<span>赞</span>');
+					}else{
+						if(datas['ifzan'] == 0){
+							$('.dianzan').html('<span class="iconfont icon-iconheji-"></span>&nbsp;&nbsp;<span>'+datas['zancount']+'</span>');
+						}else if(datas['ifzan'] == 1){
+							$(".dianzan").attr("class","dianzan red");
+							$('.dianzan').html('<span class="iconfont icon-iconheji- "></span>&nbsp;&nbsp;<span>'+datas['zancount']+'</span>');
+						}
+					}
+					 
+					//评论
+					if(datas['pinglun'].length == 0){
+						$(".pingjia_box").html('<span class="iconfont icon-63"></span>&nbsp;&nbsp;<span>评论</span>');
+						$(".pl").html("<li class='zanwu'><span>暂无评论,您来评论一下这条论坛吧！</span></li>");
+					}else{
+						$(".pingjia_box").html('<span class="iconfont icon-63"></span>&nbsp;&nbsp;<span>'+datas['pinglun'].length+'</span>');
+						for(i=0;i<datas['pinglun'].length;i++){
+							if(datas['pinglun'][i]['zancount'] == 0){
+								plzanhh = '<span cid="'+datas['pinglun'][i]['id']+'" class="iconfont icon-iconheji- info-zan">&nbsp;&nbsp;<span style="font-size: 0.8rem;">赞</span></span>';
+							}else{
+								if(datas['pinglun'][i]['ifzan'] == '1'){
+									plzanhh = '<span cid="'+datas['pinglun'][i]['id']+'" class="iconfont icon-iconheji- info-zan red">&nbsp;&nbsp;<span style="font-size: 0.8rem;">'+datas['pinglun'][i]['zancount']+'</span></span>';
+								}else if(datas['pinglun'][i]['ifzan'] == '0'){
+									plzanhh = '<span cid="'+datas['pinglun'][i]['id']+'" class="iconfont icon-iconheji- info-zan ">&nbsp;&nbsp;<span style="font-size: 0.8rem;">'+datas['pinglun'][i]['zancount']+'</span></span>';
+								}
+							}
+							
+							if(datas['pinglun'][i]['huifu_id'] == 0){
+								pltext = '<p nick="'+datas['pinglun'][i]['nick']+'" hid="'+datas['pinglun'][i]['id']+'" class="huifu">'+datas['pinglun'][i]['content']+'</p>';
+							}else{
+								pltext = '<p nick="'+datas['pinglun'][i]['nick']+'" hid="'+datas['pinglun'][i]['id']+'" class="huifu">'+datas['pinglun'][i]['huifu_str']+':'+datas['pinglun'][i]['content']+'</p>';
+							}
+							
+							plhh += '<li >'+
+										'<div class="pl-img">'+
+											'<img src="'+datas['pinglun'][i]['avatar']+'">'+
+										'</div>'+
+										'<div class="pl-info">'+
+											'<div class="info-head">'+
+												'<span class="info-name">'+datas['pinglun'][i]['nick']+'</span>'+
+											plzanhh +
+											'</div>'+
+											'<span class="info-time">'+datas['pinglun'][i]['time']+'</span>'+
+										'</div>'+
+										'<div class="text-content">'+
+											pltext+
+										'</div>'+
+									'</li>';	
+						}
+						$(".pl").html(plhh);
+					}
+					
+					//点赞论坛
+					mui("body").on("tap",".dianzan",function(){
+						var ob = $(this);
+						var forum_id = ob.attr("fid");
+						
+					
+						mui.ajax(APIPATH+'Forum/zan',{
+							data:{token:token,forum_id:forum_id},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(res){
+								if(res.data.count == 0){
+									ob.html('<span class="iconfont icon-iconheji-"></span>&nbsp;&nbsp;<span>赞</span>');
+									ob.attr("class","dianzan");
+								}else{
+									if(res.msg == '点赞成功'){
+										ob.attr("class","dianzan red");
+									}else if(res.msg == '点赞已取消'){
+										ob.attr("class","dianzan");
+									}
+									ob.html('<span class="iconfont icon-iconheji-"></span>&nbsp;&nbsp;<span>'+res.data['count']+'</span>');
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+					})
+					
+					//评论赞
+					mui("body").on("tap",".info-zan",function(){
+						var ob = $(this);
+					
+						var forum_id =  $(".dianzan").attr("fid");
+						var comment_id = ob.attr("cid");
+					
+						mui.ajax(APIPATH+'Forum/commentzan',{
+							data:{token:token,forum_id:forum_id,comment_id:comment_id},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(res){
+								if(res.status == 1){
+									ob.attr("class","iconfont icon-iconheji- info-zan red");
+									ob.html("&nbsp;&nbsp;<span>"+res.data+"</span>");
+									
+								}else if(res.status == -1){
+									mui.toast(res.msg);
+								}else if(res.status == -2){
+									mui.toast(res.msg);
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+					})
+					
+					//发布评论
+					mui("body").on("tap",".bt-fason",function(){
+						var forum_id =  $(".dianzan").attr("fid");
+						var content = $("#content").val();
+						if(content.length > 0){
+							var  strif = $("#content").attr("placeholder");
+							if(strif == '评论'){
+								
+								mui.ajax(APIPATH+'Forum/fwi',{
+									data:{token:token,forum_id:forum_id,content:content},
+									dataType:'json',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(res){
+									if(res.status == 1){
+										mui.toast(res.msg);
+										setTimeout(function(){
+											location.reload();
+										},500);
+									}else{
+										mui.toast(res.msg);
+									}
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+								
+							}else{
+								var huifu_id = $("#content").attr("hid"); 
+								
+								mui.ajax(APIPATH+'Forum/fwihuifu',{
+									data:{token:token,forum_id:forum_id,huifu_id:huifu_id,content:content},
+									dataType:'json',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(res){
+										if(res.status == 1){
+											mui.toast(res.msg);
+											setTimeout(function(){
+												location.reload();
+											},500);
+										}else{
+											mui.toast(res.msg);
+										}
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+							}
+					
+							
+						}else{
+							mui.toast('评论不能为空');
+						}
+					})
+					
+					//评论回复
+					mui("body").on("tap",".huifu",function(){
+						var ob = $(this);
+						var nick = ob.attr("nick");
+						var hid = ob.attr("hid");
+						$("#content").attr("placeholder","回复: "+nick);
+						$("#content").attr("hid",hid);
+						$("#content").focus();
+					})
+					
+					$("#content").blur(function(){
+						$("#content").attr("placeholder","评论");
+					})
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

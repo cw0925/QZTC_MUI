@@ -1,0 +1,45 @@
+.pwd-box{
+	    width:30rem;
+	    padding-left: 0.9rem;
+	    padding-right: 0.7rem;
+	    position: relative;
+	    border-radius: 3px;
+		over-flow:hidden;
+		/*border: 0.1rem solid #0062CC;*/
+}
+.pwd-box p{
+	text-align: center;
+	font-size: 1.4rem;
+}
+.pwd-box input[type="tel"]{
+	margin-left: 1rem;
+	width: 99%;
+    height: 45px;
+    color: #000000;
+    position: absolute;
+    top: 3.1rem;
+    left: 0;
+ 
+    font-size: 18px;
+    opacity: 0;
+    letter-spacing: 3.8rem;
+}
+.fake-box input{
+	margin-left: 0.3rem;
+
+	width: 4rem;
+    height: 4.4rem;
+    border: 1px solid #C6C6C6;
+    text-align: center;
+    font-size: 1.5rem;
+}
+.fake-box input:nth-last-child(1){
+	/*border:none;*/
+}
+.yezf{
+	position: absolute;
+	top: 15rem;
+	left: 10%;
+	z-index: 99999;
+	/*display: none;*/
+}

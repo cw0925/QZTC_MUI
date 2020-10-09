@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+		<style type="text/css">
+			.pass{
+				/*margin-top: 1rem;*/
+				overflow: hidden;
+				border-bottom: 1px solid #DCDCDC;
+			}
+			.repass{
+				overflow: hidden;
+				border-bottom: 1px solid #DCDCDC;
+			}
+			.pass-span{
+				margin-top: 0.5rem;
+				width: 25%;
+				line-height: 4rem;
+				margin-left: 2rem;
+				float: left;
+			}
+			.repass-span{
+				margin-top: 0.5rem;
+				width: 25%;
+				margin-left: 2rem;
+				line-height: 4rem;
+				float: left;
+			}
+			
+			.pass-ipt{
+				width: 62%;
+				float: left;
+				margin-bottom: -1rem;
+			}
+			.repass-ipt{
+				width: 62%;
+				float: left;
+				margin-bottom: -1rem;
+			}
+			.pass-ipt input{
+				margin-top: 0.5rem;
+				border: 0;
+			}
+			.repass-ipt input{
+				margin-top: 0.5rem;
+				border: 0;
+			}
+			
+			.bt{
+				width: 100%;
+				position: fixed;
+				bottom: 0;
+				text-align: center;
+				background: #FF0000;
+			}
+			.bt span{
+				line-height: 4rem;
+				color: #FFFFFF;
+			}
+			
+		</style>
+	<body style="background: #FFFFFF;">
+		<header style="background: #FF0000;" class="mui-bar mui-bar-nav">
+		    <a style="color: #FFFFFF;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 style="color: #FFFFFF;" class="mui-title">支付密码设置</h1>
+		</header>
+		<div style="background: #FFFFFF;" class="mui-content">
+		    <div class="pass">
+		    	<div class="pass-span">
+		    		支付密码
+		    	</div>
+		    	<div class="pass-ipt">
+		    		<input type="text" name="pass" maxlength="6" placeholder="请输入支付密码(限制6位)"/>
+		    	</div>
+		    </div>
+		    <div class="repass">
+		    	<div class="repass-span">
+		    		确认密码
+		    	</div>
+		    	<div class="repass-ipt">
+		    		<input type="text" name="repass" maxlength="6" placeholder="确认支付密码(只能为数字)"/>
+		    	</div>
+		    </div>
+		    <div class="bt">
+		    	<span >确认</span>
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/rem.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				var token = window.localStorage.getItem('qztc');
+				mui("body").on("tap",".bt",function(){
+					var pass = $("input[name=pass]").val();
+					var repass = $("input[name=repass]").val();
+					if(pass.length == 6){
+						var zz = /^[0-9]*$/;
+						if(zz.test(pass)){
+							plus.nativeUI.showWaiting();
+							mui.ajax(APIPATH+'User/setpatpass',{
+								data:{token:token,pass:pass,repass,repass},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(res){
+								if(res.status == 1){
+									plus.nativeUI.closeWaiting();
+									mui.toast(res.msg);
+									setTimeout(function(){
+										mui.back();
+									},1000);
+								}else{
+									plus.nativeUI.closeWaiting();
+									mui.toast(res.msg);
+								}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+						}else{
+							mui.toast('密码必须为纯数字');
+						}
+					}else{
+						mui.toast('密码必须是6位数');
+					}
+						
+				})
+			})
+		</script>
+	</body>
+	
+</html>

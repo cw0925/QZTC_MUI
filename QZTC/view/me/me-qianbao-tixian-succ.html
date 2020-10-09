@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.mui-content{
+			background: #FFFFFF;
+		}
+		.img_box{
+			text-align: center;
+			padding: 2rem 0;
+		}
+		.img_box img{
+			width: 6.5rem;
+			height: 6.5rem;
+		}
+		.img_box p{
+			font-size: 0.85rem;
+			color: #303030;
+			margin-top: 1rem;
+		}
+		.xiangqing_ul{
+			padding: 1rem 0.75rem;
+		}
+		.xiangqing_ul li{
+			padding: 0.2rem 0;
+		}
+		.xiangqing_ul li span{
+			font-size: 0.85rem;
+		}
+		.btn{
+			padding:0 0.75rem ;
+			padding-top: 2rem;
+		}
+		.btn button{
+			width: 100%;
+			border: none;
+			background: #E8192D;
+			color: #FFFFFF;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header-bg">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">提现详情</h1>
+		</header>
+		<div class="mui-content">
+			<div class="img_box">
+				<img src="../../imgs/zhcz_baton1.png"/>
+				<p>提现申请已提交</p>
+				
+			</div>
+			<div style="height: 0.5rem;background: #E4E4E4;"></div>
+			<div class="tixian_xiangqing">
+				<ul class="xiangqing_ul">
+					<li>
+						<span id="name" class="mui-pull-right"></span>
+						<span>提款人姓名</span>
+					</li>
+					<li>
+						<span id="time" class="mui-pull-right"></span>
+						<span>预计到账时间</span>
+					</li>
+					<li>
+						<span id="code_number" class="mui-pull-right"></span>
+						<span>收款账号</span>
+					</li>
+					<li>
+						<span id="money" class="mui-pull-right"></span>
+						<span>提现金额</span>
+					</li>
+				</ul>
+			</div>
+			<div class="btn">
+				<button>完成</button>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/jquery.min.js" ></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener('plusready',function(){
+				var self = plus.webview.currentWebview();
+				plus.nativeUI.showWaiting();
+				$("#name").html(self.name);
+				$("#time").html(self.time);
+				$("#code_number").html(self.code_number);
+				$("#money").html('￥'+self.money);
+			
+				mui("body").on("tap",".btn",function(){
+					var wobj = plus.webview.getWebviewById("me-qianbao.html");   
+					wobj.reload(true); 
+					var view=plus.webview.getWebviewById("me-qianbao-tixian.html");
+					mui.fire(view,'succ',{   
+						succ:'1'
+					});
+					mui.back();
+				});
+			
+				plus.nativeUI.closeWaiting();
+			})
+		</script>
+	</body>
+
+</html>

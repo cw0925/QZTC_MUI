@@ -1,0 +1,77 @@
+.mui-bar{
+	background: #FFFFFF;
+}
+.nav_bar{
+	display: flex;
+	padding: 1rem 0;
+	background: #FFFFFF;
+}
+.nav_bar .item{
+	text-align: center;
+	width: 33%;
+}
+.nav_bar .item img{
+	width: 1.5rem;
+	height: 1.5rem;
+}
+.nav_bar .item p{
+	color: #454545;
+	font-size: 0.65rem;
+	padding-top: 0.5rem;
+}
+.content{
+	padding: 0 0.75rem;
+	background: #FFFFFF;
+	margin-top: 0.4rem;
+}
+.content .tit{
+	padding: 0.7rem 0 ;
+	font-size: 0.75rem;
+	color: #E6402B;
+}
+.content_ul {
+		display: flex;
+	flex-wrap: wrap;
+}
+.content_ul li{
+	width: 48%;
+	margin: 0 1%;
+	border: 0.05rem solid #D3D3D3;
+	margin-bottom: 0.5rem;
+}
+.content_ul .img_box{
+	padding: 1rem;
+	border-bottom: 0.05rem solid #D5D5D5;
+}
+.content_ul .img_box img{
+	width: 100%;
+	height: 100%;
+	
+}
+.content_ul .text {
+	padding: 0.6rem 0.35rem;
+}
+.content_ul .text p{
+	font-size: 0.65rem;
+	color: #434343;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.content_ul .text>span{
+	color: #808080;
+	font-size: 0.6rem;
+	padding: 0.25rem 0;
+}
+.content_ul .foot{
+	margin-top: 0.25rem;
+}
+.content_ul .foot span{
+	color: #E53E27;
+	font-size: 0.65rem;
+}
+.content_ul .foot .mui-pull-right{
+	padding: 0 0.35rem;
+	border: 0.05rem solid #FA6A49;
+	border-radius: 0.25rem;
+}

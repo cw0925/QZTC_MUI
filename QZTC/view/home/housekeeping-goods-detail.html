@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+	</head>
+	<style type="text/css"> 
+		body{
+			background: #FFFFFF;
+		}
+		.goods-info{
+			width: 100%;
+			
+		}
+		.mui-content{
+			background: #FFFFFF;
+		}
+		.info-title{
+			padding-top: 0.5rem;
+			margin: auto;
+			width: 95%;
+			/* border: 1px solid #000000; */
+		}
+		.info-title p{
+			line-height: 2.3rem;
+			font-size: 1.5rem;
+			color: #333333;
+			font-weight: 700;
+		}
+		
+		.info-stock{
+			/* padding-top: 0.5rem; */
+			margin: auto;
+			width: 95%;
+			/* border: 1px solid #000000; */
+		}
+		.info-stock p{
+			/* line-height: 2.3rem; */
+			font-size: 1.5rem;
+			color: #666 ;
+		}
+		
+		.num{
+			/* padding-top: 0.5rem; */
+			margin: auto;
+			width: 95%;
+			margin-bottom: 2rem;
+			/* border: 1px solid #000000; */
+		}
+		.num p{
+			/* line-height: 2.3rem; */
+			font-size: 1.5rem;
+			color: #666 ;
+		}
+		
+		.info-price{
+			/* padding-top: 0.5rem; */
+			margin: auto;
+			width: 95%;
+			/* border: 1px solid #000000; */
+		}
+		.info-price p{
+			/* line-height: 2.3rem; */
+			font-size: 1.5rem;
+			color: #666;
+		}
+		.info-price span{
+			color: #FF0000;
+		}
+		.coupon{
+			width: 100%;
+			line-height: 5rem;
+			border-top: 1px solid dashed #DDDDDD;
+			border-bottom: 1px dashed #DDDDDD;
+		}
+		.coupon span{
+			margin-left: 1rem;
+		}
+		.coupon i{
+			margin-left: 70%;
+		}
+		.info-xq{
+			border-top : 1px dashed #DDDDDD;
+			border-bottom : 1px dashed #DDDDDD;
+			line-height: 5rem;
+			text-align: center;
+		}
+		.info-xq-img{
+			width: 100%;
+		}
+		.info-xq-img img{
+			padding-top: 1rem;
+			width: 96%;
+			margin-left: 2%;
+			margin-bottom: 8rem;
+		}
+		.btn-shop{
+			background: #E65600;
+			line-height: 5rem;
+			text-align: center;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			color: #FFFFFF;
+			border-top: 1px solid #DDDDDD;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">商品详情</h1>
+		</header>
+		<div class="mui-content">
+		    <div  class="mui-slider">
+		    	<div  class="mui-slider-group mui-slider-loop">
+		    		<!--支持循环，需要重复图片节点-->
+		    		<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+		    		<div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+		    		<div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+		    		<div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+		    		<div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+		    		<!--支持循环，需要重复图片节点-->
+		    		<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+		    	</div>
+		    	<div class="mui-slider-indicator">  
+		    			<div class="mui-indicator mui-active"></div>  
+		    			<div class="mui-indicator"></div>
+		    			<div class="mui-indicator"></div>  
+		    			<div class="mui-indicator"></div>  
+		    	</div>  
+		    </div>
+			
+			<div class="coupon">
+				<span>店铺优惠券</span> <i  class="fa fa-angle-right"></i>
+			</div>
+			
+			<div class="goods-info">
+				<div class="info-title">
+					<p>冬季加绒工装裤男余文乐潮牌束脚宽松多口袋cargo日系裤子wassup</p>
+				</div>
+				<div class="info-price">
+					<p>价格： <span> 元</span></p>
+				</div>
+				<div class="info-stock">
+					<p>库存：</p>
+					
+				</div>
+				<div class="num">
+					<p>数量</p>
+					<div id="number" class="mui-numbox" data-numbox-step='1' data-numbox-min='1' data-numbox-max=''>
+						<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+						<input class="mui-input-numbox" type="number" />
+						<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+					</div>
+				</div>
+				<div class="info-xq">
+					<span>商品详情</span>
+				</div> 
+				<div class="info-xq-img">
+					<img src="../../img/goods-xq.jpg">
+				</div>
+			</div>
+			
+			<div class="btn-shop">
+				下单
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){	
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var token = window.localStorage.getItem('qztc');
+				var gid = self.gid;
+				var slider = mui(".mui-slider");
+				slider.slider({
+					interval: 3000
+				});
+				 
+			
+				mui.ajax(APIPATH+'Enter/get_server_goods_detail',{
+					data:{gid:gid},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					mui("body").on("tap",".coupon",function(){
+						
+						mui.openWindow({
+							url: "./housekeeping-youhuiquan.html",
+							extras :{
+								"gid":gid
+							}
+						});	 
+					})
+					var datas = data.data;
+					var imghh = ''
+					var img = '';
+					var img_bt = ''; 
+					for(i=0;i<datas.lbt_img.length;i++){
+						img += '<div class="mui-slider-item"><a href="#"><img style="height:35rem" src="'+datas.lbt_img[i]+'" /></a></div>';
+						if(i == 0){
+							img_bt += '<div class="mui-indicator mui-active"></div>';
+						}else{
+							img_bt += '<div class="mui-indicator"></div> ';
+						}
+					}
+					imghh = '<div  class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img style="height:35rem" src="'+datas.lbt_img[0]+'" /></a></div>'+
+									img+
+									'<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img style="height:35rem" src="'+datas.lbt_img[datas.lbt_img.length -1]+'" /></a></div>';
+					$(".mui-slider-loop").html(imghh);			
+					$(".mui-slider-indicator").html(img_bt); 
+					$(".info-title").html("<p>"+datas.title+"</p>");
+					$(".info-stock").html("<p>库存 ："+datas.stock+" 件</p>");
+					$(".info-price").html("<p>价格： <span>"+datas.price+" 元</span></p>");
+					var number = mui('#number').numbox();
+					number.options['max'] =datas.stock;
+					$(".info-xq-img").html("<img src='"+datas.xq_img+"'>");
+					plus.nativeUI.closeWaiting();
+					
+					//购买
+					mui("body").on("tap",".btn-shop",function(){
+						plus.nativeUI.showWaiting();
+						var gid = datas.id;
+						var num = $("input[type=number]").val();
+					
+						mui.ajax(APIPATH+'User/index',{
+							data:{token:token},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(data){
+							if(data.status == '1'){
+								
+								if(!data.data.patpass){
+									plus.nativeUI.closeWaiting();
+									mui.confirm('您还没设置余额支付密码,是否前往设置？','提示',['取消','去设置'],function(e){
+									if(e.index == 1){
+										mui.openWindow({
+											url: '../me/me-setpass.html'
+										});
+									}
+									}); 
+								}else{
+									plus.nativeUI.closeWaiting();
+									mui.openWindow({
+										url: "./housekeeping-order.html",
+										extras :{
+											"gid":gid, 
+											"num":num
+										}
+									});	 
+								}
+								
+							}else if(datas.status == '-2'){
+								plus.nativeUI.closeWaiting();
+								mui.toast('请先登录在下订单');
+							}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+						
+					})
+										
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

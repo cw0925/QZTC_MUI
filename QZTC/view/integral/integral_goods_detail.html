@@ -1,0 +1,388 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.lbt{
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.goods-info{
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.goods-info p {
+			margin-left: 2rem;
+		}
+		.info-title{
+			color: #000000;
+			font-size: 1.5rem;
+			padding-top: 1rem;
+			margin-right: 2rem;
+		}
+		.info-price{
+			font-size: 1.4rem;
+		}
+		.info-stock{
+			font-size: 1.4rem;
+		}
+		.info-integral{
+			font-size: 1.5rem;
+			padding-bottom: 2rem;
+		}
+		.number{
+			margin-left: 2rem;
+		}
+		.span1{
+			color: #ACACAC;
+		}
+		.span2{
+			color: #FF0000;
+		}
+		
+		.parameter{
+			margin-top: 1rem; 
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.parameter span{
+			line-height: 4rem;
+			margin-left: 2rem;
+		}
+		.detail{
+			margin-top: 1rem;
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.detail-title{
+			text-align: center;
+			width: 100%;
+		}
+		.detail-img{
+			width: 90%;
+			margin-bottom: 8rem;
+		}
+		.detail-img img{
+			width: 100%;
+			margin-left: 5%;
+		}
+		.foot-btn{
+			line-height: 4rem;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			text-align: center;
+			background: #FF0000;
+			color: #FFFFFF;
+		}
+		.info-money{
+			display: flex;
+		}
+		.money{
+			color: red;
+		}
+		.zf-div{
+			width: 100%;
+			height: 10rem;
+			background: #FFFFFF;
+			border-top: 1px solid #D2D2D2;
+			position: fixed;
+			bottom: 0;
+			display: flex;
+			justify-content:  space-around;
+		}
+		.zf-div div{
+			width: 20%;
+			display: flex;
+			align-items: center;
+		}
+		.zf-div div img{
+			width: 60px;
+			height: 60px;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">详情</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="lbt">
+					<div class="mui-slider">
+						<div id="lbt"  class="mui-slider-group mui-slider-loop">
+							<!--支持循环，需要重复图片节点-->
+							<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+							<div class="mui-slider-item"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+							<div class="mui-slider-item"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+							<div class="mui-slider-item"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+							<div class="mui-slider-item"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+							<!--支持循环，需要重复图片节点-->
+							<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+						</div>
+						<div id="lbt_btn" class="mui-slider-indicator">  
+								<div class="mui-indicator mui-active"></div>  
+								<div class="mui-indicator"></div>
+								<div class="mui-indicator"></div>  
+								<div class="mui-indicator"></div>  
+						</div>
+					</div>
+				</div>
+				
+				<div class="goods-info">
+					<p class="info-title"></p>
+					<p class="info-price">市场价：￥</p> 
+					<p class="info-stock">库存数量：</p>
+					<p class="info-money">
+						<span >金额价格:&nbsp;</span>
+						<span class="money">0.00</span>
+					</p>
+					<p class="info-integral">
+						<span class="span1">积分价格:</span>
+						<span class="span2">0.00</span>
+					</p>
+					
+				</div>
+				
+				<div class="parameter">
+					<span>产品参数</span>
+					<span style="float: right;margin-right: 2rem;" class="fa fa-angle-right"></span>
+				</div>
+				
+				<div class="detail">
+					<div class="detail-title">
+						<span style="line-height: 5rem;">商品详情</span>
+					</div>
+					<div class="detail-img">
+							<!-- <img src="../../img/goods-xq.jpg" > -->
+					</div>
+				</div>
+				
+				<div class="foot-btn">
+					立即兑换
+				</div>
+				
+				<div style="display: none;" class="zf-div">
+					<div><img src="../../img/wx.png"></div>
+					<div><img src="../../img/zfb.png" ></div>
+				</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			
+			document.addEventListener("plusready",function(){
+			var self = plus.webview.currentWebview();
+			var id = self.sid;
+			plus.nativeUI.showWaiting();
+	
+			mui.ajax(APIPATH+'Integral/integral_goods_detail',{
+				data:{id:id},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				// headers:{'Content-Type':'application/json'},	              
+				success:function(data){
+					var datas = data.data;
+								var imghh = '';
+								var imgbtn = '';
+								var lbthh = '';
+								if(data.status == '1'){
+								$(".info-title").html(datas.title);
+					
+								$(".info-price").html('市场价格：'+datas.market_price);
+								$(".info-stock").html('库存数量：'+datas.stock);
+								$(".span2").html(datas.consume_integral);
+								$(".money").html(datas.consume_money);
+								$(".foot-btn").attr("sid",datas.id)
+								for(i=0;i<datas['preview_img'].length;i++){
+									imghh += '<div class="mui-slider-item"><a href="#"><img style="height:35rem" src="'+datas['preview_img'][i]+'" /></a></div>';
+								if(i == 0){ 
+									imgbtn += '<div class="mui-indicator mui-active"></div>';
+								}else{
+									imgbtn += '<div class="mui-indicator"></div>';
+								}
+								}
+								lbthh = '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img style="height:35rem" src="'+datas['preview_img'][0]+'" /></a></div>'+
+								imghh+
+								'<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img style="height:35rem" src="'+datas['preview_img'][datas['preview_img'].length - 1]+'" /></a></div>';
+					
+								$("#lbt").html(lbthh);
+								$("#lbt_btn").html(imgbtn); 
+								$(".detail-img").html('<img src="'+datas['details_img']+'" >');
+								}else{
+								mui.toast(data.msg);
+								}
+								var token = window.localStorage.getItem('qztc');
+								mui("body").on("tap",".foot-btn",function(){
+								var consume_money = datas.consume_money;
+								var sid = $(this).attr("sid");
+								if(consume_money == '0.00'){
+								//纯积分
+									
+									var btnArray = ['否', '是'];
+									mui.confirm('您确定要兑换该商品？', '兑换提示', btnArray, function(e) {
+									if (e.index == 1) {
+									plus.nativeUI.showWaiting();
+								
+									mui.ajax(APIPATH+'Integral/Convertible',{
+										data:{token:token,sid:sid},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(data){
+											if(data.status == '1'){
+											mui.toast(data.msg);
+											setTimeout(function(){
+											window.location.reload(); 
+											},300);
+											}else if(datas.status == '-2'){
+											var btnArray = ['否', '是'];
+											mui.confirm('您还没登录或登录已过期,是否去登录？', '登录提示', btnArray, function(e) {
+											if (e.index == 1) {
+											//去登录
+											window.localStorage.removeItem('qztc');
+											//判断当前设备类型
+											if(mui.os.ios || mui.os.ipad || mui.os.android) {
+											// 获取当前webview窗口对象
+											var curr = plus.webview.currentWebview();
+																
+											//获取所有已经打开的webview窗口
+											var wvs = plus.webview.all();
+																
+																
+											for(var i = 0, len = wvs.length; i < len; i++) {
+											//关闭除当前页面外的其他页面
+											if(wvs[i].getURL() == curr.getURL())
+																
+											//遇到当前页跳过
+											continue;
+																
+											//非当前页执行关闭
+											plus.webview.close(wvs[i]); 
+											}
+											//打开login页面
+																
+											plus.webview.open('../../login.html');
+											//执行关闭当前页面
+											curr.close();
+											} else{ 
+																
+											//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+											plus.runtime.quit();
+																
+											} 
+																
+											}
+											})
+											}else{
+											mui.toast(data.msg);
+											}
+																
+											plus.nativeUI.closeWaiting();
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+									
+									}
+									})
+								}else{   
+									
+									var wxChannel = null; // 微信支付
+									var aliChannel = null; // 支付宝支付
+									var channel = null;
+									plus.payment.getChannels(function(channels){
+										wxChannel=channels[1]; 
+										aliChannel=channels[0];
+								
+									},function(e){
+										mui.toast("获取支付通道失败："+e.message);
+									}); 
+									
+									$(".zf-div").show();
+									$(".zf-div div").on("tap", function(){
+										var zffs = $(this).index();
+										
+										plus.nativeUI.showWaiting();
+								
+										mui.ajax(APIPATH+'Integral/ConvertibleOrder',{
+											data:{token:token,sid:sid,type:zffs},
+											dataType:'json',//服务器返回json格式数据
+											type:'post',//HTTP请求类型
+											timeout:10000,//超时时间设置为10秒；
+											// headers:{'Content-Type':'application/json'},	              
+											success:function(data){
+												
+												plus.nativeUI.closeWaiting();
+												if(data.status == 200){
+													if(zffs == '1'){
+														var xmlres = data.data;
+														plus.payment.request(aliChannel,xmlres,function(result){
+														plus.nativeUI.alert("支付成功！",function(){
+																mui.back();
+														});
+														},function(error){ 
+						//										   mui.toast(JSON.stringify(error));
+																console.log(JSON.stringify(error));
+																mui.toast("支付没有成功");
+														});
+													}else{
+														var xmlres = data.data;
+														plus.payment.request(wxChannel,xmlres,function(result){
+															plus.nativeUI.alert("支付成功！",function(){
+															 mui.back();
+															});
+														},function(error){	
+															console.log(JSON.stringify(error))
+															mui.toast("支付没有成功"  );
+														});
+													}
+												}else{
+													mui.toast(data.msg);
+												}
+											},
+											error:function(xhr,type,errorThrown){
+												//异常处理；
+												console.log(type);
+											}
+										});
+									})
+								}
+								})
+								mui("body").on("tap",".parameter",function(){
+					
+								mui.openWindow({
+								url: 'parameter.html',
+								extras:{
+								sid:datas.id
+								}
+								});
+								})
+								plus.nativeUI.closeWaiting();
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+			
+			})
+		</script>
+	</body>
+
+</html>

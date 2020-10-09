@@ -1,0 +1,356 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../css/view-css/home/housekeeping-i3-detail.css" rel="stylesheet">
+		<link href="../../js/layer/mobile/need/layer.css" rel="stylesheet">
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">详情</h1>
+		</header>
+	  <div class="mui-content">
+	  	<div style="margin-top: 2rem; " class="mui-scroll-wrapper">
+	  	<div  class="mui-scroll">
+	  		<div  class="mui-slider">
+	  			<div  class="mui-slider-group mui-slider-loop">
+	  				<!--支持循环，需要重复图片节点-->
+	  				<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+	  				<div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+	  				<div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+	  				<div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+	  				<div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+	  				<!--支持循环，需要重复图片节点-->
+	  				<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+	  			</div>
+	  			<div class="mui-slider-indicator">  
+	  					<div class="mui-indicator mui-active"></div>  
+	  					<div class="mui-indicator"></div>
+	  					<div class="mui-indicator"></div>  
+	  					<div class="mui-indicator"></div>  
+	  			</div>  
+	  		</div>
+	  		<div class="content">
+	  			<div class="detail_box">
+	  				<div class="detail_box_left">
+	  					<p id="title" class="text"></p>
+	  					<p id="address"></p>
+	  				<!-- 	<div class="price">
+	  						<p>￥4000-8000元/月</p>
+	  						<p><span>￥2000-3000元/月</span><span class="vip_box">会员</span></p>
+	  					</div> -->
+	  					<!-- <p class="huodong">购买可获得20积分</p> -->
+	  					
+	  				</div>
+	  				<!-- <div class="detail_box_right">
+	  					<img src="../../imgs/bm_icon6.png" alt="" />
+	  					<p style="color: #444444; font-size: 0.75rem;">分享领取现金券</p>
+	  				</div> -->		
+	  			</div>
+	  			<!--两个列表-->
+	  		<!-- 	<ul class="mui-table-view">
+	  					<li class="mui-table-view-cell youhuiquan_li">
+	  							<a class="mui-navigate-right">店铺优惠券</a>
+	  					</li>
+	  					<li class="mui-table-view-cell xianjinquan_li">
+	  							<a class="mui-navigate-right">现金券抵扣</a>
+	  					</li>
+	  			</ul> -->
+	  			<!--产品参数-->
+	  		<!-- 	<ul class="mui-table-view">
+	  					<li class="mui-table-view-cell">
+	  							<a class="mui-navigate-right jihao">产品参数</a>
+	  					</li>
+	  			</ul> -->
+	  			<div class="xiangqing">
+	  				<h4>详细信息</h4>
+	  				<p id="detail-info"></p>
+	  				<div style="margin-top: 1rem;" class="img-detail">
+	  						
+	  				</div>
+	  			</div>
+	  	<!-- 		<div class="evaluate">
+	  				<h4>全部评价(10)</h4>
+	  				<div class="img_box">
+	  					<div class="imgs">
+	  						<img src="../../imgs/bm_image.png"/>
+	  					</div>
+	  					<div class="text">
+	  						<p>旧街没有本</p>
+	  						<span class="time">昨天 20:40</span>
+	  						<div class="content_text">
+	  							挺好的
+	  						</div>	
+	  					</div>
+	  				</div>
+	  				<div class="chakan">
+	  						<a href="housekeeping-i3-detail-pinglun.html"><button>查看全部评价</button></a>
+	  				</div>
+	  			</div> -->
+	  			<!--服务介绍-->
+	  		
+	  			<!--服务价格-->
+	  			<!-- <div class="price_box">
+	  				<p>服务价格</p>
+	  				<div class="price_box_detail">
+	  					<div class="price_box_detail_right">
+	  						<p style="padding-left: 1rem;">4000-6000元/月</p>
+	  						<p>会员价4000-6000元/月</p>	
+	  					</div>
+	  					<div style="font-size: 0.85rem;">住家保姆</div>
+	  					
+	  				</div>
+	  					<div class="price_box_detail">
+	  					<div class="price_box_detail_right">
+	  						<p style="padding-left: 1rem;">4000-6000元/月</p>
+	  						<p>会员价4000-6000元/月</p>	
+	  					</div>
+	  					<div style="font-size: 0.85rem;">不住家保姆</div>
+	  					
+	  				</div>
+	  			</div> -->
+	  			<!--猜你喜欢-->
+	  		<!-- 	<div class="like">
+	  				<p>猜你喜欢</p>
+	  				<ul class="like_item_box">
+	  					<li>
+	  						<div class="imgs_box"><img src="../../imgs/bmjz_image5.png"/></div>
+	  						<div class="detail">
+	  							<h5>龙泉苑3室2厅1卫</h5>
+	  							<p class="price">￥2500元</p>
+	  							<p class="vip_box"><span>会员价</span><span>￥1400</span></p>
+	  							<p class="room"><span>3室2厅</span><span>120m<sup>2</sup></span></p>
+	  							<p class="introduce"><span>南北通透</span><span>有阳台</span><span>随时看房</span></p>
+	  						</div>
+	  					</li>
+	  							<li>
+	  						<div class="imgs_box"><img src="../../imgs/bmjz_image5.png"/></div>
+	  						<div class="detail">
+	  							<h5>龙泉苑3室2厅1卫</h5>
+	  							<p class="price">￥2500元</p>
+	  							<p class="vip_box"><span>会员价</span><span>￥1400</span></p>
+	  							<p class="room"><span>3室2厅</span><span>120m<sup>2</sup></span></p>
+	  							<p class="introduce"><span>南北通透</span><span>有阳台</span><span>随时看房</span></p>
+	  						</div>
+	  					</li>
+	  							<li>
+	  						<div class="imgs_box"><img src="../../imgs/bmjz_image5.png"/></div>
+	  						<div class="detail">
+	  							<h5>龙泉苑3室2厅1卫</h5>
+	  							<p class="price">￥2500元</p>
+	  							<p class="vip_box"><span>会员价</span><span>￥1400</span></p>
+	  							<p class="room"><span>3室2厅</span><span>120m<sup>2</sup></span></p>
+	  							<p class="introduce"><span>南北通透</span><span>有阳台</span><span>随时看房</span></p>
+	  						</div>
+	  					</li>
+	  				</ul>		
+	  			</div> -->
+	  			<!--<div class="gouwuche">
+	  				<div class="title">
+	  					<img src="../../imgs/bmjz_banner01.png" alt="" />
+	  					<span class="price">￥2000-8000元/月</span>
+	  					<span class="mui-icon mui-icon-close mui-pull-right"></span>
+	  				</div>
+	  				<p class="leixing_box"><span class="fuwu">服务类型</span><span>保姆</span></p>
+	  				<div class="number">
+	  					<div class="number_box">
+	  						<button>-</button><span class="jishu">1</span><button>+</button>
+	  					</div>
+	  					<span>人数</span>
+	  					<div class="gouwuche_btn">
+	  						<button>确定</button>
+	  					</div>
+	  				</div>
+	  			</div>-->
+	  			<div style="height: 3rem;"></div>
+	  		</div>
+	  	</div>
+	  	</div>
+	  </div>
+		
+		<div class="foot-bar">
+			<!-- <div class="foot-bar-item dianpu">
+				<img src="../../imgs/bm_icon1.png"/>
+				<p>店铺</p>	
+			</div>
+			<div class="foot-bar-item weiliao">
+				<img src="../../imgs/bm_icon2.png"/>
+				<p>微聊</p>	
+			</div> -->
+			<div class="foot-bar-item weiliao">
+				<img src="../../imgs/bm_icon4.png"/>
+				<p style="color: #585858;">收藏</p>	
+			</div>
+			<div id="zhuanhuan" class="shopp_cart">
+				<button>联系电话</button>
+			</div>
+			
+		</div>
+		<script src="../../js/layer/mobile/layer.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			setTimeout(function(){
+			var gallery = mui('.mui-slider');
+					gallery.slider({
+							 interval:1800//自动轮播周期，若为0则不自动播放，默认为0；
+					});
+			},300)
+			window.onload = function(){
+			  //从服务器获取数据
+			 // ....
+			  //业务数据获取完毕，并已插入当前页面DOM；
+			  //注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；
+			  mui.plusReady(function(){
+					//启动等待框
+					plus.nativeUI.showWaiting();
+					var self = plus.webview.currentWebview();
+					var id = self.fid;
+					var token = window.localStorage.getItem('qztc');
+			
+					
+					mui.ajax(APIPATH+'Enter/shop_detail',{
+						data:{token:token,id:id},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+							var datas = data.data;
+							// console.log(JSON.stringify(data))
+							//如果 类型为 实体店或超市生鲜 就有显示商品列表
+							if(datas.goods_length != 0){ 
+								$(".weiliao").after('<div class="foot-bar-item shopp_cart">'+
+																			'<img src="../../imgs/phone.png"/>'+
+																			'<p style="color: #585858;">电话</p>	'+ 
+																		'</div>');
+								$(".shopp_cart").css("width","14%");		
+								$("#zhuanhuan").attr("class","dianpu");
+								$(".dianpu").css("width","86%");
+								$("#zhuanhuan").html("<button>全部商品</button>");
+								mui("body").on("tap",".dianpu",function(){
+									  var id = datas.id;
+							
+										mui.openWindow({
+											url: "./housekeeping-shop.html",
+											extras :{
+												"shop_id":id
+											}
+										});	
+								})
+							}
+							
+							
+							if(data.status){
+								var imghh = ''
+								var img = '';
+								var img_bt = '';
+								for(i=0;i<datas.lbt_img.length;i++){
+									img += '<div class="mui-slider-item"><a href="#"><img style="height:20rem" src="'+datas.lbt_img[i]+'" /></a></div>';
+									if(i == 0){
+										img_bt += '<div class="mui-indicator mui-active"></div>';
+									}else{
+										img_bt += '<div class="mui-indicator"></div> ';
+									}
+								}
+								imghh = '<div  class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img style="height:20rem" src="'+datas.lbt_img[0]+'" /></a></div>'+
+												img+
+												'<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img style="height:20rem" src="'+datas.lbt_img[datas.lbt_img.length -1]+'" /></a></div>';
+								$(".mui-slider-loop").html(imghh);			
+								$(".mui-slider-indicator").html(img_bt);
+								$("#title").html(datas.title);
+								$("#detail-info").html(datas.depict);
+								$("#address").html("位置："+datas.area+" "+datas.address);
+								$(".img-detail").html('<img src="'+datas.xq_img+'"/>');
+								$(".weiliao").attr("sid",datas.id);
+								if(datas.ifshoucang == 1){
+									$(".weiliao").html('<img src="../../img/xx_red.png"><p style="color: #585858;">已收藏</p>	');
+								}else{
+									$(".weiliao").html('<img src="../../imgs/bm_icon4.png"/><p style="color: #585858;">收藏</p>	');
+								}
+								//预定 
+								mui("body").on("tap",".shopp_cart",function(){
+									var buttonTit = [{
+											title: datas.phone
+									}];
+									plus.nativeUI.actionSheet({
+											title: "商家电话", 
+											cancel: "取消",
+											buttons: buttonTit
+									}, function(b) { 
+										switch (b.index) {
+												case 1:
+														window.location.href = 'tel://' + datas.phone;
+														break;
+												case 2:
+													
+														break;
+												default:
+														break;
+										}
+									})
+								})
+							}else{
+								mui.toast(data.msg);
+							}
+							//关闭等待框
+							plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+					
+					//收藏操作
+					mui("body").on("tap",".weiliao",function(){
+						var sid = $(this).attr("sid");
+			
+						mui.ajax(APIPATH+'Enter/collect',{
+							data:{token:token,sid:sid},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(res){
+								if(res.status){
+									if(res.data == 77){
+										mui.toast(res.msg);
+										$(".weiliao").html('<img src="../../imgs/bm_icon4.png"/><p style="color: #585858;">收藏</p>	');
+									}else if(res.data == 88){
+										mui.toast(res.msg);
+										$(".weiliao").html('<img src="../../img/xx_red.png"><p style="color: #585858;">已收藏</p>	');
+									}
+								}else{
+									mui.toast(res.msg);
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+					});
+					
+			 
+			    //显示当前页面
+			    mui.currentWebview.show();
+			  });
+			}
+			
+			
+
+			
+		
+		</script>
+	</body>
+
+</html>

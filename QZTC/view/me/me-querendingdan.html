@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.weizhi_box{
+			padding: 0.5rem 0.75rem;
+			background: #FFFFFF;
+		}
+		.weizhi_box .tal {
+			float: right;
+		}
+		.weizhi_detail{
+			margin-top: 0.4rem;
+		}
+		.weizhi_detail .text{
+			display: inline-block;
+			width: 80%;
+			font-size: 0.8rem;
+			color: #444444;
+		}
+		.weizhi_detail .mui-icon{
+			vertical-align: super;
+		}
+		.weizhi_box .name_box p{
+			font-size: 0.85rem;
+			color: #444444;
+		}
+		.dingdan_detail_box .tit{
+			padding: 0.4rem 0;
+			font-size: 0.85rem;
+			color: #3C3C3C;
+			border-bottom: 0.05rem solid #E9E9E9;
+		
+		}
+		.dingdan_detail_box {
+			background: #FFFFFF;
+			margin-top: 0.5rem;
+			padding-left: 0.75rem;
+		}
+		.imgs_box .img img{
+			width: 5rem;
+			height: 5rem ;
+		}
+		.imgs_box{
+			display: flex;
+			padding: 0.5rem 0;
+		}
+		.imgs_box .text{
+			width: 60%;
+			padding-left:1rem ;
+		}
+		.imgs_box .text span{
+			font-size: 0.8rem;
+		}
+		.imgs_box .text p{
+			margin-top: 0.5rem;
+		}
+		.mui-table-view-cell a span{
+			font-size: 0.8rem;
+		}
+		 input::-webkit-input-placeholder {
+		 	font-size: 0.75rem;
+		 }
+		 .foot_box{
+		 	display: flex;
+		 	background: pink;
+		 	position:fixed;
+		 	bottom: 0;
+		 	width: 100%;
+		 	
+		 }
+		 .foot_box .jiage_box{
+		 	width: 70%;
+		 	padding: 1rem 0;
+		 	background: #FFFFFF;
+		 	font-size: 0.85rem;
+		 	color: #474747;
+		 	padding-left: 40%;
+		 	
+		 }
+		 .foot_box .btn{
+		 	width: 30%;
+		 	text-align: center;
+		 	padding: 1rem 0;
+		 	background: #F20201;
+		 	color: #FFFFFF;
+		 	font-size: 0.85rem;
+		 }
+		 .mui-bar {
+		 	background: #F20201;
+		 }
+		 .mui-bar a{
+		 	color: #FFFFFF;
+		 }
+		 .mui-bar h1{
+		 	color: #FFFFFF;
+		 }
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">确认订单</h1>
+		</header>
+		<div class="content" style="margin-top: 2.6rem;">
+			<div class="weizhi_box">
+				<div class="name_box">
+					<p class="tal">135888888</p>
+					<p>姓名：<span>张三</span></p>
+				</div>
+				<div class="weizhi_detail">
+					<span style="color: #E8192D;" class="mui-icon mui-icon-location"></span>
+					<span class="text">地址：<span>西乡大街西乡大街西乡大街西乡大街西乡大街西乡大街</span></span>
+					<span class="mui-icon mui-icon-arrowright"></span>
+				</div>
+			</div>
+			<div class="dingdan_detail_box">
+				<p class="tit">无忧保姆</p>
+				<div class="imgs_box">
+					<div class="img"><img src="../../imgs/bm_image2.png"/></div>
+					<div class="text">
+						<span>保姆</span>
+						<p style="color: #FF1300;">￥<span>50</span>元/月</p>
+					</div>
+					<div style="padding-top: 1.8rem; font-size: 0.85rem;">x1</div>
+				</div>
+				
+			</div>
+			<div class="list_box">
+				<ul class="mui-table-view">
+				        <li class="mui-table-view-cell">
+				            <a class="mui-navigate-right">
+				            	<span style="float: right;margin-right: 1rem;font-size: 0.75rem;">上门服务</span>
+				                	<span style="font-size: 0.8rem;">服务方式</span>
+				            </a>
+				        </li>
+				        <li class="mui-table-view-cell">
+				            <a>
+				                 <span>买家留言：</span><input style="border: none;" type="" name="" id="" value=""  placeholder="对本次交易的说明"/>
+				            </a>
+				        </li>
+				    </ul>
+			</div>
+			<div class="foot_box">
+				<div class="jiage_box">
+					<span>合计:</span><span style="color: #F20201;">￥45</span>
+				</div>
+				<div class="btn">
+					提交订单
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

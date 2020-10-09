@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.info{
+			width: 100%;
+			
+		}
+		.info-line{
+			width: 100%;
+			
+			overflow: hidden;
+		}
+		.info-left{
+			width: 30%;
+			
+			background: #FFFFFF;
+			float: left;
+		}
+		.info-left span{
+			margin-left: 1rem;
+			line-height: 4rem;
+			color: #ACACAC;
+		}
+		.info-right{
+			width: 70%;
+	
+			background: #FFFFFF;
+			float: left;
+		}
+		.info-right span{
+			color: #ACACAC;
+			margin-left: 30%;
+			line-height: 4rem;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">提现明细</h1>
+		</header>
+		<div class="mui-content">
+			<div class="info">
+		 		<div style="border-bottom: 1px solid #C6C6C6;" class="info-line">
+		 			<div style="line-height: 6rem;" class="info-left">
+		 				<span>金额 </span>
+		 			</div>
+		 			<div style="line-height: 6rem;" class="info-right">
+		 				<span style="color: yellowgreen;font-size: 2rem;" id="money">999.99</span>
+		 			</div>
+		 		</div>   	
+		    </div>
+		    <div class="info">
+		 		<div class="info-line">
+		 			<div class="info-left">
+		 				<span>收款人 </span>
+		 			</div>
+		 			<div class="info-right">
+		 				<span id="name">周杰思</span>
+		 			</div>
+		 		</div>   	
+		    </div>
+		    <div class="info">
+		 		<div class="info-line">
+		 			<div class="info-left">
+		 				<span>银行名称 </span>
+		 			</div>
+		 			<div class="info-right">
+		 				<span id="banking"></span>
+		 			</div>
+		 		</div>   	
+		    </div>
+		    <div class="info">
+		 		<div class="info-line">
+		 			<div class="info-left">
+		 				<span>收款账号 </span>
+		 			</div>
+		 			<div class="info-right">
+		 				<span id="code_number"></span>
+		 			</div>
+		 		</div>   	
+		    </div>
+		    <div class="info">
+		 		<div class="info-line">
+		 			<div class="info-left">
+		 				<span>提交时间 </span>
+		 			</div>
+		 			<div class="info-right">
+		 				<span id="submit_time"></span>
+		 			</div>
+		 		</div>   	
+		    </div>
+		    <div id="iftime" class="info">
+		 		<div class="info-line">
+		 			<div class="info-left">
+		 				<span>完成时间 </span>
+		 			</div>
+		 			<div class="info-right">
+		 				<span id="accomplish_time"></span>
+		 			</div>
+		 		</div>   	
+		    </div>
+		    <div class="info">
+		 		<div class="info-line">
+		 			<div class="info-left">
+		 				<span>提现状态 </span>
+		 			</div>
+		 			<div class="info-right">
+		 				<span id="status"></span>
+		 			</div>
+		 		</div>   	
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+				var value = plus.webview.currentWebview();
+				var rid = value.rid;
+			
+				mui.ajax(APIPATH+'User/record_detail',{
+					data:{token:token,rid:rid},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					$("#money").html(datas.money);
+					$("#name").html(datas.name);
+					$("#banking").html(datas.banking);
+					$("#code_number").html(datas.number);
+					$("#submit_time").html(datas.submit_time);
+					$("#accomplish_time").html(datas.accomplish_time); 
+					if(datas.status == 1){
+						$("#status").html('待处理');
+						$("#iftime").hide();
+					}else if(datas.status == 2){
+						$("#status").html('已完成');
+					}
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

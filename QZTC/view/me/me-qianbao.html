@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.mui-bar{  
+			background: #E8192D;
+		}
+		.mui-bar a{
+			color: #FFFFFF;
+		}
+		.mui-bar h1{
+			color: #FFFFFF;
+		}
+		.head_box{
+			padding: 1rem 0.75rem;
+			background: #E8192D;
+		}
+		.head_box .keyong{
+			padding: 0.5rem 0;
+		}
+		.head_box .keyong .price_box{
+			padding: 0.5rem 0;
+			color: #FFFFFF;
+			font-size: 0.85rem;
+		}
+		.head_box .keyong .mui-pull-right{
+			font-size: 0.85rem;
+			color: #FFFFFF;
+		}
+		.head_box .price{
+			color: #FFFFFF;
+			font-size: 1.2rem;
+			margin-top': 0.6rem;
+		}
+		.pay_box{
+			background: #FFFFFF;
+			display: flex;
+			padding: 1rem 0;
+		}
+		.pay_box div{
+			width: 50%;
+			text-align: center;
+		}
+		.pay_box div img{
+			vertical-align: middle;
+			width: 1.8rem;
+		}
+		.pay_box div span{
+			font-size: 0.85rem;
+			padding-left: 1rem;
+		}
+		.record{
+			border-top: 1px solid #C6C6C6;
+			width: 100%;
+			background: #FFFFFF;
+			line-height: 3rem;
+			text-align: center;
+		}
+	</style>
+
+	<body>
+		<header  class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的钱包</h1>
+		</header>
+		<div  class="mui-content">
+			<div  class="head_box">
+				<div class="keyong">
+					<a><span class="mui-pull-right">明细</span></a>
+					<span class="price_box">可用余额（元）</span>
+				</div>
+				<p class="price"></p>
+			</div>
+			<div class="pay_box">
+				<!--<a href="me-qiaobao-chongzhi.html">--><div class="chongzhi" style="border-right: 0.1rem solid #EBEBEB;"><img src="../../imgs/wdqb_icon.png"/><span>充值</span></div><!--</a>-->
+				<!--<a href="me-qianbao-tixian.html">--><div class="tixian"><img src="../../imgs/wdqb_icon1.png"/><span>提现</span></div><!--</a>-->
+				
+			</div>
+			<div class="record">
+				<span>提现历史</span>
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script src="../../js/public.js"></script> 
+		<script type="text/javascript">
+			mui.init()
+			$(".chongzhi").click(function(){
+				location.href="me-qiaobao-chongzhi.html"
+			})
+			$(".tixian").click(function(){
+				mui.openWindow({
+					url: 'me-qianbao-tixian.html'
+				});	
+			})
+				 
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+				
+				
+				mui.ajax(APIPATH+'User/wallet',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(res){
+					$(".price").html(res.data.wallet);
+					
+					
+					//查看提现历史
+					mui("body").on("tap",".record",function(){
+						mui.openWindow({
+							url: 'me-qianbao-tixian-record.html'
+						});
+					})
+					
+					//明细
+					mui("body").on("tap",".mui-pull-right",function(){
+						
+						mui.openWindow({
+							url: 'me-qianbao-yue.html'
+						});
+					})
+					
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+				
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,352 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+		
+	</head>
+	<style type="text/css">
+		.xmms-div{
+			width: 100%;
+			background: #FFFFFF;
+			border-bottom: 0.2rem solid #F2F2F2;
+			overflow: hidden;
+		}
+		.xmms-div span{
+			margin-left: 2rem;
+			line-height: 5rem;
+			float: left;
+		}
+		.xmms_xx{
+			float: left;
+			margin-top: 1.5rem;
+			margin-left: 3rem;
+			margin-right: -2rem;
+		}
+		.xmms_xx i{
+			margin-right: 1.7rem;
+			font-size: 2rem;
+		}
+		.xmms-pj{
+			font-size: 1.4rem;
+			color: #B5B5B5;
+		}
+		
+		.wlfw-div{
+			width: 100%;
+			background: #FFFFFF;
+			margin-top: 1.5rem;
+			border-bottom: 0.2rem solid #F2F2F2;
+			overflow: hidden;
+		}
+		.wlfw-div span{
+			margin-left: 2rem;
+			line-height: 5rem;
+			float: left;
+		}
+		.wlfw_xx{
+			float: left;
+			margin-top: 1.5rem;
+			margin-left: 3rem;
+			margin-right: -2rem;
+		}
+		.wlfw_xx i{
+			margin-right: 1.7rem;
+			font-size: 2rem;
+		}
+		
+		.wlfw-pj{
+			font-size: 1.4rem;
+			color: #B5B5B5;
+		}
+		.fwtd-div{
+			width: 100%;
+			background: #FFFFFF;
+			border-bottom: 0.2rem solid #F2F2F2;
+			overflow: hidden;
+		}
+		.fwtd-div span{
+			margin-left: 2rem;
+			line-height: 5rem;
+			float: left;
+		}
+		.fwtd_xx{
+			float: left;
+			margin-top: 1.5rem;
+			margin-left: 3rem;
+			margin-right: -2rem;
+		}
+		.fwtd_xx i{
+			margin-right: 1.7rem;
+			font-size: 2rem;
+		}
+		.fwtd-pj{
+			font-size: 1.4rem;
+			color: #B5B5B5;
+		}
+		
+		
+		.content-div{
+			background: #FFFFFF;
+		}
+		.contentText{
+			/*border: 1px solid #000000;*/
+			border: 0;
+			height: 15rem;
+			width: 90%;
+			margin-left: 2%;
+		}
+		.contentText textarea{
+			
+			font-size: 1.2rem;
+		}
+		.addImg{
+			width: 7rem;
+			height: 7rem;
+			margin-left: 4%;
+			margin-bottom: 2rem;
+		}
+		.sbmit-span{
+			color: #FFFFFF;
+			line-height: 4rem;
+			margin-left: 80%;
+		}
+		.red{
+			color: red;
+		}
+		.hui{
+			color: #ACACAC;
+		}
+		
+		/* 轮播图 */
+		.lbt-img{
+			width: 100%;
+			/* border-bottom: 1px solid #F7F7F7; */
+			margin-bottom: 5rem;
+			overflow: hidden;
+		}
+		.lbt-img-div {
+			margin-left: 10px;
+			margin-right: 10px;
+			/* border: 1px solid #FFFF00; */
+		}
+		.lbt-img-div img{
+			margin: 5px;   
+			width: 30%;
+			height: 10rem;
+		}
+	
+		
+	</style>	
+	<body style="background: #FFFFFF;">
+		
+		<header style="background: #F01C08;" class="mui-bar mui-bar-nav">
+		    <a style="color: #FFFFFF;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 style="color: #FFFFFF;" class="mui-title">发表评价</h1>
+			<span class="sbmit-span">提交</span>
+		</header>
+		<div class="mui-content">
+		    <div class="xmms-div">
+		    	<span>描述相符</span> 
+		    	<div class="xmms_xx">
+		    		<i num='1' class="fa fa-star red"></i>
+		    		<i num='2' class="fa fa-star-o hui"></i>
+		    		<i num='3' class="fa fa-star-o hui"></i>
+		    		<i num='4' class="fa fa-star-o hui"></i>
+		    		<i num='5' class="fa fa-star-o hui"></i>
+		    	</div>
+		    	<span class="xmms-pj">非常差</span>
+		    	
+		    </div>
+		    
+		    <div class="content-div">
+		    	<textarea id="input" class="contentText" name="contentText" placeholder="宝贝满足您的期待吗？说说它的优点与美中不足的地方吧!" rows="" cols="" onchange="change()"></textarea>
+		    	<!-- <img class="addImg" src="../../img/addimg.png" /> -->
+				<div class="lbt-img">
+					<div class="lbt-img-div">
+						<img id="lbt-img-click"  class="lbt-img-base" src="../../img/addimg.png"> 
+					</div>
+				</div>
+		    </div>
+		    
+		    <div class="wlfw-div">
+		    	<span>物流服务</span>
+		    	<div class="wlfw_xx">
+		    		<i num='1' class="fa fa-star red"></i>
+		    		<i num='2' class="fa fa-star-o hui"></i>
+		    		<i num='3' class="fa fa-star-o hui"></i>
+		    		<i num='4' class="fa fa-star-o hui"></i>
+		    		<i num='5' class="fa fa-star-o hui"></i>
+		    	</div>
+		    	<span class="wlfw-pj">非常差</span>
+		    </div>
+		    
+		    <div class="fwtd-div">
+		    	<span>服务态度</span>
+		    	<div class="fwtd_xx">
+		    		<i num='1' class="fa fa-star red"></i>
+		    		<i num='2' class="fa fa-star-o hui"></i>
+		    		<i num='3' class="fa fa-star-o hui"></i>
+		    		<i num='4' class="fa fa-star-o hui"></i>
+		    		<i num='5' class="fa fa-star-o hui"></i>
+		    	</div>
+		    	<span class="fwtd-pj">非常差</span>
+		    </div>
+		    
+		    
+		</div>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/rem.js"></script>
+		<script src="../../js/view-js/home/pingjia.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var self = plus.webview.currentWebview();
+			var order = self.order;
+			var gid = self.gid;
+			var order_id = self.order_id;
+			var token = window.localStorage.getItem('qztc');
+			var logistics = 1;
+			var manner = 1;
+			var describe = 1;
+			
+			var content = '';
+			function change(){
+				var value = document.getElementById( "input"). value;
+				content = value;
+			}
+			document.addEventListener("plusready",function(){
+				
+				console.log('订单信息：'+JSON.stringify(order))
+				//星星
+				mui("body").on("tap",".fa",function(){
+					var num = $(this).attr("num"); //1
+					var parent_xx = $(this).parent().attr("class");  //父级CLASS
+					var xx_i = $("."+parent_xx).find("i");
+					for(i=0;i<xx_i.length;i++){
+						if(i < num){
+							xx_i.eq(i).attr("class","fa fa-star red");								
+						}else{
+							xx_i.eq(i).attr("class","fa fa-star-o hui");		
+						}
+					}
+					if(num == 1){
+						if(parent_xx == 'xmms_xx'){
+							$(".xmms-pj").html('非常差');
+						}else if(parent_xx == 'wlfw_xx'){
+							$(".wlfw-pj").html('非常差');
+						}else if(parent_xx == 'fwtd_xx'){
+							$(".fwtd-pj").html('非常差');
+						}
+					}else if(num == 2){
+						if(parent_xx == 'xmms_xx'){
+							$(".xmms-pj").html('差');
+						}else if(parent_xx == 'wlfw_xx'){
+							$(".wlfw-pj").html('差');
+						}else if(parent_xx == 'fwtd_xx'){
+							$(".fwtd-pj").html('差');
+						}
+					}else if(num == 3){
+						if(parent_xx == 'xmms_xx'){
+							$(".xmms-pj").html('一般');
+						}else if(parent_xx == 'wlfw_xx'){
+							$(".wlfw-pj").html('一般');
+						}else if(parent_xx == 'fwtd_xx'){
+							$(".fwtd-pj").html('一般');
+						}
+					}else if(num == 4){
+						if(parent_xx == 'xmms_xx'){
+							$(".xmms-pj").html('好');
+						}else if(parent_xx == 'wlfw_xx'){
+							$(".wlfw-pj").html('好');
+						}else if(parent_xx == 'fwtd_xx'){
+							$(".fwtd-pj").html('好');
+						}
+					}else if(num == 5){
+						if(parent_xx == 'xmms_xx'){
+							$(".xmms-pj").html('非常好');
+						}else if(parent_xx == 'wlfw_xx'){
+							$(".wlfw-pj").html('非常好');
+						}else if(parent_xx == 'fwtd_xx'){
+							$(".fwtd-pj").html('非常好');
+						}
+					}
+					
+					if(parent_xx == 'xmms_xx'){
+						describe = num;
+					}else if(parent_xx == 'wlfw_xx'){
+						logistics = num;
+					}else if(parent_xx == 'fwtd_xx'){
+						manner = num;
+					}
+				})
+				//添加图片
+				mui("body").on("tap",".lbt-img-base",function(){
+					if (mui.os.plus) {
+						var buttonTit = [{
+							title: "拍照"
+						}, {
+							title: "从手机相册选择"
+						}];
+						
+						plus.nativeUI.actionSheet({
+							title: "上传图片",
+							cancel: "取消",
+							buttons: buttonTit
+						}, function(b) { /*actionSheet 按钮点击事件*/
+							switch (b.index) {
+								case 0:
+									break;
+								case 1:
+									
+									getImageUP("add"); /*拍照*/
+									break;
+								case 2:
+									var num = 4 - $("lbt-ys").length;
+									galleryImgUP(num,"add");/*打开相册*/ 
+									
+									break;
+								default:
+									break;
+							}
+						})
+					}
+				});
+				// 提交
+				mui("body").on("tap",".sbmit-span",function(){
+					// var imgarr = $(".lbt-ys");
+					// console.log('图片'+JSON.stringify(imgarr))
+					var img = '';
+					var data = {
+						token:token,
+							gid:gid,
+							order_id:order_id,
+							logistics:logistics,
+							manner:manner,
+							describe:describe,
+							content:content,
+							img:img,
+						}
+						console.log(JSON.stringify(data))
+				    mui.ajax(APIPATH+'Order/evaluate',{
+				    	data:data,
+				    	dataType:'json',//服务器返回json格式数据
+				    	type:'post',//HTTP请求类型
+				    	timeout:10000,//超时时间设置为10秒；
+				    	// headers:{'Content-Type':'application/json'},	              
+				    	success:function(data){
+							console.log('提交结果'+JSON.stringify(data))
+							mui.toast(data.msg);
+						}
+					});
+				})
+
+			})
+		</script>
+	</body>
+
+</html>

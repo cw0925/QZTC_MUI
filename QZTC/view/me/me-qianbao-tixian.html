@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.mui-bar{
+			background: #E8192D;
+		}
+		.mui-bar a{
+			color: #FFFFFF;
+		}
+		.mui-bar h1{
+			color: #FFFFFF;
+		}
+		.mui-navigate-right img{
+			width: 2.5rem;
+			height: 2.5rem;
+			border-radius: 50%;
+			vertical-align: bottom;
+		}
+		.mui-content>.mui-table-view:first-child{
+			margin: 0;
+		}
+		.mui-navigate-right .text_box{
+			display: inline-block;
+			padding-left: 0.65rem;
+		}
+		.mui-navigate-right .text_box .item1{
+			color:#323232;
+			font-size: 0.85rem;
+		}
+		.mui-navigate-right .text_box .item2{
+			color: #8F8F8F;
+			font-size: 0.75rem;
+		}
+		.price_box{
+			padding:1rem 0.75rem;
+			background: #FFFFFF;
+		}
+		.price_box .title{
+			font-size: 0.85rem;
+			color: #303030;
+		}
+		#price{
+			border: none;
+			border-bottom: 0.05rem solid  #E5E5E5;
+			margin: 0;
+			width: 80%;
+		}
+		.price_box .inp_box{
+			margin-top: 1rem;
+		}
+		.price_box .keyong{
+			font-size:0.8rem;
+			padding: 0.5rem;
+		}
+		.btn{
+			padding-top: 2rem;
+		}
+		.btn button{
+			width: 100%;
+			border:none ;
+			background: #E8192D;
+			color: #FFFFFF;
+		}
+		.btn p{
+			text-align: center;
+			color: #E8192D;
+			margin-top: 1rem;
+		}
+		.yuer{
+			color: #FF0000;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">提现</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+			        <li class="mui-table-view-cell">
+			            <a class="mui-navigate-right">
+			              <img id="logo_img" src="../../imgs/tx_icon.png"/>
+			              <p class="text_box">
+			              	<span class="item1">请填写提款信息</span></br>
+			              	<span class="item2">请填写提款信息</span>
+			              </p>
+			            </a>
+			        </li>
+			</ul>
+			    <div class="price_box">
+			    	<p class="title">提现金额</p>
+			    	<div class="inp_box">
+			    		<span class="icon_pri">￥</span><input type="number" name="" id="price"  placeholder=""/>
+			    	</div>
+			    	<p class="keyong">当前可用余额为&nbsp;<span class="yuer"></span>&nbsp;元</p>&nbsp;&nbsp;<span >提款人 : <span class="name"></span></span></span>
+			    	<div class="btn">
+			    		<a id="bt-submit" href="javascript:;"><button>提现</button></a>
+			    		<p>24 小时内到账</p>
+			    		
+			    	</div>
+			    </div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener('plusready',function(){
+				
+				mui("body").on("tap",".mui-table-view-cell",function(){
+					mui.openWindow({
+						url: 'me-tixian-zhanghao.html'
+					});					
+				})
+				
+				var token = window.localStorage.getItem('qztc');
+				plus.nativeUI.showWaiting();
+		
+				
+				mui.ajax(APIPATH+'User/tixian_ye',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						plus.nativeUI.closeWaiting();
+						var datas = data.data;
+						  
+						if(data.status){
+							$(".yuer").html(datas.user.wallet);
+							if(datas.count == 0){
+								mui.confirm('您还没设置提现帐号？','提示',['取消','去设置'],function(e){
+								if(e.index == 1){
+									mui.openWindow({
+								    	url: 'me-tixian-zhanghao.html'
+									});
+								}else{
+									mui.back();
+								}
+								});
+							}else{ 
+								switch(datas['zhanghao']['type'])
+								{
+									case '1':
+										$("#logo_img").attr("src","../../img/zg.jpg");
+										$(".item1").html("中国银行");
+									 break;
+									case '2':
+										$("#logo_img").attr("src","../../img/ny.png");
+										$(".item1").html("中国农业银行");
+									 break;
+									case '3':
+										$("#logo_img").attr("src","../../img/zggs.png");
+										$(".item1").html("中国工商银行");
+									 break;
+									case '4':
+										$("#logo_img").attr("src","../../img/zgjs.jpg");
+										$(".item1").html("中国建设银行");
+									 break;
+									case '5':
+										$("#logo_img").attr("src","../../img/zgjt.jpg");
+										$(".item1").html("中国交通银行");
+									 break;
+									case '6':
+										$("#logo_img").attr("src","../../img/zgzx.jpg");
+										$(".item1").html("中国中信银行");
+									 break;
+									case '7':
+										$("#logo_img").attr("src","../../img/ncxys.jpg");
+										$(".item1").html("广西农村信用社");
+									 break;
+								}
+								$(".item2").html(datas['zhanghao']['number']);
+								$(".name").html(datas['zhanghao']['name']);
+							}
+						}else{
+							mui.toast(data.msg)
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+		
+				
+				
+				//提交
+				mui("body").on("tap","#bt-submit",function(){
+					
+					var name = $(".name").html(); // 真实姓名
+					var number = $(".item2").html(); //账号
+					var banking = $(".item1").html(); //银行
+					var exp = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+					var money = $("#price").val();
+						if(exp.test(money) & money > 50 ){
+							plus.nativeUI.showWaiting();
+						
+							mui.ajax(APIPATH+'User/tixian',{
+								data:{token:token,name:name,banking:banking,number:number,money:money},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(data){
+								plus.nativeUI.closeWaiting();
+								var datas = data.data;
+								if(data.status == 1){
+									mui.openWindow({
+										url: 'me-qianbao-tixian-succ.html',
+										extras:{
+											time:data.data,
+											number:number,
+											name:name,   
+											money:money
+										}
+									});		
+								}else{
+									mui.toast(data.msg);
+								}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});	
+						}else{
+								mui.toast('请输入提现的金额数量,不能低于50元');
+						}
+				})
+			})
+		</script>
+	</body>
+</html>

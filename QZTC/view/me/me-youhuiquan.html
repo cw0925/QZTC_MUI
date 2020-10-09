@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		
+		/*现金券抵扣弹出框*/
+		.xianjinquan{
+			background: #FFFFFF;
+			padding: 0 1rem ;
+		}
+		.xianjinquan .tit{
+			text-align: center;
+			padding: 1rem 0;
+			color: #343434;
+			font-size: 0.85rem;
+		}
+		.xianjinquan_ul li{
+			/* border: 0.05rem solid #E5E5E5; */
+			display: flex;
+			padding-left: 1rem;
+			margin-bottom: 1rem;
+			padding-right: 1rem;
+		}
+		.xianjinquan_ul .text {
+			width: 75%;
+			padding: 0.5rem 0;
+			padding-left: 0.75rem;
+			background: #EE7900;
+			
+		}
+		.xianjinquan_ul .text h5{
+			color: #FFFFFF;
+			font-size: 0.85rem;
+			margin-right: 1rem;
+		}
+		.xianjinquan_ul .text p{
+			color: #FFFFFF;
+			font-size: 0.8rem;
+			margin-top: 1rem;
+			margin-right: 1rem;
+			text-overflow: -o-ellipsis-lastline;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+		.xianjinquan_ul .imgs{
+			width: 25%;
+			text-align: center;
+			background: url(../../imgs/bmjz_bg.png) no-repeat 100% 100%;
+			padding: 1rem 0;
+		}
+		.xianjinquan_ul .imgs .price{
+			font-size: 1rem;
+			color:#FFFFFF;
+		}
+		.xianjinquan_ul .imgs p{
+			font-size: 0.8rem;
+			color: #FFFFFF;
+			padding-top: 0.8rem;
+		}
+		.xianjinquan_btn {
+			width: 93%;
+			background: #E8192D;
+			color: #FFFFFF;
+			height: 1.5rem;
+			font-size: 0.8rem;
+			border: none;
+		}
+		.xuanxiang{
+			width: 100%;
+			background: #FFFFFF;
+			line-height: 3rem;
+			overflow: hidden;
+		}
+		.op{ 
+			text-align: center;
+			width: 50%;
+			float: left;
+		}
+		.op{
+			text-align: center;
+			width: 50%;
+			float: left;
+		}
+		.check{
+			background: #EE7900;
+			color: #FFFFFF;
+		}
+	</style>
+
+	<body>
+		<header class="header-bg mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的优惠券</h1>
+		</header>
+		<div class="mui-content">
+			<div class="xuanxiang">
+				<div class="op check">折扣商城</div>
+				<div class="op ">其他</div>
+			</div>
+			<ul style="padding-top: 1rem;" class="xianjinquan_ul">
+					<li style="line-height: 25rem;margin-left: 35%">
+						暂无优惠券
+					</li>
+			</ul>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){	
+			plus.nativeUI.showWaiting();
+			var token = window.localStorage.getItem('qztc');
+				
+					mui.ajax(APIPATH+'User/my_youhuiquan',{
+						data:{token:token,type:1}, 
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+							var datas = data.data;
+							console.log(datas)
+							if(datas.length){
+								
+								var hh = '';
+								for(i=0;i<datas.length;i++){
+									
+									if(datas[i]['status'] == 1){
+										hh += '<li>'+
+													'<div class="text">'+
+														'<h5>'+datas[i]['discount']['title']+'</h5>'+
+														'<p>'+datas[i]['discount']['goods_title']+'</p>'+
+													'</div>'+
+													'<div class="imgs">'+
+														'<span class="price">'+datas[i]['discount']['juan_name']+'</span>'+
+														'<p>待使用</p>'+
+													'</div>'+
+												'</li>';
+									}else if(datas[i]['status'] == 2){
+										hh += '<li>'+
+													'<div class="text">'+
+														'<h5>'+datas[i]['discount']['title']+'</h5>'+
+														'<p>'+datas[i]['discount']['goods_title']+'</p>'+
+													'</div>'+
+													'<div class="imgs">'+
+														'<span class="price">'+datas[i]['discount']['juan_name']+'</span>'+
+														'<p>已使用</p>'+
+													'</div>'+
+												'</li>';
+									}
+								}
+								$(".xianjinquan_ul").html(hh);
+								
+							}
+							 plus.nativeUI.closeWaiting();  
+							//点击
+							mui("body").on("tap",".op",function(){ 
+							
+								plus.nativeUI.showWaiting();
+								$(".op").attr("class","op");
+								$(this).attr("class","op check");
+								var type_str = $(this).html();
+							
+								if(type_str == '折扣商城'){
+										
+								
+									
+									mui.ajax(APIPATH+'User/my_youhuiquan',{
+										data:{token:token,type:1},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(mall){
+											console.log(JSON.stringify(mall))
+											var datas = mall.data;
+											var hh = '';
+											if(datas.length){
+												
+												for(i=0;i<datas.length;i++){
+													if(datas[i]['status'] == 1){
+														hh += '<li>'+
+																	'<div class="text">'+
+																		'<h5>'+datas[i]['discount']['title']+'</h5>'+
+																		'<p>'+datas[i]['discount']['goods_title']+'</p>'+
+																	'</div>'+
+																	'<div class="imgs">'+
+																		'<span class="price">'+datas[i]['discount']['juan_name']+'</span>'+
+																		'<p class="open-goods" val="'+datas[i]['discount']['gid']+'" server="'+datas[i]['discount']['server_type']+'" >去使用</p>'+
+																	'</div>'+
+																'</li>';
+													}else if(datas[i]['status'] == 2){
+														hh += '<li>'+
+																	'<div class="text">'+
+																		'<h5>'+datas[i]['discount']['title']+'</h5>'+
+																		'<p>'+datas[i]['discount']['goods_title']+'</p>'+
+																	'</div>'+
+																	'<div class="imgs">'+
+																		'<span class="price">'+datas[i]['discount']['juan_name']+'</span>'+
+																		'<p>已使用</p>'+
+																	'</div>'+
+																'</li>';
+													}
+												}
+												
+												
+											}else{
+												hh = '<li style="line-height: 25rem;margin-left: 35%">暂无优惠券</li>';
+											}
+											$(".xianjinquan_ul").html(hh);
+											plus.nativeUI.closeWaiting();
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+									
+								}else if(type_str == '其他'){
+							
+									mui.ajax(APIPATH+'User/my_youhuiquan',{
+										data:{token:token,type:2},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(server){
+											var datas = server.data;
+											var hh = '';
+											if(datas.length){
+												
+												for(i=0;i<datas.length;i++){
+													if(datas[i]['status'] == 1){
+														hh += '<li>'+
+																	'<div class="text">'+
+																		'<h5>'+datas[i]['discount']['title']+'</h5>'+
+																		'<p>'+datas[i]['discount']['goods_title']+'</p>'+
+																	'</div>'+
+																	'<div class="imgs">'+
+																		'<span class="price">'+datas[i]['discount']['juan_name']+'</span>'+
+																		'<p>待使用</p>'+
+																	'</div>'+
+																'</li>';
+													}else if(datas[i]['status'] == 2){
+														hh += '<li>'+
+																	'<div class="text">'+
+																		'<h5>'+datas[i]['discount']['title']+'</h5>'+
+																		'<p>'+datas[i]['discount']['goods_title']+'</p>'+
+																	'</div>'+
+																	'<div class="imgs">'+
+																		'<span class="price">'+datas[i]['discount']['juan_name']+'</span>'+
+																		'<p>已使用</p>'+
+																	'</div>'+
+																'</li>'; 
+													}
+												}
+												
+											}else{
+												hh = '<li style="line-height: 25rem;margin-left: 35%">暂无优惠券</li>';
+											}
+											$(".xianjinquan_ul").html(hh);
+											plus.nativeUI.closeWaiting();
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+									
+								}
+							})
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+			})
+			
+		</script>
+	</body>
+
+</html>

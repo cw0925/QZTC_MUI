@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.mui-segmented-control{
+			border: none;
+			background: #FFFFFF;
+		}
+		.mui-segmented-control .mui-control-item{
+			border-left: 0.05rem solid #E4E4E4;
+			color: #3A3A3A;
+		}
+		.mui-segmented-control .mui-control-item.mui-active{
+			background: none;
+			color: #E8192D;
+		}
+		.mui-bar{
+			background: #E8192D;
+		}
+		.mui-bar a{
+			color: #FFFFFF;
+		}
+		.mui-bar h1{
+			color: #FFFFFF;
+		}
+		.mui-table-view-cell a div span{
+			font-size: 0.8rem;
+		}
+		.mui-table-view-cell a div p{
+			font-size: 0.8rem;
+		}
+		/*现金券抵扣弹出框*/
+		.xianjinquan{
+			background: #FFFFFF;
+			padding: 0 1rem ;
+		}
+		.xianjinquan .tit{
+			text-align: center;
+			padding: 1rem 0;
+			color: #343434;
+			font-size: 0.85rem;
+		}
+		.xianjinquan_ul li{
+			border: 0.05rem solid #E5E5E5; 
+			display: flex;
+			padding-left: 1rem;
+			margin-bottom: 1rem;
+			background: #FFFFFF;
+		}
+		.xianjinquan_ul .text {
+			width: 75%;
+			padding: 0.5rem 0;
+			
+		}
+		.xianjinquan_ul .text h5{
+			color: #4E4E4E;
+			font-size: 0.85rem;
+			
+		}
+		.xianjinquan_ul .text p{
+			color: #5B5B5B;
+			font-size: 0.8rem;
+			margin-top: 1.3rem;
+		}
+		.xianjinquan_ul .imgs{
+			width: 25%;
+			text-align: center;
+			background: url(../../imgs/bmjz_bg.png) no-repeat 100% 100%;
+			padding: 1rem 0;
+		}
+		.xianjinquan_ul .imgs .price{
+			font-size: 0.9rem;
+			color:#FFFFFF;
+		}
+		.xianjinquan_ul .imgs p{
+			font-size: 0.8rem;
+			color: #FFFFFF;
+			padding-top: 0.3rem;
+		}
+		.xianjinquan_btn {
+			width: 93%;
+			background: #E8192D;
+			color: #FFFFFF;
+			height: 1.5rem;
+			font-size: 0.8rem;
+			border: none;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的邀请</h1>
+		</header>
+		<div class="mui-content">
+			<!-- <div class="mui-segmented-control"> -->
+			    <!-- <a class="mui-control-item mui-active" href="#item1">我邀请的会员</a> -->
+			    <!-- <a class="mui-control-item" href="#item2">邀请奖励</a> -->
+			<!-- </div> -->
+			<div id="item1" class="mui-control-content mui-active">
+				<ul class="mui-table-view">
+						
+				</ul>
+			</div>
+			<!-- <div id="item2" class="mui-control-content">
+					<ul class="xianjinquan_ul">
+						<li>
+							<div class="text">
+								<h5>满100元使用</h5>
+								<p>有效期：2017.10.18-2017.12.12</p>
+							</div>
+							<div class="imgs">
+								<span class='price'>￥20元</span>
+								<p>立即领取</p>
+							</div>
+						</li>
+								<li>
+							<div class="text">
+								<h5>满100元使用</h5>
+								<p>有效期：2017.10.18-2017.12.12</p>
+							</div>
+							<div class="imgs">
+								<span class='price'>￥20元</span>
+								<p>立即领取</p>
+							</div>
+						</li>
+					</ul>
+			</div> -->
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){	
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+			
+				mui.ajax(APIPATH+'User/getyaoqing',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data;
+						var hh = '';
+						if(!data.status == '1'){
+							for(i=0;i<datas.length;i++){
+								hh += '<li class="mui-table-view-cell">'+
+											'<a>'+
+												'<div class="mui-pull-right">'+
+													'<span>'+datas[i]['add_time']+'</span>'+
+												'</div>'+
+												'<div class="left_box">'+
+													'<span>'+datas[i]['nick']+'</span>'+
+												'</div>'+
+											'</a>'+
+										'</li>';
+							}
+							$(".mui-table-view").html(hh);
+						}else{
+							hh += '<div style="width: 100%;line-height: 30rem;text-align: center;">'+
+									'<span>暂无数据</span>'+
+								  '</div>';
+							$("#item1").html(hh);
+						}
+						
+						plus.nativeUI.closeWaiting(data); 
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

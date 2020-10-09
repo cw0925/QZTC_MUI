@@ -1,0 +1,117 @@
+/*收件人*/
+.address-nick{
+	background: #FFFFFF;
+	border-bottom: 0.11rem solid #D7D7D7;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+#nick-span{
+	
+	width: 25%;
+	margin-left:1rem;
+}
+.nick-span{
+	line-height: 3.5rem;	
+	color: #5F5F5F;
+	
+}
+#nick-ipt{
+	
+	width: 75%;
+	margin-top: 0.5rem;
+	height: 2.5rem;
+	border: 0;
+}
+/*联系方式*/
+.address-phone{
+	background: #FFFFFF;
+	border-bottom: 0.11rem solid #D7D7D7;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+#phone-span{
+
+	width: 25%;
+	margin-left:1rem;
+}
+.phone-span{
+	line-height: 3.5rem;	
+	color: #5F5F5F;
+	
+}
+#phone-ipt{
+
+	width: 75%;
+	margin-top: 0.5rem;
+	height: 2.5rem;
+	border: 0;
+}
+
+/*地区*/
+.address{
+	background: #FFFFFF;
+	border-bottom: 0.11rem solid #D7D7D7;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+#address-span{
+
+	width: 25%;
+	margin-left:1rem;
+}
+.address-span{
+	line-height: 3.5rem;	
+	color: #5F5F5F;
+	
+}
+#address-ipt{
+
+	width: 75%;
+	
+	margin-top: 0.5rem;
+	height: 2.5rem;
+	border: 0;
+}
+
+/*详细地址*/
+.address-Detailed{
+	background: #FFFFFF;
+	border-bottom: 0.11rem solid #D7D7D7;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+#Detailed-span{
+
+	width: 25%;
+	margin-left:1rem;
+}
+.Detailed-span{
+	line-height: 3.5rem;	
+	color: #5F5F5F;
+	
+}
+#Detailed-ipt{
+
+	width: 75%;
+	
+	margin-top: 0.5rem;
+	height: 2.5rem;
+	border: 0;
+}
+
+/*添加地址*/
+.address-add-bt{
+	padding-top: 1rem;
+	background: #FFFFFF;
+	text-align: center;
+}
+.address-add-bt span{
+	color: #FFFFFF;
+	background: #F01C08;
+	padding: 0.5rem 7rem;
+	border-radius: 0.7rem;
+}

@@ -1,0 +1,677 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link rel="stylesheet" href="../../css/font-awesome.min.css" />
+	</head>
+	<style type="text/css">
+		.mui-bar{
+			background: #E8192D;
+		}
+		.mui-bar a{
+			color: #FFFFFF;
+		}
+		.mui-bar h1{
+			color: #FFFFFF;
+		}
+		.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+			color: #DA2205;
+			border: none;
+		}
+		.mui-segmented-control.mui-scroll-wrapper .mui-control-item{
+			padding: 0 1.5rem;
+		}
+		.mui-slider-indicator.mui-segmented-control{
+			background: #FFFFFF;
+		}
+		.detail_ul li{
+			background: #FFFFFF;
+			margin-top: 0.5rem;
+		}
+		.detail_ul .head_box{
+			border-bottom: 0.05rem solid #E5E5E5;
+			padding: 0.6rem 0.75rem;
+			background:#FFFFFF;
+			
+		}
+		.detail_ul .head_box p{
+			font-size: 0.85rem;
+			color: #333333;
+		}
+		.detail_ul .head_box span{
+			float: right;
+			color: #E6251A;
+			font-size: 0.8rem;
+		}
+		.img_box {
+			display: flex;
+			padding: 0.3rem 0;
+		}
+		.img_box .img{
+			width: 35%;
+			text-align: center;
+			/*margin-right:-1rem;*/
+		}
+		.img_box .img img{
+	
+			width: 65%;
+			height: 4.5rem;
+		}
+		.img_box .text_box{
+			width: 60%;
+		}
+		.text_box .tit{
+			font-size: 0.8rem;
+			color: #333333;
+			display: inline-block;
+			width:70% ;
+		}
+		.text_box .price_box{
+			margin-top: 6%;
+			
+		}
+		.text_box .price_box .xianjia{
+			color: #E42512;
+			
+		}
+		.text_box .price_box .yuanjia{
+			margin-left: 0.75rem;
+			text-decoration: line-through;
+		}
+		.text_box .price_box .shuliang_box{
+			float: right;
+		}
+		.detail_ul .total{
+			padding: 0.7rem 0.75rem;
+		}
+		.detail_ul .total .total_btn button{
+			padding: 0;
+			font-size: 0.75rem ;
+			padding: 0.1rem 0.4rem;
+			margin: 0 0.25rem;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的订单（折扣商城）</h1>
+		</header>
+		<div class="content" style="margin-top: 2.6rem;">
+			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+			    <div class="mui-scroll">
+			        <a type="1" class="mui-control-item mui-active">
+			            全部
+			        </a>
+			        <a type="2" class="mui-control-item">
+			          待付款
+			        </a>
+			        <a type="3" class="mui-control-item">
+			           待发货
+			        </a>
+			        <a type="4" class="mui-control-item">
+			           待收货
+			        </a>
+			       <!-- <a type="5" class="mui-control-item">
+			           待评价
+			        </a> -->
+			    </div>
+			</div>
+			<ul class="detail_ul">
+				<!--订单信息-->				
+			</ul>
+			
+		</div>
+	<!--	<input type="hidden" id="type" value="1" />-->
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				swipeBack:false //启用右滑关闭功能
+			});
+		
+			document.addEventListener("plusready",function(){
+				
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+				//一进来就默认的
+				mui.ajax(APIPATH+'Order/index',{
+					data:{token:token,type:1},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						// console.log('我的订单'+JSON.stringify(data))
+						var datas = data.data;
+					 
+						
+						var hh = '';
+						for(i=0;i<datas.length;i++){
+						
+							//按钮
+							var anhh = '';
+							switch(datas[i]['status'])
+							{
+							case '0':
+							 	//待付款
+							 	anhh += '<div class="total_btn mui-pull-right"><button class="cancel">取消订单</button><button class="pay">去付款</button></div>';
+							  break;
+							case '1':
+							 	//待发货
+							 	anhh += '<div class="total_btn mui-pull-right"><button class="remind">提醒卖家发货</button></div>';
+							  break;
+							case '2':
+							 	//待收货
+							 	anhh += '<div class="total_btn mui-pull-right"><button class="logistics">查看物流</button><button class="receive">确认收货</button></div>';
+							  break;
+							case '3':
+							 	//待评价
+							 	anhh += '<div class="total_btn mui-pull-right"><button class="evaluate">去评价</button></div>';
+							  break;
+							case '4':
+							 	//交易完成
+							 	anhh += '<div class="total_btn mui-pull-right"><button class="delorder">删除订单</button></div>';
+							  break;
+							case '5':
+							 	//退货申请中
+							 	//暂时不做
+							  break;
+							case '6':
+							 	//退货审核失败
+							 	//暂时不做
+							  break;
+							case '7':
+							 	//退货审核通过
+							 	//暂时不做
+							  break;
+							case '8':
+							 	//取消订单
+								anhh += '<div class="total_btn mui-pull-right"><button class="delorder">删除订单</button></div>';
+							break;
+							default:
+							 
+							}
+							
+							if(datas[i]['goods'].length > 1 ){
+								//多个商品
+								var goodshh = '';
+								if( datas[i]['goods'].length > 3 ){
+									//大于3
+									for(j=0;j<3;j++){
+										console.log('封面图：'+datas[i]['goods'][j]['cover_img'])
+										goodshh += '<div style="margin-right:-2rem" class="img"><img src="'+datas[i]['goods'][j]['cover_img']+'"/></div>';
+									}
+									hh += '<li>'+
+											'<div class="head_box">'+
+												'<span>'+datas[i]['statusstr']+'</span>'+
+												'<p>自营商城</p>'+
+											'</div>'+
+											'<div class="img_box">'+
+												goodshh+
+												'<a style="color: #000000;margin-left:3rem;margin-top: 1.3rem;" class="fa fa-angle-right fa-2x" ></a>'+
+											'</div>'+
+											'<div   order="'+datas[i]['order_number']+'" class="total">'+
+												anhh+
+												'<p><span>总计：</span><span>￥19.00</span></p>'+
+											'</div>'+
+										'</li>';	
+									
+								}else{
+									//小于3
+									
+									//商品
+									for(j=0;j<datas[i]['goods'].length;j++){
+										console.log('封面图1：'+datas[i]['goods'][j]['cover_img']);
+										goodshh += '<div style="margin-right:-2rem" class="img"><img src="'+datas[i]['goods'][j]['cover_img']+'"/></div>';
+									}
+									
+									hh += '<li>'+
+											'<div class="head_box">'+
+												'<span>'+datas[i]['statusstr']+'</span>'+
+												'<p>自营商城</p>'+
+											'</div>'+
+											'<div class="img_box">'+
+												goodshh+
+												// '<a style="color: #000000;margin-left: 8.5rem;margin-top: 1.3rem;" class="fa fa-angle-right fa-2x" ></a>'+
+											'</div>'+
+											'<div order="'+datas[i]['order_number']+'" class="total">'+
+												anhh+
+												'<p><span>总计：</span><span>￥19.00</span></p>'+
+											'</div>'+
+										'</li>';	
+								
+								}
+								 
+							}else{
+								//单个商品 
+								// console.log(datas[i]['goods'][0]['cover_img'])
+								var img = datas[i]['goods'][0]['cover_img'];
+								var img_html = ''
+								if(img){
+									hh += '<li class="li">'+
+												'<div class="head_box">'+
+													'<span>'+datas[i]['statusstr']+'</span>'+
+													'<p>自营商城</p>'+
+												'</div>'+
+												'<div class="img_box">'+
+													'<div class="img"><img src="'+ img +'"/></div>' +
+													'<div class="text_box">'+
+														'<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;" class="tit">'+datas[i]['goods'][0]['title']+'</span>'+
+														'<p class="price_box">'+
+															'<span class="xianjia">￥'+datas[i]['goods'][0]['price']+'</span><span class="shuliang_box">x'+datas[i]['goods'][0]['num']+'</span>'+
+														'</p>'+
+													'</div>'+
+												'</div>'+
+												'<div order="'+datas[i]['order_number']+'" gid="'+datas[i]['goods'][0]['gid']+'" order_id ="'+datas[i]['id']+'" class="total">'+
+													anhh+
+													'<p><span>总计：</span><span>￥'+datas[i]['total']+'</span></p>'+
+												'</div>'+
+											'</li>';
+								}else{
+									hh += '<li><div></div></li>'
+								}
+								
+							} 
+						} 
+						$(".detail_ul").html(hh);
+						//缺少信息时的处理
+						if(datas.length == 0){
+							$(".detail_ul").html("<img style='width: 40%;height: 40%;margin-left: 28%;margin-top: 10%;' src='../../img/order.png' />");	
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+				//点击选项卡
+				mui("body").on("tap",".mui-control-item",function(){
+					plus.nativeUI.showWaiting();
+					var type = $(this).attr("type");
+		
+					
+					mui.ajax(APIPATH+'Order/index',{
+						data:{token:token,type:type},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+							// console.log('我的订单'+JSON.stringify(data))
+							var datas = data.data;
+							if(!datas.length){
+								
+							}
+							var hh = '';
+							for(i=0;i<datas.length;i++){
+							 
+								//按钮
+								var anhh = '';
+								switch(datas[i]['status'])
+								{
+								case '0':   
+									//待付款
+									anhh += '<div class="total_btn mui-pull-right"><button class="cancel">取消订单</button><button class="pay">去付款</button></div>';
+								  break;
+								case '1':
+									//待发货
+									anhh += '<div class="total_btn mui-pull-right"><button class="remind">提醒卖家发货</button></div>';
+								  break;
+								case '2':
+									//待收货
+									anhh += '<div class="total_btn mui-pull-right"><button class="logistics">查看物流</button><button class="receive">确认收货</button></div>';
+								  break;
+								case '3':
+									//待评价
+									anhh += '<div class="total_btn mui-pull-right"><button class="evaluate">去评价</button></div>';
+								  break;
+								case '4':
+									//交易完成
+									anhh += '<div class="total_btn mui-pull-right"><button class="delorder">删除订单</button></div>';
+								  break;
+								case '5':
+									//退货申请中
+									//暂时不做
+								  break;
+								case '6':
+									//退货审核失败
+									//暂时不做
+								  break;
+								case '7':
+									//退货审核通过
+									//暂时不做
+								  break;
+								case '8':
+									//取消订单
+									anhh += '<div class="total_btn mui-pull-right"><button class="delorder">删除订单</button></div>';
+								  break;
+								default:
+								  
+								}
+								
+								if(datas[i]['goods'].length > 1 ){
+									//多个商品
+									var goodshh = '';
+									if( datas[i]['goods'].length > 3 ){
+										//大于3
+										for(j=0;j<3;j++){
+											goodshh += '<div style="margin-right:-2rem" class="img"><img src="'+datas[i]['goods'][j]['cover_img']+'"/></div>';
+										}
+										hh += '<li>'+
+												'<div class="head_box">'+
+													'<span>'+datas[i]['statusstr']+'</span>'+
+													'<p>自营商城</p>'+
+												'</div>'+
+												'<div class="img_box">'+
+													goodshh+
+													'<a style="color: #000000;margin-left:3rem;margin-top: 1.3rem;" class="fa fa-angle-right fa-2x" ></a>'+
+												'</div>'+
+												'<div order="'+datas[i]['order_number']+'" class="total">'+
+													anhh+
+													'<p><span>总计：</span><span>￥19.00</span></p>'+
+												'</div>'+
+											'</li>';	
+										
+									}else{
+										//小于3
+										
+										//商品
+										for(j=0;j<datas[i]['goods'].length;j++){
+											goodshh += '<div style="margin-right:-2rem" class="img"><img src="'+datas[i]['goods'][j]['cover_img']+'"/></div>';
+										}
+										
+										hh += '<li>'+
+												'<div class="head_box">'+
+													'<span>'+datas[i]['statusstr']+'</span>'+
+													'<p>自营商城</p>'+
+												'</div>'+
+												'<div class="img_box">'+
+													goodshh+
+													'<a style="color: #000000;margin-left: 8.5rem;margin-top: 1.3rem;" class="fa fa-angle-right fa-2x" ></a>'+
+												'</div>'+
+												'<div  order="'+datas[i]['order_number']+'" class="total">'+
+													anhh+
+													'<p><span>总计：</span><span>￥19.00</span></p>'+
+												'</div>'+
+											'</li>';	
+									
+									}
+									
+								}else{
+									var img = datas[i]['goods'][0]['cover_img'];
+									if(img){
+										//单个商品
+										hh += '<li class="li">'+
+													'<div class="head_box">'+
+														'<span>'+datas[i]['statusstr']+'</span>'+
+														'<p>自营商城</p>'+
+													'</div>'+
+													'<div class="img_box">'+
+														'<div class="img"><img src="'+datas[i]['goods'][0]['cover_img']+'"/></div>'+
+														'<div class="text_box">'+
+															'<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;" class="tit">'+datas[i]['goods'][0]['title']+'</span>'+
+															'<p class="price_box">'+
+																'<span class="xianjia">￥'+datas[i]['goods'][0]['price']+'</span><span class="shuliang_box">x'+datas[i]['goods'][0]['num']+'</span>'+
+															'</p>'+
+														'</div>'+
+													'</div>'+
+													'<div  order="'+datas[i]['order_number']+'" class="total">'+
+														anhh+
+														'<p><span>总计：</span><span>￥'+datas[i]['total']+'</span></p>'+
+													'</div>'+
+												'</li>';
+									}else{
+										hh += ' <li><div></div></li>';
+									}
+								
+								} 
+							} 
+							$(".detail_ul").html(hh);
+							//缺少信息时的处理
+							if(!datas.length){
+								$(".detail_ul").html("<img style='width: 40%;height: 40%;margin-left: 28%;margin-top: 10%;' src='../../img/order.png' /> ");	
+							}
+							plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+					
+				})
+
+
+				//订单按钮
+				
+				//1.付款
+					mui("body").on("tap",".pay",function(){
+						var order = $(this).parent().parent().attr('order');//订单号
+		
+						mui.ajax(APIPATH+'User/index',{
+							data:{token:token},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(data){
+								var datas = data.data;
+								if(datas.patpass == null){
+									mui.confirm('您还没设置余额支付密码,是否前往设置？','提示',['取消','去设置'],function(e){
+									if(e.index == 1){
+										mui.openWindow({
+									    	url: 'me-setpass.html'
+										});
+									}
+									});
+								}else{
+									
+									mui.openWindow({
+									    url: '../shoppingCart/order-pay.html',
+									    extras: {
+								            order:order 
+								        }
+									});
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+
+					})
+				
+				
+				
+				//2.取消订单
+					mui("body").on("tap",".cancel",function(){
+						plus.nativeUI.showWaiting();
+						var order = $(this).parent().parent().attr('order');
+						mui.confirm('确定要取消订单吗？','提示',['取消','取消订单'],function(e){
+							if(e.index == 1){
+							
+									
+								mui.ajax(APIPATH+'order/cancel',{
+									data:{token:token,order:order},
+									dataType:'json',//服务器返回json格式数据
+									type:'get',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(res){
+										if(res.status){
+											mui.toast(res.msg);
+											plus.nativeUI.closeWaiting();
+											
+											setTimeout(function(){
+												window.location.reload();
+											},200);
+										}else{
+											mui.toast(res.msg);
+											plus.nativeUI.closeWaiting(); 
+										}
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+									
+							}else{
+								plus.nativeUI.closeWaiting();
+							}
+						})
+					})
+					
+				//3.提醒发货
+					mui("body").on("tap",".remind",function(){
+						plus.nativeUI.showWaiting();
+						var order = $(this).parent().parent().attr('order');
+				
+						
+						mui.ajax(APIPATH+'order/remind',{
+							data:{token:token,order:order},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(res){
+								mui.toast(res.msg);
+								plus.nativeUI.closeWaiting(); 
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+						
+					})
+				//4.查看物流
+					mui("body").on("tap",".logistics",function(){
+						var order = $(this).parent().parent().attr('order');
+						mui.openWindow({
+						    url: 'me-wuliu.html',
+						    extras: {
+	                            order:order,
+															num:1
+	                        }
+						});
+					})
+				//5.退货
+				 
+				 
+				 
+				//6.确认收货
+					mui("body").on("tap",".receive",function(){
+						
+						plus.nativeUI.showWaiting();
+						var order = $(this).parent().parent().attr('order');
+						console.log(token)
+						console.log(order)
+						mui.confirm('确定要点击收货吗？','收货提示',['取消','确认收货'],function(e){
+							if(e.index == 1){
+					
+								
+								mui.ajax(APIPATH+'order/take_delivery',{
+									data:{token:token,order:order},
+									dataType:'json',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(res){
+										if(res.status == 1){
+											mui.toast(res.msg);
+											plus.nativeUI.closeWaiting();
+											
+											setTimeout(function(){
+												window.location.reload();
+											},200);
+										}else{
+											mui.toast(res.msg);
+											plus.nativeUI.closeWaiting(); 
+										}
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+								
+							}else{
+								plus.nativeUI.closeWaiting();
+							}
+						})
+					})
+				//7.去评价
+					mui("body").on("tap",".evaluate",function(){
+						var order = $(this).parent().parent().attr('order');
+						var order_id = $(this).parent().parent().attr('order_id');
+						var gid = $(this).parent().parent().attr('gid');
+						console.log('gid='+gid+'order_id='+order_id);
+						mui.openWindow({
+						    url: 'pingjia.html',
+						    extras: {
+	                            order:order,
+								gid:gid,
+								order_id:order_id
+	                        }
+						});
+					})
+				//8.删除订单
+				 	mui("body").on("tap",".delorder",function(){
+				 		plus.nativeUI.showWaiting();
+						var order = $(this).parent().parent().attr('order');
+						mui.confirm('确定要永久删除订单吗？','提示',['取消','删除订单'],function(e){
+							if(e.index == 1){
+					
+								mui.ajax(APIPATH+'order/delorder',{
+									data:{token:token,order:order},
+									dataType:'json',//服务器返回json格式数据
+									type:'get',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(res){
+										if(res.status){
+											mui.toast(res.msg);
+											plus.nativeUI.closeWaiting();
+											setTimeout(function(){
+												window.location.reload();
+											},200);
+										}else{
+											mui.toast(res.msg);
+											plus.nativeUI.closeWaiting(); 
+										}
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+								
+							}else{
+								plus.nativeUI.closeWaiting();
+							}
+						})
+				 	})
+					// 跳转详情head_box
+					// mui(".detail_ul").on('tap','li',function(){
+					// 	alert('订单详情');
+					//            // var topicId =this.getAttribute("id");
+					//             //console.log("点击事件id=="+topicId);
+					//   });
+					
+			})
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/view-css/home/ziyingshangcheng-shangpingpinglun.css"/>
+	</head>
+ 
+	<body>
+		<header class="mui-bar mui-bar-nav mui-bar-nav-bg">
+		    <a style="color: #000" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">全部评论</h1>
+		</header>
+		
+		<div class="content" style="margin-top: 50px;">
+		    
+			<ul class="detail_ul">
+				<li>
+					<div class="li-content">
+						<div class="user">
+							<img class="user-img" src="../../img/l02.png" />
+							<div class="user-name">旧街没有本</div>
+						</div>
+						<span class="user-time">昨天 20:42</span>
+						<div class="user-text">测测测试,这件衣服超赞!测测测试,这件衣服超赞!测测测试,这件衣服超赞!测测测试,这件衣服超赞!测测测试,这件衣服超赞!</div>
+						<div class="box"></div>
+					</div>
+				</li>
+				
+			</ul>
+			
+		</div>
+		
+		
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/rem.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var gid = self.gid;
+				mui.ajax(APIPATH+'/Order/goodsCommentList',{
+					data:{gid:gid},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						console.log('所有评论：'+JSON.stringify(data))
+						plus.nativeUI.closeWaiting();
+						if(data.status == 1){
+							var datas = data.data;
+							var li_html = '';
+							var img_html = '';
+							for(var i=0;i<datas.length;i++){
+								var info = datas[i];
+								li_html += '<li><div class="li-content"><div class="user"><img class="user-img" src="' + info.avatar + '" /><div class="user-name">'+ info.nick +'</div></div><span class="user-time">'+ info.time +'</span><div class="user-text">'+info.content+'</div><div class="box"></div></div></li>';
+								for(var j=0;j<info.image_list.length;j++){
+									img_html += ' <img style="margin:5px;width:30%;" src="'+info.image_list[j]+'"/> ';
+								}
+							}
+							$(".detail_ul").html(li_html);
+							$(".box").html(img_html);
+						}
+					}
+				});
+			});
+			//时间戳转化为年 月 日 时 分 秒
+			function getDateFromTimestamp(number) {  
+			  var format = 'Y-M-D h:m:s';
+			  var formateArr  = ['Y','M','D','h','m','s'];  
+			  var returnArr   = [];  
+			  
+			  var date = new Date(number * 1000);  
+			  returnArr.push(date.getFullYear());  
+			  returnArr.push(formatNumber(date.getMonth() + 1));  
+			  returnArr.push(formatNumber(date.getDate()));  
+			  
+			  returnArr.push(formatNumber(date.getHours()));  
+			  returnArr.push(formatNumber(date.getMinutes()));  
+			  returnArr.push(formatNumber(date.getSeconds()));  
+			  
+			  for (var i in returnArr)  
+			  {  
+			    format = format.replace(formateArr[i], returnArr[i]);  
+			  }  
+			  return format;  
+			} 
+			
+			//数据转化  
+			function formatNumber(n) {  
+			  n = n.toString()  
+			  return n[1] ? n : '0' + n  
+			} 
+		</script>
+		
+	</body>
+
+</html>

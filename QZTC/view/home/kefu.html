@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		>
+	</head>
+	<style>
+		body{
+			background: #FFFFFF;
+		}
+		ul {
+			list-style: none;
+			margin-top: 2rem;
+			padding: 0; 
+			margin-bottom: 5rem;
+			/* border: 1px solid #FF0000; */
+			overflow: hidden;
+		}
+		li{
+			list-style: none;
+			margin:0;
+			padding: 0;
+			line-height:4rem;
+			
+		}
+		.msg-kefu{
+			width: 90%;
+			float: left;
+			margin-left: 1rem;
+		}
+		.msg-user{
+			width: 90%;
+			float: right;
+			margin-right: 1rem;
+		}
+		.pre-p{
+			display: block;
+			padding: 9.5px;
+			margin: 0 0 10px;
+			font-size: 13px;
+			line-height: 1.428571429;
+			color: #333333;
+			word-break: break-all;
+			word-wrap: break-word;
+			background-color: #f5f5f5;
+			border: 1px solid #cccccc;
+			border-radius: 4px;
+		}
+		.bt-fason{
+			width: 100%;
+			border-top: 1px solid #cccccc;
+			background: #FFFFFF;
+			height: 3.5rem;
+			position: fixed;
+			bottom: 0;
+		}
+		.text-content{ 
+			height: 100%;
+			width: 70%;
+			float: left;
+			/* border: 1px solid #000000; */
+		}
+		.text-content input{
+			width: 100%;
+			height: 100%;
+			border:0;
+		}
+		.fason{
+			/* border: 1px solid red; */
+			width: 30%;
+			float: left;
+			line-height: 3.35rem;
+			text-align: center;
+			border-left: 1px solid #CCCCCC;
+		}
+		
+	</style>
+	<body>
+		<header style="background: #FF0000;" class="mui-bar mui-bar-nav">
+			<a style="color: #FFFFFF" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 style="color: #FFFFFF;" class="mui-title">客服咨询</h1>
+		</header>
+		<div style="background: #FFFFFF;padding:0;" class="mui-content">
+			<ul id="lt">
+				
+				
+				
+			</ul>
+		</div>
+		<div class="bt-fason">
+			<div class="text-content">
+				<input type="text" name="text"  placeholder="输入需发送的内容" />
+			</div>
+			<div class="fason">
+				发送
+			</div>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/page.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/md5.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://app.cloopen.com/im50/ytx-web-im-min-new-5.4.0.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var sid = self.sid;
+				var token = window.localStorage.getItem('qztc');
+				
+				
+				mui.ajax(APIPATH+'Index/get_kefuInfo',{
+					data:{token:token,sid:sid},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					if(data.status == '1'){
+						var hh = '';
+						//遍历聊天历史
+						for(i=0;i<datas.lt.length;i++){
+							
+							if(datas['lt'][i]['type'] == '1'){
+								//用户
+								hh += '<li>'+
+											'<div class="msg-user">'+
+												'<p style="text-align: right;">'+
+													'<span style="margin-right: 1rem;font-size: 1rem;">'+datas['lt'][i]['time']+'</span>'+
+													'<span style="margin-right: 1rem;font-size: 1rem;" >'+datas['lt'][i]['nick']+'</span>'+
+													'<img style="width: 3rem;border-radius: 2rem;vertical-align: middle;" src="'+datas['lt'][i]['img']+'" >'+
+												'</p>'+
+												'<p>'+
+													'<pre style="text-align: right;" class="pre-p">'+datas['lt'][i]['text']+'</pre>'+
+												'</p>'+
+											'</div>'+
+										'</li>';
+							}else if(datas['lt'][i]['type'] == '2'){
+								//客服
+								hh += '<li>'+
+											'<div class="msg-kefu">'+
+												'<p>'+
+													'<img style="width: 3rem;height:3rem;border-radius: 2rem;vertical-align: middle;" src="'+datas['lt'][i]['img']+'" >'+
+													'<span style="margin-left: 1rem;font-size: 1rem;" >'+datas['lt'][i]['nick']+'</span>'+
+													'<span style="margin-left: 1rem;font-size: 1rem;">'+datas['lt'][i]['time']+'</span>'+
+												'</p>'+
+												'<p>'+
+													'<pre class="pre-p">'+datas['lt'][i]['text']+'</pre>'+
+												'</p>'+
+											'</div>'+
+										'</li>';
+							}
+						}
+						$("#lt").html(hh);
+						
+						
+						var _appid = "8aaf0708679d082f0167a0ce73e601ac";
+						var _account = datas.user.id;
+						var _appToken = "1416d0a58d0097a4954bd0cfc2fbc711";
+						var _nickName = "1"; //1 用户 2 客服
+						if(!isNull(_appid)&&!isNull(_account)&&!isNull(_appToken)&&!isNull(_nickName)){
+						
+							
+							//初始化SDK
+							var resp = RL_YTX.init(_appid); 
+							if(170002== resp.code){
+							//缺少必要参数，详情见msg参数
+							//用户逻辑处理
+							}else if(174001 == resp.code){
+							//不支持HTML5，关闭页面//用户逻辑处理}
+							}else if(200 == resp.code){
+							//初始化成功
+							//用户逻辑处理
+							var now = new Date();
+							var timestamp = now.getFullYear() + '' + ((now.getMonth() + 1) >= 10 ? "" + (now.getMonth() + 1) : "0" + (now.getMonth() + 1)) + (now.getDate() >= 10 ? now.getDate() : "0" + now.getDate()) + (now.getHours() >= 10 ? now.getHours() : "0" + now.getHours()) + (now.getMinutes() >= 10 ? now.getMinutes() : "0" + now.getMinutes()) + (now.getSeconds() >= 10 ? now.getSeconds() : "0" + now.getSeconds());
+							var sig = hex_md5(_appid + _account + timestamp + _appToken);
+							//登录参数
+							var loginBuilder = new RL_YTX.LoginBuilder();
+							loginBuilder.setType(1);
+							loginBuilder.setUserName(_account);	
+							loginBuilder.setPwd();
+							loginBuilder.setSig(sig);
+							loginBuilder.setTimestamp(timestamp);
+							RL_YTX.login(loginBuilder, function(objs){
+								plus.nativeUI.closeWaiting();
+								console.log("会话连接成功");
+							},function(obj){
+								plus.nativeUI.closeWaiting();
+								//登录失败回调
+								initInstantMessaging();
+							});
+							
+							//判断不支持的功能，屏蔽页面展示
+							var unsupport = resp.unsupport;
+							
+							}
+							
+						}
+						
+						//收到
+						RL_YTX. onMsgReceiveListener(callback)
+						
+						function callback(obj){
+							
+							//获取发送者为 
+							var sender = obj.msgSender;
+							//获取发送者昵称，如果不存在，使用账号代替
+							var you_senderNickName = obj.senderNickName;
+							var name = obj.msgSender;
+							if(!!you_senderNickName){
+							 name = you_senderNickName;
+							}
+							var content_type = null;
+							//获取消息版本号（是服务器的版本号）
+							var version = obj.version;
+							//获取消息发送时间
+							var time = obj.msgDateCreated;
+							//获取消息类型 
+							//1:文本消息 2:语音消息4:图片消息6:文件
+							var msgType = obj.msgType;
+							if(1 == msgType || 0 == msgType){
+							 //文本消息，获取消息内容
+							var you_msgContent = obj.msgContent;
+							var now = new Date();
+							var time = now.getFullYear() + '-' + ((now.getMonth() + 1) >= 10 ? "" + (now.getMonth() + 1) : "0" + (now.getMonth() + 1)) + "-" + (now.getDate() >= 10 ? now.getDate() : "0" + now.getDate())  + " " + (now.getHours() >= 10 ? now.getHours() : "0" + now.getHours()) + ":" + (now.getMinutes() >= 10 ? now.getMinutes() : "0" + now.getMinutes()) + ":" + (now.getSeconds() >= 10 ? now.getSeconds() : "0" + now.getSeconds());
+							var huifu = '<li>'+
+											'<div class="msg-kefu">'+
+												'<p>'+
+													'<img style="width: 3rem;height:3rem;border-radius: 2rem;vertical-align: middle;" src="'+datas['kefu']['img']+'" >'+
+													'<span style="margin-left: 1rem;font-size: 1rem;" >'+datas['kefu']['nick']+'</span>'+
+													'<span style="margin-left: 1rem;font-size: 1rem;">'+time+'</span>'+
+												'</p>'+
+												'<p>'+
+													'<pre class="pre-p">'+you_msgContent+'</pre>'+
+												'</p>'+
+											'</div>'+
+										'</li>';
+								$("#lt").append(huifu);		 
+							
+							}else if(2 == msgType){
+							 //语音消息，获取语音文件url
+							 var url = obj.msgFileUrl;
+							}else if(3 == msgType){
+							//3：视频消息，获取视频url
+							 //语音消息，获取语音文件url
+							 var url = obj.msgFileUrl;
+							}else if(4 == msgType){
+							 //图片消息 获取图片url
+							 var url = obj.msgFileUrl;
+							}else{
+							 //后续还会支持(地理位置，视频，以及自定义消息等)
+							}
+							//通知前端更新页面
+						}
+						
+						
+						
+						
+						//发送
+						mui("body").on("tap",".fason",function(){
+							plus.nativeUI.showWaiting();
+							var text = $("input[name=text]").val();
+							if(text){
+								//新建消息体对象
+								var obj = new RL_YTX.MsgBuilder();
+								//设置自定义消息id
+								obj.setId(datas.user.id);//发送人
+								//设置发送的文本内容
+								obj.setText(text);
+								//设置发送的消息类型1:文本消息 4:图片消息 6:压缩文件 7:非压缩文件
+								//发送非文本消息时，text字段将被忽略，发送文本消息时 file字段将被忽略
+								obj.setType(1);
+								//设置接收者
+								obj.setReceiver(datas.kefu.id);//接受人的ID 
+								RL_YTX.sendMsg(obj, function(){
+									var kid = datas.kefu.id;
+									
+									mui.ajax(APIPATH+'Index/liaotian_bc',{
+										data:{token:token,kid:kid,text:obj._text},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(res){
+										if(res.status == '1' ){
+											plus.nativeUI.closeWaiting();
+											mui.toast(res.msg);
+											$("input[name=text]").val("");
+											$("#lt").append("<li>"+
+																"<div class='msg-user'>"+
+																	"<p style='text-align: right;'>"+
+																		"<span style='margin-right: 1rem;font-size: 1rem;'>"+res.data+"</span>"+
+																		"<span style='margin-right: 1rem;font-size: 1rem;' >"+datas['user']['nick']+"</span>"+
+																		"<img style='width: 3rem;border-radius: 2rem;vertical-align: middle;' src='"+datas['user']['avatar']+"' >"+
+																	"</p>"+
+																	"<p>"+
+																		"<pre style='text-align: right;' class='pre-p'>"+obj._text+"</pre>"+
+																	"</p>"+
+																"</div>"+ 
+															"</li>");
+										
+										}else{
+											plus.nativeUI.closeWaiting();
+											mui.toast(res.msg);
+										}
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+									
+									
+								//发送消息成功 
+								//处理用户逻辑，通知页面
+								}, function(obj){//失败
+								plus.nativeUI.closeWaiting();
+								console.log(JSON.stringify(obj))
+								console.log("发送失败");
+								//发送消息失败
+								//处理用户逻辑，通知页面刷新，展现重发按钮
+								})
+							}else{
+								plus.nativeUI.closeWaiting()
+								mui.toast("内容不能为空");
+							}
+						})
+					}else{
+						plus.nativeUI.closeWaiting();
+						mui.toast(data.msg);
+					}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			
+			})
+		</script>
+	</body>
+
+</html>

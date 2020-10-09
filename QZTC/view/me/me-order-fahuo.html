@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.order_info{
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.info-div{
+			border-bottom: 1px dashed #DDDDDD;
+			overflow: hidden;
+		}
+		.key{
+			width: 25%;
+			float: left;
+			line-height: 5rem;
+			text-align: center;
+			color: #4A4A4A;
+		}
+		.val{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+		}
+		input[type=text]{
+			width: 95%;
+			border: 0;	
+		}
+		.btn-submit{
+			width: 100%;
+			line-height: 5rem;
+			background: #FFBC5D;
+			text-align: center;
+			color: #FFFFFF;
+			position: fixed;
+			bottom: 0;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">订单发货</h1>
+		</header>
+		<div class="mui-content">
+		   <div class="order_info">
+			   <div class="info-div">
+			   	<div class="key">
+			   	订单编号
+			   	</div>
+			   	<div class="val order_number">
+					
+			   	</div>
+			   </div> 
+			 <div class="info-div">
+				 <div class="key">
+					快递单号
+				 </div>
+				 <div class="val">
+					<select class="express_company">
+						
+					</select>
+				 </div>
+			 </div>  
+			 <div class="info-div">
+				 <div class="key">
+					快递单号
+				 </div>
+				 <div class="val">
+					<input type="text" name="express_number" value="" placeholder="请填入快递单号" oninput="value=value.replace(/[^\d]/g,'')">
+				 </div>
+			 </div> 
+		   </div>
+			
+		</div>
+		<div class="btn-submit">
+			提交
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+				var self = plus.webview.currentWebview();
+				var order = self.order;
+			
+				mui.ajax(APIPATH+'User/getwuliu',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					var hh = '';
+					for(i=0;i<datas.length;i++){
+						hh += '<option value ="'+datas[i]['code']+'">'+datas[i]['name']+'</option>';
+					}
+					$(".express_company").html(hh);
+					$(".order_number").html(order);
+					
+					//提交
+					mui("body").on("tap",".btn-submit",function(){
+						plus.nativeUI.showWaiting();
+						var code = $(".express_company option:selected").val();
+						var express_number = $("input[name=express_number]").val();
+					
+						mui.ajax(APIPATH+'User/order_fahuo',{
+							data:{token:token,order:order,code:code,express_number:express_number},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(res){
+							plus.nativeUI.closeWaiting();
+							if(res.status == '1'){
+								mui.toast(res.msg);
+								setTimeout(function(){
+									var prePage1 = plus.webview.getWebviewById("me-shop-order.html");
+									prePage1.reload(true);
+								},500);
+							}else{
+								mui.toast(res.msg);
+							}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+					})
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

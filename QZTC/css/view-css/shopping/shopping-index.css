@@ -1,0 +1,114 @@
+.mui-bar{
+	background: #E8192D;
+}
+.mui-bar .mui-title{
+	color: #FFFFFF;
+}
+.content{
+	margin-top: 2.6rem;
+	margin-bottom: 3.5rem;
+}
+.mui-input-row label{
+	font-size: 0.9rem;
+	color: #3F3F3F;
+}
+.mui-input-row span{
+	/*margin-top: rem;*/
+	font-size: 0.85rem;
+	color: #AFAFAF;
+}
+.mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{
+	font-size: 1.3rem;
+}
+.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+	top: 0.5rem;
+}
+.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{
+	color: #E8192D;
+}
+.content_ul li{
+	background: #FFFFFF;
+	padding: 0 0.5rem;
+	margin-bottom: 0.5rem;
+}
+.content_ul li .list_con{
+	display: flex;
+	border-top: 0.05rem solid #F2F2F2;
+}
+.list_con{
+	padding-top: 0.8rem;
+	padding-bottom: 1.2rem;
+	
+}
+.list_con .imgs_box{
+	text-align: center;
+	width: 40%;
+}
+.list_con .imgs_box img{
+	width: 80%;
+	height: 5.5rem;
+}
+.list_con_detail{
+	width: 60%;
+}
+.list_con_detail .col{
+	font-size: 0.9rem;
+	color: #E5645C;
+}
+.list_con_detail .dz{
+	font-size: 0.9rem;
+	color: #BFBFBF;
+	margin-left: 1rem;
+	text-decoration: line-through;
+}
+.list_con_detail .mui-pull-right{
+	font-size: 0.9rem;
+	color: #BFBFBF;
+	padding-right: 0.5rem;
+}
+.list_con_detail .text{
+	/*height: 4rem;*/
+	font-size: 0.9rem;
+	color: #6A6A6A;
+	width: 8.5rem;
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	display:-webkit-box; 
+	-webkit-box-orient:vertical;
+	-webkit-line-clamp:2; 
+
+}
+/*计算总价*/
+.compute{
+	position: fixed;
+	bottom: -0.4rem;
+	/*top:32.5rem;*/
+	width: 100%;
+}
+.compute .mui-input-row{
+	background: #FFFFFF;
+	border-bottom: 0.05rem solid #EAEAEA;
+	border-top: 0.05rem solid #EAEAEA;
+	height: 3rem;
+	line-height: 2.8rem;
+	position: relative;	
+}
+.compute .mui-input-row .item0{
+	font-size: 0.75rem;
+	color: #656565;
+	margin-left: 0.5rem;
+}
+.compute .mui-input-row .item1{
+	color: #EC2110;
+	font-size: 1rem;
+}
+.compute .mui-input-row button{
+	height: 100%;
+	width: 5rem;
+	border: none;
+	background: #F20201;
+	color: #FFFFFF;
+	position: absolute;
+	right: 0;
+	
+}

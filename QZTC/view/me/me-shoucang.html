@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.content{
+			width: 100%;
+			background: #FFFFFF;
+		}
+		ul{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.info{
+			width: 100%;
+			overflow: hidden;
+			border-bottom: 1px solid #F0F0F0;
+		}
+		.info-img{
+			width: 40%;
+			float: left;
+			/* border: 1px solid #000000; */
+		}
+		.info-img img{
+			padding-top: 0.5rem;
+			padding-bottom: 0.5rem;
+			width: 80%;
+			height: 10rem;
+			margin-left: 2rem;
+		}
+		.info-content{
+			width: 55%;
+			float: left;
+		}
+		.info-content p{
+			margin: 0;
+			color: #585858;
+		}
+		.info-title{
+			padding-top: 0.5rem;
+			font-size: 1.3rem;
+			text-overflow: -o-ellipsis-lastline;
+		    overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+		.info-time{
+			padding-top: 3.5rem;
+			float: right;
+		}
+		.null-div{
+			text-align: center;
+			line-height: 30rem;
+		}
+	</style>
+	<body>
+	<header style="background: #FF0000;" class="mui-bar mui-bar-nav">
+	    <a style="color: #FFFFFF;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 style="color: #FFFFFF;" class="mui-title">我的收藏</h1>
+	</header>
+	<div class="mui-content">
+	    <div style="border-radius: 0;" class="mui-segmented-control">
+	        <a check="true-fw" class="mui-control-item mui-active">服务</a>
+	        <a check="true-sc" class="mui-control-item" >折扣商城</a>
+	    </div>
+		<div class="content">
+			<ul id="ul-info">
+				<div class="null-div">
+					<span>暂无数据</span>
+				</div>
+			</ul>
+		</div>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>	
+	<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.init()
+		document.addEventListener("plusready",function(){
+			plus.nativeUI.showWaiting();
+			var token = window.localStorage.getItem('qztc');
+	
+			mui.ajax(APIPATH+'User/server_collect',{
+				data:{token:token},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				// headers:{'Content-Type':'application/json'},	              
+				success:function(data){
+					var datas = data.data;
+					var hh = '';
+					if(data.status == '1'){
+						for(i=0;i<datas.length;i++){
+							hh += '<li class="click-detail" idd="'+datas[i]['sid']+'" >'+
+										'<div class="info">'+
+											'<div class="info-img">'+
+												'<img src="'+datas[i]['fm_img']+'" >'+
+											'</div>'+
+											'<div class="info-content">'+
+												'<p class="info-title">'+datas[i]['title']+'</p>'+
+												'<p class="info-time">'+datas[i]['time']+'</p>'+
+											'</div>'+
+										'</div>'+
+									'</li>';
+						}
+						$("#ul-info").html(hh);
+						
+					}
+					
+					mui("body").on("tap",".mui-control-item",function(){
+						
+						var checkIF = $(this).attr("check");
+						if(checkIF == 'true-fw'){
+							//服务
+							plus.nativeUI.showWaiting();
+						
+								mui.ajax(APIPATH+'User/server_collect',{
+									data:{token:token},
+									dataType:'json',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(data){
+										var datas = data.data;
+										var svhh = '';
+										if(data.status == '1'){
+											for(i=0;i<datas.length;i++){
+												svhh += '<li class="click-detail" idd="'+datas[i]['idd']+'">'+
+															'<div class="info">'+
+																'<div class="info-img">'+
+																	'<img src="'+datas[i]['fm_img']+'" >'+
+																'</div>'+
+																'<div class="info-content">'+
+																	'<p class="info-title">'+datas[i]['title']+'</p>'+
+																	'<p class="info-time">'+datas[i]['time']+'</p>'+
+																'</div>'+
+															'</div>'+
+														'</li>';
+											}
+										}
+										mui("body").on("tap",".click-detail",function(){
+											var fid = $(this).attr("idd");
+											mui.openWindow({
+												url: '../home/housekeeping-i3-detail.html',
+												extras:{
+													fid:fid
+												}									
+											});
+										})
+										$("#ul-info").html(svhh);
+										plus.nativeUI.closeWaiting();
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+								
+								
+						}else if(checkIF == 'true-sc'){
+							//商城
+							plus.nativeUI.showWaiting();
+						
+								
+							mui.ajax(APIPATH+'User/goods_collect',{
+								data:{token:token},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(data){
+								var datas = data.data;
+								var gdhh = '';
+								if(data.status == '1'){
+								
+									for(i=0;i<datas.length;i++){
+										gdhh += '<li class="detail" idd="'+datas[i]['idd']+'">'+
+													'<div class="info">'+
+														'<div class="info-img">'+
+															'<img src="'+datas[i]['fm_img']+'" >'+
+														'</div>'+
+														'<div class="info-content">'+
+															'<p class="info-title">'+datas[i]['title']+'</p>'+
+															'<p class="info-time">'+datas[i]['time']+'</p>'+
+														'</div>'+
+													'</div>'+
+												'</li>';
+									}
+								}
+								mui("body").on("tap",".detail",function(){
+									var fid = $(this).attr("idd");
+									mui.openWindow({
+										url: '../home/ziyingshangcheng-shangpingxiangqing.html?id='+fid
+									});
+								})
+								$("#ul-info").html(gdhh);
+								plus.nativeUI.closeWaiting(); 
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});	
+								
+						}
+						
+						
+						
+					})
+					mui("body").on("tap",".click-detail",function(){
+						 var fid = $(this).attr("idd");
+						 mui.openWindow({
+							url: '../home/housekeeping-i3-detail.html',
+							extras:{
+								fid:fid
+							}									
+						 });
+					})
+					plus.nativeUI.closeWaiting();
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+			
+			
+			mui.ajax(APIPATH+'User/server_collect',{
+				data:{token:token},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				// headers:{'Content-Type':'application/json'},	              
+				success:function(data){
+				
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+		})
+	</script>
+	</body>
+
+</html>

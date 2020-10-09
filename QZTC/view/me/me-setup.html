@@ -1,0 +1,265 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+	</head>
+	<style type="text/css">
+		/*消息提示*/
+		.Message-alert{
+			background: #FFFFFF;
+			color:#585858;
+			border-bottom: 0.2rem solid #E6E6E6;
+			overflow: hidden;
+		}
+		.Message-alert-span span{
+			float: left;
+			margin-left: 1.3rem;
+			line-height: 5rem;
+			width: 55%;
+		
+		}
+		.Message-alert-icon img{
+			float: left;
+			margin-top: 0.5rem;
+			margin-left: 8rem;
+			width: 4rem;
+			height: 4rem;
+		}
+		
+		/*清除缓存*/
+		.Clear-cache{
+			background: #FFFFFF;
+			color:#585858;
+			border-bottom: 0.2rem solid #E6E6E6;
+			overflow: hidden;
+		}
+		.Clear-cache-span span{
+			float: left;
+			margin-left: 1.3rem;
+			line-height: 5rem;
+			width: 55%;
+		
+		}
+		
+		/*意见反馈*/
+		.Feedback{
+			background: #FFFFFF;
+			color:#585858;
+			border-bottom: 0.2rem solid #E6E6E6;
+			overflow: hidden;
+		}
+		.Feedback-span span{
+			float: left;
+			margin-left: 1.3rem;
+			line-height: 5rem;
+			width: 55%;
+		}
+		.Feedback-icon{
+			float: right;
+			margin-top: 0.5rem;
+			margin-right: 2rem;
+		}
+		.Feedback-icon a{
+			color: #CACBCB;
+			margin-top: 0.5rem;
+		}
+		/*关于我们*/
+		.About-us{
+			background: #FFFFFF;
+			color:#585858;
+			border-bottom: 0.2rem solid #E6E6E6;
+			overflow: hidden;
+		}
+		.About-us-span span{
+			float: left;
+			margin-left: 1.3rem;
+			line-height: 5rem;
+			width: 55%;
+		}
+		.About-us-icon{
+			float: right;
+			margin-top: 0.5rem;
+			margin-right: 2rem;
+		}
+		.About-us-icon a{
+			color: #CACBCB;
+			margin-top: 0.5rem;
+		}
+		/*联系我们*/
+		.contact-us{
+			background: #FFFFFF;
+			color:#585858;
+			border-bottom: 0.2rem solid #E6E6E6;
+			overflow: hidden;
+		}
+		.contact-us-span span{
+			float: left;
+			margin-left: 1.3rem;
+			line-height: 5rem;
+			width: 55%;
+		}
+		.contact-us-icon{
+			float: right;
+			margin-top: 0.5rem;
+			margin-right: 2rem;
+		}
+		.contact-us-icon a{
+			color: #CACBCB;
+			margin-top: 0.5rem;
+		}
+		/*退出登录*/
+		.log-off{
+			background: #FFFFFF;
+			color:#585858;
+			border-bottom: 0.2rem solid #E6E6E6;
+			overflow: hidden;
+		}
+		.log-off-span span{
+			float: left;
+			margin-left: 1.3rem;
+			line-height: 5rem;
+			width: 55%;
+		}
+		
+	</style>
+	<body style="background: #FFFFFF;">
+		
+		<header style="background: #FF0000;" class="mui-bar mui-bar-nav">
+		    <a style="color: #FFFFFF;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 style="color: #FFFFFF;" class="mui-title">设置</h1>
+		</header>
+		<div class="mui-content">
+		    <!-- <div class="Message-alert">
+		    	 <div class="Message-alert-span">
+		    	 	<span>消息提醒</span>
+		    	 </div>
+		    	 <div isswitch="close" class="Message-alert-icon">
+		    	 	<img  src="../../img/close.png"/>
+		    	 </div>
+		    </div>
+		    <div class="Clear-cache">
+		    	 <div class="Clear-cache-span">
+		    	 	<span>清除缓存</span>
+		    	 </div>
+		    </div> -->
+		    <div class="Feedback">
+		    	 <div class="Feedback-span">
+		    	 	<span>意见反馈</span>
+		    	 </div>
+		    	 <div class="Feedback-icon">
+		    	 	<a class="fa fa-angle-right fa-2x"></a>
+		    	 </div>
+		    </div>
+		    <div class="About-us">
+		    	 <div class="About-us-span">
+		    	 	<span>支付密码</span>
+		    	 </div>
+		    	 <div class="About-us-icon">
+		    	 	<a class="fa fa-angle-right fa-2x"></a>
+		    	 </div>
+		    </div>
+		    <div class="contact-us">
+		    	 <div class="contact-us-span">
+		    	 	<span>联系我们</span>
+		    	 </div>
+		    	 <div class="contact-us-icon">
+		    	 	<a class="fa fa-angle-right fa-2x"></a>
+		    	 </div>
+		    </div>
+		    <div class="log-off">
+		  
+		    </div>
+		</div>
+		 
+
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/rem.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var token = window.localStorage.getItem('qztc');
+			mui("body").on("tap",".Message-alert-icon",function(){
+				var isswitch = $(this).attr("isswitch");
+				if(isswitch == 'close'){
+					//设置 开
+					$(this).html('<img  src="../../img/open.png"/>');
+					$(this).attr({"isswitch":"open"});
+				}else{
+					//设置 关
+					$(this).html('<img src="../../img/close.png"/>');
+					$(this).attr({"isswitch":"close"});
+				}
+			});
+			
+			mui("body").on("tap",".contact-us",function(){
+				mui.openWindow({
+					url: "me-lianxi.html"
+				});	
+			})
+			mui("body").on("tap",".Feedback",function(){
+				mui.openWindow({
+					url: 'feedback.html' 
+				})
+			})
+			
+			mui("body").on("tap",".About-us",function(){
+				mui.openWindow({
+					url: 'me-uppass.html' 
+				})
+			})
+			
+			if(token){
+				//如果有登录才会出来退出登录
+				$(".log-off").html('<div class="log-off-span">'+
+							    	 	'<span>退出登录</span>'+
+							    	  '</div>');	
+				mui('body').on("tap",".log-off-span",function(){
+					mui.confirm('您确定要退出登录吗？','提示',['取消','确定'],function(e){
+						if(e.index == 1){
+							//去登录
+								window.localStorage.removeItem('qztc');
+								//判断当前设备类型
+								if(mui.os.ios || mui.os.ipad || mui.os.android) {
+									// 获取当前webview窗口对象
+									var curr = plus.webview.currentWebview();
+									
+									//获取所有已经打开的webview窗口
+									var wvs = plus.webview.all();
+									
+									
+									for(var i = 0, len = wvs.length; i < len; i++) {
+									//关闭除当前页面外的其他页面
+									if(wvs[i].getURL() == curr.getURL())
+									
+									//遇到当前页跳过
+									continue;
+									
+									//非当前页执行关闭
+									plus.webview.close(wvs[i]); 
+									}
+									//打开login页面
+								  
+									plus.webview.open('../../login.html');
+									//执行关闭当前页面
+									curr.close();
+								} else{ 
+								
+									//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+									plus.runtime.quit();
+								
+								} 		
+						}
+					});
+				});	
+			}
+			
+			
+		</script>
+	</body>
+
+</html>

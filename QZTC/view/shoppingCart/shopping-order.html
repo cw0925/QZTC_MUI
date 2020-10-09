@@ -1,0 +1,858 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/view-css/shopping/shopping-order.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/passkey.css"/>
+	</head>
+	<style type="text/css">
+		#popover{
+				width:100%;
+			/*	height:40rem;*/
+				background: white;
+				position: fixed; 
+				bottom: 0%;
+				border-radius: 0;
+				z-index: 1100;
+			}
+		#yezftc{
+			position: fixed;	
+			top: 0;
+			background: #F0F0F0;
+			width: 100%;
+			height: 100%;
+			border-radius: 0;
+			z-index: 1111;
+			/*opacity: 0.9;*/
+			
+		}
+		.have{
+			color: #EE7900;
+		}
+	</style>
+	<body>
+		<header style="background: #E8192D;" class="mui-bar mui-bar-nav">
+		    <a id="fanhui" style="color: #FFFFFF;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 style="color: #FFFFFF;" class="mui-title">确认订单</h1>
+		</header>
+		<div class="mui-content content">
+		    <div class="addressinfo">
+		    	<div>
+		    		<span class="address-name">收货人： </span>
+		    		<span class="address-phone">联系方式： </span>
+		    	</div>
+		    		<img src="../../img/weizhi.png"/>
+				<div class="address">
+		    		<span>收货地址：</span>					
+				</div>
+				<a class="fa fa-angle-right expand" href="#"></a>
+		    </div>
+		    <div class="goods-info">
+		    	<div class="info-top">
+		    		<span>商品清单</span>
+		    	</div> 
+		    	<div class="goods"> 
+		    		<div class="goods-img">
+		    			<img src="../../imgs/bmjz_image5.png"/>
+		    		</div>
+		    		<div class="info">
+		    			<span class="info-title"></span>
+		    		</div>
+		    		<div class="sku">
+		    			<span></span>
+		    		</div>
+		    		<div class="info-price">
+		    			<span class="price"></span>
+		    			<span class="num"></span>
+		    		</div>
+		    		<div class="info-subprice">
+		    			<span></span>
+		    		</div>
+		    	</div>
+		    
+		    </div>
+			<div class="peison">
+				<span class="peison-psfs">配送方式</span>
+				<span class="peison-fs">包邮</span>
+			</div>
+			<div class="youhuiquan">
+				<span class="youhuiquan-title">优惠券</span>
+				<span class="youhuiquan-content"></span>
+			</div>
+			<div class="tehui">
+				<span class="tehui-title">特惠券</span>
+				<span class="tehui-content"></span>
+			</div> 
+			<div class="message">
+				<span>买家留言：</span>
+				<input type="text" name="words" class="words" placeholder="备注" />
+			</div>
+			<div class="goods-count">
+				<span>共 2 件商品</span>
+			</div>
+			
+			
+			
+			<div class="submit-order">
+				<div class="price-total">
+					<span class="submit-heji">合计：</span><span class="heji-price"></span>				
+				</div>
+				<div class="order-bt">
+					<input type="button" name="submitorder"  value="提交订单" />				
+				</div>
+			</div>	
+			
+			<!--支付选择-->
+			<div id="popover" class="mui-popover">
+				<div class="title-fkfs">
+					<span>选择付款方式</span>
+					
+				</div>
+				<div class="Payment-type">
+					<!--余额-->
+					<div class="remainingsum">
+						<img  src="../../img/ye.png"/>
+						<span>余额 </span>
+						<input type="radio" checked name="payment" value="1" />	
+					</div>
+					<!--支付宝-->
+					
+					<div class="Alipay">
+						<img src="../../img/zfb.png"/>
+						<span>支付宝</span>
+						<input type="radio" name="payment" value="2" />	
+					</div>
+					
+					<!--微信-->
+					<div class="Wechat">
+						<img src="../../img/wx.png"/>
+						<span>微信</span>
+						<input type="radio" name="payment" value="3" />	
+					</div>
+				</div>
+				<div class="bt-fk">
+					<button id="bt-fk">立即支付</button>
+				</div>
+			</div>
+		</div>
+		
+		<!--余额支付密码弹窗-->
+		<div id="yezftc" class="mui-popover">
+			<div class="yezf"> 
+				<div class="pwd-box" style="position: relative;">
+					<p class="p-order">订单号：</p>
+					<i style="position: absolute; top: -7rem;right: 0rem;" class="fa fa-close fa-2x"></i>
+					<input autofocus="autofocus" type="tel" maxlength="6" class="pwd-input" id="pwd-input">
+					<div class="fake-box">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+					</div>
+					<span style="position: absolute; left: 30%;top: -3rem;color: red;font-size: 3rem;" class="price-total-span"></span>
+				</div>  
+		    </div>
+		</div>
+		
+		
+		
+<!--<input type="hidden" id="refreshed" value="no">-->
+<input type="hidden"  id="is-fanhui" value="0" />
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/rem.js"></script>
+<script src="../../js/page.js"></script>
+<script src="../../js/fastclick.js"></script>
+<script type="text/javascript">
+// window.localStorage.removeItem('order')
+// console.log(window.localStorage.removeItem('order')); 
+var wxChannel = null; // 微信支付 
+var aliChannel = null; // 支付宝支付
+var channel = null;
+
+
+mui.init();
+
+mui.plusReady(function(){ 
+
+// 获取支付通道
+plus.payment.getChannels(function(channels){
+
+aliChannel=channels[0];
+wxChannel=channels[1];
+// console.log(JSON.stringify(channels))
+},function(e){
+mui.toast("获取支付通道失败："+e.message);
+});
+
+var self = plus.webview.currentWebview();
+var token = self.token;
+var orderinfo = self.orderinfo; 
+var gwcif = self.gwcif;
+var tuan_number = self.tuan_number;
+var uid_type = self.uid_type;
+var is_valid = self.is_valid;
+
+mui('body').on('tap','.fa-close',function(){
+mui('#yezftc').popover("hide");
+mui('#popover').popover('toggle');
+});
+
+mui('body').on('tap','.addressinfo',function(){
+mui.openWindow({
+url: '../me/shouhuodizhi.html',
+});
+})
+
+mui('body').on('tap','#fanhui',function(e){
+var fanhui = $("#is-fanhui").val();
+
+if(fanhui  == 0){
+
+//还没生成订单之前
+	$("#is-fanhui").val(0);
+	window.localStorage.removeItem('order');
+mui.back();
+
+}else{
+e.stopPropagation();
+//订单生成了
+mui.confirm('您还未付款,如要付款请点击继续支付。','确定要离开收银台？',['继续支付','确认离开'],function(e){
+if(e.index == 1){
+//确定离开
+$("#is-fanhui").val(0);
+window.localStorage.removeItem('order');
+plus.webview.close(plus.webview.currentWebview());
+var h = plus.webview.getWebviewById("tab");
+plus.webview.show( h );
+// mui.openWindow({
+// url: '../../bottom_nav.html',
+// });
+
+}
+return false;
+});
+
+}
+});
+
+//			document.addEventListener("plusready",function(){
+
+plus.nativeUI.showWaiting(); 
+
+if(token){  	
+	mui.ajax(APIPATH+'Index/shopgoods',{
+		data:{token:token,orderobj:orderinfo},
+		dataType:'json',//服务器返回json格式数据
+		type:'get',//HTTP请求类型
+		timeout:10000,//超时时间设置为10秒；              
+		success:function(data){
+			var datas = data.data;
+			console.log("订单信息"+JSON.stringify(datas))
+			if(datas['address'] == null){
+			//空的 
+			mui.confirm('获取收货地址失败,如果您尚未设置收货地址，请点击设置','提示',['取消','设置'],function(e){
+			if(e.index == 1){
+			//设置的
+			
+			mui.openWindow({
+			url: '../me/shouhuodizhi.html',
+			});
+			}else{
+			//取消的
+			mui.back();
+			}
+			});
+			
+			}else{
+			//有默认的收货地址
+			$(".address-name").html('收货人:'+datas['address']['nick']);
+			$(".address-phone").html("电话:"+datas['address']['phone']);
+			$(".address").html("<span class='address-address'>收货地址:"+datas['address']['address']+' '+datas['address']['detailedaddress']+"</span>")
+			var goodshh =   '<div class="info-top">'+
+			'<span>商品清单</span>'+
+			'</div>';
+			for(i = 0;i<datas.goods.length;i++){
+			var price = '';
+			var subprice = '';
+			if(is_valid&&datas.vip == '1'||gwcif==3){
+			price = '<span class="price">￥'+datas.goods[i]['vipprice']+'</span>';
+			subprice = '<span class="subprice">小计 ：'+datas.goods[i]['vip_subtotal']+'</span>';
+			}else{
+			price = '<span class="price">￥'+datas.goods[i]['price']+'</span>';
+			subprice = '<span class="subprice">小计 ：'+datas.goods[i]['subtotal']+'</span>';
+			}
+			goodshh += '<div class="goods" gid="'+datas.goods[i]['id']+'">'+
+			'<div class="goods-img">'+
+			'<img src="'+datas.goods[i]['img']+'"/>'+
+			'</div>'+
+			'<div class="info">'+
+			'<span class="info-title">'+datas.goods[i]['title']+'</span>'+
+			'</div>'+
+			'<div class="sku">'+
+			'<span sku="'+datas.goods[i]['sku']+'" class="skustr">'+datas.goods[i]['skustr']+'</span>'+
+			'</div>'+
+			'<div class="info-price">'+
+			price+
+			'<span class="num">x'+datas.goods[i]['num']+'</span>'+
+			'</div>'+
+			'<div class="info-subprice">'+
+			subprice+
+			'</div>'+
+			'</div>';
+			}
+			
+			//商品清单
+			$(".goods-info").html(goodshh);
+			//配送
+			$(".peison-fs").html(datas.postagestr);
+			//优惠券
+			if(datas.youhuiquan){
+			$(".youhuiquan-content").html("有优惠券可用");
+			$(".youhuiquan-content").attr("class","youhuiquan-content have");
+			
+			mui("body").on("tap",".have",function(){
+			var gid = datas.goods_str;
+			var total = datas.total;
+			var fanhui = $("#is-fanhui").val();
+			
+			if(fanhui == '0'){
+			mui.openWindow({ 
+			url: '../home/ziyingshangcheng-order-youhuijuan.html',
+			extras:{ 
+			gid:gid,
+			total:total
+			}									
+			});
+			}else if(fanhui == '1'){
+			mui.toast('订单已生成,不可选择优惠券');
+			}
+			})
+			}else{
+			$(".youhuiquan-content").html("无优惠券可用");
+			}
+			 // -------------------------------特惠券-------------------------
+			 
+			  if(datas.tehui.length){ 
+				var tehuiArr = datas.tehui
+				var  tehui_html = '<select style="" name="tehui"><option value="" >请选择</option>';
+				for(var i = 0;i < tehuiArr.length;i++){
+					tehui_html += "<option data-price='"+tehuiArr[i]['price']+"' value='"+tehuiArr[i]['id']+"'>"+tehuiArr[i]['title']+"</option>";
+				}  
+				tehui_html += '</select>';
+				$(".tehui-content").html(tehui_html);
+				
+				$("select[name=tehui]").on('change', function(){
+					var price = parseInt($("select[name=tehui] option:selected").attr("data-price"));
+					if(datas.vip == '1'){
+						var total_num = parseFloat(datas.vip_total) - parseFloat(price);
+						if(total_num < 0){
+							$(".heji-price").html(0.1);
+						}else{
+							$(".heji-price").html(total_num);
+						}
+					}else{
+						var total_num = parseFloat(datas.total) - parseFloat(price);
+						if(total_num < 0){
+							$(".heji-price").html(0.1);
+						}else{
+							$(".heji-price").html(total_num);
+						}
+					}
+					
+				})
+				
+				
+			  }else{
+				 $(".tehui-content").html("无优惠券可用");
+			  }
+			 
+			 // ----------------------------end-------------------------------
+			
+			
+			
+			//商品数量
+			$(".goods-count").html('<span>共 '+datas.goods.length+' 件商品</span>');
+			//合计
+			if(is_valid&&datas.vip == '1'|| gwcif == 3){
+			$(".heji-price").html(datas.vip_total);
+			}else{
+			$(".heji-price").html(datas.total);
+			}
+			
+			//返回回来要执行的方法   
+			function fun2(e){
+			
+			var val=e.detail   
+			var jid = val.jid;   
+			var price = val.price;
+			
+			if(datas.vip == '1'){
+			var total = datas.vip_total - parseInt(price); 
+			}else{
+			var total = datas.total - parseInt(price);  
+			}
+			$(".youhuiquan-content").html("- "+price);
+		
+			$(".youhuiquan-content").attr("val",jid);
+			$(".youhuiquan-content").attr("class","youhuiquan-content zk");
+			$(".heji-price").html(total +" 元");
+			
+			}   
+			//自定义窗体事件  doit 要和b页面定义的 事件名称一致   
+			window.addEventListener('doit1',fun2);
+			
+			//余额
+			$(".remainingsum").html('<img  src="../../img/ye.png"/>'+
+			'<span>余额 : (￥'+datas.wallet+')</span>'+
+			'<input type="radio" checked name="payment" value="1" />');
+			//点击弹起支付选择
+			mui("body").on('tap','input[name=submitorder]',function(){
+				
+			mui('#popover').popover("show");
+			
+			//邮费
+			var postage = $(".peison-fs").html();
+			//付款金额
+			var totalprice = $(".heji-price").html();
+			//收货信息
+			var addressinfo = {};
+			addressinfo['name'] = $(".address-name").html().split(":")[1];
+			addressinfo['phone'] = $(".address-phone").html().split(":")[1];
+			addressinfo['address'] = $(".address-address").html().split(":")[1];
+			var addressstr = JSON.stringify(addressinfo);
+			//买家留言
+			var words = $(".words").val();
+			
+			
+			
+			//商品
+			var goods = [];
+			var goodsinfo = {};
+			for(i=0;i<$(".goods").length;i++){
+			goodsinfo['gid'] = $(".goods").eq(i).attr('gid');
+			goodsinfo['title'] = $(".info-title").eq(i).html();
+			goodsinfo['sku'] = $(".skustr").eq(i).html();
+			goodsinfo['num'] = $(".num").eq(i).html().substring(1);
+			goodsinfo['price'] = $(".price").eq(i).html().substring(1);
+			goodsinfo['subtotal'] = $(".subprice").eq(i).html().split("：")[1];
+			goodsinfo['skuid'] = $(".skustr").eq(i).attr('sku');
+			goods[i] = JSON.stringify(goodsinfo);
+			
+			}	
+			
+			var goodsstr = "'[" + goods + "]'";
+			
+			//生成订单
+			var orderhao = window.localStorage.getItem('order');
+		
+						
+			if(orderhao){
+			
+				//已生成
+				$("#is-fanhui").val(1);
+				//点击弹起余额支付密码输入框
+				mui("body").on('tap','#bt-fk',function(){
+				$("input[name=tel]").trigger("click").focus();
+				var tcval = $("input[name=payment]:checked").val();
+				
+				if(tcval == 1){
+			
+				$(".price-total-span").html("￥"+totalprice);
+				$(".p-order").html("订单编号："+orderhao);
+				mui('#yezftc').popover("show");
+			
+				//余额支付
+				var input = $(".fake-box input");
+				$("#pwd-input").on("input", function() {
+					var pwd = $(this).val().trim();
+					for (var i = 0, len = pwd.length; i < len; i++) {
+					input.eq("" + i + "").val(pwd[i]);
+					}
+					input.each(function() {
+			
+					var index = $(this).index();
+			
+						if (index >= len) {
+						$(this).val("");
+						}
+					});
+					if (len == 6) {
+						plus.nativeUI.showWaiting();
+						
+						//拿到输入框的密码
+						var userpassword = $("input[type=tel]").val();
+						
+						mui.ajax(APIPATH+'index/pay',{
+							data:{token:token,type:1,order_number:orderhao,userpassword:userpassword},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							// headers:{'Content-Type':'application/json'},	              
+							success:function(res){
+								plus.nativeUI.closeWaiting();
+								
+								if(res.status == 1){
+									mui.toast(res.msg);
+									window.localStorage.removeItem('order');
+									mui('#yezftc').popover("hide");		
+									mui.openWindow({
+									url: 'payment-success.html',
+									extras :{
+									"totalprice":totalprice
+									}
+								});
+								}else{ 
+									$("input[type=tel]").val('');
+									$("input[type=password]").val('');
+									mui.toast(res.msg);	
+								}	
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								console.log(type);
+							}
+						});
+					}
+				});
+			
+				}else if(tcval == 2){
+			
+				plus.nativeUI.showWaiting();
+				console.log(orderhao)
+				console.log(token)
+				mui.ajax(APIPATH+'Index/pay',{
+					data:{token:token,type:2,order_number:orderhao},
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(res){
+						
+						plus.nativeUI.closeWaiting();
+						if(res.status == 200){
+						var xmlres = res.data;
+										
+						plus.payment.request(aliChannel,xmlres,function(result){
+						plus.nativeUI.alert("支付成功！",function(){
+							mui('#yezftc').popover("hide");
+						window.localStorage.removeItem('order');
+						plus.webview.close(plus.webview.currentWebview());
+						mui.openWindow({
+						url: 'payment-success.html',
+						extras :{
+						"totalprice":totalprice
+						}
+						});
+						});
+						},function(error){
+						mui.toast("支付没有成功");
+						});
+						}else{
+						mui.toast('获取订单信息失败');
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+				}else if(tcval == 3){
+				plus.nativeUI.showWaiting();
+				
+				mui.ajax(APIPATH+'Index/pay',{
+					data:{token,token,type:3,order_number:orderhao},
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(res){
+						plus.nativeUI.closeWaiting();
+									
+						if(res.status == 200){
+						var xmlres = JSON.stringify(res.data);
+						plus.payment.request(wxChannel,xmlres,function(result){
+							plus.nativeUI.alert("支付成功！",function(){
+								mui('#yezftc').popover("hide");
+								window.localStorage.removeItem('order');
+								plus.webview.close(plus.webview.currentWebview());
+								mui.openWindow({
+									url: 'payment-success.html',
+									extras :{
+									"totalprice":totalprice
+									}
+								});
+							});
+						},function(error){
+							console.log(JSON.stringify(error));
+							mui.toast("支付没有成功");
+						});
+						}else{
+							console.log(JSON.stringify(res));
+							mui.toast('获取订单信息失败2');
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				}	
+			
+				})
+			}else{ //生成订单号
+			var data = {
+						"token":token,
+						"postage":postage,
+						"total":totalprice,
+						"takedelivery":addressstr,
+						"words":words,
+						"goods":goodsstr,
+						"jid":jid,
+						"tehui_id":tehui_id
+						}
+				if(gwcif==1){//判断是购物车过来的 
+				
+					mui.ajax(APIPATH+'index/removegoods',{
+						data:{token:token,goods:orderinfo},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(res){
+						
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+					
+				}else if(gwcif==3){//拼团过来的
+					data = {
+						"token":token,
+						"postage":postage,
+						"total":totalprice,
+						"takedelivery":addressstr,
+						"words":words,
+						"goods":goodsstr,
+						"jid":jid,
+						"tehui_id":tehui_id,
+						"tuan_number":tuan_number,
+						"uid_type":uid_type
+						};
+				}
+				var jid = $('.zk').attr("val");//优惠券的ID
+				var tehui_id =  $("select[name=tehui] option:selected").val();
+				 console.log(token)
+				 console.log(postage)
+				 console.log(totalprice)
+				 console.log(addressstr)
+				 console.log(words)
+				 console.log(goodsstr) 
+				 console.log(jid)
+				 console.log(tehui_id)  
+				//未生成		    
+				mui.ajax(APIPATH+"index/createorder",{  
+					data:data,
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；  
+					// headers:{'Content-Type': 'application/json'},
+					headers:{'Content-Type':'application/x-www-form-urlencoded'}, 
+					success: function(res){     
+						 plus.nativeUI.closeWaiting();
+						if(res.status == 1){
+							window.localStorage.setItem('order',res.data);
+							$("#is-fanhui").hide(); 
+							//点击弹起余额支付密码输入框
+							mui("body").on('tap','#bt-fk',function(){
+							$("#pwd-input").trigger("click").focus();
+							var tcval = $("input[name=payment]:checked").val();
+							var order_number = res.data;
+								
+							$(".price-total-span").html("￥"+totalprice);
+							$(".p-order").html("订单编号："+order_number);
+							if(tcval == 1){//余额支付
+								mui('#yezftc').popover("show");	
+								//余额支付
+								var input = $(".fake-box input");
+								$("#pwd-input").on("input", function() {
+								var pwd = $(this).val().trim();
+								for (var i = 0, len = pwd.length; i < len; i++) {
+								input.eq("" + i + "").val(pwd[i]);
+								}
+								input.each(function() {
+												
+								var index = $(this).index();
+												
+								if (index >= len) {
+								$(this).val("");
+								}
+								});
+								if (len == 6) {
+								plus.nativeUI.showWaiting();
+											
+								//拿到输入框的密码
+								var userpassword = $("input[type=tel]").val();
+								mui.ajax(APIPATH+'index/pay',{
+									data:{token:token,type:1,order_number:order_number,userpassword:userpassword},
+									dataType:'json',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(res){
+										plus.nativeUI.closeWaiting(); 
+										
+										if(res.status == 1){
+											mui.toast(res.msg);
+											window.localStorage.removeItem('order');
+											mui('#yezftc').popover("hide");		
+											setTimeout(function(){
+												mui.openWindow({
+													url: 'payment-success.html',
+													extras :{
+													"totalprice":totalprice
+													}
+												});
+											},500)
+											
+										}else{ 
+											$("input[type=tel]").val('');
+											$("input[type=password]").val('');
+											mui.toast(res.msg);	
+										}
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+								
+								}
+								});
+											
+							}else if(tcval == 2){//支付宝支付
+							
+							plus.nativeUI.showWaiting();
+												
+							mui.ajax(APIPATH+'Index/pay',{
+								data:{token,token,type:2,order_number:order_number},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(res){
+									
+									plus.nativeUI.closeWaiting();
+									if(res.status == 200){
+									var xmlres = res.data;
+									plus.payment.request(aliChannel,xmlres,function(result){
+									plus.nativeUI.alert("支付成功！",function(){
+										mui('#yezftc').popover("hide");
+										window.localStorage.removeItem('order');
+										mui.openWindow({
+										url: 'payment-success.html',
+										extras :{
+										"totalprice":totalprice
+										}
+										});
+									});
+									},function(error){				
+										mui.toast("支付没有成功");
+									});
+									}else{
+									plus.nativeUI.closeWaiting();
+									mui.toast('获取订单信息失败3');
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+							}else if(tcval == 3){//微信支付
+							plus.nativeUI.showWaiting();
+											
+							mui.ajax(APIPATH+'Index/pay',{
+								data:{token,token,type:3,order_number:order_number},
+								dataType:'json',//服务器返回json格式数据
+								type:'get',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；            
+								success:function(res){
+									console.log('微信支付成功'+JSON.stringify(res));
+									plus.nativeUI.closeWaiting();
+									if(res.status == 200){
+									var xmlres = JSON.stringify(res.data);
+													
+									plus.payment.request(wxChannel,xmlres,function(result){
+									plus.nativeUI.alert("支付成功！",function(){
+										mui('#yezftc').popover("hide");
+									window.localStorage.removeItem('order');
+									mui.openWindow({
+									url: 'payment-success.html',
+									extras :{
+									"totalprice":totalprice
+									}
+									});
+									});
+									},function(error){
+									console.log("微信支付失败"+JSON.stringify(error));
+									mui.toast("微信支付失败");
+									});
+									}else{
+									console.log('获取订单信息'+JSON.stringify(res));
+									mui.toast('获取订单信息失败4');
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+							
+							}	
+											
+							})
+						}else{
+							mui.toast(res.msg); 
+						}
+					},  
+					error: function(xhr,type,errorThrown){  
+						console.log(JSON.stringify(errorThrown))
+						console.log(JSON.stringify(xhr))
+					}  
+				});  
+				
+				
+			}
+			
+			})
+			}
+			plus.nativeUI.closeWaiting();
+		},
+		error:function(xhr,type,errorThrown){
+			//异常处理；
+			
+			console.log(type);
+		}
+	});
+	
+	
+}else{
+plus.nativeUI.closeWaiting();
+mui.toast('抱歉!您还未登录，请登录后再进行操作！');
+}
+});
+</script>
+	</body>
+
+</html>

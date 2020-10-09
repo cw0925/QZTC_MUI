@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.mui-bar{
+			background: #FFFFFF;
+		}
+		.mui-bar a{
+			color: #333333;
+		}
+		.mui-bar h1{
+			color: #333333;
+		}
+		.mui-table-view-cell {
+			display: flex;
+		}
+		.mui-table-view-cell .img_box{
+			width: 30%;
+			text-align: center;
+		}
+		.mui-table-view-cell .img_box img{
+			width: 80%;
+		}
+		.mui-table-view-cell .text{
+			width: 70%;
+		}
+		.mui-table-view-cell .text>p{
+			font-size: 0.85rem;
+			color: #3A3A3A;
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+		}
+		.mui-table-view-cell .text>div{
+			margin-top: 4%;
+		}
+		.mui-table-view-cell .text>div>span{
+			font-size: 0.7rem;
+			color: #838383;
+		}
+		.null-div{
+			width: 100%;
+			line-height: 20rem;
+			text-align: center;
+			
+		}
+		.open-shop{
+			width: 26%;
+			text-align: center;
+			line-height: 1rem;
+			float: right;
+			padding-bottom:2px; border-bottom:2px solid #000
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的发布</h1>
+		</header>
+		<div class="content" style="margin-top: 2.6rem;">
+			<div class="null-div">
+				<span>暂时无发布店铺</span>
+			</div>	
+		</div>
+
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+			
+				mui.ajax(APIPATH+'User/my_release',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data;
+						var hh = '';
+						var status = '';
+						var div = '';//实体店类型 和生鲜市场 可以上床商品
+						if(data.status == '1'){
+							hh += '<ul class="mui-table-view">';
+								
+							for(i=0;i<datas.length;i++){
+								if(datas[i]['status'] == '1'){
+									status = '正在审核';
+									div = '';
+								}else if(datas[i]['status'] == '2'){
+									status = '已通过';
+									div = '<div class="open-shop" val="'+datas[i]['id']+'">进入店铺</div>';
+								}else if(datas[i]['staus'] == '3'){ 
+									status = '审核不通过'; 
+									div = '';
+								}
+								hh += ' <li class="mui-table-view-cell">'+
+											'<div class="img_box">'+
+												'<img style="height:5rem" src="'+datas[i]['fm_img']+'"/>'+
+											'</div>'+
+											'<div class="text">'+
+												'<p>'+datas[i]['title']+'</p>'+
+												'<div><span>申请时间 :'+datas[i]['time']+'</span></div>'+
+												'<div><span style="color:#ff0000">申请状态 :'+status+'</span></div>'+
+												div+
+											'</div>'+
+										'</li>';
+							}
+							hh += '</ul>';
+							mui("body").on("tap",".open-shop",function(){
+								var shop_id = $(this).attr('val');
+								mui.openWindow({
+									url: "./me-shop.html",
+									extras :{
+										"shop_id":shop_id
+									}
+								});	
+							})
+							$(".content").html(hh);
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

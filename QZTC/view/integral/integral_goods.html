@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>	
+	<style type="text/css">
+		.body{
+			width: 100%;
+			background: #FFFFFF;
+			padding-bottom: 1rem;
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+		}
+		.goods{
+			width: 45%;
+			border: 0.05rem solid #D3D3D3;
+			margin-left: 3.5%;	
+			margin-top: 1rem;
+		}
+		.foot-p{
+			padding-top: 1rem;
+			padding-bottom: 0.5rem;
+			text-align: center;
+			/*background: #FFFFFF;*/
+			line-height: 2rem;
+		}
+		.foot-p p{
+			font-size: 1rem;
+		}
+		.goods-img{
+			height: 8rem;
+			text-align: center;
+			border-bottom: 0.05rem solid #D3D3D3;
+		}
+		.goods-img img{
+			margin-top: 0.2rem;
+			width: 90%;
+			height: 95%;
+		}
+		.goods-info{
+			height: 30%;
+		}
+		.goods-info p{
+			margin-left: 0.5rem;
+			margin-bottom: 0;
+			margin-right: 0.5rem;
+		}
+		.goods-title{
+			margin-top: 0.2rem;
+			color: #000000;
+			font-size: 0.9rem;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.goods-price{
+			margin-top: 0.2rem;
+			font-size: 0.75rem;
+		}
+		.goods-integral{
+			margin-top: 0.2rem;
+			font-size: 0.8rem;
+			color: #FF0000;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">全部商品</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="body">
+		    	
+		    	
+		    </div>
+		   <div class="foot-p">
+		   	<p>已经没有了哦~</p>
+		   </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/page.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+			
+				mui.ajax(APIPATH+'Integral/integral_goods',{
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data
+											
+						var hh = '';
+						if(data.status == '1'){
+							for(i=0;i<datas.length;i++){
+								hh += '<div iid="'+datas[i]['id']+'" class="goods">'+
+								    		'<div class="goods-img">'+
+								    			'<img src="'+datas[i]['cover_img']+'"/>'+
+								    		'</div>'+ 
+								    		'<div class="goods-info">'+
+								    			'<p class="goods-title">'+datas[i]['title']+'</p>'+
+								    			'<p class="goods-price">市价：￥'+datas[i]['market_price']+'</p>'+
+								    			'<p class="goods-integral">积分：'+datas[i]['consume_integral']+'</p>'+
+												'<p class="goods-integral">金额：'+datas[i]['consume_money']+'</p>'+
+								    		'</div>'+
+								    	'</div>';
+							}
+							$(".body").html(hh);
+						}else{ 
+							hh = '<div style="line-height:30rem;text-align:center;color:#acacac"><span>抱歉,暂无数据</span></div>';
+							$(".body").html(hh);
+							$(".foot-p").hide();  
+							$("body").css("background","#FFFFFF");
+						}
+						mui("body").on("tap",".goods",function(){
+							var sid = $(this).attr("iid");
+							
+							mui.openWindow({
+								url: 'integral_goods_detail.html',
+								extras:{
+									sid:sid
+								}
+							});
+						})
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

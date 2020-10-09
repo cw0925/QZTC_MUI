@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../fonts/iconfont.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.mui-bar{
+			background: #E8192D;
+		}
+		.mui-bar a{
+			color: #FFFFFF;
+		}
+		.mui-bar h1{
+			color: #FFFFFF;
+		}
+		#price{
+			width: 60%;
+			border: none;
+			margin: 0;
+		}
+		.inp_box{
+			background: #FFFFFF;
+			padding: 0.3rem 0.75rem;
+			border-bottom: 0.05rem solid #BFBFBF;
+		}
+		.inp_box span{
+			font-size: 0.85rem ;
+		}
+		input::-webkit-input-placeholder{
+			font-size: 0.8rem;
+		}
+		.zhifu_box .tit{
+			padding: 0.8rem 0;
+			text-align: center;
+		}
+		.zhifu_box .price{
+			padding: 0.5rem 0;
+			text-align: center;
+			background: #E2DEDD;
+			color: #41403E;
+			display: block;
+		}
+		.mui-table-view-cell .select_box{
+			float: right;
+		}
+		.mui-table-view-cell .select_box img{
+			width: 0.9rem;
+			height: 0.9rem;
+		}
+			.mui-table-view-cell a span{
+			font-size: 0.8rem;
+			color: #7E7E7E;
+		}
+		.btn{
+			padding: 0 0.75rem;
+			padding-top:3rem ;
+			background: #FFFFFF;
+		}
+		.btn button{
+			width: 100%;
+			background:#E8192D;
+			color: #FFFFFF;
+			font-size: 0.85rem;
+			border: none;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">账户充值</h1>
+		</header>
+		<div class="mui-content">
+			<div class="inp_box"><span>金额</span><input type="number" name="money" id="price" value="" placeholder="请输入充值金额"/></div>
+			<ul class="mui-table-view">
+		        <li checkedif="true" zf="1" class="mui-table-view-cell">
+		            <a class="zhifubao_box">
+		                <span style="color: #3D98E5;font-size: 2rem; vertical-align:text-top" class="iconfont icon-zhifubao"></span>
+		                <span>支付宝支付</span>
+		                <div class="select_box">
+		                	<img src="../../imgs/zhcz_baton.png"/>
+		                </div>
+		            </a>
+		        </li>
+		        <li checkedif="false" zf="2" class="mui-table-view-cell">
+		            <a class="weixin_box">
+		                <span style="color: #2EA223;font-size: 1.7rem;margin-left: 0.2rem; vertical-align:text-top" class="iconfont icon-weixin"></span>
+		                <span style="margin-left: 0.2rem;">微信支付</span>
+		                <div class="select_box">
+		                	<img src="../../imgs/sc_baton1.png"/>
+		                </div>
+		            </a>
+		        </li>
+		    </ul>
+		    <div class="btn">
+		    	<button>立即充值</button>
+		    </div>
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var wxChannel = null; // 微信支付  
+	        var aliChannel = null; // 支付宝支付
+	        var channel = null;
+	        var token = window.localStorage.getItem('qztc');
+				document.addEventListener("plusready",function(){
+					
+					// 获取支付通道
+	                plus.payment.getChannels(function(channels){
+						
+	                   	wxChannel=channels[1]; 
+	                   	aliChannel=channels[0];
+						// console.log(JSON.stringify(channels));   
+					 
+	                },function(e){
+	                 mui.toast("获取支付通道失败："+e.message);
+	                }); 
+
+					//切换支付方式
+					$(".mui-table-view-cell").click(function(){
+						$(this).addClass("active").find("img").attr("src","../../imgs/zhcz_baton.png");
+						$(this).attr("checkedif","true");
+						$(this).siblings().removeClass("active").find("img").attr("src","../../imgs/sc_baton1.png");
+						$(this).siblings().attr("checkedif","false");
+					})
+					
+					$("input[name=money]").blur(function () {
+					var number = parseFloat($(this).val()).toFixed(2);
+					$(this).val(number) 
+					})
+					
+//					console.log(JSON.stringify(plus.webview.all()));
+					//点击充值
+					mui("body").on("tap",".btn",function(){
+						plus.nativeUI.showWaiting();
+						
+						var check = $(".mui-table-view-cell");
+						for(i=0;i<check.length;i++){
+							if(check.eq(i).attr("checkedif") == "true"){
+								
+								var zf = check.eq(i).attr("zf");
+								var money = $("input[name=money]").val();
+								
+								
+								var exp = /^[1-9][0-9]*\.\d{2}$/;
+								
+								if(exp.test(money)){
+									if(zf == 1){
+										
+										//支付宝 
+									
+										
+										mui.ajax(APIPATH+'User/yechozhi',{
+											data:{token:token,type:1,money:money},
+											dataType:'json',//服务器返回json格式数据
+											type:'post',//HTTP请求类型
+											timeout:10000,//超时时间设置为10秒；
+											// headers:{'Content-Type':'application/json'},	              
+											success:function(res){
+												var order_number = res.msg;
+												plus.nativeUI.closeWaiting(); 
+												if(res.status == 200){  
+													var xmlres = res.data;
+													plus.payment.request(aliChannel,xmlres,function(result){
+														plus.nativeUI.alert("支付成功！",function(){     
+															var wobj = plus.webview.getWebviewById("me-qianbao.html");   
+															wobj.reload(true);
+															setTimeout(function(){
+																mui.back();
+															},100);
+														});
+													},function(error){
+													 
+													   	mui.ajax(APIPATH+'User/del_order_cz',{
+													   		data:{token:token,order_number:order_number},
+													   		dataType:'json',//服务器返回json格式数据
+													   		type:'post',//HTTP请求类型
+													   		timeout:10000,//超时时间设置为10秒；
+													   		// headers:{'Content-Type':'application/json'},	              
+													   		success:function(data){
+													   		mui.toast("支付没有成功");		
+													   		},
+													   		error:function(xhr,type,errorThrown){
+													   			//异常处理；
+													   			console.log(type);
+													   		}
+													   	});
+													});
+												}else{
+													mui.toast('操作出错,请刷新后重新尝试');
+												}
+											},
+											error:function(xhr,type,errorThrown){
+												//异常处理；
+												console.log(type);
+											}
+										});
+										
+									}else if(zf == 2){
+										//微信
+										
+								
+										mui.ajax(APIPATH+'User/yechozhi',{
+											data:{token:token,type:2,money:money},
+											dataType:'json',//服务器返回json格式数据
+											type:'post',//HTTP请求类型
+											timeout:10000,//超时时间设置为10秒；
+											// headers:{'Content-Type':'application/json'},	              
+											success:function(res){
+											var order_number = res.msg;
+											console.log(JSON.stringify(res));
+											plus.nativeUI.closeWaiting();	
+											if(res.status == 200){  
+													var xmlres = JSON.stringify(res.data);
+													plus.payment.request(wxChannel,xmlres,function(result){
+											            plus.nativeUI.alert("支付成功！",function(){
+											            	var wobj = plus.webview.getWebviewById("me-qianbao.html");   
+															wobj.reload(true);
+															setTimeout(function(){
+																mui.back();
+															},100);
+											            });
+											       },function(error){
+											        
+											         	mui.ajax(APIPATH+'User/del_order_cz',{
+											         		data:{token:token,order_number:order_number},
+											         		dataType:'json',//服务器返回json格式数据
+											         		type:'post',//HTTP请求类型
+											         		timeout:10000,//超时时间设置为10秒；
+											         		// headers:{'Content-Type':'application/json'},	              
+											         		success:function(data){
+											         		mui.toast("支付没有成功");		
+											         		},
+											         		error:function(xhr,type,errorThrown){
+											         			//异常处理；
+											         			console.log(type);
+											         		}
+											         	});
+											        });
+												}else{
+													 mui.toast('获取订单信息失败');
+												}
+											},
+											error:function(xhr,type,errorThrown){
+												//异常处理；
+												console.log(type);
+											}
+										});
+									}
+								}else{
+									plus.nativeUI.closeWaiting();
+									mui.toast('金额必须大于0,保持两位小数位,只支持数字');
+								}
+//									
+							}
+						}
+					})
+						
+					
+				});
+		</script>
+	</body>
+
+</html>

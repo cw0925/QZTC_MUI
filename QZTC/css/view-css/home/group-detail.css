@@ -1,0 +1,249 @@
+.tip{
+    display: flex;
+    width: 100%;
+    height: 6rem;
+    background: #E8192D;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.price span{
+    color: white;
+}
+.group_num{
+    padding: 0.5rem;
+    border: 0.1rem solid white;
+    border-radius: 0.5rem;
+}
+.group_price{
+    font-size: 2rem;
+}
+.ori_price{
+    text-decoration: line-through;
+}
+.date{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*margin-top: 0.3rem;*/
+}
+.countdown{
+    margin-top: 0.2rem;
+}
+.tip_date{
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 0.2rem;
+}
+.unit{
+    font-size: 1.2rem;
+    color: white;
+}
+.time{
+    padding: 0.1rem;
+    background: white;
+    border: 0.1rem solid white;
+    border-radius: 0.3rem;
+}
+.day{
+    padding: 0.1rem;
+    background: white;
+    border: 0.1rem solid white;
+    border-radius: 0.3rem;
+}
+.hour{
+    padding: 0.1rem;
+    background: white;
+    border: 0.1rem solid white;
+    border-radius: 0.3rem;
+}
+.minute{
+    padding: 0.1rem;
+    background: white;
+    border: 0.1rem solid white;
+    border-radius: 0.3rem;
+}
+.second{
+    padding: 0.1rem;
+    background: white;
+    border: 0.1rem solid white;
+    border-radius: 0.3rem;
+}
+.activity_date{
+    margin-top: 1rem;
+    width: 100%;
+    background: #FFFFFF;
+    padding: 1rem 2rem 1rem 2rem;
+}
+.activity_date span{
+    font-size: 1.3rem;
+}
+.store{
+    margin-top: 1rem;
+    width: 100%;
+    background: #FFFFFF;
+    padding: 1rem 2rem 1rem 2rem;
+}
+.store_info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.store_desc{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.store_name{
+    display: flex;
+    flex-direction: column;
+}
+.title{
+    font-size: 1.5rem;
+}
+.text{
+    font-size: 1.2rem;
+}
+.desc{
+    font-size: 1.2rem;
+    color: grey;
+}
+.line{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    height: 0.1rem;
+    background: #efeff4;
+}
+.way{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.last_step{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.home{
+    width: 20%;
+    text-align: center;
+    float: left;
+}
+.home a{
+    color: #434343;
+}
+
+.home span{
+    font-size: 1.2em;
+}
+
+.home img{
+    margin-top: 0.7rem;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.single_buy{
+    width: 30%;
+    text-align: center;
+    float: left;
+    background: #E66917;
+}
+.single_buy span{
+    color:#FFFFFF;
+    line-height: 6rem;
+}
+.group_buy{
+    width: 50%;
+    text-align: center;
+    float: left;
+    background: #E8192D;
+}
+.group_buy span{
+    color: #FFFFFF;
+    line-height: 6rem;
+}
+
+.single{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+    background: #E66917;
+    float: left;
+    color: white;
+}
+.group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background: #E8192D;
+    float: left;
+    color: white;
+}
+.group_data{
+	margin-top: 1rem;
+	width: 100%;
+	background: #FFFFFF;
+	padding-right: 2rem;
+	/* padding: 0rem 2rem 1rem 2rem; */
+}
+.group_title{
+	font-size: 1.5rem;
+}
+.group_tip{
+	margin-top: 2rem;
+	padding-left: 2rem;
+}
+.group-team{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.group-info{
+	display: flex;
+	flex-direction: column;
+}
+.group-left{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	height: 50px;
+	line-height: 50px;
+}
+.nick-name{
+	margin-left: 5px;
+}
+.group-right{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.go_buy{
+	margin-left: 10px;
+	width:100px;
+	height: 40px;
+	line-height: 40px;
+	text-align:center;
+	color: white;
+	border-radius: 6px;
+	background: #E8192D;
+}
+ul{
+	list-style-type:none;
+}
+.group-list{
+	/* background-color: #0062CC; */
+}

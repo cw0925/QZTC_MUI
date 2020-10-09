@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.shop_info{
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.info-div{
+			border-bottom: 1px dashed #DDDDDD;
+			overflow: hidden;
+		}
+		.key{
+			width: 30%;
+			float: left;
+			line-height: 5rem;
+			text-align: center;
+			color: #4A4A4A;
+		}
+		.val{
+			width: 70%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+			
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">商品参数</h1>
+		</header>
+		<div class="mui-content">
+			<div class="shop_info">
+				
+			</div>
+		</div>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+				var self = plus.webview.currentWebview();
+				var sid = self.sid;
+			
+				mui.ajax(APIPATH+'Index/goods_canshu',{
+					data:{sid:sid},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					var hh = '';
+					for(i=0;i<datas.length;i++){
+						  hh += '<div class="info-div">'+
+									'<div class="key">'+
+										datas[i][0]+
+									'</div>'+
+									'<div class="val">'+
+										datas[i][1]+
+									'</div>'+ 
+								'</div>';
+					}
+					$(".shop_info").html(hh);
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

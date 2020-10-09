@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+		<link href="../../css/view-css/headline/headline-index.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.content{
+			width: 95%;
+			margin-left: 1.5rem;
+		}
+		.content-title{
+			margin-top: 1.5rem;
+			margin-bottom: 0.8rem;
+			margin-right: 1rem;
+		}
+		.content-title{
+			font-size: 1.8rem;
+		}
+		.content-info{
+			width: 100%;
+			overflow: hidden;
+		}
+		.info-time{
+			font-size: 1.3rem;
+			float: left;
+			color: #BBBBBB;
+		}
+		.info-source{
+			float: left;
+			margin-left: 1rem;
+		}
+		.info-source{
+			font-size: 1.3rem;
+		}
+		.content-text{
+			width: 95%;
+			margin-top: 1rem;
+			margin-right: 1em;
+		}
+		.content-text img{
+			width: 100%;
+			height: 100%;
+		}
+		
+		.Relevant-information{
+			width: 100%;
+			border-top:1rem solid #E5E5E5;
+		}
+		.title-ri{
+			margin-top: 0.5rem;
+			margin-left: 1.5rem;
+			margin-bottom: 0.5rem;
+		}
+	</style>
+	<body  style="background: #FFFFFF;">
+		<header style="background: #FFFFFF;" class="mui-bar mui-bar-nav">
+				<a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">正文</h1>
+		</header>
+		<div style="background: #FFFFFF;" class="mui-content">
+			<div  class="content">
+				<div class="content-title">
+					
+				</div>
+				<div class="content-info">
+					<div class="info-time">
+						<i class="fa fa-clock-o"></i>
+						
+					</div>
+					<div class="info-source">
+					
+					</div>
+				</div>
+				<div class="content-text">
+					
+			
+				</div>
+			</div>
+		
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery-1.11.3.js" type="text/javascript" ></script>
+		<script src="../../js/page.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener('plusready',function(){
+				 plus.nativeUI.showWaiting();
+				 var self = plus.webview.currentWebview();
+				 var essay_id = self.essay_id; 	
+				
+				 mui.ajax(APIPATH+'Forum/get_essaycontent',{
+				 	data:{essay_id:essay_id},
+				 	dataType:'json',//服务器返回json格式数据
+				 	type:'post',//HTTP请求类型
+				 	timeout:10000,//超时时间设置为10秒；        
+				 	success:function(data){
+				 	var datas = data.data;
+				 	if(data.status != -1){
+				 		$(".content-title").html('<span>'+datas['title']+'</span>');
+				 		$(".info-time").html('<i class="fa fa-clock-o"></i> <span>'+datas['timestr']+'</span>');
+				 		$(".info-source").html('<span>来源：'+datas['source']+'</span>');
+				 		$(".content-text").html(datas['content']); 
+				 	}else{
+				 		alert(data.msg);
+				 	}
+					
+				 	plus.nativeUI.closeWaiting();	
+				 	},
+				 	error:function(xhr,type,errorThrown){
+				 		//异常处理；
+				 		console.log(type);
+				 	}
+				 });
+			})
+		</script>
+	</body>
+
+</html>

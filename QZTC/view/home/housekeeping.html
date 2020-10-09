@@ -1,0 +1,456 @@
+<!doctype html>
+<html>
+ 
+	<head>
+		<meta charset="UTF-8"> 
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../css/view-css/home/hosekeeping.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.rm-title{
+				overflow:hidden; 
+				text-overflow:ellipsis;
+				display:-webkit-box; 
+				-webkit-box-orient:vertical; 
+				-webkit-line-clamp:6; 
+				font-size: 0.8rem;
+				margin-left: 0.2rem; 
+		}
+		.cnxh-title{
+				overflow:hidden; 
+				text-overflow:ellipsis;
+				display:-webkit-box; 
+				-webkit-box-orient:vertical;
+				-webkit-line-clamp:3; 
+		}
+		.more-rm{width: 100%;text-align: center;line-height: 3;border: 1px solid #d2d2d2;}
+		.more-cnxh{width: 100%;text-align: center;line-height: 3;border: 1px solid #d2d2d2;}
+
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title"></h1>
+		</header>
+		<div class="mui-scroll-wrapper" style="margin-top: 2.2rem;">
+    	<div class="mui-scroll">
+    	<div class="mui-slider">
+		  <div class="mui-slider-group mui-slider-loop">
+		    <!--支持循环，需要重复图片节点-->
+		    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
+		    <!--支持循环，需要重复图片节点-->
+		    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
+		  </div>
+			<div class="mui-slider-indicator lbt-bt">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator "></div>
+				<div class="mui-indicator "></div>
+				<div class="mui-indicator "></div>
+			</div>
+		</div>
+		<!--九宫格--> 
+	    <div id="Gallery" class="mui-slider">   
+				<div class="mui-slider-group  server">  
+					<div class="mui-slider-item ">  
+						<ul class="mui-table-view mui-grid-view mui-grid-9 oneserver">  
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+										<a href="#"> 
+											<img style="width: 2.5rem;" src="../../imgs/bmjz_icon1.png" alt="" />
+												<div class="mui-media-body">1疏通管道</div>  
+								</a>  
+								</li>  
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+										<a href="#"><img style="width: 2.5rem;" src="../../imgs/bmjz_icon2.png" alt="" />
+												<div class="mui-media-body">水电安装</div>  
+								</a>  
+								</li>  
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+										<a onclick="jump('housekeeping-i3-detail.html')">	<img style="width: 2.5rem;" src="../../imgs/bmjz_icon3.png" alt="" />  
+												<div class="mui-media-body">保姆保洁洗衣</div>  
+								</a>  
+								</li>  
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+										<a href="#"> 	<img style="width: 2.5rem;" src="../../imgs/bmjz_icon4.png" alt="" />  
+												<div class="mui-media-body">家电维修</div>  
+								</a>  
+								</li>  
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+										<a href="#"> 	<img style="width: 2.5rem;" src="../../imgs/bmjz_icon8.png" alt="" />  
+												<div class="mui-media-body">跑腿搬家</div>  
+								</a>  
+								</li>  
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+										<a href="#"> 	<img style="width: 2.5rem;" src="../../imgs/bmjz_icon6.png" alt="" />  
+												<div class="mui-media-body">商家黄页</div>  
+								</a>  
+								</li>  
+								<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+										<a href="#"> 	<img style="width: 2.5rem;" src="../../imgs/bmjz_icon7.png" alt="" /> 
+												<div class="mui-media-body">开锁配匙</div>  
+								</a>  
+								</li>  
+								<li  class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
+										<a href="#"> 	<img style="width: 2.5rem;" src="../../imgs/bmjz_icon5.png" alt="" />  
+												<div class="mui-media-body">入驻发布</div>  
+								</a>  
+								</li>  
+						</ul> 
+					</div>
+				</div>
+				<div class="one_indicator">
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+					</div>
+				</div>
+				<div class="two_indicator">
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+						<div class="mui-indicator "></div>
+					</div>
+				</div>
+			</div>  
+		<div id="content">
+			<ul class="zuire">
+				<li class="tc text-ck">
+					<span class="col">同城</span>
+					<span class="text">阳台用来晾衣服真浪费，我家这样设计，邻居我家这样设计，邻居</span>
+				</li>
+				<li class="zr text-ck">
+					<span class="col">最热</span>
+					<span class="text">阳台用来晾衣服真浪费，我家这样设计，邻居</span>
+				</li>
+			</ul>
+			<!--热门推荐-->
+			<div class="hot">
+				<p>热门推荐</p>
+				<div class="hot_main">
+					<div class="item">
+						<div class="imgs_box"><img src="../../imgs/bmjz_image1.png"/></div>
+						<div class="text">
+							<h4>搬新家</h4>
+							<p>个性化套餐</p>
+						</div>
+					</div>
+					<div class="item">
+						<div class="imgs_box"><img src="../../imgs/bmjz_image2.png"/></div>
+						<div class="text">
+							<h4>新房装修</h4>
+							<p>更懂你的装修</p>
+						</div>	
+					</div>
+					<div class="item">
+						<div class="imgs_box"><img src="../../imgs/bmjz_image3.png"/></div>
+						<div class="text">
+							<h4>钥匙适配</h4>
+							<p>方便、专业</p>
+						</div>
+					</div>
+					<div class="item">
+						<div class="imgs_box"><img src="../../imgs/bmjz_image4.png"/></div>
+						<div class="text">
+							<h4>家电维修</h4>
+							<p>上门服务</p> 
+						</div>
+					</div>
+				</div>
+				<input type="hidden" class="morerm"  value="2" />
+				<div class="more-rm">点击更多</div>
+			</div>
+			<div id="refreshContainer" class="like">
+				<p>猜你喜欢</p>
+				<ul  class="like_item_box">
+			
+				</ul> 
+				<input type="hidden" class="morecnxh"  value="2" />
+				<div class="more-cnxh">点击更多</div>
+			</div>
+		
+		</div>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/page.js"></script>
+		<script type="text/javascript">
+		
+			mui.init()
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+			interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+			document.addEventListener("plusready",function(){	
+
+			plus.nativeUI.showWaiting();
+			var qs = getQueryString(); 
+			var id = qs["id"];
+
+
+			mui.ajax(APIPATH+"Enter/server_index",{
+				data:{server_id:id},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				// headers:{'Content-Type':'application/json'},	              
+				success:function(data){
+					console.log('二级分类页面：'+JSON.stringify(data));
+					var datas = data.data;
+					
+					$(".mui-title").html(datas.name);
+					
+					//轮播图
+					var imghh = ''
+					var img = '';
+					var img_bt = '';
+					for(i=0;i<datas.lbt.length;i++){
+					img += '<div val="'+datas.lbt[i]['id']+'" class="mui-slider-item lbt"><a href="#"><img style="height:13rem" src="'+datas.lbt[i]['fm_img']+'" /></a></div>';
+					if(i == 0){
+					img_bt += '<div class="mui-indicator mui-active"></div> ';
+					}else{
+					img_bt += '<div class="mui-indicator "></div> ';
+					}
+					}
+					imghh = '<div varl="'+datas.lbt[0]['id']+'" class="mui-slider-item mui-slider-item-duplicate lbt"><a href="#"><img style="height:13rem" src="'+datas.lbt[0]['fm_img']+'" /></a></div>'+
+					img+
+					'<div val="'+datas.lbt[datas.lbt.length -1]['id']+'" class="mui-slider-item mui-slider-item-duplicate lbt"><a href="#"><img style="height:13rem" src="'+datas.lbt[datas.lbt.length -1]['fm_img']+'" /></a></div>';
+					$(".mui-slider-loop").html(imghh);			
+					$(".lbt-bt").html(img_bt);
+					
+					
+					mui("body").on("tap",".lbt", function(){
+					var fid = $(this).attr("val");
+					mui.openWindow({//目标页面
+					url: 'housekeeping-i3-detail.html',
+					extras: {
+					fid: fid
+					},
+					});
+					})
+					
+					var one_server = '';
+					var two_server = ''; 
+					
+					if(datas.sort.length < 9){
+					//一页
+					for(i = 0; i< datas.sort.length;i++){
+					one_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+  
+					'<a onclick="jump(\''+datas.sort[i]['url_str']+'?id='+datas.sort[i]['id']+'\')">'+
+					'<img style="width: 2.5rem;" src="'+datas.sort[i]['img']+'"/>'+
+					'<div class="mui-media-body">'+datas.sort[i]['name']+'</div>'+  
+								'</a>'+  
+						'</li>';
+					}
+				
+					$(".oneserver").html(one_server);
+
+					$(".one_indicator").css('display','');
+					$(".two_indicator").css('display','none');
+					}else{
+					//两页  
+					one_server += '<div class="mui-slider-item ">'+  
+					'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
+					two_server += '<div class="mui-slider-item ">'+  
+					'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
+					for(i = 0; i< datas.sort.length;i++){
+					if(i < 8){
+					one_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+  
+									'<a onclick="jump(\''+datas.sort[i]['url_str']+'?id='+datas.sort[i]['id']+'\')">'+
+										'<img style="width: 2.5rem;" src="'+datas.sort[i]['img']+'"/>'+
+										'<div class="mui-media-body">'+datas.sort[i]['name']+'</div>'+  
+									'</a>'+  
+							'</li>';
+							
+					}else{
+					two_server +=  '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+  
+										'<a onclick="jump(\''+datas.sort[i]['url_str']+'?id='+datas.sort[i]['id']+'\')">'+
+											'<img style="width: 2.5rem;" src="'+datas.sort[i]['img']+'"/>'+
+											'<div class="mui-media-body">'+datas.sort[i]['name']+'</div>'+  
+										'</a>'+  
+								'</li>';
+							
+					}
+					}
+					one_server += '</ul>'+ 
+					'</div>';
+					two_server += '</ul>'+ 
+					'</div>';
+					var sort = one_server + two_server;
+					$(".server").html(sort);
+					
+					$(".one_indicator").css('display','none');
+					$(".two_indicator").css('display','');
+					}
+					
+					
+					//新闻
+					$(".tc").html('<span class="col">同城</span>'+
+					'<span val="'+datas['ltxw'][0]['id']+'" class="text tt">'+datas['ltxw'][0]['title']+'</span>');
+					$(".zr").html('<span class="col">最热</span>'+
+					'<span val="'+datas['ltxw'][1]['id']+'" class="text tt">'+datas['ltxw'][1]['title']+'</span>');
+					mui("body").on("tap",".tt",function(){
+					var xwid = $(this).attr("val");
+					mui.openWindow({//目标页面
+					url: '../headline/toutiao-content.html',
+					extras: {
+					essay_id: xwid
+					},
+					});
+					}) 
+					
+					//热门
+					var remen = '';
+					for(i=0;i<datas.remen.length;i++){
+					remen += '<div val="'+datas['remen'][i]['id']+'" class="item rm">'+
+					'<div class="imgs_box"><img style="margin-left:0.3rem;padding-top:0.5rem; height:7rem" src="'+datas['remen'][i]['fm_img']+'"/></div>'+
+					'<div class="text">'+
+					'<h4 class="rm-title">'+datas['remen'][i]['title']+'</h4>'+
+					'</div>'+
+					'</div>';
+					}
+					
+					mui("body").on("tap",".rm", function(){
+					var fid = $(this).attr("val");
+					mui.openWindow({//目标页面
+					url: 'housekeeping-i3-detail.html',
+					extras: {
+					fid: fid
+					},
+					});
+					})
+					
+					$(".hot_main").html(remen);
+					
+					
+					//点击加载更多
+					$(".more-rm").on("tap",function(){
+					var pages = $(".morerm").val();
+					plus.nativeUI.showWaiting();
+				
+					
+					mui.ajax(APIPATH+'Enter/severrmsp',{
+						data:{pages:pages,server_id:id},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(ress){
+							plus.nativeUI.closeWaiting();
+							
+							
+							if(ress.status == 1){
+							var moreGood = '';
+							for(var i = 0; i < ress.data.length;i++){
+								moreGood += '<div val="'+ress['data'][i]['id']+'" class="item rm">'+
+								'<div class="imgs_box"><img style="margin-left:0.3rem;padding-top:0.5rem; height:7rem" src="'+ress['data'][i]['fm_img']+'"/></div>'+
+								'<div class="text">'+
+								'<h4 class="rm-title">'+ress['data'][i]['title']+'</h4>'+
+								'</div>'+
+								'</div>'; 
+							}
+									
+							$(".hot_main").append(moreGood);
+							
+							$(".morerm").attr("value",ress.msg);
+							}else{
+							$(".more-rm").hide();
+							mui.toast(ress.msg);
+							} 
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+					
+					})
+					
+					//猜你喜欢
+					var cnxh = '';
+					for(i=0;i<datas.cnxh.length;i++){
+					cnxh += '<li class="cnxh-ck" val="'+datas['cnxh'][i]['id']+'">'+
+					'<div class="imgs_box"><img style="height:8rem" src="'+datas['cnxh'][i]['fm_img']+'"/></div>'+
+					'<div class="detail">'+
+					'<h5 class="cnxh-title" >'+datas['cnxh'][i]['title']+'</h5>'+
+					'<p class="room">'+datas['cnxh'][i]['area']+'</p>'+
+					'<p class="introduce">'+datas['cnxh'][i]['address']+'</p>'+ 
+					'</div>'+
+					'</li>';
+					}
+					
+					mui("body").on("tap",".cnxh-ck", function(){
+					var fid = $(this).attr("val");
+					mui.openWindow({//目标页面
+					url: 'housekeeping-i3-detail.html',
+					extras: {
+					fid: fid
+					},
+					});
+					})
+					
+					$(".like_item_box").html(cnxh);
+					
+					//点击加载更多
+					$(".more-cnxh").on("tap",function(){
+					var pages = $(".morecnxh").val();
+					plus.nativeUI.showWaiting();
+				
+					
+					mui.ajax(APIPATH+'Enter/severcnxh',{
+						data:{pages:pages,server_id:id},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(ress){
+							plus.nativeUI.closeWaiting();
+							
+							
+							if(ress.status == 1){
+							var moreGood = '';
+							for(var i = 0; i < ress.data.length;i++){
+								moreGood += '<li class="cnxh-ck" val="'+ress['data'][i]['id']+'">'+
+								'<div class="imgs_box"><img style="height:8rem" src="'+ress['data'][i]['fm_img']+'"/></div>'+
+								'<div class="detail">'+
+								'<h5 class="cnxh-title" >'+ress['data'][i]['title']+'</h5>'+
+								'<p class="room">'+ress['data'][i]['area']+'</p>'+
+								'<p class="introduce">'+ress['data'][i]['address']+'</p>'+ 
+								'</div>'+
+								'</li>'; 
+							}
+									
+							$(".like_item_box").append(moreGood);
+							
+							$(".morecnxh").attr("value",ress.msg);
+							}else{
+							$(".more-cnxh").hide();
+							mui.toast(ress.msg);
+							} 
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type); 
+						}
+					});
+					
+					})
+					
+					
+					plus.nativeUI.closeWaiting();
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+			
+			});
+			 
+		</script>
+	</body>
+
+</html>

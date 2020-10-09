@@ -1,0 +1,1011 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/view-css/home/ziyingshangcheng-shangpingxiangqing.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+	</head>
+	
+	<style type="text/css">
+		#popover{
+			width:100%;
+		/*	height:40rem;*/
+			background: white;
+			position: fixed;
+			bottom: 0%;
+		}
+		.mui-slider-item a img{height: 45rem;}
+		.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+		}
+	
+		.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+		}
+		.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+		}
+		.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+		}
+		.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+		}
+		.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+		}
+	
+		.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+		}
+	
+	
+		@-webkit-keyframes fadeIn {
+				0% {
+						opacity: 0;
+				}
+				100% {
+						opacity: 1;
+				}
+		}
+		@-webkit-keyframes fadeOut {
+				0% {
+						opacity: 1;
+				}
+				100% {
+						opacity: 0;
+				}
+		},
+		
+
+	</style> 
+
+	<body>
+		<input type="hidden" id="gid" value=""/>
+		
+		<!-- <header class="mui-bar mui-bar-nav">
+		    <a style="color: #000" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">商品详情</h1>
+			
+		</header> -->
+	
+		<header class="mui-bar mui-bar-nav mui-bar-nav-bg">
+		    <a style="color: #000" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">商品详情</h1>
+			<!-- <div class="share">
+		    <a id="right" class="mui-icon mui-icon-redo mui-pull-right mui-a-color" ></a>
+			</div> -->
+		</header>
+
+		
+		<div class="mui-content content">
+		    <div class="ylt-img">
+		    	<div class="mui-slider">
+				    <div id="ylt" class="mui-slider-group mui-slider-loop">
+					    <!--支持循环，需要重复图片节点-->
+					    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../img/Login-top.png" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="../../img/Login-top.png" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="../../img/Login-top.png" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="../../img/Login-top.png" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="../../img/Login-top.png" /></a></div>
+				    <!--支持循环，需要重复图片节点-->
+				    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../img/Login-top.png" /></a></div>
+				    </div>
+				  	<div id="ylt-dd" class="mui-slider-indicator">
+					    <div class="mui-indicator mui-active"></div>
+					    <div class="mui-indicator "></div>
+					    <div class="mui-indicator "></div>
+					    <div class="mui-indicator "></div>
+					</div>
+				</div>  	
+		    </div>
+		    <div class="info-title">
+		    			
+   			</div>
+		    <div class="goods-info">
+		    	
+		    	<div class="info-left">
+		    		
+		   			<div class="info-price">
+		    			<!--<span>￥4000</span>-->		   				
+		   			</div>
+		   			<div class="info-vipprice">
+		    			<!--<span>￥3800</span> <span style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">会员</span>-->	
+											
+		   			</div>
+					<div class="info-integral">
+						
+					</div>
+					<div class="info-return-time">
+						<!--24小时内可退换-->
+					</div>
+		    	</div>
+		    </div>
+		    <!-- <div class="info-right"> -->
+
+	    		<!-- <div class="right-img">
+	    			<img src="../../img/fengxiang.png"/>	    			
+	    		</div> -->
+	    		<!-- <div class="right-shuoming"> -->
+	    			<!--分享领取现金劵-->
+	    		<!-- </div> -->
+	    	<!-- </div> -->
+		
+		</div>
+		
+		<!--邮费-->
+		<div class="postage">
+			<div class="postage-info">
+			<span >邮费</span>
+			<span class="postage-price">包邮</span>
+			</div>
+		</div>
+		
+		<!--优惠券-->
+		<div class="youhuijuan">
+			<a style="color: #000000;" href="javascript:;">
+			<span >商品优惠券</span>
+			<i class="fa fa-angle-right"></i>
+			</a>
+		</div>
+		
+		<!--参数-->
+		<div class="canshu">
+			<a style="color: #000000;" href="javascript:;">
+			<span >产品参数</span>
+			<i class="fa fa-angle-right"></i>
+			</a>
+		</div>
+		
+		<!--评论-->
+		<div class="comment"> 
+			<div class="comment-title">
+				<span>全部评论 (24)</span>
+			</div>
+			<div class="comment-user">
+				<div class="user-img">
+				<img src="../../img/l02.png" />
+				</div>
+				<span class="user-name">旧街没有本</span>
+				<span class="user-time">昨天 20:42</span>
+				<span class="user-text">测测测试,这件衣服超赞!</span>
+			</div>
+			
+			<div class="bt-whole">
+				<a href="">查看全部评论</a>
+			</div>
+		
+		</div>
+		
+		<!-- 详情图 -->
+		<div class="goods-detail">
+			<div class="goods-title">
+				<span>查看详情</span>					
+			</div>
+			<div style="margin-bottom: 5.5rem;" class="detail-img">
+				<img src="../../img/goods-xq.jpg" />
+			</div>
+
+		</div>
+		
+		<!--猜你喜欢
+			<!--<div class="like">
+				<p>猜你喜欢</p>
+				<ul class="like_item_box" style="margin-left: -4rem;">
+					<li>
+						<div class="imgs_box"><img src="../../imgs/zysc_image5.png"/></div>
+						<div class="detail">
+							<h5>宽松罗纹开叉连帽针织衫毛衣 自然色 M</h5>
+							<p class="price">￥2500元</p>
+							<p class="vip_box"><span>会员价</span><span>￥1600</span></p>
+						
+						</div>
+					</li>
+					
+					<li>
+						<div class="imgs_box"><img src="../../imgs/zysc_image5.png"/></div>
+						<div class="detail">
+							<h5>宽松罗纹开叉连帽针织衫毛衣 自然色 M</h5>
+							<p class="price">￥2500元</p>
+							<p class="vip_box"><span>会员价</span><span>￥1600</span></p>
+							
+						</div>
+					</li>
+						
+				</ul>
+				
+			</div>-->
+					
+					
+		<!--规格-->		
+		<div id="popover" class="mui-popover">
+			  	<div class="goods-img">
+			  		<img src="../../img/l02.png"/>
+			  	</div>
+			  	<div class="goods-guige-price">
+			  		<div class="guige-price">
+			  			<span >￥0.00元</span>			  			
+			  		</div>
+			  		<div class="guige-vipprice">
+			  			<span >￥0.00元</span>
+			  			<span style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">会员</span>	
+			  		</div>
+			  		<div class="guige-selected">
+			  			<span >已选:"酒红色"</span>
+			  		</div>
+			  		<div class="guige-stock">
+			  			<span >库存:0件</span>
+			  		</div>
+			  	</div>
+			  	<div class="guige-table">
+			  		<div class="guige-title">
+			  			<span>颜色分类</span>
+			  		</div>
+			  		<div class="mui-scroll-wrapper" style="margin-top: 4rem;">
+					<div class="mui-scroll" style="margin-top: -2rem;">
+				  		<div class="guige-sort">
+					  		
+				  		</div>
+			  		</div>
+					</div>
+			  	</div>
+			  	<div class="goods-num">
+			  		<div class="goods-num-title">
+			  			<span>数量</span>
+			  			<div id="number" style="margin-left: 17rem;" class="mui-numbox" data-numbox-step="1" data-numbox-min="1" data-numbox-max="12">
+				  		    <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+				  		    <input class="mui-input-numbox" type="number" />
+				  		    <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+				  		</div>
+			  		</div>
+			  	</div>
+			  	<div class="bt-ok">
+			  		<span>加入购物车</span>
+			  	</div>
+			  	<div class="bt-shop">
+			  		<span>购买</span>
+			  	</div>
+			</div>
+			
+			
+			
+		<!--底部-->
+		<div class="bottom-select">
+			<div class="weiliao">
+				<a href="">
+					<img src="../../img/weiliao.png"/>
+					<br />
+					<span>客服</span>
+				</a>
+			</div>
+				
+			<div class="shouchang">
+				<a href="">
+					<img src="../../img/xingxing.png"/>
+					<br />
+					<span>收藏</span>
+				</a>
+			</div>
+			<div class="cart">
+				<span>加入购物车</span>
+			</div>
+			
+			<div class="shop">
+				<span>立即购买</span>
+			</div>
+		</div>
+		
+		
+		
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/rem.js"></script>
+		<script src="../../js/page.js"></script>
+		<script src="../../js/mui.zoom.js"></script>
+		<script src="../../js/mui.previewimage.js"></script>
+		<script type="text/javascript">
+			
+			mui.init();
+			// console.log('列表type'+qs["type"]);
+			
+			// if(type != '会员秒杀'){
+			// 	document.getElementById("right").remove();
+			// }
+			
+			options = {
+			 scrollY: true, //是否竖向滚动
+			 scrollX: false, //是否横向滚动
+			 startX: 0, //初始化时滚动至x
+			 startY: 0, //初始化时滚动至y
+			 indicators: true, //是否显示滚动条
+			 deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+			 bounce: true //是否启用回弹
+			}
+			
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
+			
+			document.addEventListener("plusready",function(){
+				// 加载商品信息
+				var qs = getQueryString();
+				var q1 = qs["id"];
+				var type = qs["type"];
+				var token = window.localStorage.getItem('qztc');
+				var is_valid = true;//会员价是否在秒杀期内	
+				plus.nativeUI.showWaiting();
+				// 微信分享信息
+				var msg={type:'web'};
+				var countdown = "";
+				console.log('token'+token);
+				mui.ajax(APIPATH+'Index/goodsdetaill',{
+					data:{gid:q1,token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						console.log("商品信息"+JSON.stringify(data))
+						if(data.msg == "商品不存在或已下架"){
+								mui.toast('商品不存在或已下架');
+								mui.back();
+								plus.nativeUI.closeWaiting();
+								return;
+						}
+						var datas = data.data;
+						msg.title = type;
+						msg.content = datas.title;
+						msg.thumbs = [datas.details_img];
+						var ua = navigator.userAgent.toLowerCase();
+						if (/iphone|ipad|ipod/.test(ua)) {    //苹果手机
+							msg.thumbs = ['_www/img/logo.png'];
+						}
+						msg.href = datas.details_img;
+						// msg.href =  window.location.href;
+						$(".shouchang").attr("sid",datas.id);			
+						$(".weiliao").attr("sid",datas.id);
+						$(".canshu").attr("sid",datas.id);
+						$(".youhuijuan").attr("sid",datas.id);
+						$(".bt-whole").attr("gid",datas.id);
+						if(datas.collect == '1'){
+							//有收藏
+							$(".shouchang").html('<a href="javascript:;">'+
+														'<img src="../../img/xx_red.png"/>'+
+														'<br />'+
+														'<span>已收藏</span>'+
+													'</a>');
+						}else{
+							//没有收藏
+							$(".shouchang").html('<a href="javascript:;">'+
+														'<img src="../../img/xingxing.png"/>'+
+														'<br />'+
+														'<span >收藏</span>'+
+													'</a>');
+						}
+						
+						//商品ID
+						$("#gid").attr({"value":datas.id});
+						
+						//标题
+						// var titlehtml = "<span >"+datas['title']+"</span>";
+						 var titlehtml = '<div style="">'+'<span style="width:80%;float: left;">'+datas['title']+'</span>'+'<div class="share" style="float: right;">'+'<img style="width: 2rem;" src="../../img/fengxiang.png"/>'+'<div style="font-size: 1rem;">分享</div>'+'</div></div>';
+						$(".info-title").html(titlehtml);
+						
+						//预览图
+						var ylt = '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img data-preview-src=""  src="'+datas.preview_img[datas.preview_img.length-1]+'" /></a></div>';
+						for (i=0;i<datas.preview_img.length;i++) {
+							
+							ylt += '<div class="mui-slider-item"><a href="#"><img data-preview-src=""  src="'+datas.preview_img[i]+'" /></a></div>';
+						}
+						ylt += '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img data-preview-src=""  src="'+datas.preview_img[0]+'" /></a></div>';
+						
+						//预览图的圆点
+						var yltdd = '<div class="mui-indicator mui-active"></div>';
+						for (i=0;i<datas.preview_img.length-1;i++)
+						{
+							yltdd +='<div class="mui-indicator "></div>';
+						}
+						//追加
+						$("#ylt").html(ylt);
+						$("#ylt-dd").html(yltdd);
+						mui.previewImage();
+						
+						//普通价格
+						$(".info-price").html('<span>￥'+datas['minprice']+'</span>');
+						//会员价格
+						var isKill = datas['sort_id'] == "6"?true:false;//是否是秒杀页面
+						var viphtml = '<div style="width:100%"><span id="VIP">￥'+datas['vipprice']+'</span> <span style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">会员加入</span></div>' ;
+						var showEnd = (datas['expire_time_show']==1&&datas['expire_time']!= 0)?true:false;
+						if(isKill){//会员秒杀
+							viphtml = '<div style="width:100%"><span id="VIP">￥'+datas['vipprice']+'</span> <span style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">会员加入</span>'+'<span id="countdown" style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">'+ '距结束还有' +'</span></div>'; 
+						}
+						$(".info-vipprice").html(viphtml);
+						//倒计时
+						if(isKill){//会员秒杀
+							var nowTime = Math.round(new Date() / 1000);
+							var endTime = datas['expire_time'];
+							is_valid = ( endTime == 0 || (endTime <= nowTime))?false:true;
+							getCountDown(endTime);
+						}
+						
+						mui("body").on("tap",".info-vipprice",function(){
+							plus.nativeUI.showWaiting();
+					
+							mui.ajax(APIPATH+'User/info',{
+								data:{token:token},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(data){
+								if(data.status == '1'){
+									if(data.data.vip == '0'){
+										//非会员
+										mui.openWindow({
+											url: "../me/tongchengvip.html"
+										});	
+									}else if(data.data.vip == '1'){
+										//是会员
+										mui.toast('已是会员');
+									}
+								}else if(data.status == '-2'){
+									mui.confirm('请登录后再进行操作','提示',['取消','去登录'],function(e){
+										if(e.index == 1){
+											//去登录
+											window.localStorage.removeItem('qztc');
+											//判断当前设备类型
+											if(mui.os.ios || mui.os.ipad || mui.os.android) {
+												// 获取当前webview窗口对象
+												var curr = plus.webview.currentWebview();
+												
+												//获取所有已经打开的webview窗口
+												var wvs = plus.webview.all();
+												
+												
+												for(var i = 0, len = wvs.length; i < len; i++) {
+												//关闭除当前页面外的其他页面
+												if(wvs[i].getURL() == curr.getURL())
+												
+												//遇到当前页跳过
+												continue;
+												
+												//非当前页执行关闭
+												plus.webview.close(wvs[i]); 
+												}
+												//打开login页面
+												
+												plus.webview.open('../../login.html');
+												//执行关闭当前页面
+												curr.close();
+											} else{ 
+											
+												//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+												plus.runtime.quit();
+											
+											} 
+										}
+									});
+								}
+								plus.nativeUI.closeWaiting();
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+							
+						})
+						
+						
+						//积分
+						$(".info-integral").html("<span>购买可获得 "+datas['integral']+" 积分</span>");
+						
+						
+						//可退换的期限
+						$(".info-return-time").html(datas['rejected_time']+'小时内可退换');
+						// 邮费
+						$(".postage-price").html(datas['postage_price']);
+						//评论
+						if(datas.comment == '暂无评论'){
+							$(".comment-title").html('<span>全部评论 (0)</span>');
+							$(".comment-user").html('<span class="zwpl">'+datas.comment+'</span>');
+							$(".comment-user").css({'height':'3rem'});
+							$(".bt-whole").html('');
+							$(".bt-whole").css({'height':'1rem'});
+						}else{
+							<!-- <div class="comment-user">
+								<!-- <img src="../../img/l02.png" />
+								// <span class="user-name">旧街没有本</span>
+								// <span class="user-time">昨天 20:42</span>
+								// <span class="u -->ser-text">测测测试,这件衣服超赞!</span>
+							<!-- </div> --> -->
+							var comment_info = datas.comment[0];
+							$(".comment-title").html('<span>全部评论('+datas.comment.length+')</span>');
+							$(".user-img").html('<img style="solid #999;width: 5rem;height: 5rem;border-radius: 2.5rem;" src="'+comment_info.avatar+'"/>');
+							$(".user-name").html(comment_info.nick);
+							$(".user-time").html(comment_info.time);
+							$(".user-text").html(comment_info.content);
+						}
+						mui("body").on("tap",".bt-whole",function(){
+							var gid = $(this).attr("gid");
+							
+							mui.openWindow({
+								url: "./ziyingshangcheng-shangpingpinglun.html",
+								extras :{
+									gid:gid
+								}
+							});	
+						})
+						
+						//详情图
+						$(".detail-img").html("<img data-preview-src='' data-preview-group='1' src='"+datas.details_img+"' />");
+						mui.previewImage();
+						//客服
+						mui("body").on("tap",".weiliao",function(){
+							var sid = $(this).attr("sid");
+							
+							mui.openWindow({
+								url: "./kefu.html",
+								extras :{
+									sid:sid
+								}
+							});	
+						})
+						
+						//参数 
+						mui("body").on("tap",".canshu",function(){
+							var sid = $(this).attr("sid");
+							mui.openWindow({
+								url: "./canshu.html",
+								extras :{
+									sid:sid
+								}
+							});	
+						})
+						
+						//参数 
+						mui("body").on("tap",".youhuijuan",function(){
+							var sid = $(this).attr("sid");
+							console.log(sid)
+							mui.openWindow({
+								url: "./ziyingshangcheng-youhuiquan.html",
+								extras :{
+									gid:sid
+								}
+							});	
+						})
+						
+						//收藏操作
+						mui("body").on("tap",".shouchang",function(){
+							plus.nativeUI.showWaiting();
+							var sid = $(this).attr("sid");
+							
+							mui.ajax(APIPATH+'Index/collect',{
+								data:{token:token,sid:sid},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(res){
+								if(res.status){
+									if(res.data == 77){
+										mui.toast(res.msg);
+										// $(".shouchang").html('<img src="../../imgs/bm_icon4.png"/><p style="color: #585858;">收藏</p>	');	
+										$(".shouchang").html('<a href="javascript:;">'+
+																	'<img src="../../img/xingxing.png"/>'+
+																	'<br />'+
+																	'<span >收藏</span>'+
+																'</a>');
+									}else if(res.data == 88){
+										mui.toast(res.msg);
+										// $(".shouchang").html('<img src=""><p style="color: #585858;">已收藏</p>	');
+										$(".shouchang").html('<a href="javascript:;">'+
+																	'<img src="../../img/xx_red.png"/>'+
+																	'<br />'+
+																	'<span>已收藏</span>'+
+																'</a>');
+									}
+								}else{
+									mui.toast(res.msg);
+								}
+								plus.nativeUI.closeWaiting();
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+							
+						});
+						
+						
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				// 购物车
+				mui("body").on('tap','.cart span',function(){
+					// console.log('加入购物车1')
+					$(".bt-shop").css("display","none");
+					$(".bt-ok").css("display","block");
+					plus.nativeUI.showWaiting();
+					var gid = $("#gid").val();
+					//加载规格
+					mui.ajax(APIPATH+'Index/goodssku',{
+						data:{gid:gid},
+						dataType:'json',//服务器返回json格式数据
+						type:'get',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+							datas = data.data;
+							console.log('加入购物车商品信息：'+JSON.stringify(datas));
+							$(".guige-price").html('<span >￥'+datas[0]['price']+'元</span>');
+							var vip_html = '<span>￥'+datas[0]['vipprice']+'元</span><span style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">会员</span>';
+						
+							if(!is_valid){
+								vip_html = '<span></span>';
+							}
+							// $(".guige-vipprice").html('<span>￥'+datas[0]['vipprice']+'元</span><span style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">会员</span>	');
+							$(".guige-vipprice").html(vip_html);
+							$(".goods-img").html('<img src="'+datas[0]['img']+'" />');
+							$(".guige-selected").html('<span>已选:"'+datas[0]['sku']+'"</span>');
+							$(".guige-stock").html('<span>库存:'+datas[0]['stock']+'件</span>');
+							var number = mui('#number').numbox();
+							number.options['max'] = datas[0]['stock'];
+							
+							var  guigehh = '<ul>';
+							     
+							for(i=0;i<datas.length;i++){
+								if(i == 0){
+								guigehh += '<li price="'+datas[0]['price']+'" vipprice="'+datas[0]['vipprice']+'" skuid="'+datas[0]['id']+'" stock="'+datas[0]['stock']+'" imgsrc="'+datas[0]['img']+'"  class="selected">'+datas[0]['sku']+'</li>';
+								}else{
+								guigehh += '<li price="'+datas[i]['price']+'" vipprice="'+datas[i]['vipprice']+'" skuid="'+datas[i]['id']+'" stock="'+datas[i]['stock']+'" imgsrc="'+datas[i]['img']+'">'+datas[i]['sku']+'</li>';	
+								}
+								
+							}
+							guigehh += '</ul>';
+							
+							$(".guige-sort").html(guigehh);
+											
+							
+							
+							mui("body").on('tap','.bt-ok',function(){ 
+								// console.log('加入购物车2')
+								var token = window.localStorage.getItem('qztc');
+								if(token){
+									var gid = $("#gid").val();
+									var skuid =$(".selected").attr('skuid');
+									var num = $(".mui-input-numbox").val();
+								console.log('加入购物车商品信息：=='+gid+'=='+skuid+'=='+num);
+									mui.ajax(APIPATH+'Index/goodsaddcart',{
+										data:{token:token,gid:gid,skuid:skuid,num:num},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(res){
+											if(res.status){									
+											var page = plus.webview.getWebviewById('view/shoppingCart/shopping-index.html');
+											page.reload(true);
+											mui.toast(res.msg);
+											}else{
+											mui.toast(res.msg);
+											}
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+									
+								}else{
+									mui.toast('抱歉!您还未登录，请登录后再进行操作！');
+								}
+								
+								
+							 });
+										
+							plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+					
+					mui('#popover').popover("show");
+				});
+				// 立即购买
+			mui("body").on('tap','.shop span',function(){
+				$(".bt-ok").css("display","none");
+				$(".bt-shop").css("display","block");
+				plus.nativeUI.showWaiting();
+				var gid = $("#gid").val();
+				//加载规格		
+				mui.ajax(APIPATH+'Index/goodssku',{
+					data:{gid:gid},
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						datas = data.data;
+						$(".guige-price").html('<span >￥'+datas[0]['price']+'元</span>');
+						var buy_vip_html = '<span>￥'+datas[0]['vipprice']+'元</span><span style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">会员</span>';
+						if(!is_valid){
+							buy_vip_html = '<span></span>'
+						}
+						$(".guige-vipprice").html(buy_vip_html);
+						// $(".guige-vipprice").html('<span >￥'+datas[0]['vipprice']+'元</span><span style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">会员</span>	');
+						$(".goods-img").html('<img src="'+datas[0]['img']+'" />');
+						$(".guige-selected").html('<span>已选:"'+datas[0]['sku']+'"</span>');
+						$(".guige-stock").html('<span>库存:'+datas[0]['stock']+'件</span>');
+						var number = mui('#number').numbox();
+						number.options['max'] = datas[0]['stock'];
+						
+						var  guigehh = '<ul>';
+						     
+						for(i=0;i<datas.length;i++){
+							if(i == 0){
+							guigehh += '<li price="'+datas[0]['price']+'" vipprice="'+datas[0]['vipprice']+'" skuid="'+datas[0]['id']+'" stock="'+datas[0]['stock']+'" imgsrc="'+datas[0]['img']+'"  class="selected">'+datas[0]['sku']+'</li>';
+							}else{
+							guigehh += '<li price="'+datas[i]['price']+'" vipprice="'+datas[i]['vipprice']+'" skuid="'+datas[i]['id']+'" stock="'+datas[i]['stock']+'" imgsrc="'+datas[i]['img']+'">'+datas[i]['sku']+'</li>';	
+							}
+							
+						}
+						guigehh += '</ul>';
+						
+						$(".guige-sort").html(guigehh);
+							
+							//点击时把参数传到订单页面
+							mui("body").on('tap','.bt-shop',function(){
+								plus.nativeUI.showWaiting();
+								var token = window.localStorage.getItem('qztc');
+								console.log('提交订单');
+								if(token){		
+									mui.ajax(APIPATH+'User/index',{
+										data:{token:token},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(data){
+											var datas = data.data;
+											
+											if(datas.patpass == null){
+												plus.nativeUI.closeWaiting();
+												mui.confirm('您还没设置余额支付密码,是否前往设置？','提示',['取消','去设置'],function(e){
+												if(e.index == 1){
+													mui.openWindow({
+												    	url: '../me/me-setpass.html'
+													});
+												}
+												});
+											}else{
+												plus.nativeUI.closeWaiting();
+												
+											    var gid = $("#gid").val();
+												var skuid =$(".selected").attr('skuid');
+												var num = $(".mui-input-numbox").val();
+												var orderjson = {};
+												orderjson['gid'] = gid;
+												orderjson['skuid'] = skuid;
+												orderjson['num'] = num;
+											
+												var orderinfo = '['+JSON.stringify(orderjson)+']';
+												
+												mui.openWindow({
+												    url: "../shoppingCart/shopping-order.html",
+												    extras :{
+														"is_valid":is_valid,
+												    	"token":token,
+												    	"orderinfo":orderinfo,
+												    	"gwcif":2
+												    }
+												});	
+											}
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});			
+								    
+								}else{
+									mui.toast('抱歉!您还未登录，请登录后再进行操作！');
+									plus.nativeUI.closeWaiting();
+								}						
+							 });
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+				mui('#popover').popover("show");
+			});
+			
+			//选择规格
+			mui("body").on("tap",'.guige-sort ul li',function(){
+				$(".guige-sort ul li").attr({"class":""});
+				$(this).attr({"class":"selected"});
+				var guige = $(this).html();
+				var imgsrc = $(this).attr('imgsrc');
+				var price = $(this).attr('price');
+				var vipprice = $(this).attr('vipprice');
+				var skuid = $(this).attr('skuid');
+				var stock = $(this).attr('stock');
+				$(".guige-selected").html('<span >已选:"'+guige+'"</span>');
+				$(".guige-price").html('<span >￥'+price+'元</span>');
+				$(".goods-img").html('<img src="'+imgsrc+'" />');
+				$(".guige-stock").html('<span >库存:'+stock+'件</span>');
+				$(".guige-vipprice").html('<span >￥'+vipprice+'元</span><span style="font-size:1.4rem;margin-left:1rem;color: #FFFFFF;background: #E32000;border-radius: 0.5rem;padding: 0.2rem 0.5rem;">会员</span>');
+//				$('.mui-numbox').attr({"data-numbox-max":stock});
+				var number = mui('#number').numbox();
+				number.options['max'] = stock;
+						
+				$(".mui-input-numbox").val("1");
+				
+			});
+			
+			
+				// var qs = getQueryString(); 
+				// var q1 = qs["id"];
+			
+				// 分享
+			mui("body").on('tap','.share',function(){
+					updateSerivces();	
+			})
+			/**
+			 * * 更新分享服务
+			*/
+			function updateSerivces(){
+				var shares = null;
+				var sweixin = null;
+				var buttons=[
+				  {title:'我的好友',extra:{scene:'WXSceneSession'}},
+				  {title:'朋友圈',extra:{scene:'WXSceneTimeline'}},
+				];
+				plus.share.getServices(function(s){
+					console.log("获取分享服务："+JSON.stringify(s))
+					shares={};
+					for(var i in s){
+						var t=s[i];
+						shares[t.id]=t;
+					}
+					sweixin=shares['weixin'];
+					// 分享链接
+					sweixin?plus.nativeUI.actionSheet({title:'分享到微信',cancel:'取消',buttons:buttons}, function(e){
+						(e.index>0)&&share(sweixin, msg, buttons[e.index-1]);
+					}):mui.toast('当前环境不支持微信分享操作!');
+					}, function(e){
+						console.log('获取分享服务列表失败：'+e.message);
+					});
+			}
+			// 分享
+			function share(srv, msg, button){
+				console.log('分享操作：');
+			  if(!srv){
+			    mui.toast('无效的分享服务！');
+			    return;
+			  }
+			  button&&(msg.extra=button.extra);
+				// 发送分享
+				if(srv.authenticated){
+					doShare(srv, msg);
+				}else{
+					mui.toast('未授权');
+					srv.authorize(function(){
+						doShare(srv, msg);
+					}, function(e){
+						mui.toast('认证授权失败：'+JSON.stringify(e));
+					});
+				}  
+			}
+			// 发送分享
+			function doShare(srv, msg){
+				console.log('分享内容：'+JSON.stringify(msg))
+				srv.send(msg, function(){
+					mui.toast('分享到'+srv.description+'成功！');
+				}, function(e){
+					console.log('分享失败：'+JSON.stringify(e));
+					mui.toast('分享到'+srv.description+'失败:'+JSON.stringify(e));
+				});
+			}
+
+				
+		});
+		// 秒杀倒计时
+		function getCountDown(timestamp){
+			var currentTime = Math.round(new Date() / 1000);
+			if(timestamp == 0 || timestamp <= currentTime){
+				var div = document.getElementById("VIP");
+				//修改标签的style值有两种方式
+				div.setAttribute("style","text-decoration:line-through;");//一次添加多个
+				document.getElementById("countdown").innerText = '秒杀已结束';
+				return;
+			}
+			setInterval(function(){
+			    var nowTime = new Date();
+			    var endTime = new Date(timestamp * 1000);
+					
+			    var t = endTime.getTime() - nowTime.getTime();
+				var d=Math.floor(t/1000/60/60/24);
+			    var hour=Math.floor(t/1000/60/60%24);
+			    var min=Math.floor(t/1000/60%60);
+			    var sec=Math.floor(t/1000%60);
+					    
+			    if (hour < 10) {
+			         hour = "0" + hour;
+			    }
+			    if (min < 10) {
+			         min = "0" + min;
+			    }
+			    if (sec < 10) {
+			         sec = "0" + sec;
+			    }
+			    var countDownTime = '距结束还有 '+d +'天' + hour + '时' + min + '分' + sec + '秒';
+				document.getElementById("countdown").innerText = countDownTime;
+			
+			},1000);
+		     
+		} 
+			mui.plusReady(function(){
+			    //获得slider插件对象
+			    var gallery = mui('.mui-slider');
+			        gallery.slider({
+			  	    interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+			    });
+			});
+			
+		</script>
+	</body>
+
+</html> 

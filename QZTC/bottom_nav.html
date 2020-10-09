@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.mui-bar-tab .mui-tab-item .mui-icon{
+			font-size: 1.2rem;
+		}
+		.mui-bar-tab .mui-tab-item.mui-active{
+			color: #DE2B41;
+		}
+		.mui-bar-tab .mui-tab-item{
+			color: #434343;
+		}
+	</style>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab">
+		    <a id="defaultTab" class="mui-tab-item mui-active" href="view/home/home.html">
+		        <span class="mui-icon iconfont icon-shouyehui"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a class="mui-tab-item" href="view/shoppingCart/shopping-index.html">
+		        <span class="mui-icon iconfont icon-gouwuchelv">
+				<span style="display: none;" class="mui-badge">1</span></span>
+		        <span class="mui-tab-label">购物车</span>
+		    </a>
+		    <a class="mui-tab-item" href="view/headline/headline-index.html">
+		        <span class="mui-icon iconfont icon-luntan-"></span>
+		        <span class="mui-tab-label">头条.论坛</span>
+		    </a>
+		      <a class="mui-tab-item" href="view/integral/integral-index.html">
+		        <span class="mui-icon iconfont icon-jifenshangcheng"></span>
+		        <span class="mui-tab-label">积分商城</span>
+		    </a>
+		      <a class="mui-tab-item" href="view/me/me-index.html">
+		        <span class="mui-icon iconfont icon-wode"></span>
+		        <span class="mui-tab-label">我的</span>
+		    </a>
+		</nav>
+		<script src="js/mui.min.js"></script>
+		<script src="js/public.js"></script>
+		<script type="text/javascript">
+			
+			var bot='51px'
+			if(/iphone/gi.test(navigator.userAgent) && (screen.height >= 812 && screen.width >= 375)){
+				bot='85px'
+			}
+			//创建子页面
+			var subpages = [
+				'view/home/home.html',
+				'view/shoppingCart/shopping-index.html',
+				'view/headline/headline-index.html',
+				'view/integral/integral-index.html',
+				'view/me/me-index.html',
+				];// 修改对应图标连接的地址，记住需要对应
+			var subpage_style = {
+			    top: '0px',
+			    bottom: bot,
+			    scrollIndicator: "none" ,// 当你的界面的内容足够多的时候，会出现滚动条，这个是隐藏滚动条
+			};
+			var aniShow = {};
+				
+			mui.init();
+			           
+			//创建子页面，首个选项卡页面显示，其它均隐藏；安卓更新
+			document.addEventListener("plusready",function(){
+				
+				checkArguments();
+				//获得当前页面
+				    var self = plus.webview.currentWebview();
+				    //循环创建子页面
+				    for(var i=0;i<subpages.length;i++){
+						var temp = {};
+				        var sub = plus.webview.create(subpages[i],subpages[i],subpage_style);
+				//         var sub = plus.webview.create(
+				//             'view/home/home.html', // 默认显示页面
+				//             'view/home/home.html',{
+				//     top: '0px',
+				//     bottom: '50px',
+				//     scrollIndicator: "none" ,// 当你的界面的内容足够多的时候，会出现滚动条，这个是隐藏滚动条
+				// });
+				        if(i>0){
+				            sub.hide();
+				        }else{
+							temp[subpages[i]] = "true";
+							mui.extend(aniShow,temp);
+						}
+				        self.append(sub);
+				    }
+					// 安卓版本更新
+					updateAndroidVersion();
+			    
+			});
+			// 安卓版本更新
+			function updateAndroidVersion(){
+				var ua = navigator.userAgent.toLowerCase();
+				if (/iphone|ipad|ipod/.test(ua)) {    //苹果手机   
+					// alert("请前往AppStore");
+				}else{
+				
+				mui.ajax(APIPATH+"Index/appver",{
+					type:'POST',//HTTP请求类型
+					dataType:'json',//服务器返回json格式数据 
+					timeout:10000,//超时时间设置为10秒；         
+					success:function(data) 
+					{ 
+						//从本地获取当前的app版本号
+						var appId = plus.runtime.appid;
+						plus.runtime.getProperty(appId ,function(info){//传入appid，可获取app的版本信息等参数，function里面的info是回调参数，包含了返回的一些参数。详细用法可查阅官方文档 
+							//alert('本地当前版本号：'+info.version+'服务器版本号：'+resp.version);
+							//比较版本大小，进行更新，下面需要先转换一下格式，例如转换之前是：1.0.8，转换之后是108
+							var serverVersion = data.data.ver;//把所有点替换成空字符,并转成整数
+							var currentVersion = info.version; 
+							console.log(serverVersion); 
+							console.log(currentVersion);
+							if(serverVersion > currentVersion){//如果服务器版本大于本地版本，则进行更新，否则结束更新
+								mui.confirm(//弹出一个可选择的弹窗，
+									data.data.msg,//弹窗内容   
+									'发现有新版本更新:'+data.data.ver,//标题
+									['立即更新','下次再说'],//选项
+									function(obj){//返回用户选的是哪个选项,0是第一个，123以此类推
+										if(obj.index == 0){
+											plus.nativeUI.toast("正在准备环境，请稍后！");
+											var dtask = plus.downloader.createDownload( data.data.href , {}, function (d, status) {
+												if (status == 200) {
+													var path = d.filename;//下载apk
+													plus.runtime.install(path);// 自动安装apk文件
+												} else {
+													plus.nativeUI.alert('版本更新失败:' + status);
+												}
+											});
+											dtask.start();
+										}
+									}
+								);
+							}else{
+								console.log('当前已是最新版本');
+							}
+						});
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+				}
+			}
+			             
+			             
+			//当前激活选项卡
+			var activeTab = subpages[0];
+			             
+			//选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+			    var targetTab = this.getAttribute('href');
+			    var page = plus.webview.getWebviewById(targetTab);
+			 	// setTimeout(function(){
+			 	// 	page.reload(true);			 		
+			 	// },100);
+
+			    if (targetTab == activeTab) {
+			            return;
+			    }
+			    //显示目标选项卡
+			    plus.webview.show(targetTab);
+				if(mui.os.ios||aniShow[targetTab]){
+				                   plus.webview.show(targetTab);
+				               }else{
+				                   //否则，使用fade-in动画，且保存变量
+				                   var temp = {};
+				                   temp[targetTab] = "true";
+				                   mui.extend(aniShow,temp);
+				                   plus.webview.show(targetTab,"fade-in",300);
+				               }
+			    //隐藏当前;
+			    plus.webview.hide(activeTab);
+			    //更改当前活跃的选项卡
+			    activeTab = targetTab;
+//			    console.log(targetTab);
+			   
+			});
+			             
+			//自定义事件，模拟点击“首页选项卡”
+			document.addEventListener('gohome',function () {
+			    var defaultTab = document.getElementById("defaultTab");
+			    //模拟首页点击
+			    mui.trigger(defaultTab,'tap');
+			    //切换选项卡高亮
+			    var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+			    if(defaultTab!==current){
+			        current.classList.remove('mui-active');
+			        defaultTab.classList.add('mui-active');
+			    }
+			});
+			// 处理从后台恢复
+			document.addEventListener('newintent', function () {
+			    console.log("addEventListener: newintent");
+			    checkArguments();
+			}, false);
+			// 判断启动方式
+			function checkArguments() {
+			     console.log('启动方式:'+plus.runtime.launcher )
+				 console.log('启动携带参数:'+JSON.stringify(args));
+			    if(plus.runtime.launcher == "default"){
+			        return;
+			    }else if(plus.runtime.launcher == "scheme"){
+			            var args = plus.runtime.arguments;
+			            console.log('启动携带参数:'+JSON.stringify(args));
+			 
+			            if (args) {
+			 //                arr = args.split("?")[1];
+			 //            var goodsid = arr.split("=")[1];
+			 //                setTimeout(function(){
+			 
+			 //                    mui.openWindow("goods_detail.html?goodsid="+goodsid);
+			                    
+			 //                },1000)
+			 
+			            }
+			        }
+			        
+			    }
+		</script>
+	</body>
+
+</html>

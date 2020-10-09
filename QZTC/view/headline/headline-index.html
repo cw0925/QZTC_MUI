@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../css/view-css/headline/headline-index.css" rel="stylesheet">
+	</head>  
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title"><span class="active">头条</span><span onclick="loc()">论坛</span></h1>
+		</header>
+		<div class="mui-scroll-wrapper">
+    <div class="mui-scroll">
+			<div style="margin-top: 2.8rem;" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		    <div class="mui-scroll sort">
+		       <!-- <a class="mui-control-item mui-active">
+		            推荐
+		        </a> -->
+		    </div>
+		</div>
+		<div class="contetn">
+
+		</div>
+	    </div>
+	</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script src="../../js/page.js" type="text/javascript">
+			 
+		</script>
+		<script type="text/javascript">
+			mui('.mui-scroll-wrapper').scroll({
+                deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006 
+			});
+			function loc(){
+				location.href="headline-index-luntan.html";
+			}
+			
+			document.addEventListener('plusready',function(){
+				
+				plus.nativeUI.showWaiting();
+				
+				mui.ajax(APIPATH+'Forum/toutiaoindex',{
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){ 
+					
+						 //分类 
+						 var datas = data.data;
+						 var sorthh = '<a class="mui-control-item mui-active" val="-1">推荐</a>';
+						 for(i=0;i<datas.sort.length;i++){
+							 sorthh += '<a class="mui-control-item" val="'+datas.sort[i]['id']+'">'+datas.sort[i]['name']+'</a>';
+						 }
+						//内容
+							var contenthh = '';
+							for(i=0;i<datas.tuijian.length;i++){
+								contenthh += '<div val="'+datas.tuijian[i]['id']+'" class="item_title">'+
+																'<div class="title-text">'+
+																	'<p class="text">'+datas.tuijian[i]['title']+'</p>'+
+																	'<div>'+datas.tuijian[i]['timestr']+'</div>'+
+																	'<div><img style="margin-top:0.35rem;width:1rem;height:0.7rem" src="../../img/yanjin.png">&nbsp;&nbsp;<span>'+datas.tuijian[i]['click_rate']+'</span></div>'+
+																'</div>'+
+																'<div class="img_box"><img src="'+datas.tuijian[i]['cover_img']+'"  /></div>'+
+															'</div>';
+							}
+						 
+						 //点击分类
+						 mui("body").on("tap",".mui-control-item",function(){
+								plus.nativeUI.showWaiting();
+								var sort_id = $(this).attr("val");
+								mui.ajax(APIPATH+'Forum/toutiaosortindex',{
+									data:{sort_id:sort_id},
+									dataType:'json',//服务器返回json格式数据
+									type:'post',//HTTP请求类型
+									timeout:10000,//超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},	              
+									success:function(data){
+										
+										var datas = data.data;
+										var content = ''; 
+										for(i=0;i<datas.length;i++){
+											content += '<div val="'+datas[i]['id']+'" class="item_title">'+
+																		'<div class="title-text">'+
+																			'<p class="text">'+datas[i]['title']+'</p>'+
+																			'<div>'+datas[i]['timestr']+'</div>'+
+																			'<div><img style="margin-top:0.35rem;width:1rem;height:0.7rem" src="../../img/yanjin.png">&nbsp;&nbsp;<span>'+datas[i]['click_rate']+'</span></div>'+
+																		'</div>'+
+																		'<div class="img_box"><img src="'+datas[i]['cover_img']+'"  /></div>'+
+																	'</div>';
+										}
+										$(".contetn").html(content);
+										 
+										plus.nativeUI.closeWaiting();
+									},
+									error:function(xhr,type,errorThrown){
+										//异常处理；
+										console.log(type);
+									}
+								});
+								
+								
+						 });
+						 
+						 //点击进入正文
+						 mui("body").on("tap",".item_title",function(){
+							var id = $(this).attr("val"); 	 
+							mui.ajax(APIPATH+'Forum/click_news',{
+								data:{essay_id:id},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(res){
+									if(res.status){
+										mui.openWindow({
+										url: "./toutiao-content.html",
+										extras: {
+														essay_id: id,
+												}
+										});
+									}else{
+										alert(data.msg);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+						 });
+						 
+						 
+						 $(".contetn").html(contenthh);
+						 $(".sort").html(sorthh);
+						 plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			});
+
+		</script>
+	</body>
+
+</html>

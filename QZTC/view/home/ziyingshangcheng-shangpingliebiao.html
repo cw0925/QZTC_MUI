@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+
+	<head>   
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/view-css/home/ziyingshangcheng-shangpingliebiao.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+	</head>
+	<style type="text/css">
+		
+		/* .type{width: 90%;margin: 0 auto;overflow-x:auto;}
+		.type ul{ width: 100%;margin: 0 ;padding: 0;display: flex;flex-wrap: wrap;}
+		.type ul li{margin: 0.2rem 0.5rem;list-style: none; border:1px solid #EE7900; color: #EE7900;border-radius: 20px;padding: 5px 5px 1.5px 5px}
+		.type ul .activ{background: #EE7900;color: #ffffff;} */
+		.type{width: 90%;margin: 0 auto;overflow-x:auto;}
+		.type ul{ width: 100%;margin: 0 ;padding: 0;display: flex;flex-wrap: wrap;}
+		.type ul li{width: 30%;height: 35px;line-height: 35px;margin: 5px;list-style: none; border:1px solid #EE7900; color: #EE7900;border-radius: 20px;text-align: center;}
+		.type ul .activ{background: #EE7900;color: #ffffff;}
+	</style>
+	<body style="background: #FFFFFF;">
+		
+		<header class="mui-bar mui-bar-nav"> 
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">商品列表</h1>
+		</header>
+		
+		<div class="search">
+			<input type="text" id="search_box" name="" placeholder="请输入商品名称" />
+			<span class="mui-icon mui-icon-search"></span>
+		</div>
+		
+		<div class="type">
+			<ul class="type-ul">
+				<li class="activ" val="">全部</li>
+			</ul>
+		</div>
+		 
+		<div class="mui-content content">
+		    <div class="goods-div">
+		    	<!--商品-->
+		    </div>
+		</div>
+		<p class="p-bottom">正在加载~</p>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/page.js"></script>
+		<!--<script src="../../js/public.js"></script>-->
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			 		
+		var qs = getQueryString(); 
+		var q1 = qs["id"];
+		var type = qs["type"];
+		console.log('列表type'+qs["type"]);
+			
+		document.addEventListener("plusready",function(){	
+			
+			plus.nativeUI.showWaiting();
+		
+			
+			mui.ajax(APIPATH+'Index/goodstable',{
+				data:{type:1,sort_id:q1},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				// headers:{'Content-Type':'application/json'},	              
+				success:function(data){
+					// console.log('商品列表：'+JSON.stringify(data))
+					var goodshh = '';
+					var dataTypeArr = data.msg; 
+					var dataTypeStr = '';
+					for(var i = 0;i < dataTypeArr.length; i++){
+						dataTypeStr += '<li val="'+dataTypeArr[i]['id']+'" >'+dataTypeArr[i]['nick']+'</li>';
+					}
+					$(".type-ul").append(dataTypeStr);
+					
+					var datas = data.data;
+					
+					for(i=0;i<datas.length;i++){ 
+						goodshh += '<div class="goods">'+
+									'<a onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+datas[i]['id']+'&type='+type+'\')">'+
+						    		'<img src="'+datas[i]['cover_img']+'" />'+
+						    		'</a>'+ 
+						    		'<p>'+datas[i]['title']+'</p>'+
+						    		'<span class="price">￥'+datas[i]['minprice']+'</span>'+
+						    		'<a href=""><img style="width: 1.2rem;height: 1.2rem;"  src="../../imgs/cart.png" /></a>'+
+						    		'<span class="vipprice">￥'+datas[i]['minvipprice']+'</span>'+
+						    		'<span class="vip">会员</span>'+
+							    '</div>';	
+					}
+					
+					$(".goods-div").html(goodshh);
+					$(".p-bottom").html('已经加载完了~');
+					plus.nativeUI.closeWaiting();
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+			
+			mui("body").on("tap",".type-ul li" ,function(){
+				
+				plus.nativeUI.showWaiting();
+				var zisort =  $(this).attr("val"); 
+				$(".type-ul li").removeClass("activ");
+				$(this).addClass("activ");
+				console.log(zisort)
+				mui.ajax(APIPATH+"Index/goodstable",{
+					data:{type:1,sort_id:q1,zisort:zisort},
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var goodshh = '';
+						var datas = data.data;
+											
+						
+						if(datas.length){
+							for(i=0;i<datas.length;i++){ 
+								goodshh += '<div class="goods">'+
+											'<a onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+datas[i]['id']+'\')">'+
+								    		'<img src="'+datas[i]['cover_img']+'" />'+
+								    		'</a>'+
+								    		'<p>'+datas[i]['title']+'</p>'+
+								    		'<span class="price">￥'+datas[i]['minprice']+'</span>'+
+								    		'<a href=""><img style="width: 1.2rem;height: 1.2rem;"  src="../../imgs/cart.png" /></a>'+
+								    		'<span class="vipprice">￥'+datas[i]['minvipprice']+'</span>'+
+								    		'<span class="vip">会员</span>'+
+									    '</div>';	
+							}	
+							$(".p-bottom").html("已没有了哦~");
+						}else{
+							goodshh = '<img  style="margin-left:26%;width:50%" src="../../img/sorry-goods.png"/>';
+							$(".p-bottom").html("");
+						}
+						
+						
+						$(".goods-div").html(goodshh);
+						
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+			
+			mui("body").on("tap",".mui-icon-search",function(){
+				plus.nativeUI.showWaiting();
+				var content = $("#search_box").val();
+				var zisort = ''; 
+	
+				mui.ajax(APIPATH+"Index/goodstable",{
+					data:{type:1,sort_id:q1,content:content,zisort:zisort},
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var goodshh = '';
+						var datas = data.data;
+							
+						
+						if(datas.length){
+							for(i=0;i<datas.length;i++){ 
+								goodshh += '<div class="goods">'+
+											'<a onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+datas[i]['id']+'\')">'+
+								    		'<img src="'+datas[i]['cover_img']+'" />'+
+								    		'</a>'+
+								    		'<p>'+datas[i]['title']+'</p>'+
+								    		'<span class="price">￥'+datas[i]['minprice']+'</span>'+
+								    		'<a href=""><img style="width: 1.2rem;height: 1.2rem;"  src="../../imgs/cart.png" /></a>'+
+								    		'<span class="vipprice">￥'+datas[i]['minvipprice']+'</span>'+
+								    		'<span class="vip">会员</span>'+
+									    '</div>';	
+							}	
+							$(".p-bottom").html("已没有了哦~");
+						}else{
+							goodshh = '<img  style="margin-left:26%;width:50%" src="../../img/sorry-goods.png"/>';
+							$(".p-bottom").html("");
+						}
+						
+						
+						$(".goods-div").html(goodshh);
+						
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+			
+			
+		});
+		function jump(_this){
+			mui.openWindow({
+		    url: _this
+		  });
+			
+		}
+		</script>
+	</body>
+
+</html>

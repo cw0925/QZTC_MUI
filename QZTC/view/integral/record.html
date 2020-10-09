@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+	body{
+		background: #FFFFFF;
+	}
+	.body{
+		background: #FFFFFF;
+		width: 100%;
+	}
+	.record{
+		background: #FFFFFF;
+		width: 100%;
+		border: 1px solid #F0F0F0;
+		padding-top: 0.5rem;
+		overflow: hidden;
+		display: flex;
+	}
+	.record-img{
+		width: 30%;
+		margin-left: 2rem;
+		display: flex;
+		align-items: center;
+	}
+	.record-img img{
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+		width: 95%;
+		height: 70%;
+	}
+	.record-info{
+	
+		margin-left: 1rem;
+		margin-right: 0.5rem;
+		width: 60%;
+	}
+	.info-title{
+		margin-top: 0.5rem;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		color: #000000;
+	}
+	.info-price{
+		float: right;
+		color: #000000;
+	}
+	.info-time{
+		float: right;
+		color: #000000;
+	}
+	.info-status{
+		float: right;
+		color: red;
+	}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">兑换记录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="body">
+				
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				var token = window.localStorage.getItem('qztc');
+				plus.nativeUI.showWaiting();
+		
+				mui.ajax(APIPATH+'Integral/getrecord',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data;
+						var hh = '';
+						if(data.status == '1'){
+							
+							for(i=0;i<datas.length;i++){
+								if(datas[i]['status'] == 1){var status = '未支付';}else{var status = '已支付';}
+								hh += '<div class="record">'+
+									'<div class="record-img">'+
+										'<img src="'+datas[i]['cover_img']+'">'+
+									'</div>'+
+									'<div class="record-info">'+ 
+										'<p class="info-title">'+datas[i]['title']+'</p>'+
+										'<P class="info-price">价格：'+datas[i]['integral_total']+'</P>'+
+										'<p class="info-time">兑换时间：'+datas[i]['time']+'</p>'+
+										'<p class="info-status">订单状态:'+status+'</p>'
+									'</div>'+
+								'</div>';
+							}
+							
+						}else if(data.status == '-2'){
+							var btnArray = ['否', '是'];
+							mui.confirm('您还没登录或登录已过期,是否去登录？', '登录提示', btnArray, function(e) {
+								if (e.index == 1) {
+									//去登录
+									window.localStorage.removeItem('qztc');
+									//判断当前设备类型
+									if(mui.os.ios || mui.os.ipad || mui.os.android) {
+										// 获取当前webview窗口对象
+										var curr = plus.webview.currentWebview();
+										
+										//获取所有已经打开的webview窗口
+										var wvs = plus.webview.all();
+										
+										
+										for(var i = 0, len = wvs.length; i < len; i++) {
+										//关闭除当前页面外的其他页面
+										if(wvs[i].getURL() == curr.getURL())
+										
+										//遇到当前页跳过
+										continue;
+										
+										//非当前页执行关闭
+										plus.webview.close(wvs[i]); 
+										}
+										//打开login页面
+										
+										plus.webview.open('../../login.html');
+										//执行关闭当前页面
+										curr.close();
+									} else{ 
+									
+										//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+										plus.runtime.quit();
+									
+									} 
+									
+								}
+							})
+						}else{
+							hh += '<div style="background: #FFFFFF;width: 100%;line-height: 30rem;text-align: center;">'+
+									'<span>暂无兑换记录</span>'+
+							     '</div>';
+						}
+						$(".body").html(hh); 
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

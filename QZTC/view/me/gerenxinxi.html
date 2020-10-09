@@ -1,0 +1,427 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../css/mui.picker.all.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.header_box {
+			background: #FFFFFF;
+			padding: 0.5rem 0.75rem;
+			overflow: hidden;
+		}
+		.header_box img{
+			width: 4.5rem;
+			height: 4.5rem;
+			border-radius: 50%;
+			float: right;
+			border: 2px solid #999;
+		}
+		.header_box span{
+			font-size: 0.85rem;
+			display: inline-block;
+			margin-top: 1.3rem;
+		}
+		.mui-table-view-cell .mui-navigate-right span{
+			color: #333333;
+			font-size: 0.85rem;
+		}
+		.mui-bar{
+			background: #E8192D;
+		}
+		.mui-bar a{
+			color: #FFFFFF;
+		}
+		.mui-bar h1{
+			color: #FFFFFF;
+		}
+		#baocun{
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			text-align: center;
+			line-height: 3rem;
+			background:red ;
+			color:#FFFFFF;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">个人信息</h1>
+		</header>
+		<div class="content" style="margin-top: 2.6rem;">
+			<div class="header_box">
+				<img id="touxiang" />
+				
+				<span>头像</span>
+			</div>
+			<img style="display: none;" src="../../img/addimg.png" id="ts">
+			<div style="height: 0.3rem; background: #DCDCDC;"></div>
+			<ul class="mui-table-view">
+			        
+			        <li class="mui-table-view-cell" id="name-click">
+			            <a class="mui-navigate-right">
+			                     <span>昵称</span>
+			                     <span class="mui-pull-right" style="padding-right: 1.2rem;" id="name" ></span>
+			            </a>
+			        </li>
+			        <li class="mui-table-view-cell" id="xingbie">
+			            <a class="mui-navigate-right">
+			                   <span>性别</span>
+			                     <span class="mui-pull-right" style="padding-right: 1.2rem;" id="sex"></span>
+			            </a>
+			        </li>
+			        <li class="mui-table-view-cell year">
+			            <a class="mui-navigate-right">
+			                     <span>出生日期</span>
+			                     <span class="mui-pull-right" style="padding-right: 1.2rem;" id="time" ></span>
+			                
+			            </a>
+			        </li>
+			    </ul>
+		</div>
+		<div id="baocun">
+			保存
+		</div>
+		<input type="file" name="img_tx" id="img_tx" style="display: none;"/>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/jquery.form.js"></script>
+		<script src="../../js/layer/layer.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var token = window.localStorage.getItem('qztc');
+			window.onload = function(){
+			  //从服务器获取数据
+			 // ....
+			  //业务数据获取完毕，并已插入当前页面DOM；
+			  //注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；
+			  mui.plusReady(function(){
+			    //关闭等待框
+			    plus.nativeUI.closeWaiting();
+			    //显示当前页面
+			    mui.currentWebview.show();
+			  });
+			}
+			document.getElementById('xingbie').addEventListener('tap', function() {  
+ 　　　　	if (mui.os.plus) { 
+
+ 　　　　　　	var a = [{ 
+ 
+ 　　　　　　　　title: "男"          //这些都是可以点击的选项的内容
+ 
+ 　　　　　　	}, { 
+ 
+ 　　　　　　　　title: "女" 
+ 
+ 　　　　　　}]; 
+ 
+ 　　　　　　plus.nativeUI.actionSheet({  
+ 　　　　　　　　cancel: "取消",                     //取消按钮
+ 
+ 　　　　　　　　buttons: a 
+ 
+ 　　　　　　}, function(b) { /*actionSheet 按钮点击事件*/ 
+ 
+ 　　　　　　　　//这里面就是触发的事件，比如想做一个选择性别的弹窗，就可以通过a[b.index].title来获取当前点击了男还是女，注意，此处的b.index是从1开始的。要从0开始的话，要记得减
+ 				if(b.index == 1){
+ 					$("#sex").html('男');
+ 					$("#sex").attr("sexid",b.index);
+ 				}else if(b.index == 2){
+ 					$("#sex").html('女');
+ 					$("#sex").attr("sexid",b.index);
+ 				}
+ 				
+ 　　　　　　}) 
+ 
+ 　　　　} 
+ 
+ 　　}, false);
+			
+			
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+	
+				mui.ajax(APIPATH+'user/userinfo',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(res){
+						if(res.status == 1){
+							$("#touxiang").attr("src",res.data.avatar);
+							$("#name").html(res.data.nick);
+							if(res.data.sex == 0){
+								$("#sex").html("未填写");
+								$("#sex").attr("sexid",0);
+							}else if(res.data.sex == 1){
+								$("#sex").html("男");
+								$("#sex").attr("sexid",1);
+							}else if(res.data.sex == 2){
+								$("#sex").html("女");
+								$("#sex").attr("sexid",2);
+							}
+							if(res.data.birthday == null){
+								$("#time").html("未填写");
+							}else{
+								$("#time").html(res.data.birthday);
+							}
+							plus.nativeUI.closeWaiting();
+							
+						}else{
+							plus.nativeUI.closeWaiting();
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});	
+				
+				//头像更换
+				mui("body").on("tap","#touxiang",function(){
+						if (mui.os.plus) {
+							var buttonTit = [{
+								title: "拍照"
+							}, {
+								title: "从手机相册选择"
+							}];
+							
+							plus.nativeUI.actionSheet({
+								title: "上传头像",
+								cancel: "取消",
+								buttons: buttonTit
+							}, function(b) { /*actionSheet 按钮点击事件*/
+								switch (b.index) {
+									case 0:
+										break;
+									case 1:
+												getImage(); /*拍照*/
+										break;
+									case 2:
+												galleryImg(1);/*打开相册*/ 
+										break;
+									default:
+										break;
+								}
+							})
+						} 
+				})
+				// 拍照获取图片
+				function getImage() {
+					var c = plus.camera.getCamera();
+					c.captureImage(function(e) {
+						plus.io.resolveLocalFileSystemURL(e, function(entry) {
+							var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径
+							var fileSrc = [];
+							fileSrc[0] = imgSrc;
+							
+							setHtml(fileSrc);
+							
+							
+						}, function(e) {
+							console.log("读取拍照文件错误：" + e.message);
+						});
+					}, function(s) {
+						console.log("error" + s);
+					}, {
+						filename: "_doc/camera/"
+					}) 
+				}
+				// 从相册中选择图片 
+				function galleryImg(num){
+						// 从相册中选择图片
+						plus.gallery.pick( function(e){
+							var fileSrc = [];
+							for(var i in e.files){
+								fileSrc[i] = e.files[i];
+							}
+							
+							setHtml(fileSrc);
+						
+							// upload(fileSrc);
+						}, function (e) {
+							mui.toast( "取消选择图片" );
+						},{
+							filter: "image",
+							multiple: true,
+							maximum: num,
+							system: false,
+							onmaxed: function() {
+								plus.nativeUI.alert('最多只能选择'+num+'张图片');
+							}
+						});
+					}
+					//遍历上传图片 
+					function setHtml(img)
+					{
+						$("#touxiang").attr("src",img);
+						$("#ts").attr("src",img);
+					
+					}
+					
+					function getBase64Image(img) {
+						
+						var canvas = document.createElement("canvas");
+						canvas.width = img.width;
+						canvas.height = img.height;
+						
+						var ctx = canvas.getContext("2d");
+						ctx.drawImage(img, 0, 0, img.width, img.height);
+						var dataURL = canvas.toDataURL("image/png"); 
+						
+						return dataURL; 
+						// return dataURL.replace("data:image/png;base64,", ""); 
+					}  
+				
+				
+				
+				//昵称页面返回回来的
+				function fun1(e){   
+                    var val=e.detail.name   
+                   	$("#name").html(val);
+                }   
+				//自定义窗体事件  doit 要和b页面定义的 事件名称一致   
+				window.addEventListener('doit',fun1);  
+                        
+			
+			
+				//时间选择
+			$(".year").click(function(){
+			   	var dtpicker = new mui.DtPicker({
+				    type: "date",//设置日历初始视图模式 
+				    beginDate: new Date(1950, 04, 25),//设置开始日期 
+				    endDate: new Date(2299, 04, 25),//设置结束日期 
+				    labels: ['年', '月', '日'],//设置默认标签区域提示语 
+				    customData: { 
+				      
+				    }//时间/日期别名 
+				}) 
+				dtpicker.show(function(e) {
+				  
+					$('#time').html(e.value);
+				}) 	 
+			})
+			
+			//昵称修改
+			$("#name-click").click(function(){
+				var name = $("#name").html();
+				mui.openWindow({
+				    url: 'upnick.html',
+				    extras:{
+				    	name:name
+				    }
+				});
+			})
+		
+		mui("body").on("tap","#baocun",function(){
+			var name = $("#name").html();
+			var sex = $("#sex").attr("sexid");
+			var time = $("#time").html();
+			plus.nativeUI.showWaiting();
+			var ifimg = $("#ts").attr("src");
+			
+			if(ifimg){ 
+				
+				var base_fm = getBase64Image($("#ts")[0]); 
+			    
+				dealImage({
+					base64:base_fm,
+					w:800,
+					callback:function(base64){ 
+						
+						
+							mui.ajax(APIPATH+'Enter/fm_img',{
+								data:{fm_img:base64},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(data){
+									var img = data.data;
+								
+									
+									mui.ajax(APIPATH+'User/upinfo',{
+										data:{token:token,nick:name,sex:sex,birthday:time,img:img},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(data){
+											if(data.status == 1){
+												plus.nativeUI.closeWaiting();
+												mui.toast(data.msg);
+												setTimeout(function(){
+													var _page = plus.webview.getWebviewById('view/me/me-index.html'); 
+													_page.reload(true);	  
+												},100); 
+											}else{
+												plus.nativeUI.closeWaiting();
+												mui.toast(data.msg);
+											}
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+									
+									plus.nativeUI.closeWaiting();
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+						
+					}
+				}); 
+			}else{
+			
+					
+				mui.ajax(APIPATH+'User/upinfo',{
+					data:{token:token,nick:name,sex:sex,birthday:time},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						if(data.status == 1){
+							plus.nativeUI.closeWaiting();
+							mui.toast(data.msg);
+							setTimeout(function(){
+								window.location.reload();
+							},100); 
+						}else{
+							plus.nativeUI.closeWaiting();
+							mui.toast(data.msg);
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});	
+					
+			}
+			
+		})	
+		}) 	
+			
+		</script>
+	</body>
+
+</html>

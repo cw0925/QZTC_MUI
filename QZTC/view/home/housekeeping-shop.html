@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.body{
+			width: 100%;
+			background: #FFFFFF;
+			padding-bottom: 1rem;
+			overflow: hidden;
+		} 
+		.goods{
+			width: 45%;
+			border: 0.05rem solid #D3D3D3;
+			margin-left: 3.5%;	
+			margin-top: 1rem;
+			/*margin-bottom: 0.5rem;*/
+			height: 24rem;
+			float: left;
+		}
+		.foot-p{
+			padding-top: 1rem;
+			padding-bottom: 0.5rem;
+			text-align: center;
+			/*background: #FFFFFF;*/
+			line-height: 2rem;
+		}
+		.foot-p p{
+			font-size: 1rem;
+		}
+		.goods-img{
+			height: 68%;
+			text-align: center;
+			border-bottom: 0.05rem solid #D3D3D3;
+		}
+		.goods-img img{
+			margin-top: 0.2rem;
+			width: 90%;
+			height: 95%;
+		}
+		.goods-info{
+			height: 33%;
+		}
+		.goods-info p{
+			margin-left: 1rem;
+			margin-bottom: 0;
+			margin-right: 0.5rem;
+		}
+		.goods-title{
+			margin-top: 0.6rem;
+			color: #000000;
+			overflow:hidden; 
+			text-overflow:ellipsis;
+			display:-webkit-box; 
+			-webkit-box-orient:vertical;
+			-webkit-line-clamp:2; 
+		}
+		.goods-price{
+			font-size: 1.5rem;
+			margin-top:0.8rem;
+			color: red;
+			float: right;
+		}
+		.goods-status{
+			font-size: 1.2rem;
+			margin-top:0.8rem;
+		}
+		.null-div{
+			background: #FFFFFF;
+			text-align: center;
+			font-size: 2rem;
+			line-height: 50rem;
+			color:#ACACAC;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">全部商品</h1>
+		</header>
+		<div style="background: #FFFFFF;" class="mui-content">
+		    <div class="content-goods">
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){	
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var shop_id = self.shop_id;   
+			
+				mui.ajax(APIPATH+'Enter/get_server_goods',{
+					data:{shop_id:shop_id},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					var hh = '';
+					for(i=0;i<datas.length;i++){
+						hh += '<div class="goods" gid="'+datas[i]['id']+'">'+
+									'<div class="goods-img">'+
+										'<img src="'+datas[i]['fm_img']+'"/>'+
+									'</div>'+
+									'<div class="goods-info">'+
+										'<p class="goods-title">'+datas[i]['title']+'</p>'+
+										'<p class="goods-price">￥'+datas[i]['price']+'</p>'+ 
+										'<p class="goods-status">库存：'+datas[i]['stock']+'</p>'+
+									'</div>'+
+								'</div>';
+					}
+					mui("body").on("tap",".goods",function(){
+						
+						var gid = $(this).attr("gid");
+						mui.openWindow({
+							url: "./housekeeping-goods-detail.html", 
+							extras :{
+								"gid":gid
+							}
+						});
+					})
+					$(".mui-content").html(hh);
+					plus.nativeUI.closeWaiting();	
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+			
+		</script>
+	</body>
+
+</html>

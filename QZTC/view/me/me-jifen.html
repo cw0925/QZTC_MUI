@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.header_content{
+			padding: 1rem 0;
+			background: #E8192D;
+		}
+		.header_box{
+			display: flex;
+			justify-content: space-around;
+		}
+		.header_box .img_box img{
+			width: 3rem;
+			
+		}
+		.header_box .text{
+			font-size: 0.85rem;
+			color: #FFFFFF;
+			padding-top: 1.5rem;
+		}
+		.header_content>p{
+			font-size: 0.85rem;
+			color: #FFFFFF;
+			text-align: center;
+			font-size: 0.9rem;
+			margin-top: 0.5rem;
+		}
+		.mui-segmented-control{
+			background: #FFFFFF;
+			border: none;
+		}
+		.mui-segmented-control .mui-control-item{
+			border: none;
+			color: #333;
+		}
+		.mui-segmented-control .mui-control-item.mui-active{
+			background: none;
+			color: #E8192D;
+		}
+		.mui-table-view{
+			margin-top: 0.4rem;
+		}
+		.mui-table-view-cell{
+			display: flex;
+		}
+		.mui-table-view-cell .img_box{
+			width: 30%;
+			text-align: center;
+		}
+		.mui-table-view-cell .img_box img{
+			width: 70%;
+			height: 3.5rem;
+		}
+		.mui-table-view-cell .text-box{
+			width: 70%;
+		}
+		.mui-table-view-cell .text-box .xia_box{
+			margin-top: 5%;
+		}
+		.mui-table-view-cell .text-box .xia_box .mui-pull-right{
+			font-size: 0.8rem;
+			color: #737373;
+		}
+		.text-box .detail_box{
+			width: 60%;
+			font-size: 0.85rem;
+			color: #333333;
+		}
+		.text-box .shang_box .detail_box{
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+		}
+		
+	</style>
+
+	<body>
+		<header class="header-bg mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的积分</h1>
+		</header>
+		<div class="mui-content">
+			<div class="header_content">
+				<a style="color: #FFFFFF;text-align: center;" onclick="jump('me-jifen-huode.html')"><div class="text">获得积分</div></a> 
+				<div style="padding-top: 1rem;" class="header_box">
+					<div class="img_box"><img src="../../imgs/wdjf_icon.png"/></div>
+					<!-- <a ><div class="text">积分明细</div></a> -->
+				</div>
+				<p id="jifen">0 积分</p>
+			</div>
+			
+			
+			<div style="line-height: 3rem;text-align:center;background: #FFFFFF;">
+			    <!-- <a class="mui-control-item" onclick="jump('me-jifen-mingxi.html')" >积分明细</a> -->
+				积分明细
+			</div>
+			<div id="item1" class="mui-control-content mui-active">
+				<ul class="mui-table-view">
+				        
+				         
+				</ul>	
+			</div>
+			<div id="item2" class="mui-control-content">
+				
+			</div>
+			
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){	
+				var token = window.localStorage.getItem('qztc');
+				plus.nativeUI.showWaiting();
+			
+				mui.ajax(APIPATH+'User/jifen',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data;
+						var hh = '';
+						
+						$("#jifen").html(datas['user']['integral']+' 积分');
+						if(data.status == '1'){
+							for(i=0;i<datas.integral.length;i++){
+								hh += '<li class="mui-table-view-cell">'+
+											'<div class="img_box"><img src="'+datas['integral'][i]['cover_img']+'"/></div>'+
+											'<div class="text-box">'+
+												'<div class="shang_box">'+
+													'<span style="font-size: 0.85rem;color: #767676;" class="mui-pull-right">'+datas['integral'][i]['time']+'</span>'+
+													'<p class="detail_box">'+datas['integral'][i]['title']+'</p>'+
+												'</div>'+
+												'<div class="xia_box">'+
+													'<span style="color: #E8192D;" class="mui-pull-right">- '+datas['integral'][i]['integral_total']+'</span>'+
+													'<p style="color: #767676;" class="detail_box">兑换商品</p>'+
+												'</div>'+ 
+											'</div>'+
+										'</li>';
+							}
+							$(".mui-table-view").html(hh);
+						}else if(data.status == '-1'){
+							$("#item1").html('<div style="width: 100%;line-height: 20rem;text-align: center;">'+
+									'<span>暂无兑换记录</span>'+
+							     '</div>');
+						}else if(data.status == '-2'){
+							mui.confirm('您的帐号在别的设备上登录过','提示',['取消','去登录'],function(e){
+								if(e.index == 1){
+									//去登录
+									window.localStorage.removeItem('qztc');
+									//判断当前设备类型
+									if(mui.os.ios || mui.os.ipad || mui.os.android) {
+										// 获取当前webview窗口对象
+										var curr = plus.webview.currentWebview();
+										
+										//获取所有已经打开的webview窗口
+										var wvs = plus.webview.all();
+										
+										
+										for(var i = 0, len = wvs.length; i < len; i++) {
+										//关闭除当前页面外的其他页面
+										if(wvs[i].getURL() == curr.getURL())
+										
+										//遇到当前页跳过
+										continue;
+										
+										//非当前页执行关闭
+										plus.webview.close(wvs[i]); 
+										}
+										//打开login页面
+										
+										plus.webview.open('../../login.html');
+										//执行关闭当前页面
+										curr.close();
+									} else{ 
+									
+										//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+										plus.runtime.quit();
+									
+									} 
+								}
+							});
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

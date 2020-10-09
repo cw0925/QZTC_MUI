@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style>
+		body{
+			background: #FFFFFF;
+		}
+		.parameter{
+			background: #FFFFFF;
+			width: 100%;
+			line-height: 5rem;
+			border-bottom: 1px solid #F0F0F0;
+			overflow: hidden;
+		}
+		.key{
+			width: 50%;
+			float: left;
+			border-right: 1px solid #F0F0F0;
+		}
+		.key span{
+			margin-left: 2rem;
+		}
+		.value{
+			width: 50%;
+			float: left;
+			text-align: center;
+		}
+		
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">产品参数</h1>
+		</header>
+		<div class="mui-content">
+		   
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+		 	document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var id = self.sid;
+			
+				mui.ajax(APIPATH+'Integral/integral_parameter',{
+					data:{sid:id},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var hh = '';
+					var datas = data.data;
+					if(data.status == '1'){
+						hh += '<div class="parameter">'+
+								'<div class="key">'+
+									'<span>参数</span>'+
+								'</div>'+
+								'<div class="value">'+
+									'<span>参数值</span>'+
+								'</div>'+
+							'</div>';
+						for(i=0;i<datas.length;i++){
+							hh += '<div class="parameter">'+
+									   '<div class="key">'+
+										   '<span>'+datas[i]['key']+'</span>'+
+									   '</div>'+
+									   '<div class="value">'+
+										   '<span>'+datas[i]['value']+'</span>'+
+									   '</div>'+
+								   '</div>'; 
+						}
+					}else{
+						hh = '<div style="background: #FFFFFF;width: 100%;line-height: 30rem;text-align: center;">'+
+								'<span>该商品无参数</span>'+
+						     '</div>'; 
+					}
+					$(".mui-content").html(hh);
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+		 	})
+		</script>
+	</body>
+
+</html>

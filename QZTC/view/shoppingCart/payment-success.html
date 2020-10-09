@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/view-css/shopping/payment-success.css"/>
+	</head>
+	
+	<body>
+		<header class="header">
+			<div class="left-return">
+		    	<a class="fa fa-angle-left fa-2x "></a>				
+			</div>
+			<div class="title">
+				<span>支付成功</span>
+			</div>
+		</header>
+		<div class="mui-content content">
+		   <img src="../../img/success.png"/>
+		   <span class="zfcg">支付成功</span>
+		   <span class="zf-price">实付:￥00.00</span>
+		   <a class="home" href="../../bottom_nav.html">返回</a>
+		   <!-- <a class="order" href="../me/me-dingdan.html">查看订单</a> -->
+		</div>	
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script> 
+		<script src="../../js/rem.js"></script>
+		<script src="../../js/page.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			mui.plusReady(function(){
+			var self = plus.webview.currentWebview();
+			
+			$(".zf-price").html('实付:￥'+self.totalprice);
+			
+			//返回商品列表
+			$('.left-return').html('<a class="fa fa-angle-left fa-2x" id="fanhui" href="../../bottom_nav.html"></a>');
+			mui('body').on('tap','#fanhui',function(){
+			   var hrefstr = this.href;
+			    mui.openWindow({
+				url: hrefstr,
+				});
+			});
+			
+			mui('body').on('tap','.home',function(){
+				plus.webview.close(plus.webview.currentWebview());
+				
+				// window.location.href = "bottom_nav.html";
+				// var h = plus.webview.getWebviewById("tab");
+				// plus.webview.show( h );
+				var hrefstr = this.href;
+				mui.openWindow({
+					url: hrefstr,
+				});
+				// popToTarget('tab');
+			});
+			
+			mui('body').on('tap','.order',function(){
+//			    var hrefstr = this.href;
+//			    mui.openWindow({
+//				url: hrefstr,
+//				});
+				mui.toast('请点击返回首页');
+				return false;
+			});
+			
+			function jump(_this){
+				
+				mui.openWindow({
+				  url: _this,
+				  id: "webviewId",
+				  styles: {
+					popGesture:"close"
+					}
+				});
+			}
+				/**
+				 * 从当前页面pop到目标页面
+				 * @param {String} targetId 目标页面ID
+				 */
+				function popToTarget(targetId){
+					//获取目标页面
+					var target = plus.webview.getWebviewById(targetId);
+					if (!target) {
+						console.log("目标页面不存在！");
+						return;
+					}
+					//获取当前页面
+					var current = plus.webview.currentWebview();
+					if (current === target) {
+						console.log("目标页面是当前页面！");
+						return;
+					}
+					//将要关闭的页面
+					var pages = new Array(current);
+					//父级页面
+					var opener = current.opener();
+					while (opener){
+						if (opener === target) {//找到了目标页面
+							//关闭目标页面的所有子级页面pages
+							pages.map(function(page){
+								page.close();
+							});
+							return;
+						}
+						pages.push(opener);
+						opener = opener.opener();
+					}
+					//没有找到目标页面
+					console.log("目标页面不是当前页面的祖先页面！");
+				}
+			});
+		</script>
+	</body>
+
+</html>

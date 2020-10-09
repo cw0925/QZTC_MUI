@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../css/view-css/integral/integral-index.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">积分商城</h1>
+		</header>
+		<div style="margin-top: 2rem;" class="mui-scroll-wrapper">
+   		<div class="mui-scroll">
+		<div class="mui-slider">
+		  <div id="lbt" class="mui-slider-group mui-slider-loop">
+		    <!--支持循环，需要重复图片节点-->
+		    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+		    <!--支持循环，需要重复图片节点-->
+		    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/jfsc_banner.png/" /></a></div>
+		  </div>
+			<div class="mui-slider-indicator">  
+					<div class="mui-indicator mui-active"></div>  
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>  
+					<div class="mui-indicator"></div>  
+			</div>
+		</div>
+		<div class="nav_bar">
+			<div class="item">
+				<img id="goods" src="../../imgs/jfsc_icon1.png"/>
+				<p>全部商品</p>
+			</div>
+			<div id="sign_in" class="item">
+				<img src="../../img/qd.png"/>
+				<p>签到</p>
+			</div>
+			<div id="jilu" class="item">
+				<img src="../../imgs/jfsc_icon4.png"/>
+				<p>积分兑换</p>
+			</div>	
+		</div> 
+		<div class="content">
+			<p class="tit">热门推荐</p>
+			<ul class="content_ul">
+				<!--<li>
+					<div class="img_box"><img src="../../imgs/home_nrq_image11.png"/></div>
+					<div class="text">
+						<p>冷冻隔壁老王科比科比</p>
+					<span>市场价：￥27.00</span>
+					<div class="foot"><span>积分：480</span><span class="mui-pull-right">兑换</span></div>
+					</div>
+				</li>
+					<li>
+					<div class="img_box"><img src="../../imgs/home_nrq_image13.png"/></div>
+					<div class="text">
+						<p>冷冻隔壁老王科比科比</p>
+					<span>市场价：￥27.00</span>
+					<div class="foot"><span>积分：480</span><span class="mui-pull-right">兑换</span></div>
+					</div>
+				</li>
+					<li>
+					<div class="img_box"><img src="../../imgs/home_nrq_image7.png"/></div>
+					<div class="text">
+						<p>冷冻隔壁老王科比科比</p>
+					<span>市场价：￥27.00</span>
+					<div class="foot"><span>积分：480</span><span class="mui-pull-right">兑换</span></div>
+					</div>
+				</li>
+					<li>
+					<div class="img_box"><img src="../../imgs/home_nrq_image14.png"/></div>
+					<div class="text">
+						<p>冷冻隔壁老王科比科比</p>
+					<span>市场价：￥27.00</span>
+					<div class="foot"><span>积分：480</span><span class="mui-pull-right">兑换</span></div>
+					</div>
+				</li>-->
+			</ul>
+			
+		</div>
+		</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui('.mui-scroll-wrapper').scroll({
+					deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006 
+			});
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				mui.ajax(APIPATH+'Integral/Index',{
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data;
+						var imghh = '';
+						var img = '';
+						var img_bt = '';
+						var goodshh = '';
+						for(i=0;i<datas.lbt.length;i++){						
+							img += '<div sid="'+datas['lbt'][i]['id']+'" class="mui-slider-item open_goods"><a href="#"><img style="height:10rem" src="'+datas['lbt'][i]['cover_img']+'" /></a></div>';
+							if(i == 0){
+								img_bt += '<div class="mui-indicator mui-active"></div>';
+							}else{
+								img_bt += '<div class="mui-indicator"></div> ';
+							}
+						}
+						imghh = '<div sid="'+datas['lbt'][0]['id']+'" class="mui-slider-item mui-slider-item-duplicate open_goods"><a href="#"><img style="height:10rem" src="'+datas['lbt'][0]['cover_img']+'" /></a></div>'+
+								img+
+								'<div sid="'+datas['lbt'][datas.lbt.length -1]['id']+'" class="mui-slider-item mui-slider-item-duplicate open_goods"><a href="#"><img style="height:10rem" src="'+datas['lbt'][datas.lbt.length -1]['cover_img']+'" /></a></div>';
+						
+						for(i=0;i<datas.tj.length;i++){
+							goodshh += '<li class="open_goods" sid="'+datas['tj'][i]['id']+'">'+
+											'<div class="img_box"><img style="height:8rem" src="'+datas['tj'][i]['cover_img']+'"/></div>'+
+											'<div class="text">'+
+												'<p>'+datas['tj'][i]['title']+'</p>'+
+											'<span>市场价：￥'+datas['tj'][i]['market_price']+'</span>'+
+											'<div class="foot"><span>积分：'+datas['tj'][i]['consume_integral']+'</span></div>'+
+											'</div>'+
+										'</li>';
+						}
+						mui("body").on("tap",".open_goods",function(){
+							var sid = $(this).attr("sid");
+							mui.openWindow({
+								url: 'integral_goods_detail.html',
+								extras:{
+									sid:sid
+								}
+							});
+						})
+						$(".content_ul").html(goodshh);
+						$("#lbt").html(imghh);
+						$(".mui-slider-indicator").html(img_bt);
+						//签到
+						mui("body").on("tap","#sign_in",function(){
+							mui.openWindow({
+								url: 'sign_in.html'
+							});
+						})
+						
+						mui("body").on("tap","#goods",function(){
+							mui.openWindow({
+								url: 'integral_goods.html'
+							});
+						})
+						
+						mui("body").on("tap","#jilu",function(){
+							mui.openWindow({
+								url: 'record.html'
+							});
+						})
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.shop_info{
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.info-div{
+			border-bottom: 1px dashed #DDDDDD;
+			overflow: hidden;
+		}
+		.key{
+			width: 25%;
+			float: left;
+			line-height: 5rem;
+			text-align: center;
+			color: #4A4A4A;
+		}
+		.val{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+			
+		}
+		.key-img{
+			text-align: center;
+			line-height: 5rem;
+		}
+		.val-img {
+			width: 100%;
+			margin-left: 5%;
+			margin-bottom: 15%;
+		}
+		.val-img img{
+			width:42%;
+			height: 14rem;
+			margin-right: 3%;
+			margin-left: 1%;
+			margin-bottom: 1%;
+			
+		}
+		
+		.discount{
+			position: fixed;
+			width: 100%;
+			bottom: 0;
+			text-align: center;
+			background: #EE7900;
+			color: #FFFFFF;
+			line-height: 5rem;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">商品信息</h1>
+		</header>
+		<div class="mui-content">
+			<div class="shop_info">
+				<div class="info-div">
+					<div class="key">
+						商品标题
+					</div>
+					<div class="val title">
+						- 
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						店铺
+					</div>
+					<div class="val corporate">
+						- 
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						库存
+					</div>
+					<div class="val stock">
+						- 
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						价格
+					</div>
+					<div class="val price">
+						- 
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						状态
+					</div>
+					<div class="val status">
+						- 
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						申请时间
+					</div>
+					<div class="val time">
+						- 
+					</div>
+				</div> 
+				<div class="info-div">
+					<div class="key">
+						审核状态
+					</div>
+					<div class="val type">
+						- 
+					</div>
+				</div>
+				<div class="info-div">
+					<span style="margin-left: 7%;margin-right: 8%; line-height: 18rem;">封面图</span>
+					<img class="fm-img" style="width:15rem;height: 15rem;vertical-align: middle;" src="../../imgs/bm_image1.png">
+				</div>
+				<div class="info-div">
+					<span style="margin-left: 7%;margin-right: 8%; line-height: 18rem;">详情图</span>
+					<img class="xq-img" style="width:15rem;height: 15rem;vertical-align: middle;" src="../../imgs/bm_image1.png">
+				</div>
+				<div style="border: 0;" class="info-div">
+					<div class="key-img">
+						轮播图
+					</div>
+					<div class="val-img">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="discount">优惠券管理</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var self = plus.webview.currentWebview();
+				var gid = self.gid;
+				var token = window.localStorage.getItem('qztc');
+				
+				mui.ajax(APIPATH+'user/getgoods',{
+					data:{token:token,gid:gid},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					$(".title").html(' - '+datas.title);//标题
+					$(".corporate").html(' - '+datas.shop_corporate);//店铺
+					$(".stock").html(' - '+datas.stock);//库存
+					$(".price").html(' - '+datas.price);//金额
+					if(datas.status == '1'){
+						$(".status").html(' - 已上架');
+					}else if(datas.status == '2'){
+						$(".status").html(' - 已下架');
+					}
+					$(".time").html(' - '+datas.time);//申请时间
+					if(datas.type == '1'){
+						$(".type").html(' - 审核中');
+					}else if(datas.type == '2'){
+						$(".type").html(' - 已通过');
+						$(".mui-title").before('<span class="update" style="float: right; line-height: 4rem; color: #ACACAC;">编辑</span>')
+					
+					}else if(datas.type == '3'){
+						$(".type").html(' - 申请失败');
+					}
+					
+					$(".fm-img").attr("src",datas.fm_img_str);
+					$(".xq-img").attr("src",datas.xq_img_str);
+					var lbthh = '';
+					for(i=0;i<datas.lbt_img_str.length;i++){
+						lbthh += '<img src="'+datas['lbt_img_str'][i]+'">';
+					}
+					$(".val-img").html(lbthh);
+					mui("body").on("tap",".update",function(){
+						mui.openWindow({
+							url: "./me-goodsUp.html",
+							extras :{
+								"gid":gid
+							} 
+						});
+					})
+					mui("body").on("tap",".discount",function(){
+						mui.openWindow({
+							url: "./me-goods-discount.html",
+							extras :{
+								"gid":gid
+							} 
+						});
+					})
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

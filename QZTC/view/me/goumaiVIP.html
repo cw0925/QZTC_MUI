@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../js/layer/mobile/need/layer.css" rel="stylesheet">
+		<link href="../../js/layer/theme/default/layer.css" rel="stylesheet">
+		<link href="../../fonts/iconfont.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.mui-bar{
+			background: #E8192D;
+		}
+		.mui-bar a{
+			color: #FFFFFF;
+		}
+		.mui-bar h1{
+			color: #FFFFFF;
+		}
+		.mui-table-view-cell{
+			padding: 13px 15px;
+		}
+		.mui-table-view-cell a{
+			font-size: 0.85rem;
+		}
+		.mui-table-view-cell a span{
+			font-size: 0.8rem;
+			color: #7E7E7E;
+		}
+		.btn{
+			padding: 0 0.75rem;
+			padding-top: 3rem;
+		}
+		.btn button{
+			background: #E8192D;
+			color: #FFFFFF;
+			font-size: 0.8rem;
+			width: 100%;
+			border: none;
+		}
+		.zhifu_box .tit{
+			padding: 0.8rem 0;
+			text-align: center;
+		}
+		.zhifu_box .price{
+			padding: 0.5rem 0;
+			text-align: center;
+			background: #FFFFFF;
+			color: #41403E;
+			display: block;
+		}
+		.mui-table-view-cell .select_box{
+			float: right;
+		}
+		.mui-table-view-cell .select_box img{
+			width: 0.9rem;
+			height: 0.9rem;
+		}
+		.pop_box_btn{
+			padding: 0 0.75rem;
+			padding-top: 0.5rem;
+		}
+		.pop_box_btn button{
+			background: #E8192D;
+			color: #FFFFFF;
+			font-size: 0.8rem;
+			width: 100%;
+			border: none;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">购买会员</h1>
+		</header>
+		<div class="content" style="margin-top: 2.6rem;">
+			<ul class="mui-table-view">
+			        <li class="mui-table-view-cell">
+			            <a>
+			                开通服务
+			                <span id="kx" class="mui-pull-right"></span>
+			            </a>
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <a>
+			            应付金额
+			            <span id="kxje" class="mui-pull-right"></spsn>
+			            </a>
+			        </li>
+			    </ul>
+			</div> 
+		</div>
+		<div class="zhifu_box">
+			<p class="tit">选择支付方式</p>
+			<ul class="mui-table-view">
+			        <li class="mui-table-view-cell check">
+			            <a class="zhifubao_box a-lx">
+			                <span style="color: #3D98E5;font-size: 1.7rem; vertical-align:text-top" class="iconfont icon-zhifubao"></span>
+			                <span>支付宝支付</span>
+			                <div class="select_box">
+			                	<img  class="che-img" dg="true" lx='0' src="../../imgs/zhcz_baton.png"/>
+			                </div>
+			            </a>
+			        </li>
+			        <li class="mui-table-view-cell check">
+			            <a class="weixin_box a-lx">
+			                 <span style="color: #2EA223;font-size: 1.7rem; vertical-align:text-top" class="iconfont icon-weixin"></span>
+			                <span>微信支付</span>
+			                <div class="select_box">
+			                	<img class="che-img" dg="false" lx='1'  src="../../imgs/sc_baton1.png"/>
+										
+			                </div>
+			            </a>
+			        </li>
+			    </ul>
+			    <div class="pop_box_btn">
+			    	<button>确定</button>
+			    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/layer/mobile/layer.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var wxChannel = null; // 微信支付  
+			var aliChannel = null; // 支付宝支付
+			var channel = null;
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var value = plus.webview.currentWebview();
+				var kid = value.kid;
+				var token = window.localStorage.getItem('qztc');
+				// 获取支付通道
+				plus.payment.getChannels(function(channels){
+					wxChannel=channels[1]; 
+					aliChannel=channels[0];
+					console.log(JSON.stringify(channels))
+				},function(e){
+				mui.toast("获取支付通道失败："+e.message);
+				}); 
+			
+				
+				mui.ajax(APIPATH+'user/get_vip',{
+					data:{token:token,kid:kid},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						if(data.status == '1'){
+							$("#kx").html(data.data.title);
+							$("#kxje").html(data.data.price);
+							
+							mui("body").on("tap",".pop_box_btn",function(){
+								plus.nativeUI.showWaiting();
+									var price = $("#kxje").html();
+									var lei = $(".che-img");
+									for(i=0;i<lei.length;i++){
+										if(lei.eq(i).attr("dg") == 'true'){
+											var lei_name = lei.eq(i).attr("lx");
+											switch(lei_name)
+											{  
+											case '0':
+												//支付宝
+											
+												
+												mui.ajax(APIPATH+'User/vip_order',{
+													data:{token:token,type:1,viplist_id:kid},
+													dataType:'json',//服务器返回json格式数据
+													type:'post',//HTTP请求类型
+													timeout:10000,//超时时间设置为10秒；
+													// headers:{'Content-Type':'application/json'},	              
+													success:function(res){
+														plus.nativeUI.closeWaiting();
+														if(res.status == 200){
+						
+														var xmlres = res.data;
+														plus.payment.request(aliChannel,xmlres,function(result){
+																	plus.nativeUI.alert("支付成功！",function(){
+																	mui.back();
+																	});
+														},function(error){
+																mui.toast("支付没有成功");
+														});
+														}else{
+															mui.toast('获取订单信息失败');
+														}
+													},
+													error:function(xhr,type,errorThrown){
+														//异常处理；
+														console.log(type);
+													}
+												});
+												
+												break;
+											case '1':
+												//微信
+											
+													mui.ajax(APIPATH+'User/vip_order',{
+														data:{token:token,type:2,viplist_id:kid},
+														dataType:'json',//服务器返回json格式数据
+														type:'post',//HTTP请求类型
+														timeout:10000,//超时时间设置为10秒；
+														// headers:{'Content-Type':'application/json'},	              
+														success:function(res){
+															plus.nativeUI.closeWaiting();
+															if(res.status == 200){
+																
+						//										console.log(JSON.stringify(res));
+																var xmlres = res.data;
+																plus.payment.request(wxChannel,xmlres,function(result){
+																						plus.nativeUI.alert("支付成功！",function(){
+																						 mui.back();
+																						});
+																			},function(error){
+						//										   mui.toast(JSON.stringify(error));
+																					console.log(JSON.stringify(error));
+																					mui.toast("支付没有成功");
+																			});
+															}else{
+																mui.toast('获取订单信息失败');
+															}
+														},
+														error:function(xhr,type,errorThrown){
+															//异常处理；
+															console.log(type);
+														}
+													});
+												break;
+											default:
+												//空
+												plus.nativeUI.closeWaiting();
+											}
+											}
+									
+									}
+									
+							})
+							
+						}else{
+							mui.toast(data.msg);
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+				mui("body").on("tap",".check",function(){
+					$(".che-img").attr("src","../../imgs/sc_baton1.png");
+					$(".che-img").attr("dg","false");
+					$(this).children(".a-lx").children(".select_box").children(".che-img").attr("src","../../imgs/zhcz_baton.png");
+					$(this).children(".a-lx").children(".select_box").children(".che-img").attr("dg","true"); 
+				})
+			})
+		</script>
+	</body>
+
+</html>

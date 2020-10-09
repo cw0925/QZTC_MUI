@@ -1,0 +1,531 @@
+<!doctype html>
+<html> 
+
+	<head> 
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../fonts/iconfont.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.mui-bar{
+			background: #E8192D;
+		}
+		.mui-bar .mui-title span{
+			width: 50%;
+			display: inline-block;
+			text-align: center;
+			color: #DAAAB5;
+		}
+		.mui-bar .mui-title span.active{
+			color: #FFFFFF;
+		}
+		.mui-scroll-wrapper{
+			padding: 0.5rem 0;
+			background: #FFFFFF;
+		}
+				.head_box{
+			display: flex;
+		}
+		.head_box .imgs_box img{
+			width: 3rem;
+			height: 3rem;
+			border-radius: 50%;
+			
+		}
+		.head_box .text{
+			padding-top: 0.5rem;
+			padding-left: 1rem;
+		}
+		.head_box .text span{
+			font-size: 1rem;
+			
+		}
+		.head_box .text p{
+			margin-top: 0.4rem;
+			font-size: 0.5rem;
+		}
+		.head_box .text p span{
+			font-size: 0.95rem;
+		}
+		.head_nav{
+			background: #FFFFFF;
+			padding: 0.3rem 0.75rem;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content:space-between;
+		}
+		.head_nav p{
+			font-size: 0.85rem ;
+			color: #333333;
+		}
+		.mui-table-view-cell .img_box img{
+			width: 6.5rem;
+			height: 6.5rem;
+		}
+		.foot_box>div{
+			display: flex;
+		}
+		.foot_box>div>p{
+			margin-left:0.75rem ;
+		}
+		.foot_box>div>p>span{
+			font-size: 0.75rem;
+			padding: 0 0.25rem;
+		}
+		.foot_box>div>p>span.iconfont{
+			font-size: 1.35rem;
+			vertical-align: text-bottom;
+		}
+		.mui-table-view-cell .content_box{
+			/* line-height: :;; */
+			font-size: 0.85rem ;
+			padding: 0.3rem 0;
+			color: #464646;
+		}
+		.mui-table-view-cell:after{
+			    position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 15px;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #FFFFFF;
+		}
+		
+		li{
+			border-top: 1px solid #CCCCCC;
+		}
+		
+		.head_box .btn_box{
+			flex: 1;
+			text-align: right;
+		}
+		.head_box .btn_box button{
+			background: #fff;
+			font-size: 0.75rem;
+			padding: 0.1rem 0.4rem;
+			margin-top: 1rem;
+		}
+		.head_nav .active{
+			color: #E8192D;
+		}
+		.head_nav p {
+			
+			line-height: 2rem;
+		}
+		.red {
+			color: #FF0000;
+		}
+		.graybt{
+			color: #464646;
+			border: 0.05rem solid #464646;
+		}
+		.redbt{
+			border: 0.05rem solid #E8192D;
+			color: #E8192D; 
+		} 
+		.img_pyq_tp img{
+			margin-right: 1rem;
+			margin-bottom: 0.5rem;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title"><span  onclick="loc()">头条</span><span class="active">论坛</span></h1>
+		</header>
+		<div class="mui-content"> 
+			<div class="head_nav">
+				<p id="public" class="active">广场</p>
+				<p id="fwi" >关注</p>
+				<!-- <p id="video" >短视频</p> -->
+				<img onclick="jump('luntan-fabu-tuwen.html')" class="fabu" style="width: 1.5rem;height: 1.5rem;margin-top: 0.2rem;" src="../../img/publish.png"> 
+			</div>
+			<ul class="mui-table-view" id="content">
+			       
+			</ul>
+			<div>
+				
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			function loc(){
+				location.href="headline-index.html"
+			}
+			document.addEventListener('plusready',function(){
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');				
+				mui.ajax(APIPATH+'Forum/index',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data;
+						var hh = '';
+						var pinglunhh = '';
+						var gzhh = '';
+						var zanhh = '';
+						for(i=0;i<datas.length;i++){
+						//图片
+						var imghh = '';
+						for(j=0;j<datas[i]['img'].length;j++){
+							imghh += '<img src="'+datas[i]['img'][j]+'"/>';
+						
+						}
+						
+						//关注
+						if(datas[i]['gz'] == 1){
+							gzhh = '<button uid="'+datas[i]['uid']+'" class="graybt">已关注</button>';
+						}else if(datas[i]['gz'] == 2){
+							
+						}else if(datas[i]['gz'] == 0){
+							gzhh = '<button uid="'+datas[i]['uid']+'" class="redbt">关注</button>';
+						} 
+						
+						//赞
+						if(datas[i]['countzan'] == 0){
+							zanhh = '<p fid="'+datas[i]['id']+'" class="dianzan"><span class="iconfont icon-iconheji-"></span><span>赞</span></p>';
+						}else{
+							if(datas[i]['zan'] == 0){
+								zanhh = '<p fid="'+datas[i]['id']+'" class="dianzan"><span class="iconfont icon-iconheji-"></span><span>'+datas[i]['countzan']+'</span></p>';
+							}else if(datas[i]['zan'] == 1){
+								zanhh = '<p fid="'+datas[i]['id']+'" class="dianzan red"><span class="iconfont icon-iconheji-"></span><span>'+datas[i]['countzan']+'</span></p>';
+							}
+						}
+						
+						//评论
+						if(datas[i]['countpl'] == 0){
+							pinglunhh  = '<p fid="'+datas[i]['id']+'" class="pingjia_box"> <span class="iconfont icon-63"></span> <span>评论</span></p>';
+						}else{
+							pinglunhh  = '<p fid="'+datas[i]['id']+'" class="pingjia_box"> <span class="iconfont icon-63"></span> <span>'+datas[i]['countpl']+'</span></p>';
+						}
+							
+						hh += '<li class="mui-table-view-cell">'+
+							 '<div class="head_box">'+
+								'<div class="imgs_box"><img src="'+datas[i]['avatar']+'"/></div>'+
+								'<div class="text">'+
+									'<span>'+datas[i]['nick']+'</span>'+
+									'<p><span style="font-size:0.8rem">'+datas[i]['time']+'</span><span style="margin-left: 0.8rem;font-size:0.8rem">'+datas[i]['place']+'</span></p>'+
+								'</div>'+
+								'<div class="btn_box">'+
+									gzhh+
+								'</div>'+
+							 '</div>'+
+							 '<p class="content_box">'+datas[i]['content']+'</p>'+
+							 '<div class="img_box img_pyq_tp">'+imghh+'</div>'+
+							 '<div class="foot_box">'+
+								'<div style="float: right;">'+
+								
+									zanhh+
+									pinglunhh+
+									'<span class="openwin" data-nick="'+datas[i]['nick']+'" data-uid="'+datas[i]['uid']+'" style="color:#666;font-size:14px;line-height:2">&nbsp;&nbsp;&nbsp;举报</span>'+
+								'</div>'+
+							 '</div>'+
+						'</li>';
+						// console.log(JSON.stringify(datas[i]));
+						}
+						
+						//点击关注
+						mui("body").on("tap",".btn_box button",function(){
+							var uid = $(this).attr("uid");
+							var ob = $(this);
+											
+							
+							mui.ajax(APIPATH+'Forum/fwiuser',{
+								data:{token:token,gid:uid},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(res){
+									var ress = res.data;
+									console.log(JSON.stringify(res))
+									if(res.status == 1){
+																
+										if(res.msg == '关注成功'){
+											ob.attr("class","graybt");
+											ob.html('已关注');
+										}else if(res.msg == '取消关注'){ 
+											ob.attr("class","redbt");
+											ob.html('关注');
+										}
+										mui.toast(res.msg);
+									}else{
+										mui.toast(res.msg);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+							
+						});
+						
+						//点赞
+						mui("body").on("tap",".dianzan",function(){
+							var ob = $(this);
+							var forum_id = ob.attr("fid");
+							 mui.ajax(APIPATH+'Forum/zan',{
+								data:{token:token,forum_id:forum_id},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(res){
+									if(res.data.count == 0){
+										ob.html('<span class="iconfont icon-iconheji-"></span><span>赞</span>');
+										ob.attr("class","dianzan");
+									}else{
+										if(res.msg == '点赞成功'){
+											ob.attr("class","dianzan red");
+										}else if(res.msg == '点赞已取消'){
+											ob.attr("class","dianzan");
+										}
+										ob.html('<span class="iconfont icon-iconheji-"></span><span>'+res.data['count']+'</span>');
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							 });
+							 
+						})
+						
+						//点击评论
+						mui("body").on("tap",".pingjia_box",function(){
+							var ob = $(this);
+							var fid = ob.attr("fid");
+							mui.openWindow({
+								url:"luntan-detail.html",
+								extras: {
+											fid: fid,
+										}
+							});
+						})
+						
+						$("#content").html(hh); 
+						
+						//点击广场
+						mui("body").on("tap","#public",function(){
+							plus.nativeUI.showWaiting();
+						
+							
+							mui.ajax(APIPATH+'Forum/select_forum',{
+								data:{token:token,type:1},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(data){
+									var datas = data.data;
+									var hh = '';
+									var pinglunhh = '';
+									var gzhh = '';
+									var zanhh = '';
+									for(i=0;i<datas.length;i++){
+									//图片
+									var imghh = '';
+									for(j=0;j<datas[i]['img'].length;j++){
+										imghh += '<img src="'+datas[i]['img'][j]+'"/>';
+									
+									}
+									
+									//关注
+									if(datas[i]['gz'] == 1){
+										gzhh = '<button uid="'+datas[i]['uid']+'" class="graybt">已关注</button>';
+									}else if(datas[i]['gz'] == 2){
+										
+									}else if(datas[i]['gz'] == 0){
+										gzhh = '<button uid="'+datas[i]['uid']+'" class="redbt">关注</button>';
+									} 
+									
+									//赞
+									if(datas[i]['countzan'] == 0){
+										zanhh = '<p fid="'+datas[i]['id']+'" class="dianzan"><span class="iconfont icon-iconheji-"></span><span>赞</span></p>';
+									}else{
+										if(datas[i]['zan'] == 0){
+											zanhh = '<p fid="'+datas[i]['id']+'" class="dianzan"><span class="iconfont icon-iconheji-"></span><span>'+datas[i]['countzan']+'</span></p>';
+										}else if(datas[i]['zan'] == 1){
+											zanhh = '<p fid="'+datas[i]['id']+'" class="dianzan red"><span class="iconfont icon-iconheji-"></span><span>'+datas[i]['countzan']+'</span></p>';
+										}
+									}
+										
+									//评论
+									if(datas[i]['countpl'] == 0){
+										pinglunhh  = '<p fid="'+datas[i]['id']+'" class="pingjia_box"> <span class="iconfont icon-63"></span> <span>评论</span></p>';
+									}else{
+										pinglunhh  = '<p fid="'+datas[i]['id']+'" class="pingjia_box"> <span class="iconfont icon-63"></span> <span>'+datas[i]['countpl']+'</span></p>';
+									}
+										
+									hh += '<li class="mui-table-view-cell">'+
+										'<div class="head_box">'+
+											'<div class="imgs_box"><img src="'+datas[i]['avatar']+'"/></div>'+
+											'<div class="text">'+
+												'<span>'+datas[i]['nick']+'</span>'+
+												'<p><span style="font-size:0.8rem">'+datas[i]['time']+'</span><span style="margin-left: 0.8rem;font-size:0.8rem">'+datas[i]['place']+'</span></p>'+
+											'</div>'+
+											'<div class="btn_box">'+
+												gzhh+
+											'</div>'+
+										'</div>'+
+										'<p class="content_box">'+datas[i]['content']+'</p>'+
+										'<div class="img_box img_pyq_tp">'+imghh+'</div>'+
+										'<div class="foot_box">'+
+											'<div style="float: right;">'+
+												zanhh+
+												pinglunhh+
+												'<span   style="color:#666;font-size:14px;line-height:2">&nbsp;&nbsp;&nbsp;举报</span>'+
+											'</div>'+
+										'</div>'+
+									'</li>';
+									}
+									
+									$("#content").html(hh);						
+									plus.nativeUI.closeWaiting();
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+							
+							
+							var xiongdi = $(this).siblings();
+							for(i=0;i<xiongdi.length;i++){
+								xiongdi.eq(i).attr("class","");
+							}
+							$(this).attr("class","active");
+						})
+						//点击关注  
+						mui("body").on("tap","#fwi",function(){
+							plus.nativeUI.showWaiting();
+				
+							
+							mui.ajax(APIPATH+'Forum/select_forum',{
+								data:{token:token,type:2},
+								dataType:'json',//服务器返回json格式数据
+								type:'post',//HTTP请求类型
+								timeout:10000,//超时时间设置为10秒；
+								// headers:{'Content-Type':'application/json'},	              
+								success:function(data){
+									var datas = data.data;
+									var hh = '';
+									var pinglunhh = '';
+									var gzhh = '';
+									var zanhh = '';
+									for(i=0;i<datas.length;i++){
+									//图片
+									var imghh = '';
+									for(j=0;j<datas[i]['img'].length;j++){
+										imghh += '<img src="'+datas[i]['img'][j]+'"/>';
+									
+									}
+									
+									//关注
+									if(datas[i]['gz'] == 1){
+										gzhh = '<button uid="'+datas[i]['uid']+'" class="graybt">已关注</button>';
+									}else if(datas[i]['gz'] == 2){
+										
+									}else if(datas[i]['gz'] == 0){
+										gzhh = '<button uid="'+datas[i]['uid']+'" class="redbt">关注</button>';
+									} 
+									 
+									//赞
+									if(datas[i]['countzan'] == 0){
+										zanhh = '<p fid="'+datas[i]['id']+'" class="dianzan"><span class="iconfont icon-iconheji-"></span><span>赞</span></p>';
+									}else{
+										if(datas[i]['zan'] == 0){
+											zanhh = '<p fid="'+datas[i]['id']+'" class="dianzan"><span class="iconfont icon-iconheji-"></span><span>'+datas[i]['countzan']+'</span></p>';
+										}else if(datas[i]['zan'] == 1){
+											zanhh = '<p fid="'+datas[i]['id']+'" class="dianzan red"><span class="iconfont icon-iconheji-"></span><span>'+datas[i]['countzan']+'</span></p>';
+										}
+									}
+										
+									//评论
+									if(datas[i]['countpl'] == 0){
+										pinglunhh  = '<p fid="'+datas[i]['id']+'" class="pingjia_box"> <span class="iconfont icon-63"></span> <span>评论</span></p>';
+									}else{
+										pinglunhh  = '<p fid="'+datas[i]['id']+'" class="pingjia_box"> <span class="iconfont icon-63"></span> <span>'+datas[i]['countpl']+'</span></p>';
+									}
+										
+									hh += '<li class="mui-table-view-cell">'+
+										 '<div class="head_box">'+
+											'<div class="imgs_box"><img src="'+datas[i]['avatar']+'"/></div>'+
+											'<div class="text">'+
+												'<span>'+datas[i]['nick']+'</span>'+
+												'<p><span style="font-size:0.8rem">'+datas[i]['time']+'</span><span style="margin-left: 0.8rem;font-size:0.8rem">'+datas[i]['place']+'</span></p>'+
+											'</div>'+
+											'<div class="btn_box">'+
+												gzhh+
+											'</div>'+
+										 '</div>'+
+										 '<p class="content_box">'+datas[i]['content']+'</p>'+
+										 '<div class="img_box img_pyq_tp">'+imghh+'</div>'+
+										 '<div class="foot_box">'+
+											'<div style="float: right;">'+
+												zanhh+
+												pinglunhh+
+												'<span   style="color:#666;font-size:14px;line-height:2">&nbsp;&nbsp;&nbsp;举报</span>'+
+											'</div>'+
+										 '</div>'+
+									'</li>';
+									}
+									
+									$("#content").html(hh);						
+																	
+																
+									
+									plus.nativeUI.closeWaiting();
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+							
+							
+							//改变颜色
+							var xiongdi = $(this).siblings();
+							for(i=0;i<xiongdi.length;i++){
+								xiongdi.eq(i).attr("class","");
+							}
+							$(this).attr("class","active"); 
+						})
+						plus.nativeUI.closeWaiting();
+						$(".openwin").on("tap", function(){
+							var uid = $(this).attr("data-uid");
+							var nick = $(this).attr("data-nick");
+							mui.openWindow({
+							url: "../me/feedback.html",
+							extras: {
+										uid: uid,
+										nick:nick 
+									}
+							});
+						})
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+				
+				
+			});
+		</script>
+	</body>
+
+</html>

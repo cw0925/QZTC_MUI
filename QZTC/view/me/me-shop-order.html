@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		#content{
+			/* padding-top: 0.5rem; */
+		}
+		.order{
+			width: 100%;
+			border-bottom: #DDDDDD 1px solid;
+			background: #FFFFFF;
+			height: 14rem;
+		}
+		.order_number{
+			color: #666;
+			line-height: 3rem;
+			font-weight: 500;
+			/* border: 1px solid #DDDDDD; */
+			text-align: left;
+			margin-left: 1rem;
+		}
+		.order_title{
+			margin-left: 1rem;
+			margin-top: 0.5rem;
+			font-size: 1.5rem;
+			font-weight: 500;
+		}
+		.order_title .order_goods_title{
+			margin-top: 0.5rem;
+			width: 80%;
+			text-overflow:ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		.order_goods_num{
+			/* float: right; */
+			margin-right: 1rem;
+			/* color: #000000; */
+		}
+		.order_goods_total{
+			float: right;
+			margin-right: 1rem;
+			/* color: #000000; */
+		}
+		.red-yuan{
+			color: red;
+		}
+		p{
+			line-height: 1.2rem;
+			color: #666;
+		}
+		.order_address{
+		line-height: 2rem;
+		}
+		.caozuo{
+			width: 100%;
+			height: 4rem;
+			border-top: 1px dashed #DDDDDD;
+		}
+		.show-detail{
+			width: 50%;
+			line-height: 4rem;
+			float: left;
+			text-align: center;
+		}
+		.caozuo-fahuo{
+			width: 50%;
+			float: left;
+			line-height: 4rem;
+			text-align: center;
+		}
+		.null{
+			width: 100%;
+			background: #FFFFFF;
+			text-align: center;
+			line-height: 35rem;
+			font-size: 2rem;
+			color: #CCCCCC;
+		}
+	</style>
+	<body> 
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">客户订单</h1>
+		</header>
+		<div class="mui-content">
+		    <div id="content">
+		    	<div class="null">
+					暂无订单
+				</div>
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()  	
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				// console.log(JSON.stringify(plus.webview.all()))
+				var token = window.localStorage.getItem('qztc');
+				// console.log(token)
+				
+				mui.ajax(APIPATH+'User/kehu_dingdan',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型 
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						if(data.status == 1){
+							var datas = data.data;
+							if(datas.order.length){
+								var hh = '';
+								for(i=0;i<datas.order.length;i++){
+									
+									if(datas['order'][i]['status'] == '2'){
+									var btn = '<div class="caozuo-fahuo" val="'+datas['order'][i]['order']+'">订单发货</div>';
+									}else{
+										btn = '';
+									}
+									
+									hh += '<div class="order">'+
+												'<div class="order_number">订单编号：'+datas['order'][i]['order']+'</div>'+
+												'<div class="order_title">'+
+													'<p class="order_goods_title">'+datas['order'][i]['goods']['title']+'</p>'+
+													'<p class="order_status">订单状态：'+datas['order'][i]['status_str']+'</p>'+
+													'<p class="order_goods_total">总价格：<span class="red-yuan">'+datas['order'][i]['total_price']+'元</span></p>'+
+													'<p class="order_goods_num">数量：'+datas['order'][i]['goods']['num']+'</p>'+
+												'</div>'+
+												'<div class="caozuo">'+
+													'<div class="show-detail" val="'+datas['order'][i]['order']+'">查看订单</div>'+
+													btn+
+												'</div>'+
+											'</div>';
+								}
+								//查看
+								mui("body").on("tap",".show-detail",function(){
+									var order = $(this).attr("val");
+									mui.openWindow({
+										url: "./me-order-detail.html",
+										extras :{
+											"order":order
+										}
+									});
+								}) 
+								 
+								//发货
+								mui("body").on("tap",".caozuo-fahuo",function(){
+									var order = $(this).attr("val");
+									mui.openWindow({
+										url: "./me-order-fahuo.html",
+										extras :{
+											"order":order
+										}
+									});
+								})
+								
+								$("#content").html(hh);
+							}
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			})
+			
+		</script>
+	</body>
+
+</html>

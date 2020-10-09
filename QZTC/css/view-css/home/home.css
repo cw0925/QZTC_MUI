@@ -1,0 +1,228 @@
+.header{
+	height: 2.5rem;
+	width: 100%;
+	background: #E8192D;
+	display: flex;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 6666;
+}
+.city{
+	width: 20%;
+	text-align: center;
+}
+.city .city_item{
+	padding-top: 0.5rem;
+}
+.city .city_item span{
+	font-size: 0.85rem;
+	color: #FFFFFF;
+}
+.search{
+	width: 90%;
+	position: relative;
+	padding-top: 0.5rem;
+	margin-left: 1rem;
+}
+.search .mui-icon-search{
+	position: absolute;
+	left: 0.5rem;
+	top: 0.7rem;
+	font-size: 1.2rem;
+	color: #F5EADB;
+}
+#search_box{
+	margin: 0;
+	height: 1.5rem;
+	font-size: 0.7rem;
+	padding: 0;
+	padding-left: 2rem;
+	opacity: .7;
+}
+.jia_box{
+	width: 15%;
+	text-align: center;
+}
+.jia_box .mui-icon-plus{
+	color: #FFFFFF;
+	font-size: 1.5rem;
+	line-height:2.5rem ;
+}
+/*九宫格*/
+#Gallery{
+	background: #FFFFFF;
+	padding-bottom: 1.5rem;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+	padding: 0;
+}
+.mui-slider-indicator{
+	padding-top: 0.25rem;
+	bottom: 0;
+	padding-bottom: 0.25rem;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+	font-size: 0.75rem;
+	color: #505050;
+}
+.mui-grid-view.mui-grid-9{
+	background: #FFFFFF;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+	border: none;
+}
+.mui-slider-indicator .mui-active.mui-indicator{
+	background: #E91B2F;
+}
+.mui-slider-indicator .mui-indicator{
+	border: none;
+	width: 0.6rem;
+	height: 0.2rem;
+	-webkit-box-shadow:none;
+	border-radius: 0px;
+	margin: 0;
+}
+
+/*同城快报*/
+.bulletin{
+	display: flex;
+	background: #FFFFFF;
+	padding:0.5rem 1rem;
+	margin-top: 0.5rem;
+}
+.bulletin .img_box{
+	margin-right: 0.75rem;
+	padding-top: 0.4rem;
+}
+.bulletin .img_box img{
+	width: 1.9rem;
+	height: 2.2rem;
+}
+.bulletin .text .text-box{
+	font-size: 0.75rem;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	width: 75%;
+	display: inline-block;
+	vertical-align: middle;
+	color: #535353;
+	}
+	.bulletin .text{
+		width: 90%;
+	}
+.bulletin .text .icon_box{
+	font-size: 0.65rem;
+	color: #E36254;
+	border: 0.05rem solid #E36254;
+	padding: 0 0.4rem;
+	margin-right: 0.5rem;
+}
+/*店铺推荐*/
+.tuijian{
+	background: #FFFFFF;
+	padding: 1.1rem 1.1rem;
+}
+.tuijian .title{
+	font-size: 1rem;
+	color: #303030;
+	padding-bottom: 0.5rem;
+}
+.tuijian .tuijian_main_item01{
+	width: 13rem;
+}
+.tuijian_main{
+	display:flex;
+	border:0.05rem solid #E5E5E5;
+}
+.tuijian .tuijian_main_item01 img{
+	width:100%
+}
+.tuijian .tuijian_main_item01 span{
+	font-size: 1rem;
+	color: #303030;
+	display: block;
+	text-align: center;
+	padding-top: 0.8rem;
+}
+.tuijian .tuijian_main_item01 p{
+	font-size: 0.8rem;
+	text-align: center;
+	color:#D5393A;
+	padding-top: 0.4rem;
+	padding-bottom: 1rem;
+}
+.main_item02_detail div{
+	width: 33.33%;
+	text-align: center;
+}
+.main_item02_detail {
+	display: flex;
+}
+.main_item02_detail div span{
+	font-size: 1rem;
+		color: #303030;
+}
+.main_item02_detail div p{
+	color: #D5393A;
+	font-size: 0.8rem;
+	padding-bottom: 0.5rem;
+}
+/*特价商品*/
+.commodity{
+	padding: 0.5rem;
+	background: #FFFFFF;
+	margin-top: 0.5rem;
+	padding-bottom: 5rem;
+}
+.commodity .title{
+	font-size: 1rem;
+    color: #303030;
+    padding-bottom: 0.5rem;
+}
+.commodity_ul{
+	display: flex;
+	flex-wrap: wrap;
+}
+.commodity_ul li{
+	width: 48%;
+	border: 0.05rem solid #D3D3D3;
+	margin: 0 1%;
+	padding: 1rem 0.5rem;
+	position: relative;
+	margin-top: 0.4rem;
+}
+.commodity_ul li img{
+	width: 80%;
+}
+.commodity_ul li p{
+	font-size: 0.75rem;
+	color: #484848;
+	height: 2.5rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+.commodity_ul .price .col{
+	color: #DA230A;
+	font-size: 0.85rem;
+}
+.commodity_ul .price .dz{
+	font-size: 0.85rem;
+	color: #A6A6A6;
+	text-decoration:line-through;
+	margin-left: 0.75rem;
+}
+.commodity_ul .corner{
+	width: 5rem;
+	height: 5rem;
+	background: url(../../../imgs/home_nrq_bg.png) no-repeat 100% 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #FFFFFF;
+	font-size: 0.8rem;
+}
+.more-rm{width: 97% ;margin: 0 auto; line-height: 2.5; text-align: center;border: 1px solid #f2f2f2;margin-top: 1rem;}

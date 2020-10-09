@@ -1,0 +1,87 @@
+{
+  "login.html": {
+    "refer": [
+      "bottom_nav.html",
+      "register.html"
+    ],
+    "resources": []
+  },
+  "bottom_nav.html": {
+    "resources": [
+      "view/home/home.html"
+    ],
+    "refer": [
+      "view/home/home.html",
+      "view/integral/integral-index.html",
+      "view/shoppingCart/shopping-index.html",
+      "view/headline/headline-index.html",
+      "view/me/me-index.html"
+    ]
+  },
+  "view/home/ziyingshangcheng-shangpingliebiao.html": {
+    "refer": [
+      "view/home/ziyingshangcheng-shangpingxiangqing.html"
+    ],
+    "resources": []
+  },
+  "view/home/home.html": {
+    "refer": [
+      "view/home/ziyingshangcheng.html"
+    ],
+    "resources": []
+  },
+  "view/home/ziyingshangcheng.html": {
+    "refer": [
+      "view/home/ziyingshangcheng-shangpingliebiao.html"
+    ],
+    "resources": []
+  },
+  "view/home/ziyingshangcheng-shangpingxiangqing.html": {
+    "refer": [
+      "view/shoppingCart/shopping-order.html",
+      "view/me/me-setpass.html"
+    ],
+    "resources": []
+  },
+  "view/shoppingCart/shopping-order.html": {
+    "refer": [
+      "view/me/shouhuodizhi.html",
+      "bottom_nav.html"
+    ],
+    "resources": []
+  },
+  "view/me/shouhuodizhi.html": {
+    "refer": [
+      "view/me/addshouhuodizhi.html"
+    ]
+  },
+  "view/me/me-index.html": {
+    "refer": [
+      "view/me/me-dingdan.html",
+      "view/me/gerenxinxi.html",
+      "view/me/me-setup.html"
+    ]
+  },
+  "view/me/me-dingdan.html": {
+    "refer": [
+      "view/shoppingCart/order-pay.html",
+      "view/me/me-setpass.html"
+    ]
+  },
+  "register.html": {
+    "refer": [
+      "login.html"
+    ]
+  },
+  "view/me/me-setup.html": {
+    "refer": [
+      "login.html"
+    ]
+  },
+  "view/shoppingCart/shopping-index.html": {
+    "refer": [
+      "view/me/me-setpass.html",
+      "view/shoppingCart/shopping-order.html"
+    ]
+  }
+}

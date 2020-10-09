@@ -1,0 +1,81 @@
+header{
+	background: #E8192D;
+	border-bottom: 1px solid #D4D4D4;
+	height: 4rem;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 6666;
+}
+
+.left-return{
+    width: 15%;
+    text-align: center;
+
+}
+
+.left-return a{
+	line-height: 4.25rem;
+	color: #fff;
+}
+
+.title{
+	width: 70%;
+	text-align: center;
+}
+
+.title span{
+	color: #FFFFFF;
+	font-family: "微软雅黑";
+	line-height: 4.5rem;
+}
+
+.content{
+	margin-top: 4rem;
+	width: 100%;
+	position: relative;
+}
+
+.content img{
+	width: 15rem;
+	height: 15rem;
+	position: absolute;
+	top: 5rem;
+	left: 30%;
+}
+.zfcg{
+	color: #9D9D9D;
+	font-size: 2rem;
+	position: absolute;
+	top: 23rem;
+	left: 40%;
+}
+.zf-price{
+	color: #9D9D9D;
+	font-size: 1.8rem;
+	position: absolute;
+	top: 26rem;
+	left: 36%;
+}
+
+.home{
+	color: #FFFFFF;
+	background: #FF0000;
+	position: absolute;
+	left: 35%;
+	top: 30rem;
+	padding: 0.7rem 3rem;
+	border-radius: 0.5rem;
+}
+
+.order{
+	color: #FFFFFF;
+	background: #FF0000;
+	position: absolute;
+	left: 55%;
+	top: 35rem;
+	padding: 0.7rem 3rem;
+	border-radius: 0.5rem;	
+}

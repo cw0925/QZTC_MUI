@@ -1,0 +1,488 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.goods_info{
+			width: 100%;
+			background: #FFFFFF;
+		}
+		.info-div{
+			border-bottom: 1px dashed #DDDDDD;
+			overflow: hidden;
+		}
+		.key{
+			width: 25%;
+			float: left;
+			line-height: 5rem;
+			text-align: center;
+			color: #4A4A4A;
+		}
+		.val{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+			
+		}
+		input[type=text]{
+			width: 95%;
+			border: 0;	
+		}
+		.key-img{
+			text-align: center;
+			line-height: 5rem;
+		}
+		.val-img {
+			width: 100%;
+			margin-left: 5%;
+			margin-bottom: 10%;
+		}
+		/* 封面图 */
+		.fm-ts{
+			width:10rem;
+			height: 10rem;
+			vertical-align: middle;
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+			margin-right: 2rem;
+		}
+		.fm-ys{
+			display: none;
+		}
+		.fm-btn{
+			color:#ACACAC;
+			border-bottom: 1px solid #ACACAC;
+		}
+		
+		/* 详情图 */
+		.xq-ts{
+			width:10rem;
+			height: 10rem;
+			vertical-align: middle;
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+			margin-right: 2rem;
+		}
+		.xq-ys{
+			display: none;
+		}
+		.xq-btn{
+			color:#ACACAC;
+			border-bottom: 1px solid #ACACAC;
+		}
+		
+		/* 轮播图 */
+		.lbt-img img{
+			width:42%;
+			height: 15rem;
+			margin-right: 3%;
+			margin-left: 1%;
+			margin-bottom: 1%;
+		}
+		.lbt-ys{
+			display: none;
+		}
+		.add-ys{
+			display: none;
+		}
+		.btn-tijiao{
+			width: 100%;
+			position: fixed;
+			bottom: 0;
+			line-height: 4rem;
+			background: #F01C08;
+			color: #FFFFFF;
+			font-size: 1.8rem;
+			text-align: center;
+			
+		}
+		.fm-ck{
+			border-bottom: 1px solid #000;
+			color: #000;
+		}
+		.fm-ck-gq{
+			border-bottom: 1px solid #ccc;
+			color: #ccc;
+		}
+		.xq-ck{
+			border-bottom: 1px solid #000;
+			color: #000;
+		}
+		.xq-ck-gq{
+			border-bottom: 1px solid #ccc;
+			color: #ccc;
+		}
+		.lbt-ck{
+			/* border-bottom: 1px solid #DDDDDD; */
+			text-align: center;
+			line-height: 3rem;
+			color: #ccc;
+		}
+		.lbt-ck{
+			/* border-bottom: 1px solid #DDDDDD; */
+			text-align: center;
+			line-height: 3rem;
+			color: #000;
+		}
+		.lbt-ck-gq{
+			/* border-bottom: 1px solid #DDDDDD; */
+			text-align: center;
+			line-height: 3rem;
+			color: #ccc;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">新增商品</h1>
+		</header>
+		<div class="mui-content">
+			<div class="goods_info">
+			<div class="info-div">
+				<div class="key">
+					标题
+				</div>
+				<div class="val title">
+					<input type="text" name="title" placeholder="请填写商品标题" value="">
+				</div>
+			</div>
+		
+			
+			<div class="info-div">
+				<div class="key">
+					库存
+				</div>
+				<div class="val stock">
+					<input type="text" name="stock" placeholder="请填写商品库存" value="">
+				</div>
+
+			</div>
+			 
+			<div class="info-div">
+				<div class="key">
+					价格
+				</div>
+				<div class="val price">
+					<input type="text" name="price" placeholder="请填写商品价格" value="">
+				</div>
+			</div>
+			<div class="info-div">
+				<div style="line-height: 12rem;" class="key">
+					封面图
+				</div>
+				<div class="val fm-img">
+					<img class="fm-ts" src="../../img/addimg.png">
+					<span class="fm-ck">请点击上传</span>
+				</div>
+				<img class="fm-ys" src="" style="display: none;">
+			</div>
+			<div class="info-div">
+				<div style="line-height: 12rem;" class="key">
+					详情图
+				</div>
+				<div class="val xq-img">
+					<img class="xq-ts" src="../../img/addimg.png">
+					<span class="xq-ck">请点击上传</span>
+				</div>
+				<img class="xq-ys" src="" style="display: none;">
+			</div>
+			<div class="info-div">
+				<div class="key-img">
+					轮播图
+				</div>
+				<div val="" class="lbt-ck">
+					请点击上传
+				</div>
+				<div class="val-img lbt-img">
+					<img class="lbt-btn" src="../../img/addimg.png">
+					<!-- <img class="lbt-ts" src=""> -->
+					<!-- <img class="lbt-ys" src="" style="display: none;"> -->
+					
+				</div> 
+			</div>
+			</div>
+			
+		</div>
+		<div class="btn-tijiao">
+			保存
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/view-js/me/me-shopUp.js"></script> 
+		<script type="text/javascript">
+			mui.init()
+			document.addEventListener("plusready",function(){
+				var self = plus.webview.currentWebview();
+				var shop_id = self.shop_id;
+				var token = window.localStorage.getItem('qztc');
+				
+				//封面图
+				mui("body").on("tap",".fm-ts",function(){
+					if (mui.os.plus) {
+					var buttonTit = [{ 
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}]; 
+					
+					plus.nativeUI.actionSheet({
+						title: "添加封面图",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch (b.index) {
+							case 0:
+								break;
+							case 1:
+								getImageUP("fm"); /*拍照*/
+								
+								break;
+							case 2:
+								galleryImgUP(1,"fm");/*打开相册*/ 
+								
+								break;
+							default:
+								break;
+						}
+					})
+					} 
+				})
+				
+				//点击上传图片
+				mui("body").on("tap",".fm-ck",function(){
+						plus.nativeUI.showWaiting();
+						if(!$(".fm-ys").attr("src")){
+							plus.nativeUI.closeWaiting();
+							mui.toast('请上传图片后在点击确定');
+						}
+						var base_fm = getBase64Image($(".fm-ys")[0]);
+						dealImage({
+							base64:base_fm,
+							w:800,
+							callback:function(base64){
+								
+									mui.ajax(APIPATH+'Enter/fm_img',{
+										data:{fm_img:base64},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(data){
+										$(".fm-ys").attr("val",data.data);
+										$(".fm-ck").html("已上传");
+										$(".fm-ck").attr("class","fm-ck-gq");
+										plus.nativeUI.closeWaiting();
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+									
+							}
+						}); 
+				})
+				mui("body").on("tap",".fm-ck-gq",function(){
+					mui.toast('已上传');
+				})
+				
+				//详情图 
+				mui("body").on("tap",".xq-ts",function(){
+					if (mui.os.plus) {
+					var buttonTit = [{ 
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}]; 
+					
+					plus.nativeUI.actionSheet({
+						title: "添加详情图",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch (b.index) {
+							case 0:
+								break;
+							case 1:
+								getImageUP("xq"); /*拍照*/
+								
+								break;
+							case 2:
+								galleryImgUP(1,"xq");/*打开相册*/ 
+								
+								break;
+							default:
+								break;
+						}
+					})
+					} 
+				})
+				
+				//点击上传图片
+				mui("body").on("tap",".xq-ck",function(){
+						plus.nativeUI.showWaiting();
+						if(!$(".xq-ys").attr("src")){
+							plus.nativeUI.closeWaiting();
+							mui.toast('请上传图片后在点击确定');
+						}
+						var base_xq = getBase64Image($(".xq-ys")[0]);
+						dealImage({
+							base64:base_xq,
+							w:800,
+							callback:function(base64){
+									
+									mui.ajax(APIPATH+'Enter/xq_img',{
+										data:{xq_img:base64},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(data){
+										$(".xq-ys").attr("val",data.data);
+										$(".xq-ck").html("已上传");
+										$(".xq-ck").attr("class","xq-ck-gq");
+										plus.nativeUI.closeWaiting();
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+							}
+						}); 
+				})
+				mui("body").on("tap",".xq-ck-gq",function(){
+					mui.toast('已上传');
+				})
+				
+				//轮播图
+				mui("body").on("tap",".lbt-btn",function(){
+					if (mui.os.plus) {
+					var buttonTit = [{ 
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}]; 
+					
+					plus.nativeUI.actionSheet({
+						title: "添加轮播图",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch (b.index) {
+							case 0:
+								break;
+							case 1:
+								getImageUP("add"); /*拍照*/
+								
+								break;
+							case 2:
+								
+								var num = 4 - $("lbt-ys").length;
+								galleryImgUP(num,"add");/*打开相册*/ 
+								
+								break;
+							default:
+								break;
+						}
+					})
+					} 
+				})
+				mui("body").on("tap",".lbt-ck",function(){
+					plus.nativeUI.showWaiting();
+					
+					var imgarr = $(".lbt-ys");
+					if(!imgarr.length){
+						plus.nativeUI.closeWaiting();
+						mui.toast('请上传图片后在点击确定');
+					}
+					var weizhi = [i];
+					for(i=0;i<imgarr.length;i++){
+						
+						var base_lbt = getBase64Image(imgarr[i])
+						console.log(i);
+						dealImage({
+							base64:base_lbt,
+							w:800,
+							callback:function(base64){
+								
+									mui.ajax(APIPATH+'Enter/lbt_img',{
+										data:{lbt_img:base64},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},	              
+										success:function(data){
+										var val = $(".lbt-ck").attr("val");
+										$(".lbt-ck").attr("val",val+","+data.data);	
+										$(".lbt-ck").html("已上传");
+										$(".lbt-ck").attr("class","lbt-ck gq");
+										plus.nativeUI.closeWaiting(); 
+										},
+										error:function(xhr,type,errorThrown){
+											//异常处理；
+											console.log(type);
+										}
+									});
+							}
+						});
+					}
+				})
+				mui("body").on("tap",".gq",function(){
+					mui.toast('已上传');
+				})
+				
+				plus.nativeUI.closeWaiting();
+				mui("body").on("tap",".btn-tijiao",function(){
+					plus.nativeUI.showWaiting();
+					var title = $("input[name=title]").val();
+					var stock = $("input[name=stock]").val();
+					var price = $("input[name=price]").val();
+					var fm_img = $(".fm-ys").attr("val");//封面图 base64
+					var xq_img =  $(".xq-ys").attr("val");//详情图 base64
+					//把轮播图转换成base64
+					var base_lbt = $(".gq").attr("val");
+					var base_lbt_img = base_lbt.substring(1); 
+				
+					mui.ajax(APIPATH+'user/addgoods',{
+						data:{token:token,shop_id,title:title,stock:stock,price:price,fm_img:fm_img,xq_img:xq_img,lbt_img:base_lbt_img},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+						if(data.status == '1'){
+							mui.toast(data.msg); 
+							setTimeout(function(){
+								var prePage1 = plus.webview.getWebviewById("./me-goodsAdd.html");
+								prePage1.reload(true);
+								var prePage2 = plus.webview.getWebviewById("./me-goods.html");
+								prePage2.reload(true);
+							},500);
+						}else{
+							mui.toast(data.msg);
+						}
+						plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+				})
+				
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.kd-top{
+			width: 100%;
+			height: 7rem;
+			background: #FFFFFF;
+			border-bottom: 0.18rem solid #ECECEC;
+			/*border-left: 0.12rem solid #ECECEC;*/
+			/*border-right: 0.12rem solid #ECECEC;*/
+			position: relative;
+		}
+		.wlgs-span{
+			position: absolute;
+			color: #6D6D6D;
+			left: 2rem;
+			top: 1rem;
+		}
+		.kddh-span{
+			position: absolute;
+			color: #6D6D6D;
+			left: 2rem;
+			top: 4rem;
+		}
+		.wl-detail{
+			margin-top: 2rem;
+			border-top: 0.18rem solid #ECECEC;
+			background: #FFFFFF;
+		}
+		.detail-top{
+			margin-left: 2rem;
+			line-height: 6rem;
+			margin-right: 2rem;
+			border-bottom: 0.18rem solid #ECECEC;
+		}
+		
+		.wl-info{
+			margin-left: 4rem;
+			margin-right: 4rem;
+			border-bottom: 0.18rem solid #ECECEC;
+			color: #6D6D6D;
+		}
+		.info{
+			margin-top: 1rem;
+			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+			line-height: 3rem;	
+		}
+		.time{
+			margin-bottom: 1rem;
+			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+			line-height: 3rem;
+		}
+		
+		.green{
+			color: #7ADF79;
+		}
+	</style>
+	<body >
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">物流信息</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="kd-top">
+		    	<span class="wlgs-span">物流公司 :</span>
+		    	<span class="kddh-span">快递单号 :</span>
+		    </div>
+			<div class="wl-detail">
+				<div class="detail-top">
+					物流详情
+				</div>
+				<div class="wl-info">
+					<div class="info">
+						<span></span>
+					</div>
+					<div class="time">
+						<span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/rem.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var self = plus.webview.currentWebview();
+			var token = window.localStorage.getItem('qztc');
+			var order = self.order;
+			var num = self.num;
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				if(num != '2'){
+			
+				mui.ajax(APIPATH+'order/show_wl',{
+					data:{token:token,order:order},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+					var datas = data.data;
+					$(".wlgs-span").html("物流公司 : "+datas['com']);
+					$(".kddh-span").html("快递单号 : "+datas['nu']);   
+					var hh = '<div class="detail-top">物流详情</div>';
+									
+					for(i=0;i<datas.data.length;i++){
+						if(i == 0){
+							hh +=   '<div  class="wl-info green">'+
+									'<div class="info">'+
+										'<span>'+datas.data[i]['context']+'</span>'+
+									'</div>'+
+									'<div class="time">'+
+										'<span>'+datas.data[i]['time']+'</span>'+
+									'</div>'+
+								'</div>';	
+						}else{
+							hh +=   '<div class="wl-info">'+
+									'<div class="info">'+
+										'<span>'+datas.data[i]['context']+'</span>'+
+									'</div>'+
+									'<div class="time">'+
+										'<span>'+datas.data[i]['time']+'</span>'+
+									'</div>'+
+								'</div>';	
+						}
+						
+						
+						
+					}
+					$(".wl-detail").html(hh);
+					plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				}else{
+				
+					mui.ajax(APIPATH+'User/show_wl',{
+						data:{token:token,order:order},
+						dataType:'json',//服务器返回json格式数据
+						type:'get',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+						var datas = data.data;
+						$(".wlgs-span").html("物流公司 : "+datas['com']);
+						$(".kddh-span").html("快递单号 : "+datas['nu']);   
+						var hh = '<div class="detail-top">物流详情</div>';
+						
+						for(i=0;i<datas.data.length;i++){
+							if(i == 0){
+								hh +=   '<div  class="wl-info green">'+
+										'<div class="info">'+
+											'<span>'+datas.data[i]['context']+'</span>'+
+										'</div>'+
+										'<div class="time">'+
+											'<span>'+datas.data[i]['time']+'</span>'+
+										'</div>'+
+									'</div>';	
+							}else{
+								hh +=   '<div class="wl-info">'+
+										'<div class="info">'+
+											'<span>'+datas.data[i]['context']+'</span>'+
+										'</div>'+
+										'<div class="time">'+
+											'<span>'+datas.data[i]['time']+'</span>'+
+										'</div>'+
+									'</div>';	
+							}
+							
+							
+								
+						}
+						$(".wl-detail").html(hh);
+						plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+				}
+			});
+		</script>
+	</body>
+
+</html>

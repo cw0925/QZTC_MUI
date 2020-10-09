@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+		<link href="../../js/layer/theme/default/layer.css" rel="stylesheet">
+		<link href="../../js/layer/mobile/need/layer.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		 .number_box .jishu{
+			border: 0.05rem solid #EFEFEF;
+			width: 1.5rem;
+			text-align: center;
+			height: 1.2rem;
+			line-height: 1.2rem;
+			font-size: 0.8rem;
+			display: inline-block;
+		}
+		 .number_box button{
+			padding: 0;
+			width: 1.2rem;
+			height: 1.2rem;
+			font-size: 0.8rem;
+		}
+		.number_box span{
+			font-size: 0.8rem;
+		}
+		.detail_box{
+			padding: 0.8rem 0.75rem;
+			background: #FFFFFF;
+			display: flex;
+			
+		}
+		.price_box{
+			width: 60%;
+		}
+		.price_box p{
+			font-size: 0.85rem;
+			color: #363636;
+		}
+		.price_box .shichang{
+			padding: 1rem 0;
+			color: #4A4A4A;
+			font-size: 0.8rem;
+		}
+		.jifen_box{
+			width: 40%;
+		}
+		.jifen_box>p{
+			padding-left: 1rem;
+		}
+		.jifen_box .number_box{
+			padding-top:3rem ;
+		}
+		.chanpin_canshu{
+			padding: 1rem 0.75rem;
+			background: #FFFFFF;
+			margin-top: 0.5rem;
+			
+		}
+		.chanpin_canshu .title{
+			font-size: 0.85rem;
+			color: #232323;
+		}
+		.chanpin_canshu ul{
+			padding-top: 0.4rem;
+		}
+		.chanpin_canshu ul li span{
+			font-size:0.8rem ;
+			color: #4A4A4A;
+		}
+		.detail_img{
+			background: #FFFFFF;
+			margin-top: 0.5rem;
+		}
+		.detail_img .title{
+			font-size: 0.85rem;
+			padding: 1rem 0;
+			color: #373737;
+			text-align: center;
+		}
+		.detail_img_box{
+			text-align: center;
+		}
+		.btn{
+			padding: 0.5rem 0.75rem;
+			background: #FFFFFF;
+		}
+		.btn button{
+			background: #E8192D;
+			color: #FFFFFF;
+			width: 100%;
+			border: none;
+		}
+		.mui-bar a{
+			color: #4C4C4C;
+		}
+		.mui-bar h1{
+			color: #4C4C4C;
+		}
+		.mui-bar{
+			background: #FFFFFF;
+		}
+		.layui-m-layer0 .layui-m-layerchild{
+			width: 70% !important;
+		}
+		.layui-m-layercont{
+			padding: 1rem 1.5rem !important;
+		}
+		.layui-m-layerbtn{
+			height: 30px !important;
+			line-height: 30px !important;
+		}
+		.layui-m-layerbtn span[yes]{
+			background: #E8192D !important;
+			color: #FFFFFF !important;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">商品详情</h1>
+		</header>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="content">
+					<!--轮播图-->
+					<div class="mui-slider">
+					  <div class="mui-slider-group mui-slider-loop">
+					    <!--支持循环，需要重复图片节点-->
+					    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+					    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+					    <!--支持循环，需要重复图片节点-->
+					    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/bmjz_banner01.png" /></a></div>
+					  </div>
+					      <div class="mui-slider-indicator">  
+			                <div class="mui-indicator mui-active"></div>  
+			                <div class="mui-indicator"></div>
+			                 <div class="mui-indicator"></div>  
+			                  <div class="mui-indicator"></div>  
+			            </div>  
+					</div>
+					<!--商品详情-->
+					<div class="detail_box">
+						<div class="price_box">
+							<p>冷冻鸽子肉</p>
+							<p class="shichang">市场价：<span>￥27.00</span></p>
+							<p style="color: #CD1F00;">480积分</p>
+						</div>
+						<div class="jifen_box">
+							<p>剩余积分 <span>10</span></p>
+							<div class="number_box">
+								<span style="color: #CD1F00;margin-right: 0.25rem;">兑换</span><button>-</button><span class="jishu">1</span><button>+</button><span style="margin-left: 0.25rem;">份</span>
+							</div>	
+						</div>
+					</div>
+					<!--产品参数-->
+					<div class="chanpin_canshu">
+						<p class="title">产品参数</p>
+						<ul>
+							<li>
+								<span>净含量：</span><span>352g</span>
+							</li>
+							<li>
+								<span>保质期：</span><span>35天</span>
+							</li>
+							<li>
+								<span>包装方式：</span><span>包装</span>
+							</li>
+							<li>
+								<span>生鲜储存温度：</span><span>-18℃</span>
+							</li>
+						</ul>
+					</div>
+					<!--商品详情图片-->
+					<div class="detail_img">
+						<p class="title">商品详情</p>
+						<div class="detail_img_box">
+							<img src="../../imgs/bm_image3.png"/>
+							<img src="../../imgs/bm_image3.png"/>
+						</div>
+						
+					</div>
+					<div class="btn">
+						<button>立即兑换</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/layer/mobile/layer.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			$(".btn button").click(function(){
+				  //询问框
+				  layer.open({
+				    content: '对不起！您没有足够的积分兑换'
+				    ,btn: ['去赚积分', '取消']
+				    ,yes: function(index){
+				      location.reload();
+				      layer.close(index);
+				    }
+				  });
+			})
+		</script>
+	</body>
+
+</html>

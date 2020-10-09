@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet">
+	</head>
+	<style type="text/css">
+		.mui-content>.mui-table-view:first-child{
+			margin: 0;
+		}
+		.mui-table-view-cell .tit{
+			color: #444;
+			font-size: 0.85rem;
+		}
+		.mui-table-view-cell .tit span{
+			color: #E8192D;
+			margin-left: 0.75rem;
+		}
+		.mui-table-view-cell{
+			display: flex;
+			justify-content: space-between;
+		}
+		.mui-table-view-cell .nub_box{
+			color: #444444;
+			font-size: 0.85rem;
+		}
+		.mui-table-view-cell .nub_box span{
+			color: #E8192D;
+			padding-right: 0.5rem;
+		}
+	</style>
+
+	<body>
+		<header class="header-bg mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">积分明细</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+			        <li class="mui-table-view-cell" style="justify-content:flex-start;">
+			            <p class="tit">积分余额 <span>486</span></p>
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <p class="nub_box"><span>+3</span>积分</p>
+			            <p>购物送积分</p>
+			            <p>2017-05-25</p>
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <p class="nub_box"><span>-58</span>积分</p>
+			            <p>购物抵现</p>
+			            <p>2017-05-25</p>
+			        </li>
+			              <li class="mui-table-view-cell">
+			            <p class="nub_box"><span>+33</span>积分</p>
+			            <p>购物送积分</p>
+			            <p>2017-05-25</p>
+			        </li>
+			    </ul>
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/view-css/home/ziyingshangcheng-qita.css"/>
+	</head>
+	<body>
+		
+		
+		<header class="header">
+			<div class="left-return">
+		    	<a class="fa fa-angle-left fa-2x " href="ziyingshangcheng.html"></a>				
+			</div>
+			<div class="title">
+				<span>其它</span>
+			</div>
+		</header>
+		
+		<div class="mui-content content">
+		    <div class="top">
+		    	<span>全部</span>
+		    </div>
+		    <div class="sort">
+		    	<div class="sort-div">
+		    	
+		    	
+		    	</div>
+		    </div>
+		</div>
+		
+		
+		<script src="../../js/jquery-1.11.3.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/rem.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		
+			mui.ajax(APIPATH+'Index/get_sort_one',{
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				// headers:{'Content-Type':'application/json'},	              
+				success:function(data){
+				var datas = data.data;
+				var sorthh = '';
+				for(i=0;i<datas.length;i++){
+					sorthh += '<span>'+datas[i]['nick']+'</span>';
+				}
+				$(".sort-div").html(sorthh);
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+			
+			
+		</script>
+	</body>
+
+</html>

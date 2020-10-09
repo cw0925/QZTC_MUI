@@ -1,0 +1,349 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #FFFFFF;
+		}
+		.head-info{
+			width: 100%;
+			height: 10rem;
+			/* border: 1px solid #F0717A; */
+			background-image: url(../../img/qiandao_bjtp.png);
+			background-repeat:no-repeat; background-size:100% 100%;-moz-background-size:100% 100%;
+		}
+		.img-info{
+			width: 100%;
+			height: 70%;
+			text-align: center;
+		}
+		.img-info img{
+			margin-top: 1.5rem;
+			width: 5rem;
+			height: 5rem;
+			border-radius: 3rem;
+			border: 1px solid #DDDDDD;
+		}
+		.img-info p{
+			color: #FFFFFF;
+			
+		}
+		.info-span{
+			width: 100%;
+			text-align: center;
+			margin-top: 1rem;
+		}
+		.info-span span{
+			color: #FFFFFF;	
+		}
+		.info-sign-in{
+			margin-right: 6rem;
+			padding-bottom: 0.1rem;
+			border-bottom: 1px solid #FFFFFF;
+		}
+		.info-guizhi{
+			margin-left: 6.5rem;
+		}
+		.head-sign_in{
+			width: 100%;
+			text-align: center;
+			line-height: 3rem;
+			font-size: 1.2rem;
+		}
+		.week{
+			width: 100%;
+		}
+		.thead {
+			width: 100%;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			
+		}
+		.thead li {
+			float: left;
+			width: 14.28%;
+			background: #F3F3F3;
+			text-align: center;
+			font-size: 1rem;
+			line-height: 2rem;
+			border-bottom: 1px solid #E7E7E7;
+		}
+		.home thead>tr>td{ width: 100px; line-height: 1rem; height: 0.5rem; text-align: center; color: #fff;}
+		.home tbody>tr>td{ width: 100px; line-height: 2.5rem; height: 1rem; margin: 1px; text-align: center;}
+		.color{text-decoration: underline;}
+		.bottom{
+			width: 100%;
+			text-align: center;
+			position: fixed;
+			bottom: 0;
+			line-height: 2.5rem;
+			border-top: 1px solid #FFFFFF;
+			background: #FF0000;
+			color: #FFFFFF;
+		}
+		.green{
+			color: #FF0000;
+		
+		}
+		.Signed_in{
+			font-size: 0.4rem;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a style="color: #000000;" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的签到</h1>
+		</header>
+		<div style="background: #FFFFFF;" class="mui-content">
+			<div class="head-info">
+				<div class="img-info">
+					<img id="tx" src="../../imgs/user.png" >
+					<p id="name"></p>
+				</div>
+				<div class="info-span">
+						<span class="info-sign-in">日历</span>
+						<!-- <span class="info-name">Jakc</span> -->
+						<span class="info-guizhi">规则</span>
+				</div>
+			</div>
+			<div class="content">
+				<div class="head-sign_in">
+					<span class="riqi">2018 年 9 月</span>
+					<div class="week">
+						 <table cellspacing="1" cellpadding="1" class="home">
+							<ul class="thead">
+								<li>日</li>
+								<li>一</li>
+								<li>二</li>
+								<li>三</li>
+								<li>四</li>
+								<li>五</li>
+								<li>六</li>
+							</ul>
+							<tbody id="tbody"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="bottom">
+				<span>签到</span>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/public.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script type="text/javascript">
+			mui.init() 
+			document.addEventListener("plusready",function(){
+				plus.nativeUI.showWaiting();
+				var token = window.localStorage.getItem('qztc');
+				
+				mui("body").on("tap",".info-guizhi",function(){
+					mui.openWindow({
+						url: 'qiandao-shuoming.html'
+					});
+				})
+				
+				var sliarrn=[15,17,16,18]
+				var $thead=$('#thead'),
+					$tbody=$('#tbody'),
+					wk=true,
+					slidate=new Date(),
+					_nullnei='',
+					de=slidate.getDate()+1;
+				var now = new Date();	
+				$(".riqi").html(now.getFullYear()+  " 年 " + ((now.getMonth()+1)<10?"0":"")+(now.getMonth()+1) +" 月");
+				var monthFirst = new Date(slidate.getFullYear(), parseInt(slidate.getMonth()), 1).getDay();//获取当月的1日等于星期几
+			
+				var d = new Date(slidate.getFullYear(), parseInt(slidate.getMonth() + 1), 0); //获取月
+				var conter=d.getDate();//获取当前月的天数
+				
+				//遍历日历网格
+				for(var i=1; i<=6;i++){
+					_nullnei+="<tr>";
+					for(var j=1; j<=7;j++)
+					{
+						_nullnei+='<td></td>';
+					}
+					_nullnei+="</tr>";
+				}
+				$tbody.html(_nullnei);
+				
+				//遍历网格内容 
+				var $slitd=$tbody.find("td");
+				for(var i=0; i<conter; i++)
+				{
+					$slitd.eq(i+monthFirst).html("<p>"+parseInt(i+1)+"</p>")
+					
+				}
+				
+				Funback();//给当前日加样式
+					
+				
+				
+				function Funback(){
+					$slitd.eq(parseInt(de)-1+monthFirst-1).html("<p class='color'>"+
+																JSON.stringify(parseInt(de)-1)+
+																"</p>");
+				}
+				
+				
+			
+				mui.ajax(APIPATH+'Integral/sign_in',{
+					data:{token:token},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						var datas = data.data;
+						if(data.status == '1'){
+							var myDate = new Date();
+							var riqi = myDate.getDate();
+							$("#tx").attr("src",datas['user']['avatar']);
+							$("#name").html(datas['user']['nick']);
+							if(datas['sign_in']['check_data'].length){
+								for(i=0;i<datas['sign_in']['check_data'].length;i++){
+									
+									if(datas['sign_in']['check_data'][i] == riqi ){
+										$slitd.eq(parseInt(datas['sign_in']['check_data'][i]) +monthFirst-1).html("<p class='green color'>"+
+																		parseInt(datas['sign_in']['check_data'][i])+
+																		"</p>"); 
+									}else{
+										$slitd.eq(parseInt(datas['sign_in']['check_data'][i]) +monthFirst-1).html("<p class='green'>"+
+																		parseInt(datas['sign_in']['check_data'][i])+
+																		"</p>");
+									}
+								 
+								}
+							}
+							
+						}else if(data.status == '-2'){
+							$("#tx").attr("src","../../imgs/user.png");
+							$("#name").html("请先登录");
+							mui('body').on('tap','#tx',function(){ 
+								//去登录
+								window.localStorage.removeItem('qztc');
+								//判断当前设备类型
+								if(mui.os.ios || mui.os.ipad || mui.os.android) {
+									// 获取当前webview窗口对象
+									var curr = plus.webview.currentWebview();
+									
+									//获取所有已经打开的webview窗口
+									var wvs = plus.webview.all();
+									
+									
+									for(var i = 0, len = wvs.length; i < len; i++) {
+									//关闭除当前页面外的其他页面
+									if(wvs[i].getURL() == curr.getURL())
+									
+									//遇到当前页跳过
+									continue;
+									
+									//非当前页执行关闭
+									plus.webview.close(wvs[i]); 
+									}
+									//打开login页面
+									
+									plus.webview.open('../../login.html');
+									//执行关闭当前页面
+									curr.close();
+								} else{ 
+								
+									//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+									plus.runtime.quit();
+								
+								} 
+								
+							});
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			
+				//点击签到
+				mui("body").on("tap",".bottom",function(){
+					plus.nativeUI.showWaiting();
+					var myDate = new Date();
+					var day = myDate.getDate();
+				
+					mui.ajax(APIPATH+'Integral/sign_in_INT',{
+						data:{token:token,day:day},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(res){
+							if(res.status == 1){
+								mui.toast(res.msg);
+								setTimeout(function(){
+									window.location.reload(); 
+								},300);
+							}else if(res.status == '-1'){
+								mui.toast(res.msg);
+							}else if(res.status == '-2'){
+								var btnArray = ['否', '是'];
+								mui.confirm('您还没登录或登录已过期,是否去登录？', '登录提示', btnArray, function(e) {
+									if (e.index == 1) {
+										//去登录
+										window.localStorage.removeItem('qztc');
+										//判断当前设备类型
+										if(mui.os.ios || mui.os.ipad || mui.os.android) {
+											// 获取当前webview窗口对象
+											var curr = plus.webview.currentWebview();
+											 
+											//获取所有已经打开的webview窗口
+											var wvs = plus.webview.all();
+											
+											
+											for(var i = 0, len = wvs.length; i < len; i++) {
+											//关闭除当前页面外的其他页面
+											if(wvs[i].getURL() == curr.getURL())
+											
+											//遇到当前页跳过
+											continue;
+											
+											//非当前页执行关闭
+											plus.webview.close(wvs[i]); 
+											}
+											//打开login页面
+											
+											plus.webview.open('../../login.html');
+											//执行关闭当前页面
+											curr.close();
+										} else{ 
+										
+											//runtime 运行环境管理模块执行退出 (一般运行不到这里)
+											plus.runtime.quit();
+										
+										} 
+										
+									}
+								})
+							}
+							plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+				})
+			
+			})
+			
+		</script>
+	</body>
+
+</html> 
