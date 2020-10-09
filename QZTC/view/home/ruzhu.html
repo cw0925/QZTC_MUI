@@ -76,23 +76,24 @@
 					</div>
 					<div class="sort-input">
 						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
-						<select id="sort" onchange='storeTypeChange()'>
+						<select id="sort">
 							<option value="-1">请选择分类</option>
 						</select>
 					</div>
 				</div>
-
+				<!-- 入驻 -->
 				<div class="start">
 					<div class="title-span">
-						<span>开始日期</span>
+						<span>入驻开始</span>
 					</div>
 					<div class="start-date">
 						<input style="border: 0rem;" type="text" name="start-date" id="start-date" placeholder="请选择开始日期" />
 					</div>
 				</div>
+
 				<div class="end">
 					<div class="title-span">
-						<span>结束日期</span>
+						<span>入驻结束</span>
 					</div>
 					<div class="end-date">
 						<input style="border: 0rem;" type="text" name="end-date" id="end-date" placeholder="请选择结束日期" />
@@ -105,18 +106,83 @@
 					</div>
 					<div class="sort-input">
 						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
-						<select onchange="settleDateChange()" id="settle-date">
+						<select id="settle-date" onchange="calculateMoneyChange()">
 							<option value="-1">请选择入驻时间</option>
+						</select>
+					</div>
+				</div>
+				<!-- 置顶 -->
+				<div class="sort">
+					<div class="sort-span">
+						<span>是否置顶</span>
+					</div>
+					<div class="sort-input">
+						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
+						<select id="is-top">
+							<option value="-1">请选择</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="start">
+					<div class="title-span">
+						<span>置顶开始</span>
+					</div>
+					<div class="top-start-date">
+						<input style="border: 0rem;" type="text" name="top-start-date" id="top-start-date" placeholder="请选择置顶开始日期" />
+					</div>
+				</div>
+
+				<div class="settle">
+					<div class="title-span">
+						<span>置顶月数</span>
+					</div>
+					<div class="sort-input">
+						<select id="top-month" onchange="calculateMoneyChange()">
+							<option value="-1">请选择置顶月数</option>
+						</select>
+					</div>
+				</div>
+				<!-- 猜你喜欢 -->
+				<div class="sort">
+					<div class="sort-span">
+						<span>是否猜你喜欢</span>
+					</div>
+					<div class="sort-input">
+						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
+						<select id="is-like">
+							<option value="-1">请选择是否猜你喜欢</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="start">
+					<div class="title-span">
+						<span>猜你喜欢开始</span>
+					</div>
+					<div class="like-start-date">
+						<input style="border: 0rem;" type="text" name="like-start-date" id="like-start-date" placeholder="请选择开始日期" />
+					</div>
+				</div>
+
+				<div class="settle">
+					<div class="title-span">
+						<span>猜你喜欢月数</span>
+					</div>
+					<div class="sort-input">
+						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
+						<select id="like-month" onchange="calculateMoneyChange()">
+							<option value="-1">请选择</option>
 						</select>
 					</div>
 				</div>
 
 				<div class="rent">
 					<div class="title-span">
-						<span>租金</span>
+						<span>总金额</span>
 					</div>
 					<div class="rent-input">
-						<span id="money" class="rent-money">租金</span>
+						<span id="money" class="rent-money">总金额</span>
 					</div>
 				</div>
 
@@ -144,18 +210,6 @@
 					</div>
 					<div class="depict-input">
 						<input type="text" name="depict" placeholder="请简单描述店铺服务内容" />
-					</div>
-				</div>
-
-				<div class="sort">
-					<div class="sort-span">
-						<span>是否置顶</span>
-					</div>
-					<div class="sort-input">
-						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
-						<select id="is-top">
-							<option value="-1">请选择分类</option>
-						</select>
 					</div>
 				</div>
 
@@ -227,7 +281,7 @@
 					<!-- <div class="Wechat">
 						<img src="../../img/wx.png"/>
 						<span>微信</span>
-						<input type="radio" name="payment" value="3" />	
+						<input type="radio" name="payment" value="3" />
 					</div> -->
 				</div>
 				<div class="bt-fk">
@@ -273,7 +327,7 @@
 
 						for (i = 0; i < datas.sort.length; i++) {
 							// console.log(datas.sort[i]['name']);
-							sorthh += '<option value ="' + datas.sort[i]['id'] + '" price="' + datas.sort[i]['rental_price'] + '">' +
+							sorthh += '<option value ="' + datas.sort[i]['id'] + '" price="' + datas.sort[i]['rental_price']+ '" like_price="'+ datas.sort[i]['like_price'] + '" top_price="'+datas.sort[i]['top_price']+ '">' +
 								datas.sort[i]['name'] + '</option>';
 						}
 						$("#sort").html(sorthh);
@@ -824,12 +878,16 @@
 						name: '十二个月'
 					},
 				];
-				var settle_html = '<option value ="0">请选择入驻时间</option>';
+				var settle_html = '<option value ="0">请选择相应月数</option>';
 				for (i = 0; i < settle_date.length; i++) {
 					// console.log(datas.sort[i]['name']);
 					settle_html += '<option value ="' + settle_date[i]['id'] + '">' + settle_date[i]['name'] + '</option>';
 				}
 				$("#settle-date").html(settle_html);
+
+				$("#top-month").html(settle_html);
+
+				$("#like-month").html(settle_html);
 
 				// 是否置顶
 				var is_top = [{
@@ -841,21 +899,74 @@
 						name: '否'
 					},
 				];
-				var is_top_html = '<option value ="0">请选择是否置顶</option>';
+				var is_top_html = '<option value ="-1">请选择</option>';
 				for (i = 0; i < is_top.length; i++) {
 					// console.log(datas.sort[i]['name']);
 					is_top_html += '<option value ="' + is_top[i]['id'] + '">' + is_top[i]['name'] + '</option>';
 				}
 				$("#is-top").html(is_top_html);
 
-			});
+				$("#is-like").html(is_top_html);
+				// 置顶开始
+				mui("body").on("tap", "#top-start-date", function() {
+					var dDate = new Date();
+					//设置当前日期（不设置默认当前日期）
+					// dDate.setFullYear(2016, 7, 16);
+					var minDate = new Date();
+					//最小时间
+					minDate.setFullYear(2000, 1, 1);
+					var maxDate = new Date();
+					//最大时间
+					maxDate.setFullYear(2100, 12, 31);
+					plus.nativeUI.pickDate(function(e) {
+						var d = e.date;
+						var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 
-			// 店铺类型
-			function storeTypeChange() {}
+						document.getElementById('top-start-date').innerHTML = date;
+						$("#top-start-date").val(date);
+					}, function(e) {
+						mui.toast("您没有选择日期");
+					}, {
+						title: '请选择日期',
+						date: dDate,
+						minDate: minDate,
+						maxDate: maxDate
+					});
+				});
+				// 猜你喜欢开始
+				mui("body").on("tap", "#like-start-date", function() {
+					var dDate = new Date();
+					//设置当前日期（不设置默认当前日期）
+					// dDate.setFullYear(2016, 7, 16);
+					var minDate = new Date();
+					//最小时间
+					minDate.setFullYear(2000, 1, 1);
+					var maxDate = new Date();
+					//最大时间
+					maxDate.setFullYear(2100, 12, 31);
+					plus.nativeUI.pickDate(function(e) {
+						var d = e.date;
+						var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+
+						document.getElementById('like-start-date').innerHTML = date;
+						$("#like-start-date").val(date);
+					}, function(e) {
+						mui.toast("您没有选择日期");
+					}, {
+						title: '请选择日期',
+						date: dDate,
+						minDate: minDate,
+						maxDate: maxDate
+					});
+				});
+
+			});
 			//租期
 			function settleDateChange() {
 				var sel1 = document.getElementById('sort');
-				var price = sel1.options[sel1.selectedIndex].getAttribute("price");
+				var price = sel1.options[sel1.selectedIndex].getAttribute("price");//入驻月租金
+				var top_price = sel1.options[sel1.selectedIndex].getAttribute("top_price");//置顶月租金
+				var like_price = sel1.options[sel1.selectedIndex].getAttribute("like_price");//猜你喜欢月租金
 				console.log('店铺租金:' + price);
 				var sel2 = $('#settle-date option:selected');
 				//拿到选中的option的value
@@ -873,6 +984,71 @@
 					money = price * 12;
 				}
 				$('.rent-money').html(money);
+			}
+			function calculateMoneyChange(){
+				var sel1 = document.getElementById('sort');
+				var price = sel1.options[sel1.selectedIndex].getAttribute("price");//入驻月租金
+				var top_price = sel1.options[sel1.selectedIndex].getAttribute("top_price");//置顶月租金
+				var like_price = sel1.options[sel1.selectedIndex].getAttribute("like_price");//猜你喜欢月租金
+
+				console.log('入驻租金：'+price+'置顶租金：'+top_price+'猜你喜欢租金：'+like_price);
+
+				var settle_month = $('#settle-date option:selected').val();//入驻月数
+				var top_month = $('#top-month option:selected').val();//置顶月数
+				var like_month = $('#like-month option:selected').val();//入驻月数
+
+				console.log('入驻月数：'+ settle_month +'置顶月数：'+top_month+'猜你喜欢月数：'+like_month);
+
+				// var is_settle = $('#settle-date option:selected').val();//入驻月数
+				var is_top = $('#is_top option:selected').val();//是否置顶
+				var is_like = $('#is_like option:selected').val();//是否猜你喜欢
+
+				console.log('是否置顶：'+is_top+'是否猜你喜欢：'+ is_like);
+
+
+				var settle_money = 0;
+				var top_money = 0;
+				var like_money = 0;
+
+				if (settle_month == 1) { //1
+					settle_money = price;
+				} else if (settle_month == 2) { //3
+					settle_money = price * 3;
+				} else if (settle_month == 3) { //6
+					settle_money = price * 6;
+				} else if (settle_month == 4) { //12
+					settle_money = price * 12;
+				}
+
+				if(is_top == 1){
+					if (top_month == 1) { //1
+						top_money = top_price;
+					} else if (top_month == 2) { //3
+						top_money = top_price * 3;
+					} else if (top_month == 3) { //6
+						top_money = top_price * 6;
+					} else if (top_month == 4) { //12
+						top_money = top_price * 12;
+					}
+				}
+
+				if(is_like == 1){
+					if (like_month == 1) { //1
+						like_money = like_price;
+					} else if (like_month == 2) { //3
+						like_money = like_price * 3;
+					} else if (like_month == 3) { //6
+						like_money = like_price * 6;
+					} else if (like_month == 4) { //12
+						like_money = like_price * 12;
+					}
+				}
+
+				console.log('入驻金额：'+ settle_money +'置顶金额：'+top_money+'猜你喜欢金额：'+like_money);
+
+				var total = settle_money + top_money + like_money;
+
+				$('.rent-money').html(total);
 			}
 		</script>
 	</body>

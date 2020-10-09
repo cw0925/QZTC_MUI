@@ -414,7 +414,7 @@ body {
 }
 .rent-money{
 	margin-left: 1.25rem;
-	color: gray;
+	/* color: gray; */
 }
 .start{
 	display: flex;
@@ -443,6 +443,12 @@ body {
 #settle-date{
 	font-size: 1.5rem;
 }
+#top-month{
+	font-size: 1.5rem;
+}
+#like-month{
+	font-size: 1.5rem;
+}
 .rent{
 	display: flex;
 	flex-direction: row;
@@ -457,6 +463,18 @@ body {
 	margin-top: 0.2rem;
 	margin-bottom: -0.8rem;
 }
+.top-start-date{
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
+.like-start-date{
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
 .end-date{
 	width: 70%;
 	float: left;
@@ -464,5 +482,8 @@ body {
 	margin-bottom: -0.8rem;
 }
 #is-top{
+	font-size: 1.5rem;
+}
+#is-like{
 	font-size: 1.5rem;
 }
