@@ -6,469 +6,253 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css"/>
-		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link href="../../css/view-css/home/ruzhu.css" rel="stylesheet">
 	</head>
 	<style type="text/css">
-		body{
-			background: #FFFFFF;
-		}
-		.info{
-			background: #FFFFFF;
+		#popover {
 			width: 100%;
-		} 
-		/* 标题 */
-		.title{
-			width: 100%;
-			border-bottom: 1px solid #F7F7F7;
-			overflow: hidden;
-		}
-		.title-span {
-			width: 18%;
-			line-height: 4rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.title-input{
-			width: 70%;
-			float: left;
-			margin-top: 0.2rem;
-			margin-bottom: -0.8rem;
-		}
-		.title-input input{
-			border: 0;
-		}
-		
-		/* 公司名称 */
-		.corporate{
-			width: 100%;
-			border-bottom: 1px solid #F7F7F7;
-			overflow: hidden;
-		}
-		.corporate-span {
-			width: 18%;
-			line-height: 4rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.corporate-input{
-			width: 70%;
-			float: left;
-			margin-top: 0.2rem;
-			margin-bottom: -0.8rem;
-		}
-		.corporate-input input{
-			border: 0;
-		}
-		
-		/* 联系电话 */
-		.phone{
-			width: 100%;
-			border-bottom: 1px solid #F7F7F7;
-			overflow: hidden;
-		}
-		.phone-span {
-			width: 18%;
-			line-height: 4rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.phone-input{
-			width: 70%;
-			float: left;
-			margin-top: 0.2rem;
-			margin-bottom: -0.8rem;
-		}
-		.phone-input input{
-			border: 0;
-		}
-		
-		/* 店铺分类 */
-		.sort{
-			width: 100%;
-			border-bottom: 1px solid #F7F7F7;
-			overflow: hidden;
-		}
-		.sort-span {
-			width: 18%;
-			line-height: 4rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.sort-input{
-			width: 70%;
-			float: left;
-			margin-top: 0.2rem;
-			margin-bottom: -0.8rem;
-		}
-		.sort-input input{
-			border: 0;
-		}
-		
-		/* 区域位置 */
-		.area{
-			width: 100%;
-			border-bottom: 1px solid #F7F7F7;
-			overflow: hidden;
-		}
-		.area-span {
-			width: 18%;
-			line-height: 4rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.area-input{
-			width: 70%;
-			float: left;
-			margin-top: 0.2rem;
-			margin-bottom: -0.8rem;
-		}
-		.area-input input{
-			border: 0;
-		}
-		
-		/* 详细地址 */
-		.address-detail{
-			width: 100%;
-			border-bottom: 1px solid #F7F7F7;
-			overflow: hidden;
-		}
-		.address-detail-span {
-			width: 18%;
-			line-height: 4rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.address-detail-input{
-			width: 70%;
-			float: left;
-			margin-top: 0.2rem;
-			margin-bottom: -0.8rem;
-		}
-		.address-detail-input input{
-			border: 0;
-		}
-		
-		/* 描述 */
-		.depict{
-			width: 100%;
-			border-bottom: 1px solid #F7F7F7;
-			overflow: hidden;
-		}
-		.depict-span {
-			width: 18%;
-			line-height: 4rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.depict-input{
-			width: 70%;
-			float: left;
-			margin-top: 0.2rem;
-			margin-bottom: -0.8rem;
-		}
-		.depict-input input{
-			border: 0;
-		}
-		
-		/* 封面图 */
-		.fm-img{
-			width: 100%;
-			border-bottom: 1px solid #F7F7F7;
-			overflow: hidden;
-		}
-		.fm-img-span {
-			width: 18%;
-			line-height: 9rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.fm-img-div {
-			width: 70%;
-			float: left;
-			/* border: 1px solid #FFFF00; */
-		}
-		.fm-img-div img{
-			margin-top: 1rem;
-			margin-bottom: 1rem;
-			width: 7rem;
-			height: 7rem;
-			/* border: 1px solid #000000; */
-		}
-		.fm-ck{
-			line-height: 9rem;
-			float: right;
-			color: #000;
-		}
-		
-		.fm-ck-gq{
-			line-height: 9rem;
-			float: right;
-			color: #ccc;
-		}
-		
-		/* 详情图 */
-		.xq-img{
-			width: 100%;
-			border-bottom: 1px solid #F7F7F7;
-			overflow: hidden;
-		}
-		.xq-img-span {
-			width: 18%;
-			line-height: 9rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.xq-img-div {
-			width: 70%;
-			float: left;
-			/* border: 1px solid #FFFF00; */
-		}
-		.xq-img-div img{
-			margin-top: 1rem;
-			margin-bottom: 1rem;
-			width: 7rem;
-			height: 7rem;
-		}
-		
-		.xq-ck{
-			line-height: 9rem;
-			float: right;
-			color: #000;
-		}
-		.xq-ck-gq{
-			line-height: 9rem;
-			float: right;
-			color: #ccc;
-		}
-
-		/* 轮播图 */
-		.lbt-img{
-			width: 100%;
-			/* border-bottom: 1px solid #F7F7F7; */
-			margin-bottom: 5rem;
-			overflow: hidden;
-		}
-		.lbt-img-span {
-			width: 18%;
-			line-height: 9rem;
-			float: left;
-			margin-left: 2rem;
-		}
-		.lbt-img-div {
-			width: 70%;
-			float: left;
-			/* border: 1px solid #FFFF00; */
-		}
-		.lbt-img-div img{
-			margin-top: 1rem;
-			margin-bottom: 1rem;
-			margin-right: 1rem;     
-			width: 10rem;
-			height: 10rem;
-		}
-		.upimg{
-			padding-right: 1rem;
-		}
-		
-		.lbt-btn{
-			width: 100%;
-			line-height: 5rem;
-			text-align: center;
-		}
-
-		.lbt-btn-gq{
-			color: #ccc;
-			width: 100%;
-			line-height: 5rem;
-			text-align: center;
-		}
-
-		#sort{
-			font-size: 1.5rem;
-		}
-		
-		/* 底部 */
-		.bottom{
-			width: 100%;
+			/*	height:40rem;*/
+			background: white;
 			position: fixed;
-			bottom: 0;
-			line-height: 4rem;
-			background: #F01C08;
-			color: #FFFFFF;
-			font-size: 1.8rem;
-			text-align: center;
+			bottom: 0%;
+			border-radius: 0;
+			z-index: 1100;
 		}
-		
+
+		#yezftc {
+			position: fixed;
+			top: 0;
+			background: #F0F0F0;
+			width: 100%;
+			height: 100%;
+			border-radius: 0;
+			z-index: 1111;
+			/*opacity: 0.9;*/
+
+		}
 	</style>
 	<body>
-		
+
 		<header class="mui-bar mui-bar-nav">
-		    <a style="color: #000000" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title"></h1>
+			<a style="color: #000000" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"></h1>
 		</header>
-		<div class="mui-content">			
-		
+		<div class="mui-content">
+
 			<div class="info">
-				
-					<div class="title">
-						<div class="title-span">
-							<span>标题</span>
-						</div>
-						<div class="title-input">
-							<input  type="text" name="title" placeholder="请输入店铺标题"  />
-						</div>
+
+				<div class="title">
+					<div class="title-span">
+						<span>标题</span>
 					</div>
-					
-					<div class="corporate">
-						<div class="corporate-span">
-							<span>机构名称</span>
-						</div>
-						<div class="corporate-input">
-							<input  type="text" name="corporate" placeholder="请输入公司名称或店铺名称"  />
-						</div>
+					<div class="title-input">
+						<input type="text" name="title" placeholder="请输入店铺标题" />
 					</div>
-					
-					<div class="phone">
-						<div class="phone-span">
-							<span>联系电话</span>
-						</div>
-						<div class="phone-input">
-							<input  type="text" name="phone" placeholder="请输入联系电话"  />
-						</div>
+				</div>
+
+				<div class="corporate">
+					<div class="corporate-span">
+						<span>机构名称</span>
 					</div>
-					
-					<div class="sort">
-						<div class="sort-span">
-							<span>店铺类型</span>
-						</div>
-						<div class="sort-input">
-							<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
-							<select id="sort">
-								 <option value ="-1">请选择分类</option>
-							</select>
-						</div>
+					<div class="corporate-input">
+						<input type="text" name="corporate" placeholder="请输入公司名称或店铺名称" />
 					</div>
-					
-					<div class="address-detail">
-						<div class="address-detail-span">
-							<span>开始日期</span>
-						</div>
-						<div class="start-date">
-							<input  type="text" name="address-detail" placeholder="请选择开始日期"  />
-						</div>
+				</div>
+
+				<div class="phone">
+					<div class="phone-span">
+						<span>联系电话</span>
 					</div>
-					<div class="address-detail">
-						<div class="address-detail-span">
-							<span>结束日期</span>
-						</div>
-						<div class="end-date">
-							<input  type="text" name="address-detail" placeholder="请选择结束日期"  />
-						</div>
+					<div class="phone-input">
+						<input type="text" name="phone" placeholder="请输入联系电话" />
 					</div>
-					
-					<div class="sort">
-						<div class="sort-span">
-							<span>入驻时间</span>
-						</div>
-						<div class="sort-input">
-							<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
-							<select id="settle-date">
-								 <option value ="-1">请选择分类</option>
-							</select>
-						</div>
+				</div>
+
+				<div class="sort">
+					<div class="sort-span">
+						<span>店铺类型</span>
 					</div>
-					
-					<div class="address-detail">
-						<div class="address-detail-span">
-							<span>租金</span>
-						</div>
-						<div class="address-detail-input">
-							<input  type="text" name="address-detail" placeholder="请填写租金"  />
-						</div>
+					<div class="sort-input">
+						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
+						<select id="sort" onchange='storeTypeChange()'>
+							<option value="-1">请选择分类</option>
+						</select>
 					</div>
-					
-					<div class="area">
-						<div class="area-span">
-							<span>区域位置</span>
-						</div>
-						<div class="area-input">
-							<input  type="text" name="area" id="address-ipt" placeholder="请选择店铺区域位置"  />
-						</div>
+				</div>
+
+				<div class="start">
+					<div class="start-date-span">
+						<span>开始日期</span>
 					</div>
-					
-					<div class="address-detail">
-						<div class="address-detail-span">
-							<span>详细地址</span>
-						</div>
-						<div class="address-detail-input">
-							<input  type="text" name="address-detail" placeholder="请填写店铺的详细地址"  />
-						</div>
+					<div class="start-date">
+						<input style="border: 0rem;" type="text" name="start-date" placeholder="请选择开始日期" />
 					</div>
-					
-					<div class="depict">
-						<div class="depict-span">
-							<span>描述</span>
-						</div>
-						<div class="depict-input">
-							<input type="text" name="depict" placeholder="请简单描述店铺服务内容"  />
-						</div>
+				</div>
+				<div class="end">
+					<div class="end-date-span">
+						<span>结束日期</span>
 					</div>
-					
-					<div class="sort">
-						<div class="sort-span">
-							<span>是否置顶</span>
-						</div>
-						<div class="sort-input">
-							<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
-							<select id="is-top">
-								 <option value ="-1">请选择分类</option>
-							</select>
-						</div>
+					<div class="end-date">
+						<input style="border: 0rem;" type="text" name="end-date" placeholder="请选择结束日期" />
 					</div>
-					
-					<div class="fm-img">
-						 <div class="fm-img-span">
-							 <span>封面图</span>
-						 </div>
-						 <div class="fm-img-div">
-								<img id="fm-img-click" class="fm-img-base" src="../../img/paizhao.png"> 
-								<span class='fm-ck'>请点击确认</span>
-						 </div>
-						 <img src="" style="display: none;" val="" class="fm-ys">
-					</div> 
-					
-					<div class="xq-img">
-						<div class="xq-img-span">
-							<span>详情图</span>
-						</div>
-						<div class="xq-img-div">
-							<img id="xq-img-click"  class="xq-img-base" src="../../img/paizhao.png"> 
-							<span class='xq-ck'>请点击确认</span>
-						</div>
-						<img src="" style="display: none;" val="" class="xq-ys"> 
+				</div>
+
+				<div class="sort">
+					<div class="sort-span">
+						<span>入驻时间</span>
 					</div>
-					<div val="" class="lbt-btn">
-						请点击确认
+					<div class="sort-input">
+						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
+						<select onchange="settleDateChange()" id="settle-date">
+							<option value="-1">请选择入驻时间</option>
+						</select>
 					</div>
-					<div class="lbt-img">
-						<div class="lbt-img-span">
-							<span>轮播图</span>
-						</div>
-						<div class="lbt-img-div">
-							<img id="lbt-img-click"  class="lbt-img-base" src="../../img/paizhao.png"> 
-						</div>
+				</div>
+
+				<div class="rent">
+					<div class="rent-span">
+						<span>租金</span>
 					</div>
-					
-					
+					<div class="rent-input">
+						<span id="money" class="rent-money">租金</span>
+					</div>
+				</div>
+
+				<div class="area">
+					<div class="area-span">
+						<span>区域位置</span>
+					</div>
+					<div class="area-input">
+						<input type="text" name="area" id="address-ipt" placeholder="请选择店铺区域位置" />
+					</div>
+				</div>
+
+				<div class="address-detail">
+					<div class="address-detail-span">
+						<span>详细地址</span>
+					</div>
+					<div class="address-detail-input">
+						<input type="text" name="address-detail" placeholder="请填写店铺的详细地址" />
+					</div>
+				</div>
+
+				<div class="depict">
+					<div class="depict-span">
+						<span>描述</span>
+					</div>
+					<div class="depict-input">
+						<input type="text" name="depict" placeholder="请简单描述店铺服务内容" />
+					</div>
+				</div>
+
+				<div class="sort">
+					<div class="sort-span">
+						<span>是否置顶</span>
+					</div>
+					<div class="sort-input">
+						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
+						<select id="is-top">
+							<option value="-1">请选择分类</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="fm-img">
+					<div class="fm-img-span">
+						<span>封面图</span>
+					</div>
+					<div class="fm-img-div">
+						<img id="fm-img-click" class="fm-img-base" src="../../img/paizhao.png">
+						<span class='fm-ck'>请点击确认</span>
+					</div>
+					<img src="" style="display: none;" val="" class="fm-ys">
+				</div>
+
+				<div class="xq-img">
+					<div class="xq-img-span">
+						<span>详情图</span>
+					</div>
+					<div class="xq-img-div">
+						<img id="xq-img-click" class="xq-img-base" src="../../img/paizhao.png">
+						<span class='xq-ck'>请点击确认</span>
+					</div>
+					<img src="" style="display: none;" val="" class="xq-ys">
+				</div>
+				<div val="" class="lbt-btn">
+					请点击确认
+				</div>
+				<div class="lbt-img">
+					<div class="lbt-img-span">
+						<span>轮播图</span>
+					</div>
+					<div class="lbt-img-div">
+						<img id="lbt-img-click" class="lbt-img-base" src="../../img/paizhao.png">
+					</div>
+				</div>
+
+
 			</div>
 			<div id="fabu-click" class="bottom">
 				<span>发布</span>
 			</div>
 
-			
+			<!--支付选择-->
+			<div id="popover" class="mui-popover">
+				<div class="title-fkfs">
+					<span>选择付款方式</span>
+
+				</div>
+				<div class="Payment-type">
+					<!--余额-->
+					<div class="remainingsum">
+						<img src="../../img/ye.png" />
+						<span>余额 </span>
+						<input type="radio" checked name="payment" value="1" />
+					</div>
+					<!--支付宝-->
+
+					<div class="Alipay">
+						<img src="../../img/zfb.png" />
+						<span>支付宝</span>
+						<input type="radio" name="payment" value="2" />
+					</div>
+
+					<!--微信-->
+					<div class="Wechat">
+						<img src="../../img/wx.png" />
+						<span>微信</span>
+						<input type="radio" name="payment" value="3" />
+					</div>
+				</div>
+				<div class="bt-fk">
+					<button id="bt-fk">立即支付</button>
+				</div>
+			</div>
+
 		</div>
-	
+
+		<!--余额支付密码弹窗-->
+		<div id="yezftc" class="mui-popover">
+			<div class="yezf">
+				<div class="pwd-box" style="position: relative;">
+					<p class="p-order">订单号：</p>
+					<i style="position: absolute; top: -7rem;right: 0rem;" class="fa fa-close fa-2x"></i>
+					<input autofocus="autofocus" type="tel" maxlength="6" class="pwd-input" id="pwd-input">
+					<div class="fake-box">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+						<input type="password" readonly="">
+					</div>
+					<span style="position: absolute; left: 30%;top: -3rem;color: red;font-size: 3rem;" class="price-total-span"></span>
+				</div>
+			</div>
+		</div>
+
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/jquery.min.js"></script>
 		<script src="../../js/rem.js"></script>
@@ -476,74 +260,77 @@
 		<script src="../../js/mui.picker.js"></script>
 		<script src="../../js/mui.poppicker.js"></script>
 		<script src="../../js/city.data-3.js"></script>
-		<script src="../../js/jquery.form.js"></script> 
+		<script src="../../js/jquery.form.js"></script>
 		<script src="../../js/view-js/home/ruzhu.js"></script>
-		
+
 		<script type="text/javascript">
 			mui.init()
-	
-			document.addEventListener("plusready",function(){
+
+			document.addEventListener("plusready", function() {
 				plus.nativeUI.showWaiting();
-				var qs = getQueryString(); 
+				var qs = getQueryString();
 				var id = qs["id"];
-				
-			  var token = window.localStorage.getItem('qztc');
-			
-				mui.ajax(APIPATH+'Enter/enterinfo',{
-					data:{sort_id:id},
-					dataType:'json',//服务器返回json格式数据
-					type:'post',//HTTP请求类型
-					timeout:10000,//超时时间设置为10秒；
-					// headers:{'Content-Type':'application/json'},	              
-					success:function(data){
-						console.log('店铺分类：'+JSON.stringify(data))
+
+				var token = window.localStorage.getItem('qztc');
+
+				mui.ajax(APIPATH + 'Enter/enterinfo', {
+					data: {
+						sort_id: id
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},
+					success: function(data) {
+						console.log('店铺分类：' + JSON.stringify(data))
 						var datas = data.data;
 						var sorthh = '<option value ="-1">请选择分类</option>';
 						var sort = data.data.title.id;
-					
-						for(i=0;i<datas.sort.length;i++){
+
+						for (i = 0; i < datas.sort.length; i++) {
 							// console.log(datas.sort[i]['name']);
-							sorthh += '<option value ="'+datas.sort[i]['id']+'">'+datas.sort[i]['name']+'</option>';
+							sorthh += '<option value ="' + datas.sort[i]['id'] + '" price="' + datas.sort[i]['rental_price'] + '">' +
+								datas.sort[i]['name'] + '</option>';
 						}
 						$("#sort").html(sorthh);
-						$(".mui-title").html(datas.title.name+' - 入驻发布');
-						
-						
+						$(".mui-title").html(datas.title.name + ' - 入驻发布');
+
+
 						//地区
-						mui("body").on("tap","#address-ipt",function(){
-								var adressStr = '';
-								var address = '';
-								//显示几层，我们要显示省、市、区，所以我们这里写三层，如果不写默认是一层
-								var addressPicker = new mui.PopPicker({
-										layer: 3
-								});
-								addressPicker.setData(cityData3);
-				
-								addressPicker.show(function (selectItems) {
-										//将选择的省、市、区显示到屏幕上
-										for (var i = 0; i < selectItems.length; i++) {
-												adressStr += selectItems[i].text;
-												address += ' '+selectItems[i].text;
-										}
-										
-										address = address.substr(1); //删除第一个字符
-										document.getElementById('address-ipt').innerHTML = adressStr;
-										$("#address-ipt").val(address);
-								});
+						mui("body").on("tap", "#address-ipt", function() {
+							var adressStr = '';
+							var address = '';
+							//显示几层，我们要显示省、市、区，所以我们这里写三层，如果不写默认是一层
+							var addressPicker = new mui.PopPicker({
+								layer: 3
+							});
+							addressPicker.setData(cityData3);
+
+							addressPicker.show(function(selectItems) {
+								//将选择的省、市、区显示到屏幕上
+								for (var i = 0; i < selectItems.length; i++) {
+									adressStr += selectItems[i].text;
+									address += ' ' + selectItems[i].text;
+								}
+
+								address = address.substr(1); //删除第一个字符
+								document.getElementById('address-ipt').innerHTML = adressStr;
+								$("#address-ipt").val(address);
+							});
 						});
-						
-						 var title = datas.title.name;
-						 console.log('标题'+title)
+
+						var title = datas.title.name;
+						console.log('标题' + title)
 						//封面图
-						document.getElementById('fm-img-click').addEventListener('tap', function() { 
-							
-							   if (mui.os.plus) {
-								var buttonTit = [{ 
+						document.getElementById('fm-img-click').addEventListener('tap', function() {
+
+							if (mui.os.plus) {
+								var buttonTit = [{
 									title: "拍照"
 								}, {
 									title: "从手机相册选择"
 								}];
-								
+
 								plus.nativeUI.actionSheet({
 									title: "上传图片",
 									cancel: "取消",
@@ -553,402 +340,495 @@
 										case 0:
 											break;
 										case 1:
-												getImageUP("fm"); /*拍照*/
-											
+											getImageUP("fm"); /*拍照*/
+
 											break;
 										case 2:
-												galleryImgUP(1,"fm");/*打开相册*/ 
+											galleryImgUP(1, "fm"); /*打开相册*/
 
-												break;
+											break;
 										default:
 											break;
 									}
 								})
-							   }     
-						}); 		 
+							}
+						});
 						//点击上传图片
-						mui("body").on("tap",".fm-ck",function(){
-								plus.nativeUI.showWaiting();
-								// if(title == '招聘转让' || title == '便民家政')
-								if(!$(".fm-ys").attr("src")){
-									plus.nativeUI.closeWaiting();
-									mui.toast('请上传图片后在点击确定');
+						mui("body").on("tap", ".fm-ck", function() {
+							plus.nativeUI.showWaiting();
+							// if(title == '招聘转让' || title == '便民家政')
+							if (!$(".fm-ys").attr("src")) {
+								plus.nativeUI.closeWaiting();
+								mui.toast('请上传图片后在点击确定');
+							}
+							var base_fm = getBase64Image($(".fm-ys")[0]);
+							dealImage({
+								base64: base_fm,
+								w: 800,
+								callback: function(base64) {
+
+									mui.ajax(APIPATH + 'Enter/fm_img', {
+										data: {
+											fm_img: base64
+										},
+										dataType: 'json', //服务器返回json格式数据
+										type: 'post', //HTTP请求类型
+										timeout: 10000, //超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},
+										success: function(data) {
+											console.log('封面图上传成功：' + JSON.stringify(data))
+											$(".fm-ys").attr("val", data.data);
+											$(".fm-ck").html("图片已上传");
+											$(".fm-ck").attr("class", "fm-ck-gq");
+											plus.nativeUI.closeWaiting();
+										},
+										error: function(xhr, type, errorThrown) {
+											//异常处理；
+											console.log('封面图上传失败：' + JSON.stringify(xhr))
+										}
+									});
+
 								}
-								var base_fm = getBase64Image($(".fm-ys")[0]);
-								dealImage({
-									base64:base_fm,
-									w:800,
-									callback:function(base64){
-										
-											mui.ajax(APIPATH+'Enter/fm_img',{
-												data:{fm_img:base64},
-												dataType:'json',//服务器返回json格式数据
-												type:'post',//HTTP请求类型
-												timeout:10000,//超时时间设置为10秒；
-												// headers:{'Content-Type':'application/json'},	              
-												success:function(data){
-													console.log('封面图上传成功：'+JSON.stringify(data))
-													$(".fm-ys").attr("val",data.data);
-													$(".fm-ck").html("图片已上传");
-													$(".fm-ck").attr("class","fm-ck-gq");
-													plus.nativeUI.closeWaiting();
-												},
-												error:function(xhr,type,errorThrown){
-													//异常处理；
-													console.log('封面图上传失败：'+JSON.stringify(xhr))
-												}
-											});
-											
-									}
-								}); 
+							});
 						})
-						mui("body").on("tap",".fm-ck-gq",function(){
-							
+						mui("body").on("tap", ".fm-ck-gq", function() {
+
 							mui.toast("已上传");
 						})
 						//详情
-						document.getElementById('xq-img-click').addEventListener('tap', function() { 
+						document.getElementById('xq-img-click').addEventListener('tap', function() {
 							if (mui.os.plus) {
-							var buttonTit = [{
-								title: "拍照"
-							}, {
-								title: "从手机相册选择"
-							}];
-							
-							plus.nativeUI.actionSheet({
-								title: "上传图片",
-								cancel: "取消",
-								buttons: buttonTit
-							}, function(b) { /*actionSheet 按钮点击事件*/
-								switch (b.index) {
-									case 0:
-										break;
-									case 1:
-										getImageUP("xq"); /*拍照*/
-										break;
-									case 2:
-										galleryImgUP(1,"xq");/*打开相册*/ 
-										break;
-									default:
-										break;
-								}
-							})
-							}  			
-						}); 	
-						//点击上传图片
-						mui("body").on("tap",".xq-ck",function(){
-								plus.nativeUI.showWaiting();
-								if(!$(".xq-ys").attr("src")){
-									plus.nativeUI.closeWaiting();
-									mui.toast('请上传图片后在点击确定');
-								}
-								var base_xq = getBase64Image($(".xq-ys")[0]);
-								dealImage({
-									base64:base_xq,
-									w:800,
-									callback:function(base64){
-										
-												mui.ajax(APIPATH+'Enter/xq_img',{
-													data:{xq_img:base64},
-													dataType:'json',//服务器返回json格式数据
-													type:'post',//HTTP请求类型
-													timeout:10000,//超时时间设置为10秒；
-													// headers:{'Content-Type':'application/json'},	              
-													success:function(data){
-														console.log('详情图上传成功：'+JSON.stringify(data))
-														$(".xq-ys").attr("val",data.data);
-														$(".xq-ck").html("图片已上传");
-														$(".xq-ck").attr("class","xq-ck-gq");
-														plus.nativeUI.closeWaiting();
-													},
-													error:function(xhr,type,errorThrown){
-														//异常处理；
-														console.log('详情图上传失败：'+JSON.stringify(xhr))
-													}
-												});
-											
-											
+								var buttonTit = [{
+									title: "拍照"
+								}, {
+									title: "从手机相册选择"
+								}];
+
+								plus.nativeUI.actionSheet({
+									title: "上传图片",
+									cancel: "取消",
+									buttons: buttonTit
+								}, function(b) { /*actionSheet 按钮点击事件*/
+									switch (b.index) {
+										case 0:
+											break;
+										case 1:
+											getImageUP("xq"); /*拍照*/
+											break;
+										case 2:
+											galleryImgUP(1, "xq"); /*打开相册*/
+											break;
+										default:
+											break;
 									}
-								}); 
+								})
+							}
+						});
+						//点击上传图片
+						mui("body").on("tap", ".xq-ck", function() {
+							plus.nativeUI.showWaiting();
+							if (!$(".xq-ys").attr("src")) {
+								plus.nativeUI.closeWaiting();
+								mui.toast('请上传图片后在点击确定');
+							}
+							var base_xq = getBase64Image($(".xq-ys")[0]);
+							dealImage({
+								base64: base_xq,
+								w: 800,
+								callback: function(base64) {
+
+									mui.ajax(APIPATH + 'Enter/xq_img', {
+										data: {
+											xq_img: base64
+										},
+										dataType: 'json', //服务器返回json格式数据
+										type: 'post', //HTTP请求类型
+										timeout: 10000, //超时时间设置为10秒；
+										// headers:{'Content-Type':'application/json'},
+										success: function(data) {
+											console.log('详情图上传成功：' + JSON.stringify(data))
+											$(".xq-ys").attr("val", data.data);
+											$(".xq-ck").html("图片已上传");
+											$(".xq-ck").attr("class", "xq-ck-gq");
+											plus.nativeUI.closeWaiting();
+										},
+										error: function(xhr, type, errorThrown) {
+											//异常处理；
+											console.log('详情图上传失败：' + JSON.stringify(xhr))
+										}
+									});
+
+
+								}
+							});
 						})
-						mui("body").on("tap",".xq-ck-gq",function(){
+						mui("body").on("tap", ".xq-ck-gq", function() {
 							mui.toast("已上传");
 						})
 						// 轮播图
-						document.getElementById('lbt-img-click').addEventListener('tap', function() { 
-								if (mui.os.plus) {
-									var buttonTit = [{
-										title: "拍照"
-									}, {
-										title: "从手机相册选择"
-									}];
-									
-									plus.nativeUI.actionSheet({
-										title: "上传图片",
-										cancel: "取消",
-										buttons: buttonTit
-									}, function(b) { /*actionSheet 按钮点击事件*/
-										switch (b.index) {
-											case 0:
-												break;
-											case 1:
-												
-												getImageUP("add"); /*拍照*/
-												break;
-											case 2:
-												var num = 4 - $("lbt-ys").length;
-												galleryImgUP(num,"add");/*打开相册*/ 
-												
-												break;
-											default:
-												break;
-										}
-									})
-								} 
-						
+						document.getElementById('lbt-img-click').addEventListener('tap', function() {
+							if (mui.os.plus) {
+								var buttonTit = [{
+									title: "拍照"
+								}, {
+									title: "从手机相册选择"
+								}];
+
+								plus.nativeUI.actionSheet({
+									title: "上传图片",
+									cancel: "取消",
+									buttons: buttonTit
+								}, function(b) { /*actionSheet 按钮点击事件*/
+									switch (b.index) {
+										case 0:
+											break;
+										case 1:
+
+											getImageUP("add"); /*拍照*/
+											break;
+										case 2:
+											var num = 4 - $("lbt-ys").length;
+											galleryImgUP(num, "add"); /*打开相册*/
+
+											break;
+										default:
+											break;
+									}
+								})
+							}
+
 						});
-						
-						mui("body").on("tap",".lbt-btn",function(){
+
+						mui("body").on("tap", ".lbt-btn", function() {
 							plus.nativeUI.showWaiting();
-							
-						  var imgarr = $(".lbt-ys");
-							if(!imgarr.length){
+
+							var imgarr = $(".lbt-ys");
+							if (!imgarr.length) {
 								plus.nativeUI.closeWaiting();
 								mui.toast('请上传图片后在点击确定');
 							}
 							var weizhi = [i];
-						  for(i=0;i<imgarr.length;i++){
-								
+							for (i = 0; i < imgarr.length; i++) {
+
 								var base_lbt = getBase64Image(imgarr[i])
-								
+
 								dealImage({
-									base64:base_lbt,
-									w:800,
-									callback:function(base64){
-										
-										mui.ajax(APIPATH+'Enter/lbt_img',{
-											data:{lbt_img:base64},
-											dataType:'json',//服务器返回json格式数据
-											type:'post',//HTTP请求类型
-											timeout:10000,//超时时间设置为10秒；
-											// headers:{'Content-Type':'application/json'},	              
-											success:function(data){
-												console.log('轮播图上传成功：'+JSON.stringify(data))
+									base64: base_lbt,
+									w: 800,
+									callback: function(base64) {
+
+										mui.ajax(APIPATH + 'Enter/lbt_img', {
+											data: {
+												lbt_img: base64
+											},
+											dataType: 'json', //服务器返回json格式数据
+											type: 'post', //HTTP请求类型
+											timeout: 10000, //超时时间设置为10秒；
+											// headers:{'Content-Type':'application/json'},
+											success: function(data) {
+												console.log('轮播图上传成功：' + JSON.stringify(data))
 												var val = $(".lbt-btn").attr("val");
-												$(".lbt-btn").attr("val",val+","+data.data);	
+												$(".lbt-btn").attr("val", val + "," + data.data);
 												$(".lbt-btn").html("图片已上传");
-												$(".lbt-btn").attr("class","lbt-btn lbt-btn-gq");
+												$(".lbt-btn").attr("class", "lbt-btn lbt-btn-gq");
 												plus.nativeUI.closeWaiting();
 											},
-											error:function(xhr,type,errorThrown){
+											error: function(xhr, type, errorThrown) {
 												//异常处理；
-												console.log('轮播图上传失败：'+JSON.stringify(xhr))
+												console.log('轮播图上传失败：' + JSON.stringify(xhr))
 											}
 										});
-											
+
 									}
 								});
 							}
-						}) 
-						
-						mui("body").on("tap",".lbt-btn-gq",function(){
+						})
+
+						mui("body").on("tap", ".lbt-btn-gq", function() {
 							mui.toast("已上传");
 						})
-						
-					
-						mui("body").on("tap","#fabu-click",function(){
-							pay();
-	// 						var title = $("input[name=title]").val();//标题
-	// 						var corporate = $("input[name=corporate]").val();//公司
-	// 						var phone = $("input[name=phone]").val();//联系电话
-	// 						var zisort = $("#sort").val();//子分类
-	// 						var area = $("input[name=area]").val();//位置
-	// 						var address = $("input[name=address-detail]").val();//详细位置
-	// 						var depict = $("input[name=depict]").val();//描述
-	// // 							var fmif = $("#fm-img-click").attr("upimg");  
-	// // 							var xqif = $("#xq-img-click").attr("upimg"); 
-							
-	// 									if(zisort !== '-1'){
-	// 									 plus.nativeUI.showWaiting();
-	// 									 //把封面图转换成base64
-										 
-	// 									 var base_fm = $(".fm-ys").attr("val");
-										
-	// 									 //把详情图转换成base64
-	// 									 var base_xq = '';
-	// 									 if($(".xq-ys").attr("val")){
-	// 										 base_xq = $(".xq-ys").attr("val");
-	// 									 }
-	
-	// 									 //把轮播图转换成base64
-	// 									 var base_lbt = '';
-	// 									 var base_lbt_img_str = '';
-	// 									 var base_lbt_img = '';
-	// 									 if($(".lbt-btn-gq").attr("val")){
-	// 										 base_lbt = $(".lbt-btn-gq").attr("val");
-	// 										 base_lbt_img_str = base_lbt.substring(1);
-	// 										 base_lbt_img =  base_lbt_img_str.replace(/^\s*|\s*$/g,"");
-	// 									 }
-										
-	
-										
-	// 									 	mui.ajax(APIPATH+'Enter/enter',{
-	// 									 		data:{
-	// 												token:token,
-	// 												sort_id:sort,
-	// 												zisort_id:zisort,
-	// 												corporate:corporate,
-	// 												title:title,
-	// 												phone:phone,
-	// 												area:area,
-	// 												address:address,
-	// 												depict:depict,
-	// 												fm_img:base_fm,
-	// 												xq_img:base_xq,
-	// 												lbt_img:base_lbt_img,
-	// 												},
-	// 									 		dataType:'json',//服务器返回json格式数据
-	// 									 		type:'post',//HTTP请求类型
-	// 									 		timeout:10000,//超时时间设置为10秒；
-	// 									 		// headers:{'Content-Type':'application/json'},	              
-	// 									 		success:function(data){
-	// 												console.log('发布成功：'+JSON.stringify(data))
-	// 												if(data.status == '1'){
-	// 													 console.log(1) 
-	// 													 console.log(JSON.stringify(data))
-	// 													 plus.nativeUI.closeWaiting();
-	// 													 mui.toast(data.msg);
-	// 													 setTimeout(function(){
-	// 															mui.back();
-	// 													 },500);
-	// 												}else{
-	// 													 plus.nativeUI.closeWaiting(); 
-	// 													 mui.toast(data.msg);
-	// 												}
-									
-	// 									 		},
-	// 									 		error:function(xhr,type,errorThrown){
-	// 									 			//异常处理；
-	// 									 			console.log('发布失败：'+JSON.stringify(xhr))
-	// 									 		}
-	// 									 	});
-										 
-										 
-	// 									}else{
-							
 
-	// 										mui.toast('请选择店铺类型');
-	// 									}
-									
-							
+
+						mui("body").on("tap", "#fabu-click", function() {
+
+							var title = $("input[name=title]").val(); //标题
+							var corporate = $("input[name=corporate]").val(); //公司
+							var phone = $("input[name=phone]").val(); //联系电话
+							var zisort = $("#sort").val(); //子分类
+							var area = $("input[name=area]").val(); //位置
+							var address = $("input[name=address-detail]").val(); //详细位置
+							var depict = $("input[name=depict]").val(); //描述
+							// 							var fmif = $("#fm-img-click").attr("upimg");
+							// 							var xqif = $("#xq-img-click").attr("upimg");
+
+							if (zisort !== '-1') {
+								plus.nativeUI.showWaiting();
+								//把封面图转换成base64
+
+								var base_fm = $(".fm-ys").attr("val");
+
+								//把详情图转换成base64
+								var base_xq = '';
+								if ($(".xq-ys").attr("val")) {
+									base_xq = $(".xq-ys").attr("val");
+								}
+
+								//把轮播图转换成base64
+								var base_lbt = '';
+								var base_lbt_img_str = '';
+								var base_lbt_img = '';
+								if ($(".lbt-btn-gq").attr("val")) {
+									base_lbt = $(".lbt-btn-gq").attr("val");
+									base_lbt_img_str = base_lbt.substring(1);
+									base_lbt_img = base_lbt_img_str.replace(/^\s*|\s*$/g, "");
+								}
+
+
+
+								mui.ajax(APIPATH + 'Enter/enter', {
+									data: {
+										token: token,
+										sort_id: sort,
+										zisort_id: zisort,
+										corporate: corporate,
+										title: title,
+										phone: phone,
+										area: area,
+										address: address,
+										depict: depict,
+										fm_img: base_fm,
+										xq_img: base_xq,
+										lbt_img: base_lbt_img,
+									},
+									dataType: 'json', //服务器返回json格式数据
+									type: 'post', //HTTP请求类型
+									timeout: 10000, //超时时间设置为10秒；
+									// headers:{'Content-Type':'application/json'},
+									success: function(data) {
+										console.log('发布成功：' + JSON.stringify(data))
+										if (data.status == '1') { //发布成功
+											plus.nativeUI.closeWaiting();
+											mui.toast(data.msg);
+											// setTimeout(function(){
+											// 	mui.back();
+											// },500);
+											// 支付租金
+											var rent = document.getElementById("money");
+											var money = rent.innerHTML;
+
+											console.log('租金' + money)
+											if (parseFloat(money) > 0) {
+												mui.alert('入驻需要支付相应的租金', '温馨提示', function() {
+													mui('#popover').popover("show");
+												});
+											}
+										} else {
+											plus.nativeUI.closeWaiting();
+											mui.toast(data.msg);
+										}
+
+									},
+									error: function(xhr, type, errorThrown) {
+										//异常处理；
+										console.log('发布失败：' + JSON.stringify(xhr))
+									}
+								});
+
+
+							} else {
+
+
+								mui.toast('请选择店铺类型');
+							}
+
+
 						})
 						plus.nativeUI.closeWaiting();
 					},
-					error:function(xhr,type,errorThrown){
+					error: function(xhr, type, errorThrown) {
 						//异常处理；
 						console.log(type);
 					}
 				});
-				// 支付
-				function pay(){
-					console.log('支付租金')
-					mui.ajax(APIPATH+'enter/enter_pay',{
-						data:{},
-						dataType:'json',//服务器返回json格式数据
-						type:'post',//HTTP请求类型
-						timeout:10000,//超时时间设置为10秒；
-						// headers:{'Content-Type':'application/json'},	              
-						success:function(data){
-							console.log('支付租金：'+JSON.stringify(data))
-							
+				// 立即支付
+				mui("body").on('tap', '#bt-fk', function() {
+					pay();
+				});
+
+				function pay() {
+					var wxChannel = null; // 微信支付
+					var aliChannel = null; // 支付宝支付
+					var channel = null;
+					// 获取支付通道
+					plus.payment.getChannels(function(channels) {
+
+						aliChannel = channels[0];
+						wxChannel = channels[1];
+						// console.log(JSON.stringify(channels))
+					}, function(e) {
+						mui.toast("获取支付通道失败：" + e.message);
+					});
+					var totalprice = 0.01;
+					mui.ajax(APIPATH + 'enter/enter_pay', {
+						data: {
+							type: 1,
+							money: totalprice
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},
+						success: function(data) {
+							console.log('支付租金：' + JSON.stringify(data))
+							if (data.status == 200) {
+								var xmlres = data.data;
+
+								plus.payment.request(aliChannel, xmlres, function(result) {
+									plus.nativeUI.alert("支付成功！", function() {
+										mui('#yezftc').popover("hide");
+										window.localStorage.removeItem('order');
+										plus.webview.close(plus.webview.currentWebview());
+										mui.openWindow({
+											url: '../shoppingCart/payment-success.html',
+											extras: {
+												"totalprice": totalprice
+											}
+										});
+									});
+								}, function(error) {
+									mui.toast("支付没有成功");
+								});
+							} else {
+								mui.toast('获取订单信息失败');
+							}
 							plus.nativeUI.closeWaiting();
 						},
-						error:function(xhr,type,errorThrown){
+						error: function(xhr, type, errorThrown) {
 							//异常处理；
-							console.log('支付租金失败：'+JSON.stringify(xhr))
+							console.log('支付租金失败：' + JSON.stringify(xhr))
 						}
 					});
 				}
+
 				// 开始日期选择
-				mui("body").on("tap",".start-date",function(){
-					  var dDate = new Date();
-					    //设置当前日期（不设置默认当前日期）
-					    dDate.setFullYear(2016, 7, 16);
-					    var minDate = new Date();
-					    //最小时间
-					    minDate.setFullYear(2010, 0, 1);
-					    var maxDate = new Date();
-					    //最大时间
-					    maxDate.setFullYear(2016, 11, 31);
-					    plus.nativeUI.pickDate(function(e) {
-					        var d = e.date;
-							var start_date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-							$('.start-date').html(start_date);
-					        mui.toast('您选择的日期是:' + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
-					    }, function(e) {
-					        mui.toast("您没有选择日期");
-					    }, {
-					        title: '请选择日期',
-					        date: dDate,
-					        minDate: minDate,
-					        maxDate: maxDate
-					    });
+				mui("body").on("tap", ".start-date", function() {
+					var dDate = new Date();
+					//设置当前日期（不设置默认当前日期）
+					dDate.setFullYear(2016, 7, 16);
+					var minDate = new Date();
+					//最小时间
+					minDate.setFullYear(2010, 0, 1);
+					var maxDate = new Date();
+					//最大时间
+					maxDate.setFullYear(2016, 11, 31);
+					plus.nativeUI.pickDate(function(e) {
+						var d = e.date;
+						var start_date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+						$('.start-date').html(start_date);
+						mui.toast('您选择的日期是:' + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
+					}, function(e) {
+						mui.toast("您没有选择日期");
+					}, {
+						title: '请选择日期',
+						date: dDate,
+						minDate: minDate,
+						maxDate: maxDate
+					});
 				});
 				// 结束日期选择
-				mui("body").on("tap",".end-date",function(){
-					  var dDate = new Date();
-					    //设置当前日期（不设置默认当前日期）
-					    dDate.setFullYear(2016, 7, 16);
-					    var minDate = new Date();
-					    //最小时间
-					    minDate.setFullYear(2010, 0, 1);
-					    var maxDate = new Date();
-					    //最大时间
-					    maxDate.setFullYear(2016, 11, 31);
-					    plus.nativeUI.pickDate(function(e) {
-					        var d = e.date;
-							var end_date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-							$(".end-date").html(end_date);
-					        mui.toast('您选择的日期是:' + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
-					    }, function(e) {
-					        mui.toast("您没有选择日期");
-					    }, {
-					        title: '请选择日期',
-					        date: dDate,
-					        minDate: minDate,
-					        maxDate: maxDate
-					    });
+				mui("body").on("tap", ".end-date", function() {
+					var dDate = new Date();
+					//设置当前日期（不设置默认当前日期）
+					dDate.setFullYear(2016, 7, 16);
+					var minDate = new Date();
+					//最小时间
+					minDate.setFullYear(2010, 0, 1);
+					var maxDate = new Date();
+					//最大时间
+					maxDate.setFullYear(2016, 11, 31);
+					plus.nativeUI.pickDate(function(e) {
+						var d = e.date;
+						var end_date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+						$(".end-date").html(end_date);
+						mui.toast('您选择的日期是:' + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
+					}, function(e) {
+						mui.toast("您没有选择日期");
+					}, {
+						title: '请选择日期',
+						date: dDate,
+						minDate: minDate,
+						maxDate: maxDate
+					});
 				});
 				// 入住时间
-				var settle_date = [
-					{id:1,name:'一个月'},
-					{id:2,name:'三个月'},
-					{id:3,name:'六个月'},
-					{id:4,name:'十二个月'},
-					];
-				var settle_html = '<option value ="0">请选择入驻时间</option>';				
-				for(i=0;i<settle_date.length;i++){
+				var settle_date = [{
+						id: 1,
+						name: '一个月'
+					},
+					{
+						id: 2,
+						name: '三个月'
+					},
+					{
+						id: 3,
+						name: '六个月'
+					},
+					{
+						id: 4,
+						name: '十二个月'
+					},
+				];
+				var settle_html = '<option value ="0">请选择入驻时间</option>';
+				for (i = 0; i < settle_date.length; i++) {
 					// console.log(datas.sort[i]['name']);
-					settle_html += '<option value ="'+settle_date[i]['id']+'">'+settle_date[i]['name']+'</option>';
+					settle_html += '<option value ="' + settle_date[i]['id'] + '">' + settle_date[i]['name'] + '</option>';
 				}
 				$("#settle-date").html(settle_html);
+
 				// 是否置顶
-				var is_top = [
-					{id:1,name:'是'},
-					{id:2,name:'否'},
-					];
-				var is_top_html = '<option value ="0">请选择是否置顶</option>';				
-				for(i=0;i<is_top.length;i++){
+				var is_top = [{
+						id: 1,
+						name: '是'
+					},
+					{
+						id: 2,
+						name: '否'
+					},
+				];
+				var is_top_html = '<option value ="0">请选择是否置顶</option>';
+				for (i = 0; i < is_top.length; i++) {
 					// console.log(datas.sort[i]['name']);
-					is_top_html += '<option value ="'+is_top[i]['id']+'">'+is_top[i]['name']+'</option>';
+					is_top_html += '<option value ="' + is_top[i]['id'] + '">' + is_top[i]['name'] + '</option>';
 				}
 				$("#is-top").html(is_top_html);
-				
-			})
-			
-			
+
+			});
+
+			// 店铺类型
+			function storeTypeChange() {}
+			//租期
+			function settleDateChange() {
+				var sel1 = document.getElementById('sort');
+				var price = sel1.options[sel1.selectedIndex].getAttribute("price");
+				console.log('店铺租金:' + price);
+				var sel2 = $('#settle-date option:selected');
+				//拿到选中的option的value
+				console.log('拿到选中的option的value' + sel2.val());
+				//拿到选中的option的text
+				console.log("拿到选中的option的text" + sel2.text());
+				var money = 0;
+				if (sel2.val() == 1) { //1
+					money = price;
+				} else if (sel2.val() == 2) { //3
+					money = price * 3;
+				} else if (sel2.val() == 3) { //6
+					money = price * 6;
+				} else if (sel2.val() == 4) { //12
+					money = price * 12;
+				}
+				$('.rent-money').html(money);
+			}
 		</script>
 	</body>
 
 </html>
-

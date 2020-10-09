@@ -1,0 +1,434 @@
+body {
+	background: #FFFFFF;
+}
+
+.info {
+	background: #FFFFFF;
+	width: 100%;
+}
+
+/* 标题 */
+.title {
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+}
+
+.title-span {
+	width: 18%;
+	line-height: 4rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.title-input {
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
+
+.title-input input {
+	border: 0;
+}
+
+/* 公司名称 */
+.corporate {
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+}
+
+.corporate-span {
+	width: 18%;
+	line-height: 4rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.corporate-input {
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
+
+.corporate-input input {
+	border: 0;
+}
+
+/* 联系电话 */
+.phone {
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+}
+
+.phone-span {
+	width: 18%;
+	line-height: 4rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.phone-input {
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
+
+.phone-input input {
+	border: 0;
+}
+
+/* 店铺分类 */
+.sort {
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+}
+
+.sort-span {
+	width: 18%;
+	line-height: 4rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.sort-input {
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
+
+.sort-input input {
+	border: 0;
+}
+
+/* 区域位置 */
+.area {
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+}
+
+.area-span {
+	width: 18%;
+	line-height: 4rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.area-input {
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
+
+.area-input input {
+	border: 0;
+}
+
+/* 详细地址 */
+.address-detail {
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+}
+
+.address-detail-span {
+	width: 18%;
+	line-height: 4rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.address-detail-input {
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
+
+.address-detail-input input {
+	border: 0;
+}
+
+/* 描述 */
+.depict {
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+}
+
+.depict-span {
+	width: 18%;
+	line-height: 4rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.depict-input {
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
+
+.depict-input input {
+	border: 0;
+}
+
+/* 封面图 */
+.fm-img {
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+}
+
+.fm-img-span {
+	width: 18%;
+	line-height: 9rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.fm-img-div {
+	width: 70%;
+	float: left;
+	/* border: 1px solid #FFFF00; */
+}
+
+.fm-img-div img {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	width: 7rem;
+	height: 7rem;
+	/* border: 1px solid #000000; */
+}
+
+.fm-ck {
+	line-height: 9rem;
+	float: right;
+	color: #000;
+}
+
+.fm-ck-gq {
+	line-height: 9rem;
+	float: right;
+	color: #ccc;
+}
+
+/* 详情图 */
+.xq-img {
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+}
+
+.xq-img-span {
+	width: 18%;
+	line-height: 9rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.xq-img-div {
+	width: 70%;
+	float: left;
+	/* border: 1px solid #FFFF00; */
+}
+
+.xq-img-div img {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	width: 7rem;
+	height: 7rem;
+}
+
+.xq-ck {
+	line-height: 9rem;
+	float: right;
+	color: #000;
+}
+
+.xq-ck-gq {
+	line-height: 9rem;
+	float: right;
+	color: #ccc;
+}
+
+/* 轮播图 */
+.lbt-img {
+	width: 100%;
+	/* border-bottom: 1px solid #F7F7F7; */
+	margin-bottom: 5rem;
+	overflow: hidden;
+}
+
+.lbt-img-span {
+	width: 18%;
+	line-height: 9rem;
+	float: left;
+	margin-left: 2rem;
+}
+
+.lbt-img-div {
+	width: 70%;
+	float: left;
+	/* border: 1px solid #FFFF00; */
+}
+
+.lbt-img-div img {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	margin-right: 1rem;
+	width: 10rem;
+	height: 10rem;
+}
+
+.upimg {
+	padding-right: 1rem;
+}
+
+.lbt-btn {
+	width: 100%;
+	line-height: 5rem;
+	text-align: center;
+}
+
+.lbt-btn-gq {
+	color: #ccc;
+	width: 100%;
+	line-height: 5rem;
+	text-align: center;
+}
+
+#sort {
+	font-size: 1.5rem;
+}
+
+/* 底部 */
+.bottom {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	line-height: 4rem;
+	background: #F01C08;
+	color: #FFFFFF;
+	font-size: 1.8rem;
+	text-align: center;
+}
+/* 支付设置 */
+.title-fkfs{
+	color: #4C4C4C;
+	text-align: center;
+	line-height: 5rem;
+	border-bottom: 0.1rem solid #C6C6C6;
+}
+.Payment-type{
+	margin-top: 2rem;
+	color: #4C4C4C;
+	position: relative;
+}
+.Payment-type img{
+	width: 5rem;
+	height: 5rem;
+	margin-right: 2rem;
+}
+.remainingsum{
+	margin-bottom: 3rem;
+	margin-left: 2rem;
+}
+
+.remainingsum span{
+	position: absolute;
+	top: 1.5rem;
+}
+
+.remainingsum input{
+	position: absolute;
+	top: 1.8rem;
+	right: 1.8rem;
+}
+
+.Alipay{
+	margin-bottom: 3rem;
+	margin-left: 2rem;
+}
+
+.Alipay span{
+	position: absolute;
+	top: 9.7rem;
+}
+
+.Alipay input{
+	position: absolute;
+	top: 10rem;
+	right: 1.8rem;
+}
+
+.Wechat{
+	margin-bottom: 3rem;
+	margin-left: 2rem;
+}
+
+.Wechat span{
+	position: absolute;
+	top: 18rem;
+}
+
+.Wechat input{
+	position: absolute;
+	top: 18.3rem;
+	right: 1.8rem;
+}
+.bt-fk {
+	width: 90%;
+	text-align: center;
+	margin-bottom: 0.5rem;
+}
+.bt-fk button{
+	width: 100%;
+	background: #E8192D;
+	color: #FFFFFF;
+	border-radius: 0;
+	border: 0;
+	margin-left: 5%;
+	line-height: 3rem;
+}
+/* 租金 */
+.rent{
+	display: flex;
+	flex-direction: row;
+	margin-left: 20px;
+}
+.rent-input{
+	margin-left: 60px;
+}
+.rent-money{
+	color: gray;
+}
+.start{
+	display: flex;
+	flex-direction: row;
+	margin-left: 20px;
+}
+.end{
+	display: flex;
+	flex-direction: row;
+	margin-left: 20px;
+}
+.start-date{
+	height: 2.5rem;
+	line-height: 2.5rem;
+	margin-left: 20px;
+}
+.end-date{
+	line-height: 2.5rem;
+	height: 2.5rem;
+	margin-left: 20px;
+}
