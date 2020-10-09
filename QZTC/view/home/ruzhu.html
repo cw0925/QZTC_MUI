@@ -95,7 +95,7 @@
 						<span>结束日期</span>
 					</div>
 					<div class="end-date">
-						<input style="border: 0rem;" type="text" name="end-date"  id="end-date" placeholder="请选择结束日期" />
+						<input style="border: 0rem;" type="text" name="end-date" id="end-date" placeholder="请选择结束日期" />
 					</div>
 				</div>
 
@@ -170,16 +170,20 @@
 					<img src="" style="display: none;" val="" class="fm-ys">
 				</div>
 
+				<div val="" class="xq-btn">
+					请点击确认
+				</div>
 				<div class="xq-img">
 					<div class="xq-img-span">
 						<span>详情图</span>
 					</div>
 					<div class="xq-img-div">
 						<img id="xq-img-click" class="xq-img-base" src="../../img/paizhao.png">
-						<span class='xq-ck'>请点击确认</span>
+						<!-- <span class='xq-ck'>请点击确认</span> -->
 					</div>
-					<img src="" style="display: none;" val="" class="xq-ys">
+					<!-- <img src="" style="display: none;" val="" class="xq-ys"> -->
 				</div>
+
 				<div val="" class="lbt-btn">
 					请点击确认
 				</div>
@@ -207,50 +211,30 @@
 				<div class="Payment-type">
 					<!--余额-->
 					<div class="remainingsum">
-						<img src="../../img/ye.png" />
-						<span>余额 </span>
+						<img src="../../img/zfb.png" />
+						<span>支付宝 </span>
 						<input type="radio" checked name="payment" value="1" />
 					</div>
 					<!--支付宝-->
 
 					<div class="Alipay">
-						<img src="../../img/zfb.png" />
-						<span>支付宝</span>
+						<img src="../../img/wx.png" />
+						<span>微信</span>
 						<input type="radio" name="payment" value="2" />
 					</div>
 
 					<!--微信-->
-					<div class="Wechat">
-						<img src="../../img/wx.png" />
+					<!-- <div class="Wechat">
+						<img src="../../img/wx.png"/>
 						<span>微信</span>
-						<input type="radio" name="payment" value="3" />
-					</div>
+						<input type="radio" name="payment" value="3" />	
+					</div> -->
 				</div>
 				<div class="bt-fk">
 					<button id="bt-fk">立即支付</button>
 				</div>
 			</div>
 
-		</div>
-
-		<!--余额支付密码弹窗-->
-		<div id="yezftc" class="mui-popover">
-			<div class="yezf">
-				<div class="pwd-box" style="position: relative;">
-					<p class="p-order">订单号：</p>
-					<i style="position: absolute; top: -7rem;right: 0rem;" class="fa fa-close fa-2x"></i>
-					<input autofocus="autofocus" type="tel" maxlength="6" class="pwd-input" id="pwd-input">
-					<div class="fake-box">
-						<input type="password" readonly="">
-						<input type="password" readonly="">
-						<input type="password" readonly="">
-						<input type="password" readonly="">
-						<input type="password" readonly="">
-						<input type="password" readonly="">
-					</div>
-					<span style="position: absolute; left: 30%;top: -3rem;color: red;font-size: 3rem;" class="price-total-span"></span>
-				</div>
-			</div>
 		</div>
 
 		<script src="../../js/mui.min.js"></script>
@@ -353,7 +337,7 @@
 								})
 							}
 						});
-						//点击上传图片
+						//封面点击上传图片
 						mui("body").on("tap", ".fm-ck", function() {
 							plus.nativeUI.showWaiting();
 							// if(title == '招聘转让' || title == '便民家政')
@@ -416,7 +400,9 @@
 											getImageUP("xq"); /*拍照*/
 											break;
 										case 2:
-											galleryImgUP(1, "xq"); /*打开相册*/
+											// galleryImgUP(1, "xq"); /*打开相册*/
+											var num = 3 - $("xq-ys").length;
+											galleryImgUP(num, "xqadd"); /*打开相册*/
 											break;
 										default:
 											break;
@@ -425,11 +411,52 @@
 							}
 						});
 						//点击上传图片
-						mui("body").on("tap", ".xq-ck", function() {
+						mui("body").on("tap", ".xq-btn", function() {
 							plus.nativeUI.showWaiting();
-							if (!$(".xq-ys").attr("src")) {
+							var imgarr = $(".xq-ys");
+							if (!imgarr.length) {
 								plus.nativeUI.closeWaiting();
 								mui.toast('请上传图片后在点击确定');
+							}
+							var weizhi = [i];
+							for (i = 0; i < imgarr.length; i++) {
+
+								var base_xq = getBase64Image(imgarr[i])
+
+								dealImage({
+									base64: base_xq,
+									w: 800,
+									callback: function(base64) {
+
+										mui.ajax(APIPATH + 'Enter/xq_img', {
+											data: {
+												xq_img: base64
+											},
+											dataType: 'json', //服务器返回json格式数据
+											type: 'post', //HTTP请求类型
+											timeout: 10000, //超时时间设置为10秒；
+											// headers:{'Content-Type':'application/json'},
+											success: function(data) {
+												console.log('详情图上传成功：' + JSON.stringify(data))
+												// var val = $(".lbt-btn").attr("val");
+												// $(".lbt-btn").attr("val", val + "," + data.data);
+												// $(".lbt-btn").html("图片已上传");
+												// $(".lbt-btn").attr("class", "lbt-btn lbt-btn-gq");
+												// plus.nativeUI.closeWaiting();
+												var val = $(".xq-btn").attr("val");
+												$(".xq-btn").attr("val", val + "," + data.data);
+												$(".xq-btn").html("图片已上传");
+												$(".xq-btn").attr("class", "xq-btn xq-btn-gq");
+												plus.nativeUI.closeWaiting();
+											},
+											error: function(xhr, type, errorThrown) {
+												//异常处理；
+												console.log('详情图上传失败：' + JSON.stringify(xhr))
+											}
+										});
+
+									}
+								});
 							}
 							var base_xq = getBase64Image($(".xq-ys")[0]);
 							dealImage({
@@ -558,6 +585,8 @@
 							var area = $("input[name=area]").val(); //位置
 							var address = $("input[name=address-detail]").val(); //详细位置
 							var depict = $("input[name=depict]").val(); //描述
+
+							var is_top = $("#is-top").val(); //置顶
 							// 							var fmif = $("#fm-img-click").attr("upimg");
 							// 							var xqif = $("#xq-img-click").attr("upimg");
 
@@ -599,6 +628,8 @@
 										fm_img: base_fm,
 										xq_img: base_xq,
 										lbt_img: base_lbt_img,
+
+										is_top: is_top
 									},
 									dataType: 'json', //服务器返回json格式数据
 									type: 'post', //HTTP请求类型
@@ -661,17 +692,22 @@
 					var channel = null;
 					// 获取支付通道
 					plus.payment.getChannels(function(channels) {
-
+						console.log('选择支付方式：' + JSON.stringify(channels))
 						aliChannel = channels[0];
 						wxChannel = channels[1];
-						// console.log(JSON.stringify(channels))
 					}, function(e) {
 						mui.toast("获取支付通道失败：" + e.message);
 					});
-					var totalprice = 0.01;
+					// 支付方式
+					var tcval = $("input[name=payment]:checked").val();
+					console.log('支付方式:' + tcval);
+					// 支付租金
+					var rent = document.getElementById("money");
+					var totalprice = rent.innerHTML;
+
 					mui.ajax(APIPATH + 'enter/enter_pay', {
 						data: {
-							type: 1,
+							type: tcval,
 							money: totalprice
 						},
 						dataType: 'json', //服务器返回json格式数据
@@ -682,8 +718,16 @@
 							console.log('支付租金：' + JSON.stringify(data))
 							if (data.status == 200) {
 								var xmlres = data.data;
+								var payChannel = aliChannel;
+								if (tcval == 1) {
+									xmlres = data.data;
+									payChannel = aliChannel;
+								} else if (tcval == 2) {
+									xmlres = JSON.stringify(data.data);
+									payChannel = wxChannel;
+								}
 
-								plus.payment.request(aliChannel, xmlres, function(result) {
+								plus.payment.request(payChannel, xmlres, function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
 										mui('#yezftc').popover("hide");
 										window.localStorage.removeItem('order');
@@ -696,6 +740,7 @@
 										});
 									});
 								}, function(error) {
+									console.log("支付没有成功" + JSON.stringify(error))
 									mui.toast("支付没有成功");
 								});
 							} else {
@@ -749,7 +794,7 @@
 					plus.nativeUI.pickDate(function(e) {
 						var d = e.date;
 						var end_date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-						
+
 						document.getElementById('end-date').innerHTML = end_date;
 						$("#end-date").val(end_date);
 					}, function(e) {
@@ -792,7 +837,7 @@
 						name: '是'
 					},
 					{
-						id: 2,
+						id: 0,
 						name: '否'
 					},
 				];

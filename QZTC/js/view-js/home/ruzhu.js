@@ -102,6 +102,17 @@ function dealImage(obj) {
 			$("#lbt-img-click").hide();  
 		}
 		break;
+		case 'xqadd'://详情
+		var xqhh = '';
+		for(i=0;i<img.length;i++){
+			xqhh += '<img class="xq-ts" src="'+img[i]+'">'+
+				  '<img class="xq-ys" src="'+img[i]+'" style="display: none;">';
+		}
+		$("#xq-img-click").before(xqhh);
+		if($(".xq-ys").length >= 3){
+			$("#xq-img-click").hide();  
+		}
+		break;
 	}
  	
  }
