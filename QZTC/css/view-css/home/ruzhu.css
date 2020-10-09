@@ -400,35 +400,57 @@ body {
 	margin-left: 5%;
 	line-height: 3rem;
 }
-/* 租金 */
-.rent{
-	display: flex;
-	flex-direction: row;
-	margin-left: 20px;
-}
-.rent-input{
-	margin-left: 60px;
-}
 .rent-money{
+	margin-left: 1.25rem;
 	color: gray;
 }
 .start{
 	display: flex;
 	flex-direction: row;
-	margin-left: 20px;
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+	/* line-height: 4rem; */
 }
 .end{
 	display: flex;
 	flex-direction: row;
-	margin-left: 20px;
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+	/* line-height: 4rem; */
+}
+.settle{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+	line-height: 4rem;
+}
+#settle-date{
+	font-size: 1.5rem;
+}
+.rent{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	border-bottom: 1px solid #F7F7F7;
+	overflow: hidden;
+	line-height: 4rem;
 }
 .start-date{
-	height: 2.5rem;
-	line-height: 2.5rem;
-	margin-left: 20px;
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
 }
 .end-date{
-	line-height: 2.5rem;
-	height: 2.5rem;
-	margin-left: 20px;
+	width: 70%;
+	float: left;
+	margin-top: 0.2rem;
+	margin-bottom: -0.8rem;
+}
+#is-top{
+	font-size: 1.5rem;
 }

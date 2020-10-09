@@ -83,24 +83,24 @@
 				</div>
 
 				<div class="start">
-					<div class="start-date-span">
+					<div class="title-span">
 						<span>开始日期</span>
 					</div>
 					<div class="start-date">
-						<input style="border: 0rem;" type="text" name="start-date" placeholder="请选择开始日期" />
+						<input style="border: 0rem;" type="text" name="start-date" id="start-date" placeholder="请选择开始日期" />
 					</div>
 				</div>
 				<div class="end">
-					<div class="end-date-span">
+					<div class="title-span">
 						<span>结束日期</span>
 					</div>
 					<div class="end-date">
-						<input style="border: 0rem;" type="text" name="end-date" placeholder="请选择结束日期" />
+						<input style="border: 0rem;" type="text" name="end-date"  id="end-date" placeholder="请选择结束日期" />
 					</div>
 				</div>
 
-				<div class="sort">
-					<div class="sort-span">
+				<div class="settle">
+					<div class="title-span">
 						<span>入驻时间</span>
 					</div>
 					<div class="sort-input">
@@ -112,7 +112,7 @@
 				</div>
 
 				<div class="rent">
-					<div class="rent-span">
+					<div class="title-span">
 						<span>租金</span>
 					</div>
 					<div class="rent-input">
@@ -714,18 +714,18 @@
 				mui("body").on("tap", ".start-date", function() {
 					var dDate = new Date();
 					//设置当前日期（不设置默认当前日期）
-					dDate.setFullYear(2016, 7, 16);
+					// dDate.setFullYear(2016, 7, 16);
 					var minDate = new Date();
 					//最小时间
-					minDate.setFullYear(2010, 0, 1);
+					minDate.setFullYear(2000, 1, 1);
 					var maxDate = new Date();
 					//最大时间
-					maxDate.setFullYear(2016, 11, 31);
+					maxDate.setFullYear(2100, 12, 31);
 					plus.nativeUI.pickDate(function(e) {
 						var d = e.date;
 						var start_date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-						$('.start-date').html(start_date);
-						mui.toast('您选择的日期是:' + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
+						document.getElementById('start-date').innerHTML = start_date;
+						$("#start-date").val(start_date);
 					}, function(e) {
 						mui.toast("您没有选择日期");
 					}, {
@@ -739,18 +739,19 @@
 				mui("body").on("tap", ".end-date", function() {
 					var dDate = new Date();
 					//设置当前日期（不设置默认当前日期）
-					dDate.setFullYear(2016, 7, 16);
+					// dDate.setFullYear(2016, 7, 16);
 					var minDate = new Date();
 					//最小时间
-					minDate.setFullYear(2010, 0, 1);
+					minDate.setFullYear(2000, 1, 1);
 					var maxDate = new Date();
 					//最大时间
-					maxDate.setFullYear(2016, 11, 31);
+					maxDate.setFullYear(2100, 12, 31);
 					plus.nativeUI.pickDate(function(e) {
 						var d = e.date;
 						var end_date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-						$(".end-date").html(end_date);
-						mui.toast('您选择的日期是:' + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
+						
+						document.getElementById('end-date').innerHTML = end_date;
+						$("#end-date").val(end_date);
 					}, function(e) {
 						mui.toast("您没有选择日期");
 					}, {
