@@ -640,7 +640,21 @@
 							var address = $("input[name=address-detail]").val(); //详细位置
 							var depict = $("input[name=depict]").val(); //描述
 
-							var is_top = $("#is-top").val(); //置顶
+							var start_time = $("input[name=start-date]").val();
+							var end_time = $("input[name=end-date]").val();
+							var month = $('#settle-date option:selected').val();
+							
+							var is_top = $('#is-top option:selected').val();
+							var top_month = $('#top-month option:selected').val();
+							var top_start_time = $("input[name=top-start-date]").val();
+							
+							var is_like = $('#is-like option:selected').val();
+							var like_month = $('#like-month option:selected').val();
+							var like_start_time = $("input[name=like-start-date]").val();
+							
+							var rent = document.getElementById("money");
+							var total = rent.innerHTML;
+					
 							// 							var fmif = $("#fm-img-click").attr("upimg");
 							// 							var xqif = $("#xq-img-click").attr("upimg");
 
@@ -683,7 +697,18 @@
 										xq_img: base_xq,
 										lbt_img: base_lbt_img,
 
-										is_top: is_top
+										start_time:start_time,
+										end_time:end_time,
+										month:month,
+										
+										is_top: is_top,
+										top_month:top_month,
+										top_start_time:top_start_time,
+										
+										is_like:is_like,
+										like_month:like_month,
+										like_start_time:like_start_time,
+										total:total
 									},
 									dataType: 'json', //服务器返回json格式数据
 									type: 'post', //HTTP请求类型
@@ -759,8 +784,11 @@
 					var rent = document.getElementById("money");
 					var totalprice = rent.innerHTML;
 
+					var token = window.localStorage.getItem('qztc');
+					
 					mui.ajax(APIPATH + 'enter/enter_pay', {
 						data: {
+							token:token,
 							type: tcval,
 							money: totalprice
 						},
@@ -1000,8 +1028,8 @@
 				console.log('入驻月数：'+ settle_month +'置顶月数：'+top_month+'猜你喜欢月数：'+like_month);
 
 				// var is_settle = $('#settle-date option:selected').val();//入驻月数
-				var is_top = $('#is_top option:selected').val();//是否置顶
-				var is_like = $('#is_like option:selected').val();//是否猜你喜欢
+				var is_top = $('#is-top option:selected').val();//是否置顶
+				var is_like = $('#is-like option:selected').val();//是否猜你喜欢
 
 				console.log('是否置顶：'+is_top+'是否猜你喜欢：'+ is_like);
 
@@ -1046,7 +1074,7 @@
 
 				console.log('入驻金额：'+ settle_money +'置顶金额：'+top_money+'猜你喜欢金额：'+like_money);
 
-				var total = settle_money + top_money + like_money;
+				var total = parseFloat(settle_money) + parseFloat(top_money) + parseFloat(like_money);
 
 				$('.rent-money').html(total);
 			}

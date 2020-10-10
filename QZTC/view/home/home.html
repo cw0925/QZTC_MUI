@@ -66,7 +66,7 @@
             <div class="mui-slider-group">  
                 <div class="mui-slider-item ">  
                     <ul class="mui-table-view mui-grid-view mui-grid-9 oneserver">  
-                        <li  
+                       <!-- <li  
                             class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
                             <a onclick="jump('housekeeping.html')"> 
                             	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon1.png" alt="" />
@@ -114,12 +114,12 @@
                             <a href="#"> 	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon8.png" alt="" />  
                                 <div class="mui-media-body">实体店铺</div>  
                         </a>  
-                        </li>  
+                        </li> -->  
                     </ul>  
                 </div>  
-                <div class="mui-slider-item">  
-                    <ul class="mui-table-view mui-grid-view mui-grid-9 twoserver">  
-                        <li  
+                <!-- <div class="mui-slider-item">  -->
+                    <!-- <ul class="mui-table-view mui-grid-view mui-grid-9 twoserver">  -->
+                        <!-- <li  
                             class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
                             <a onclick="jump('miaomuxianhua.html')">	<img style="width: 2.5rem;" src="../../imgs/home_nrq_icon9.png" alt="" />  
                                 <div class="mui-media-body">苗木鲜花</div>  
@@ -166,14 +166,27 @@
                             <a href="#" ><img style="width: 2.5rem;" src="../../imgs/home_nrq_icon16.png" alt="" />  
                                 <div class="mui-media-body">其它</div>  
                         </a>  
-                        </li>  
-                    </ul>  
-                </div>  
+                        </li> --> 
+                    <!-- </ul>  -->
+                <!-- </div>  -->
             </div>
-            <div class="mui-slider-indicator">  
+			
+			<div class="one_indicator">
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+				</div>
+			</div>
+			<div class="two_indicator">
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			
+            <!-- <div class="mui-slider-indicator">  
                 <div class="mui-indicator mui-active"></div>  
                 <div class="mui-indicator"></div>  
-            </div>  
+            </div> --> 
        	</div>  
 		<div id="content">
 			<div class="bulletin">
@@ -299,7 +312,7 @@
 			  // headers:{'Content-Type':'application/json'},          
 			  success:function(data) 
 			  { 
-				  // console.log('home服务分类：'+JSON.stringify(data))
+				  console.log('home服务分类：'+JSON.stringify(data))
 				var datas = data.data;		
 								 
 				//头部轮播图
@@ -326,26 +339,53 @@
 				//服务分类
 				var one_server = '';
 				var two_server = ''; 
-				for(i = 0 ;i<datas.server.length;i++){
-					
-					if(i <= 7){ 
-						one_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+  
-										'<a onclick="jump(\''+datas.server[i]['url_str']+'?id='+datas.server[i]['id']+'\')">	<img style="width: 2.5rem;" src="'+datas.server[i]['img']+'"  />'+
-											'<div class="mui-media-body">'+datas.server[i]['name']+'</div>'+  
-										'</a>'+  
-									   '</li>';
-					}else{ 
-						two_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+
+				console.log('服务分类：'+datas.server.length);
+				if(datas.server.length <= 8){
+					for(i = 0 ;i<datas.server.length;i++){
+						one_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+
 										'<a onclick="jump(\''+datas.server[i]['url_str']+'?id='+datas.server[i]['id']+'\')">	<img style="width: 2.5rem;" src="'+datas.server[i]['img']+'"  />'+
 											'<div class="mui-media-body">'+datas.server[i]['name']+'</div>'+  
 										'</a>'+  
 									   '</li>';
 					}
-					
+					$(".oneserver").html(one_server);
+				}else{
+					for(i = 0 ;i<datas.server.length;i++){
+						
+						if(i <= 7){ 
+							one_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+  
+											'<a onclick="jump(\''+datas.server[i]['url_str']+'?id='+datas.server[i]['id']+'\')">	<img style="width: 2.5rem;" src="'+datas.server[i]['img']+'"  />'+
+												'<div class="mui-media-body">'+datas.server[i]['name']+'</div>'+  
+											'</a>'+  
+										   '</li>';
+							
+						}else{ 
+							two_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+
+											'<a onclick="jump(\''+datas.server[i]['url_str']+'?id='+datas.server[i]['id']+'\')">	<img style="width: 2.5rem;" src="'+datas.server[i]['img']+'"  />'+
+												'<div class="mui-media-body">'+datas.server[i]['name']+'</div>'+  
+											'</a>'+  
+										   '</li>';
+										   
+							
+						}
+						
+					}
+					$(".oneserver").html(one_server);
+					$(".twoserver").html(two_server);
 				}
 				
-				$(".oneserver").html(one_server);
-				$(".twoserver").html(two_server);
+				if(datas.server.length <= 8){
+					$(".one_indicator").css('display','');
+					$(".two_indicator").css('display','none');
+					
+					$(".twoserver").css('display','none');
+				}else{
+					$(".one_indicator").css('display','none');
+					$(".two_indicator").css('display','');
+				}
+				
+				// $(".oneserver").html(one_server);
+				// $(".twoserver").html(two_server);
 					
 					//店铺推荐
 					var shophh = '';
