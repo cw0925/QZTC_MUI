@@ -99,9 +99,9 @@
 			height: 15rem;
 			width: 90%;
 			margin-left: 2%;
+			/* background-color: #0062CC; */
 		}
 		.contentText textarea{
-			
 			font-size: 1.2rem;
 		}
 		.addImg{
@@ -205,21 +205,19 @@
 		<script src="../../js/view-js/home/pingjia.js"></script>
 		<script type="text/javascript">
 			mui.init();
-			var self = plus.webview.currentWebview();
-			var order = self.order;
-			var gid = self.gid;
-			var order_id = self.order_id;
-			var token = window.localStorage.getItem('qztc');
-			var logistics = 1;
-			var manner = 1;
-			var describe = 1;
 			
-			var content = '';
-			function change(){
-				var value = document.getElementById( "input"). value;
-				content = value;
-			}
 			document.addEventListener("plusready",function(){
+				
+				var self = plus.webview.currentWebview();
+				var order = self.order;
+				var gid = self.gid;
+				var order_id = self.order_id;
+				var token = window.localStorage.getItem('qztc');
+				var logistics = 1;
+				var manner = 1;
+				var describe = 1;
+				
+				var content = '';
 				
 				console.log('订单信息：'+JSON.stringify(order))
 				//星星
@@ -318,11 +316,17 @@
 				});
 				// 提交
 				mui("body").on("tap",".sbmit-span",function(){
-					// var imgarr = $(".lbt-ys");
-					// console.log('图片'+JSON.stringify(imgarr))
+					var imgarr = $(".lbt-ys");
 					var img = '';
+					// console.log('图片'+imgarr)
+					// if (!imgarr.length) {
+					// 	imgarr = [];
+					// }
+					// for(i=0;i<imgarr.length;i++){
+					// 	console.log('图片：'+JSON.stringify(imgarr[i]))
+					// }
 					var data = {
-						token:token,
+							token:token,
 							gid:gid,
 							order_id:order_id,
 							logistics:logistics,
@@ -331,7 +335,7 @@
 							content:content,
 							img:img,
 						}
-						console.log(JSON.stringify(data))
+						
 				    mui.ajax(APIPATH+'Order/evaluate',{
 				    	data:data,
 				    	dataType:'json',//服务器返回json格式数据
@@ -345,7 +349,11 @@
 					});
 				})
 
-			})
+			});
+			function change(){
+				var value = document.getElementById( "input"). value;
+				content = value;
+			}
 		</script>
 	</body>
 

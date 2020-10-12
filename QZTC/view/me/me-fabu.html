@@ -58,6 +58,11 @@
 			float: right;
 			padding-bottom:2px; border-bottom:2px solid #000
 		}
+		.top{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
 	</style>
 
 	<body>
@@ -88,6 +93,7 @@
 					timeout:10000,//超时时间设置为10秒；
 					// headers:{'Content-Type':'application/json'},	              
 					success:function(data){
+						console.log('我的发布:'+JSON.stringify(data))
 						var datas = data.data;
 						var hh = '';
 						var status = '';
@@ -111,7 +117,7 @@
 												'<img style="height:5rem" src="'+datas[i]['fm_img']+'"/>'+
 											'</div>'+
 											'<div class="text">'+
-												'<p>'+datas[i]['title']+'</p>'+
+												'<div class="top"><p>'+datas[i]['title']+'</p><p>'+ ((datas[i].is_top == 1 || datas[i].is_like == 1)?'置顶':'') +'</p></div>'+
 												'<div><span>申请时间 :'+datas[i]['time']+'</span></div>'+
 												'<div><span style="color:#ff0000">申请状态 :'+status+'</span></div>'+
 												div+
