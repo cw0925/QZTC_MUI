@@ -100,10 +100,10 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">我的订单(服务类型)</h1>
+		    <h1 class="mui-title">我的订单（服务类型）</h1>
 		</header>
 		<div class="content" style="margin-top: 2.6rem;">
-			<!-- <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 			    <div class="mui-scroll">
 			        <a type="1" class="mui-control-item mui-active">
 			            全部
@@ -117,9 +117,11 @@
 			        <a type="4" class="mui-control-item">
 			           待收货
 			        </a>
-			      
+			       <!-- <a type="5" class="mui-control-item">
+			           待评价
+			        </a> -->
 			    </div>
-			</div> -->
+			</div>
 			<ul class="detail_ul">
 				<!--订单信息-->				
 			</ul>
@@ -133,16 +135,16 @@
 			mui.init({
 				swipeBack:false //启用右滑关闭功能
 			});
-			var self = plus.webview.currentWebview();
-			var type = self.type;
-		console.log('type====='+type)
+		
 			document.addEventListener("plusready",function(){
 				
 				plus.nativeUI.showWaiting();
 				var token = window.localStorage.getItem('qztc');
+				
+				
 				//一进来就默认的
 				mui.ajax(APIPATH+'ServerOrder/index',{
-					data:{token:token,type:type},
+					data:{token:token,type:1},
 					dataType:'json',//服务器返回json格式数据
 					type:'post',//HTTP请求类型
 					timeout:10000,//超时时间设置为10秒；
@@ -258,7 +260,7 @@
 									hh += '<li class="li">'+
 												'<div class="head_box">'+
 													'<span>'+datas[i]['statusstr']+'</span>'+
-													'<p>'+datas[i]['name']+'</p>'+
+													'<p>服务类型</p>'+
 												'</div>'+
 												'<div class="img_box">'+
 													'<div class="img"><img src="'+ img +'"/></div>' +
@@ -271,7 +273,7 @@
 												'</div>'+
 												'<div order="'+datas[i]['order_number']+'" gid="'+datas[i]['goods'][0]['gid']+'" order_id ="'+datas[i]['id']+'" class="total">'+
 													anhh+
-													'<p><span>总计：</span><span>￥'+datas[i]['total_price']+'</span></p>'+
+													'<p><span>总计：</span><span>￥'+datas[i]['goods'][0]['total']+'</span></p>'+
 												'</div>'+
 											'</li>';
 								}else{
@@ -292,6 +294,163 @@
 						console.log(type);
 					}
 				});
+				
+				//点击选项卡
+				mui("body").on("tap",".mui-control-item",function(){
+					plus.nativeUI.showWaiting();
+					var type = $(this).attr("type");
+		
+					
+					mui.ajax(APIPATH+'ServerOrder/index',{
+						data:{token:token,type:type},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						// headers:{'Content-Type':'application/json'},	              
+						success:function(data){
+							// console.log('我的订单'+JSON.stringify(data))
+							var datas = data.data;
+							if(!datas.length){
+								
+							}
+							var hh = '';
+							for(i=0;i<datas.length;i++){
+							 
+								//按钮
+								var anhh = '';
+								switch(datas[i]['status'])
+								{
+								case '0':   
+									//待付款
+									anhh += '<div class="total_btn mui-pull-right"><button class="cancel">取消订单</button><button class="pay">去付款</button></div>';
+								  break;
+								case '1':
+									//待发货
+									anhh += '<div class="total_btn mui-pull-right"><button class="remind">提醒卖家发货</button></div>';
+								  break;
+								case '2':
+									//待收货
+									anhh += '<div class="total_btn mui-pull-right"><button class="logistics">查看物流</button><button class="receive">确认收货</button></div>';
+								  break;
+								case '3':
+									//待评价
+									anhh += '<div class="total_btn mui-pull-right"><button class="evaluate">去评价</button></div>';
+								  break;
+								case '4':
+									//交易完成
+									anhh += '<div class="total_btn mui-pull-right"><button class="delorder">删除订单</button></div>';
+								  break;
+								case '5':
+									//退货申请中
+									//暂时不做
+								  break;
+								case '6':
+									//退货审核失败
+									//暂时不做
+								  break;
+								case '7':
+									//退货审核通过
+									//暂时不做
+								  break;
+								case '8':
+									//取消订单
+									anhh += '<div class="total_btn mui-pull-right"><button class="delorder">删除订单</button></div>';
+								  break;
+								default:
+								  
+								}
+								
+								if(datas[i]['goods'].length > 1 ){
+									//多个商品
+									var goodshh = '';
+									if( datas[i]['goods'].length > 3 ){
+										//大于3
+										for(j=0;j<3;j++){
+											goodshh += '<div style="margin-right:-2rem" class="img"><img src="'+datas[i]['goods'][j]['cover_img']+'"/></div>';
+										}
+										hh += '<li>'+
+												'<div class="head_box">'+
+													'<span>'+datas[i]['statusstr']+'</span>'+
+													'<p>自营商城</p>'+
+												'</div>'+
+												'<div class="img_box">'+
+													goodshh+
+													'<a style="color: #000000;margin-left:3rem;margin-top: 1.3rem;" class="fa fa-angle-right fa-2x" ></a>'+
+												'</div>'+
+												'<div order="'+datas[i]['order_number']+'" class="total">'+
+													anhh+
+													'<p><span>总计：</span><span>￥19.00</span></p>'+
+												'</div>'+
+											'</li>';	
+										
+									}else{
+										//小于3
+										
+										//商品
+										for(j=0;j<datas[i]['goods'].length;j++){
+											goodshh += '<div style="margin-right:-2rem" class="img"><img src="'+datas[i]['goods'][j]['cover_img']+'"/></div>';
+										}
+										
+										hh += '<li>'+
+												'<div class="head_box">'+
+													'<span>'+datas[i]['statusstr']+'</span>'+
+													'<p>自营商城</p>'+
+												'</div>'+
+												'<div class="img_box">'+
+													goodshh+
+													'<a style="color: #000000;margin-left: 8.5rem;margin-top: 1.3rem;" class="fa fa-angle-right fa-2x" ></a>'+
+												'</div>'+
+												'<div  order="'+datas[i]['order_number']+'" class="total">'+
+													anhh+
+													'<p><span>总计：</span><span>￥19.00</span></p>'+
+												'</div>'+
+											'</li>';	
+									
+									}
+									
+								}else{
+									var img = datas[i]['goods'][0]['cover_img'];
+									if(img){
+										//单个商品
+										hh += '<li class="li">'+
+													'<div class="head_box">'+
+														'<span>'+datas[i]['statusstr']+'</span>'+
+														'<p>自营商城</p>'+
+													'</div>'+
+													'<div class="img_box">'+
+														'<div class="img"><img src="'+datas[i]['goods'][0]['cover_img']+'"/></div>'+
+														'<div class="text_box">'+
+															'<span style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;" class="tit">'+datas[i]['goods'][0]['title']+'</span>'+
+															'<p class="price_box">'+
+																'<span class="xianjia">￥'+datas[i]['goods'][0]['price']+'</span><span class="shuliang_box">x'+datas[i]['goods'][0]['num']+'</span>'+
+															'</p>'+
+														'</div>'+
+													'</div>'+
+													'<div  order="'+datas[i]['order_number']+'" class="total">'+
+														anhh+
+														'<p><span>总计：</span><span>￥'+datas[i]['goods'][0]['total']+'</span></p>'+
+													'</div>'+
+												'</li>';
+									}else{
+										hh += ' <li><div></div></li>';
+									}
+								
+								} 
+							} 
+							$(".detail_ul").html(hh);
+							//缺少信息时的处理
+							if(!datas.length){
+								$(".detail_ul").html("<img style='width: 40%;height: 40%;margin-left: 28%;margin-top: 10%;' src='../../img/order.png' /> ");	
+							}
+							plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type);
+						}
+					});
+					
+				})
 
 
 				//订单按钮
@@ -344,7 +503,7 @@
 							if(e.index == 1){
 							
 									
-								mui.ajax(APIPATH+'order/cancel',{
+								mui.ajax(APIPATH+'ServerOrder/cancel',{
 									data:{token:token,order:order},
 									dataType:'json',//服务器返回json格式数据
 									type:'get',//HTTP请求类型
@@ -381,7 +540,7 @@
 						var order = $(this).parent().parent().attr('order');
 				
 						
-						mui.ajax(APIPATH+'order/remind',{
+						mui.ajax(APIPATH+'ServerOrder/remind',{
 							data:{token:token,order:order},
 							dataType:'json',//服务器返回json格式数据
 							type:'post',//HTTP请求类型
@@ -424,7 +583,7 @@
 							if(e.index == 1){
 					
 								
-								mui.ajax(APIPATH+'order/take_delivery',{
+								mui.ajax(APIPATH+'ServerOrder/take_delivery',{
 									data:{token:token,order:order},
 									dataType:'json',//服务器返回json格式数据
 									type:'post',//HTTP请求类型
@@ -476,7 +635,7 @@
 						mui.confirm('确定要永久删除订单吗？','提示',['取消','删除订单'],function(e){
 							if(e.index == 1){
 					
-								mui.ajax(APIPATH+'order/delorder',{
+								mui.ajax(APIPATH+'ServerOrder/delorder',{
 									data:{token:token,order:order},
 									dataType:'json',//服务器返回json格式数据
 									type:'get',//HTTP请求类型

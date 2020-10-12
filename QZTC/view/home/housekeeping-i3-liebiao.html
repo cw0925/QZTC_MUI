@@ -68,14 +68,29 @@
 			width:7.5rem ;
 			height: 6rem;
 		}
-		.detail .jieshao{
+		.detail{
+			width: 100%;
+			/* background: red; */
+		}
+		.title{
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+		.top{
+			width: 30%;
+			/* background: #2AC845; */
+		}
+		.weizhi{
+			margin-top: 0.95rem;
+		}
+		.jieshao{
 			font-size: 0.85rem;
 			color: #434343;
 		  height: 3rem;
-		  width: 80%;
-		}
-		.detail .weizhi{
-			margin-top: 0.95rem;
+		  width: 60%;
+		  /* background: #0062CC; */
 		}
 		.mui-navigate-right .detail{
 			padding-left: 0.75rem;
@@ -134,25 +149,40 @@
 					timeout:10000,//超时时间设置为10秒；
 					// headers:{'Content-Type':'application/json'},	              
 					success:function(data){
+						console.log('返回：'+JSON.stringify(data))
 						var datas = data.data.data;
 						$("#sou").html(data.data.area);
 						var hh = '';
 						if(datas.length){
 							for(i=0;i<datas.length;i++){
+								
+								
 								  hh += '<li  fid="'+datas[i]['id']+'" class="mui-table-view-cell click-detail">'+
 												'<a class="mui-navigate-right">'+
 													 '<div class="img_box">'+
 														'<img src="'+datas[i]['fm_img']+'"/>'+
 													 '</div>'+
-													 '<div class="detail">'+
-														'<p class="jieshao">'+datas[i]['title']+'</p>'+
+													 '<div class="detail">'+ 
+														'<div class="title"><p class="jieshao">'+datas[i]['title']+'</p><p id="top" style="" class="top">'+ ((datas[i].is_top == 1 || datas[i].is_like == 1)?'置顶':'') +'</p></div>'+
 														'<p class="weizhi">'+datas[i]['address']+'</p>'+
 													 '</div>'+
 												'</a>'+
 										'</li>'; 
+										// $(".mui-table-view").html(hh);
+										// if(datas[i].is_top == 1 || datas[i].is_like == 1){
+										// 	var top = document.getElementById('top');
+										// 	top.style.display = 'inline';
+										// 	console.log('显示')
+										// }else{
+										// 	console.log('不显示')
+										// 	var top = document.getElementById('top');
+										// 	top.style.display = 'none';
+										// }
+										
 							}
 						}else{
 								hh ='<li class="null-div"><div ><span>抱歉,没有相关的店铺</span></div></li>';
+								// $(".mui-table-view").html(hh);
 						}
 						$(".mui-table-view").html(hh);
 						

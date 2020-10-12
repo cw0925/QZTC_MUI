@@ -148,6 +148,10 @@
 			/*opacity: 0.9;*/
 			
 		}
+		.whole-price{
+			font-size: 2rem;
+			color:#FF0000 ;
+		}
 	</style>
 	<body style="background: #FFFFFF;">
 		<header style="background: #FF0000;" class="mui-bar mui-bar-nav">
@@ -173,7 +177,7 @@
 			<div id="yezftc" class="mui-popover">
 				<div class="yezf"> 
 					<div class="pwd-box" style="position: relative;">
-						<p class="p-order">订单号：</p>
+						<p class="p-order">总金额：</p>
 						<i style="position: absolute; top: -7rem;right: 0rem;" class="fa fa-close fa-2x"></i>
 						<input autofocus="autofocus" type="tel" maxlength="6" class="pwd-input" id="pwd-input">
 						<div class="fake-box">
@@ -292,10 +296,11 @@
 						var datas = data.data;
 						
 						$(".order-total-price").html('<span>总金额：￥'+datas['total_price']+'</span>');
+						$(".p-order").html('<span class="whole-price">总金额：￥'+datas['total_price']+'</span>');
 						$(".order-number").html('<span>订单号：'+datas['order']+'</span>');
 						$(".order-time").html('<span>订单生成时间：'+datas['time']+'</span>');
 						$(".heji-price").html('<span>'+datas['total_price']+'</span>');
-						 
+						 // 付款
 						mui("body").on("tap","input[name=submitorder]",function(){
 							var checked = $("input[name=payment]:checked").val();
 							
