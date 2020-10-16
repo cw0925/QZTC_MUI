@@ -58,10 +58,19 @@
 			float: right;
 			padding-bottom:2px; border-bottom:2px solid #000
 		}
-		.top{
+		.title{
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
+			margin-right: 1.25rem;
+		}
+		.top{
+			padding-left: 0.3125rem;
+			padding-right: 0.3125rem;
+			background: #F01C08;
+			color: white;
+			font-size: 0.6rem;
+			border-radius: 0.375rem;
 		}
 	</style>
 
@@ -93,7 +102,7 @@
 					timeout:10000,//超时时间设置为10秒；
 					// headers:{'Content-Type':'application/json'},	              
 					success:function(data){
-						console.log('我的发布:'+JSON.stringify(data))
+						// console.log('我的发布:'+JSON.stringify(data));
 						var datas = data.data;
 						var hh = '';
 						var status = '';
@@ -102,6 +111,10 @@
 							hh += '<ul class="mui-table-view">';
 								
 							for(i=0;i<datas.length;i++){
+								var top_html = '';
+								if(datas[i].is_top == 1 || datas[i].is_like == 1){
+									top_html = '<p class="top">置顶</p>';
+								}
 								if(datas[i]['status'] == '1'){
 									status = '正在审核';
 									div = '';
@@ -117,7 +130,7 @@
 												'<img style="height:5rem" src="'+datas[i]['fm_img']+'"/>'+
 											'</div>'+
 											'<div class="text">'+
-												'<div class="top"><p>'+datas[i]['title']+'</p><p>'+ ((datas[i].is_top == 1 || datas[i].is_like == 1)?'置顶':'') +'</p></div>'+
+												'<div class="title"><p>'+datas[i]['title']+'</p>'+ top_html+'</div>'+
 												'<div><span>申请时间 :'+datas[i]['time']+'</span></div>'+
 												'<div><span style="color:#ff0000">申请状态 :'+status+'</span></div>'+
 												div+

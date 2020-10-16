@@ -124,14 +124,14 @@
 					</div>
 				</div>
 
-				<div class="start">
+				<!-- <div class="start">
 					<div class="title-span">
 						<span>置顶开始</span>
 					</div>
 					<div class="top-start-date">
 						<input style="border: 0rem;" type="text" name="top-start-date" id="top-start-date" placeholder="请选择置顶开始日期" />
 					</div>
-				</div>
+				</div> -->
 
 				<div class="settle">
 					<div class="title-span">
@@ -146,7 +146,7 @@
 				<!-- 猜你喜欢 -->
 				<div class="sort">
 					<div class="sort-span">
-						<span>猜你喜欢</span>
+						<span>猜你喜欢置顶</span>
 					</div>
 					<div class="sort-input">
 						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
@@ -156,18 +156,18 @@
 					</div>
 				</div>
 
-				<div class="start">
+				<!-- <div class="start">
 					<div class="title-span">
 						<span>猜你喜欢开始</span>
 					</div>
 					<div class="like-start-date">
 						<input style="border: 0rem;" type="text" name="like-start-date" id="like-start-date" placeholder="请选择开始日期" />
 					</div>
-				</div>
+				</div> -->
 
 				<div class="settle">
 					<div class="title-span">
-						<span>猜你喜欢月数</span>
+						<span>猜你喜欢置顶月数</span>
 					</div>
 					<div class="sort-input">
 						<!-- <input  type="text" name="sort" placeholder="请选择分类"  /> -->
@@ -215,7 +215,7 @@
 
 				<div class="fm-img">
 					<div class="fm-img-span">
-						<span>封面图</span>
+						<span>封面图(选填)</span>
 					</div>
 					<div class="fm-img-div">
 						<img id="fm-img-click" class="fm-img-base" src="../../img/paizhao.png">
@@ -229,7 +229,7 @@
 				</div>
 				<div class="xq-img">
 					<div class="xq-img-span">
-						<span>详情图</span>
+						<span>详情图(选填)</span>
 					</div>
 					<div class="xq-img-div">
 						<img id="xq-img-click" class="xq-img-base" src="../../img/paizhao.png">
@@ -243,7 +243,7 @@
 				</div>
 				<div class="lbt-img">
 					<div class="lbt-img-span">
-						<span>轮播图</span>
+						<span>轮播图(选填)</span>
 					</div>
 					<div class="lbt-img-div">
 						<img id="lbt-img-click" class="lbt-img-base" src="../../img/paizhao.png">
@@ -654,11 +654,11 @@
 							
 							var is_top = $('#is-top option:selected').val();
 							var top_month = $('#top-month option:selected').val();
-							var top_start_time = $("input[name=top-start-date]").val();
+							// var top_start_time = $("input[name=top-start-date]").val();
 							
 							var is_like = $('#is-like option:selected').val();
 							var like_month = $('#like-month option:selected').val();
-							var like_start_time = $("input[name=like-start-date]").val();
+							// var like_start_time = $("input[name=like-start-date]").val();
 							
 							var rent = document.getElementById("money");
 							var total = rent.innerHTML;
@@ -711,11 +711,11 @@
 										
 										is_top: is_top,
 										top_month:top_month,
-										top_start_time:top_start_time,
+										// top_start_time:top_start_time,
 										
 										is_like:is_like,
 										like_month:like_month,
-										like_start_time:like_start_time,
+										// like_start_time:like_start_time,
 										total:total
 									},
 									dataType: 'json', //服务器返回json格式数据
@@ -997,7 +997,7 @@
 				if(settle_price == null){
 					settle_price = 0;
 				}
-				settle_money = parseFloat(settle_price) * parseInt(settle_month);
+				settle_money = parseFloat(settle_price) ;
 				console.log('入住月租金:'+settle_price+'月数'+settle_month);
 				
 				var is_top = $('#is-top option:selected').val();//是否置顶
@@ -1010,7 +1010,7 @@
 					if(top_price == null){
 						top_price = 0;
 					}
-					top_money = parseFloat(top_price) * parseInt(top_month);
+					top_money = parseFloat(top_price) ;
 					console.log('置顶月租金:'+top_price+'月数'+top_month);
 				}
 				// 猜你喜欢
@@ -1021,7 +1021,7 @@
 					if(like_price == null){
 						like_price = 0;
 					}
-					like_money = parseFloat(like_price) * parseInt(like_month);
+					like_money = parseFloat(like_price);
 					console.log('猜你喜欢月租金:'+like_price+'月数'+like_month);
 				}
 				var total = parseFloat(settle_money) + parseFloat(top_money) + parseFloat(like_money);

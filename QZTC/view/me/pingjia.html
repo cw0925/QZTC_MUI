@@ -164,7 +164,7 @@
 		    </div>
 		    
 		    <div class="content-div">
-		    	<textarea id="input" class="contentText" name="contentText" placeholder="宝贝满足您的期待吗？说说它的优点与美中不足的地方吧!" rows="" cols="" onchange="change()"></textarea>
+		    	<textarea id="input" class="contentText" name="contentText" placeholder="宝贝满足您的期待吗？说说它的优点与美中不足的地方吧!" rows="" cols=""></textarea>
 		    	<!-- <img class="addImg" src="../../img/addimg.png" /> -->
 				<div class="lbt-img">
 					<div class="lbt-img-div">
@@ -216,8 +216,6 @@
 				var logistics = 1;
 				var manner = 1;
 				var describe = 1;
-				
-				var content = '';
 				
 				console.log('订单信息：'+JSON.stringify(order))
 				//星星
@@ -318,13 +316,7 @@
 				mui("body").on("tap",".sbmit-span",function(){
 					var imgarr = $(".lbt-ys");
 					var img = '';
-					// console.log('图片'+imgarr)
-					// if (!imgarr.length) {
-					// 	imgarr = [];
-					// }
-					// for(i=0;i<imgarr.length;i++){
-					// 	console.log('图片：'+JSON.stringify(imgarr[i]))
-					// }
+					var content = $( "#input" ).val();
 					var data = {
 							token:token,
 							gid:gid,
@@ -345,15 +337,16 @@
 				    	success:function(data){
 							console.log('提交结果'+JSON.stringify(data))
 							mui.toast(data.msg);
+							mui.back();
 						}
 					});
 				})
 
 			});
-			function change(){
-				var value = document.getElementById( "input"). value;
-				content = value;
-			}
+			// function change(){
+			// 	var value = document.getElementById( "input").value;
+			// 	content = value;
+			// }
 		</script>
 	</body>
 

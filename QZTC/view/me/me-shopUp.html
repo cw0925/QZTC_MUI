@@ -33,7 +33,6 @@
 			float: left;
 			line-height: 5rem;
 			color: #4A4A4A;
-			
 		}
 		.val-img {
 			width: 100%;
@@ -49,7 +48,6 @@
 			line-height: 3rem;
 			border-bottom: 1px dashed #DDDDDD;
 		}
-		
 		/* 封面图 */
 		.fm-ts{
 			width:10rem;
@@ -72,7 +70,6 @@
 			border-bottom: 1px solid #ACACAC;
 			margin-left: 1rem;
 		}
-		
 		/* 详情图 */
 		.xq-ts{
 			width:10rem;
@@ -114,6 +111,141 @@
 			color: #CCCCCC;
 			line-height: 5rem;
 		}
+		.top{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+		}
+		.settle-month{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+		}
+		.top-month{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+		}
+		.like-month{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+		}
+		#is-top{
+			font-size: 1.5rem;
+		}
+		#top-month{
+			font-size: 1.5rem;
+		}
+		#is-settle{
+			font-size: 1.5rem;
+		}
+		#settle-month{
+			font-size: 1.5rem;
+		}
+		#is-like{
+			font-size: 1.5rem;
+		}
+		#like-month{
+			font-size: 1.5rem;
+		}
+		.rent-money{
+			width: 75%;
+			float: left;
+			line-height: 5rem;
+			color: #4A4A4A;
+		}
+		#popover {
+			width: 100%;
+			/*	height:40rem;*/
+			background: white;
+			position: fixed;
+			bottom: 0%;
+			border-radius: 0;
+			z-index: 1100;
+		}
+		/* 支付设置 */
+		.title-fkfs{
+			color: #4C4C4C;
+			text-align: center;
+			line-height: 5rem;
+			border-bottom: 0.1rem solid #C6C6C6;
+		}
+		.Payment-type{
+			margin-top: 2rem;
+			color: #4C4C4C;
+			position: relative;
+		}
+		.Payment-type img{
+			width: 5rem;
+			height: 5rem;
+			margin-right: 2rem;
+		}
+		.remainingsum{
+			margin-bottom: 3rem;
+			margin-left: 2rem;
+		}
+		
+		.remainingsum span{
+			position: absolute;
+			top: 1.5rem;
+		}
+		
+		.remainingsum input{
+			position: absolute;
+			top: 1.8rem;
+			right: 1.8rem;
+		}
+		
+		.Alipay{
+			margin-bottom: 3rem;
+			margin-left: 2rem;
+		}
+		
+		.Alipay span{
+			position: absolute;
+			top: 9.7rem;
+		}
+		
+		.Alipay input{
+			position: absolute;
+			top: 10rem;
+			right: 1.8rem;
+		}
+		
+		.Wechat{
+			margin-bottom: 3rem;
+			margin-left: 2rem;
+		}
+		
+		.Wechat span{
+			position: absolute;
+			top: 18rem;
+		}
+		
+		.Wechat input{
+			position: absolute;
+			top: 18.3rem;
+			right: 1.8rem;
+		}
+		.bt-fk {
+			width: 90%;
+			text-align: center;
+			margin-bottom: 0.5rem;
+		}
+		.bt-fk button{
+			width: 100%;
+			background: #E8192D;
+			color: #FFFFFF;
+			border-radius: 0;
+			border: 0;
+			margin-left: 5%;
+			line-height: 3rem;
+		}
 	</style>
 	<body>
 		<header class="mui-bar mui-bar-nav">
@@ -147,6 +279,81 @@
 						
 					</div>
 				</div>
+				<!-- 入驻 -->
+				<!-- <div class="info-div">
+					<div class="key">
+						入驻
+					</div>
+					
+					<div class="top">
+						<select id="is-settle">
+							<option value="-1">请选择是否入驻</option>
+						</select>
+					</div>
+				</div> -->
+				<div class="info-div">
+					<div class="key">
+						入驻月数
+					</div>
+					<div class="settle-month">
+						<select id="settle-month" onchange="calculateMoneyChange()">
+							<option value="-1">请选择入驻月数</option>
+						</select>
+					</div>
+				</div>
+				<!-- 置顶 -->
+				<div class="info-div">
+					<div class="key">
+						置顶
+					</div>
+					
+					<div class="top">
+						<select id="is-top" onchange="calculateMoneyChange()">
+							<option value="-1">请选择是否置顶</option>
+						</select>
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						置顶月数
+					</div>
+					<div class="top-month">
+						<select id="top-month" onchange="calculateMoneyChange()">
+							<option value="-1">请选择置顶月数 </option>
+						</select>
+					</div>
+				</div>
+				<!-- 置顶 -->
+				<!-- 猜你喜欢 -->
+				<div class="info-div">
+					<div class="key">
+						猜你喜欢
+					</div>
+					<div class="top">
+						<select id="is-like" onchange="calculateMoneyChange()">
+							<option value="-1">请选择是否置顶</option>
+						</select>
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						猜你喜欢月数
+					</div>
+					<div class="like-month">
+						<select id="like-month" onchange="calculateMoneyChange()">
+							<option value="-1">请选择是否置顶</option>
+						</select>
+					</div>
+				</div>
+				<div class="info-div">
+					<div class="key">
+						总金额
+					</div>
+					<div id="rent-money" class="rent-money">
+						
+					</div>
+				</div>
+				<!-- 猜你喜欢 -->
 				<div class="info-div">
 					<div class="key">
 						区域
@@ -208,6 +415,40 @@
 					
 				</div>
 			</div>
+			
+			<!--支付选择-->
+			<div id="popover" class="mui-popover">
+				<div class="title-fkfs">
+					<span>选择付款方式</span>
+			
+				</div>
+				<div class="Payment-type">
+					<!--余额-->
+					<div class="remainingsum">
+						<img src="../../img/zfb.png" />
+						<span>支付宝 </span>
+						<input type="radio" checked name="payment" value="1" />
+					</div>
+					<!--支付宝-->
+			
+					<div class="Alipay">
+						<img src="../../img/wx.png" />
+						<span>微信</span>
+						<input type="radio" name="payment" value="2" />
+					</div>
+			
+					<!--微信-->
+					<!-- <div class="Wechat">
+						<img src="../../img/wx.png"/>
+						<span>微信</span>
+						<input type="radio" name="payment" value="3" />
+					</div> -->
+				</div>
+				<div class="bt-fk">
+					<button id="bt-fk">立即支付</button>
+				</div>
+			</div>
+			
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
@@ -234,6 +475,7 @@
 					// headers:{'Content-Type':'application/json'},	              
 					success:function(data){
 					var datas = data.data;
+					console.log('编辑：'+JSON.stringify(datas));
 						$(".title input[type=text]").attr("value",datas.title);
 						$(".sort").html(' - '+datas.sort_name+'<span style="color:#acacac;">（ 分类不可更改 ）</span>');
 						$(".zisort").html(' - '+datas.zisort_name+'<span style="color:#acacac;">（ 分类不可更改 ）</span>');
@@ -513,8 +755,35 @@
 								}
 							}
 					}) 
+						//置顶
+						var is_top = [{id:1,name:'是'},{id:0,name:'否'}];
+						var is_top_html = '<option value ="-1">请选择</option>';
+						for (i = 0; i < is_top.length; i++) {
+							is_top_html += '<option value ="' + is_top[i]['id']+'">' + is_top[i]['name']+ '</option>';
+						}
+						console.log('html:'+is_top_html);
+						$("#is-settle").html(is_top_html);
+						$("#is-top").html(is_top_html);
+						$("#is-like").html(is_top_html);
 						
-						
+						var ruzhu_list = datas.ruzhu_list;
+						var settle_html = '<option value ="0">请选择入驻月数</option>';
+						for (i = 0; i < ruzhu_list.length; i++) {
+							settle_html += '<option value ="' + ruzhu_list[i]['month'] + '" price="'+ruzhu_list[i]['price']+ '">' + ruzhu_list[i]['title']+ '('+ ruzhu_list[i]['price'] +')' + '</option>';
+						}
+						$("#settle-month").html(settle_html);
+						var like_list = datas.like_list;
+						var like_html = '<option value ="0">请选择猜你喜欢月数</option>';
+						for (i = 0; i < like_list.length; i++) {
+							like_html += '<option value ="' + like_list[i]['month']+ '" price="'+like_list[i]['price'] + '">' + like_list[i]['title'] + '('+ like_list[i]['price'] +')' + '</option>';
+						}
+						$("#like-month").html(like_html);
+						var top_list = datas.top_list;
+						var top_html = '<option value ="0">请选择置顶月数</option>';
+						for (i = 0; i < top_list.length; i++) {
+							top_html += '<option value ="' + top_list[i]['month'] + '" price="'+top_list[i]['price'] + '">' + top_list[i]['title'] + '('+ top_list[i]['price'] +')' + '</option>';
+						}
+						$("#top-month").html(top_html);
 						//点击更改区域 三级联动
 						mui("body").on("tap",".area",function(){
 						
@@ -557,14 +826,49 @@
 							}
 							var base_lbt_img = lbt_img.substring(1); //轮播图 base64
 							
+							var month = $('#settle-month option:selected').val();
+							
+							var is_top = $('#is-top option:selected').val();
+							var top_month = $('#top-month option:selected').val();
+	
+							
+							var is_like = $('#is-like option:selected').val();
+							var like_month = $('#like-month option:selected').val();
+
+							
+							var rent = document.getElementById("rent-money");
+							var total = rent.innerHTML;
+							
 						
 							mui.ajax(APIPATH+'user/update_shop',{
-								data:{token:token,shop_id:shop_id,title:title,area:area,address:address,depict:depict,type:type,fm_img:base_fm_img,xq_img:base_xq_img,lbt_img:base_lbt_img},
+								data:{
+									token:token,
+									shop_id:shop_id,
+									title:title,
+									area:area,
+									address:address,
+									depict:depict,
+									type:type,
+									fm_img:base_fm_img,
+									xq_img:base_xq_img,
+									lbt_img:base_lbt_img,
+									
+									month:month,
+									
+									is_top: is_top,
+									top_month:top_month,
+								
+									is_like:is_like,
+									like_month:like_month,
+
+									total:total
+								},
 								dataType:'json',//服务器返回json格式数据
 								type:'post',//HTTP请求类型
 								timeout:10000,//超时时间设置为10秒；
 								// headers:{'Content-Type':'application/json'},	              
 								success:function(data){
+									console.log('保存：'+JSON.stringify(data))
 									if(data.status == '1'){
 										mui.toast(data.msg);
 										setTimeout(function(){
@@ -573,6 +877,17 @@
 											var prePage2 = plus.webview.getWebviewById("./me-shop.html");
 											prePage2.reload(true);
 										},500);
+										
+										// 支付租金
+										var rent = document.getElementById("rent-money");
+										var money = rent.innerHTML;
+										
+										console.log('租金' + money)
+										if (parseFloat(money) > 0) {
+											mui.alert('入驻需要支付相应的租金', '温馨提示', function() {
+												mui('#popover').popover("show");
+											});
+										}
 									}else{
 										mui.toast(data.msg);
 									}
@@ -593,7 +908,156 @@
 						console.log(type);
 					}
 				});
-			})
+			});
+			// 立即支付
+			mui("body").on('tap', '#bt-fk', function() {
+				pay();
+			});
+			function pay() {
+				var wxChannel = null; // 微信支付
+				var aliChannel = null; // 支付宝支付
+				var channel = null;
+				// 获取支付通道
+				plus.payment.getChannels(function(channels) {
+					console.log('选择支付方式：' + JSON.stringify(channels))
+					aliChannel = channels[0];
+					wxChannel = channels[1];
+				}, function(e) {
+					mui.toast("获取支付通道失败：" + e.message);
+				});
+				// 支付方式
+				var tcval = $("input[name=payment]:checked").val();
+				console.log('支付方式:' + tcval);
+				// 支付租金
+				var rent = document.getElementById("rent-money");
+				var totalprice = rent.innerHTML;
+			
+				var token = window.localStorage.getItem('qztc');
+				
+				mui.ajax(APIPATH + 'enter/enter_pay', {
+					data: {
+						token:token,
+						type: tcval,
+						money: totalprice
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},
+					success: function(data) {
+						console.log('支付租金：' + JSON.stringify(data))
+						if (data.status == 200) {
+							var xmlres = data.data;
+							var payChannel = aliChannel;
+							if (tcval == 1) {
+								xmlres = data.data;
+								payChannel = aliChannel;
+							} else if (tcval == 2) {
+								xmlres = JSON.stringify(data.data);
+								payChannel = wxChannel;
+							}
+			
+							plus.payment.request(payChannel, xmlres, function(result) {
+								plus.nativeUI.alert("支付成功！", function() {
+									mui('#yezftc').popover("hide");
+									window.localStorage.removeItem('order');
+									plus.webview.close(plus.webview.currentWebview());
+									mui.openWindow({
+										url: '../shoppingCart/payment-success.html',
+										extras: {
+											"totalprice": totalprice
+										}
+									});
+								});
+							}, function(error) {
+								console.log("支付没有成功" + JSON.stringify(error))
+								mui.toast("支付没有成功");
+							});
+						} else {
+							mui.toast('获取订单信息失败');
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log('支付租金失败：' + JSON.stringify(xhr))
+					}
+				});
+			}
+			//计算总金额
+			function calculateMoneyChange(){
+				var settle_money = 0;
+				var top_money = 0;
+				var like_money = 0;
+				// 入住
+				var settle_sel = document.getElementById('settle-month');
+				var settle_price = settle_sel.options[settle_sel.selectedIndex].getAttribute("price");//入驻月租金
+				var settle_month = $('#settle-month option:selected').val();//入驻月租金
+				if(settle_price == null){
+					settle_price = 0;
+				}
+				settle_money = parseFloat(settle_price) ;
+				console.log('入住月租金:'+settle_price+'月数'+settle_month);
+				
+				var is_top = $('#is-top option:selected').val();//是否置顶
+				var is_like = $('#is-like option:selected').val();//是否猜你喜欢
+				// 置顶
+				if(is_top == 1){
+					var top_sel = document.getElementById('top-month');
+					var top_price = top_sel.options[top_sel.selectedIndex].getAttribute("price");//入驻月租金
+					var top_month = $('#top-month option:selected').val();//入驻月租金
+					if(top_price == null){
+						top_price = 0;
+					}
+					top_money = parseFloat(top_price) ;
+					console.log('置顶月租金:'+top_price+'月数'+top_month);
+				}
+				// 猜你喜欢
+				if(is_like == 1){
+					var like_sel = document.getElementById('like-month');
+					var like_price = like_sel.options[like_sel.selectedIndex].getAttribute("price");//入驻月租金
+					var like_month = $('#like-month option:selected').val();//入驻月租金
+					if(like_price == null){
+						like_price = 0;
+					}
+					like_money = parseFloat(like_price);
+					console.log('猜你喜欢月租金:'+like_price+'月数'+like_month);
+				}
+				var total = parseFloat(settle_money) + parseFloat(top_money) + parseFloat(like_money);
+				
+				$('.rent-money').html(total.toFixed(2));
+				// var top_price = sel1.options[sel1.selectedIndex].getAttribute("top_price");//置顶月租金
+				// var like_price = sel1.options[sel1.selectedIndex].getAttribute("like_price");//猜你喜欢月租金
+			
+				// console.log('入驻租金：'+price+'置顶租金：'+top_price+'猜你喜欢租金：'+like_price);
+			
+				// var settle_month = $('#settle-date option:selected').val();//入驻月数
+				// var top_month = $('#top-month option:selected').val();//置顶月数
+				// var like_month = $('#like-month option:selected').val();//入驻月数
+			
+				// console.log('入驻月数：'+ settle_month +'置顶月数：'+top_month+'猜你喜欢月数：'+like_month);
+			
+				// // var is_settle = $('#settle-date option:selected').val();//入驻月数
+				// var is_top = $('#is-top option:selected').val();//是否置顶
+				// var is_like = $('#is-like option:selected').val();//是否猜你喜欢
+			
+				// console.log('是否置顶：'+is_top+'是否猜你喜欢：'+ is_like);
+			
+			
+					
+				
+			
+				// if(is_top == 1){
+				// 	top_money = parseFloat(top_price) * parseInt(top_month);
+				// }
+			
+				// if(is_like == 1){
+				// 	like_money = parseFloat(like_price) * parseInt(like_month);
+				// }
+			
+				// console.log('入驻金额：'+ settle_money +'置顶金额：'+top_money+'猜你喜欢金额：'+like_money);
+			
+			}
 		</script>
 	</body>
 

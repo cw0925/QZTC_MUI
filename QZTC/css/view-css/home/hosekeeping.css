@@ -159,3 +159,17 @@
 	color: #7D7D7D;
 	padding-right: 0.35rem;
 }
+.is_like{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-right: 1.25rem;
+}
+.top{
+	padding-left: 0.3125rem;
+	padding-right: 0.3125rem;
+	background: #F01C08;
+	color: white;
+	font-size: 0.6rem;
+	border-radius: 0.375rem;
+}

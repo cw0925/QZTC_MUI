@@ -79,7 +79,14 @@
 			justify-content: space-between;
 		}
 		.top{
-			width: 30%;
+			/* width: 30%; */
+			height: 1.25rem;
+			padding-left: 0.3125rem;
+			padding-right: 0.3125rem;
+			background: #F01C08;
+			color: white;
+			font-size: 0.6rem;
+			border-radius: 0.375rem;
 			/* background: #2AC845; */
 		}
 		.weizhi{
@@ -149,35 +156,28 @@
 					timeout:10000,//超时时间设置为10秒；
 					// headers:{'Content-Type':'application/json'},	              
 					success:function(data){
-						console.log('返回：'+JSON.stringify(data))
+						// console.log('返回：'+JSON.stringify(data))
 						var datas = data.data.data;
 						$("#sou").html(data.data.area);
 						var hh = '';
 						if(datas.length){
 							for(i=0;i<datas.length;i++){
 								
-								
+								var top_html = '';
+								if(datas[i].is_top==1||datas[i].is_like == 1){
+									top_html = '<p class="top">置顶</p>'
+								}
 								  hh += '<li  fid="'+datas[i]['id']+'" class="mui-table-view-cell click-detail">'+
 												'<a class="mui-navigate-right">'+
 													 '<div class="img_box">'+
 														'<img src="'+datas[i]['fm_img']+'"/>'+
 													 '</div>'+
 													 '<div class="detail">'+ 
-														'<div class="title"><p class="jieshao">'+datas[i]['title']+'</p><p id="top" style="" class="top">'+ ((datas[i].is_top == 1 || datas[i].is_like == 1)?'置顶':'') +'</p></div>'+
+														'<div class="title"><p class="jieshao">'+datas[i]['title']+'</p>'+ top_html +'</div>'+
 														'<p class="weizhi">'+datas[i]['address']+'</p>'+
 													 '</div>'+
 												'</a>'+
 										'</li>'; 
-										// $(".mui-table-view").html(hh);
-										// if(datas[i].is_top == 1 || datas[i].is_like == 1){
-										// 	var top = document.getElementById('top');
-										// 	top.style.display = 'inline';
-										// 	console.log('显示')
-										// }else{
-										// 	console.log('不显示')
-										// 	var top = document.getElementById('top');
-										// 	top.style.display = 'none';
-										// }
 										
 							}
 						}else{
@@ -204,13 +204,17 @@
 									var hh = '';
 									if(datas.length){
 										for(i=0;i<datas.length;i++){
+											var top_html = '';
+											if(datas[i].is_top==1||datas[i].is_like == 1){
+												top_html = '<p class="top">置顶</p>'
+											}
 												hh += '<li fid="'+datas[i]['id']+'" class="mui-table-view-cell click-detail">'+
 																	'<a class="mui-navigate-right">'+
 																		'<div class="img_box">'+
 																			'<img src="'+datas[i]['fm_img']+'"/>'+ 
 																		'</div>'+
 																		'<div class="detail">'+
-																			'<p class="jieshao">'+datas[i]['title']+'</p>'+
+																			'<div class="title"><p class="jieshao">'+datas[i]['title']+'</p>'+ top_html +'</div>'+
 																			'<p class="weizhi">'+datas[i]['address']+'</p>'+
 																		'</div>'+
 																	'</a>'+

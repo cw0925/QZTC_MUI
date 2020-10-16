@@ -40,8 +40,11 @@
     	<div class="mui-slider">
 		  <div class="mui-slider-group mui-slider-loop">
 		    <!--支持循环，需要重复图片节点-->
-		    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
-		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
+		    <div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#"><img src="../../imgs/bmjz_banner.png" /></a>
+				</div>
+		    <div class="mui-slider-item">
+				<a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
 		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
 		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
 		    <div class="mui-slider-item"><a href="#"><img src="../../imgs/bmjz_banner.png" /></a></div>
@@ -105,24 +108,11 @@
 					</div>
 				</div>
 				
-				<div class="one_indicator">
-					<div class="mui-slider-indicator">
-						<div class="mui-indicator mui-active"></div>
-					</div>
-				</div>
-				<div class="two_indicator">
-					<div class="mui-slider-indicator">
-						<div class="mui-indicator mui-active"></div>
-						<div class="mui-indicator"></div>
-					</div>
-				</div>
-				<div class="three_indicator">
-					<div class="mui-slider-indicator">
+					<div class="mui-slider-indicator classify">
 						<div class="mui-indicator mui-active"></div>
 						<div class="mui-indicator"></div>
 						<div class="mui-indicator"></div>
 					</div>
-				</div>
 			
 			</div>  
 		<div id="content">
@@ -245,7 +235,7 @@
 					var two_server = ''; 
 					var three_server = ''; 
 					
-					console.log('实体店铺:'+datas.sort.length);
+					// console.log('实体店铺:'+datas.sort.length);
 					if(datas.sort.length < 9){
 					//一页
 					for(i = 0; i< datas.sort.length;i++){
@@ -259,9 +249,6 @@
 				
 					$(".oneserver").html(one_server);
 
-					$(".one_indicator").css('display','');
-					$(".two_indicator").css('display','none');
-					$(".three_indicator").css('display','none');
 					
 					}else if(datas.sort.length < 17){
 					//两页  
@@ -295,9 +282,7 @@
 					var sort = one_server + two_server;
 					$(".server").html(sort);
 					
-					$(".one_indicator").css('display','none');
-					$(".two_indicator").css('display','');
-					$(".three_indicator").css('display','none');
+				
 					}else if(datas.sort.length < 25){
 						//三页
 						one_server += '<div class="mui-slider-item ">'+  
@@ -341,11 +326,24 @@
 						'</div>';
 						var sort = one_server + two_server + three_server;
 						$(".server").html(sort);
-						
-						$(".one_indicator").css('display','none');
-						$(".two_indicator").css('display','none');
-						$(".three_indicator").css('display','');
+					
 					}
+					var indicator = '';
+					var index = 1;
+					if(datas.sort.length%8 == 0){
+						index = datas.sort.length/8;
+					}else{
+						index = parseInt((datas.sort.length/8))+1
+					}
+					for(i=0;i<index;i++){
+						if(i == 0){
+						indicator += '<div class="mui-indicator mui-active"></div> ';
+						}else{
+						indicator += '<div class="mui-indicator "></div> ';
+						}
+					}
+				
+					$(".classify").html(indicator);
 					
 					
 					//新闻
@@ -433,14 +431,17 @@
 					//猜你喜欢
 					var cnxh = '';
 					for(i=0;i<datas.cnxh.length;i++){
+						var top_html = '';
+						if(datas['cnxh'][i].is_like == 1){
+							top_html = '<p class="top">置顶</p>'
+						}
 					cnxh += '<li class="cnxh-ck" val="'+datas['cnxh'][i]['id']+'">'+
 					'<div class="imgs_box"><img style="height:8rem" src="'+datas['cnxh'][i]['fm_img']+'"/></div>'+
 					'<div class="detail">'+
 					'<h5 class="cnxh-title" >'+datas['cnxh'][i]['title']+'</h5>'+
 					'<p class="room">'+datas['cnxh'][i]['area']+'</p>'+
-					'<p class="introduce">'+datas['cnxh'][i]['address']+'</p>'+ 
-					'</div>'+
-					'</li>';
+					'<div class="is_like"><p class="introduce">'+datas['cnxh'][i]['address']+'</p>'+top_html+'</div>' +
+					'</div></li>';
 					}
 					
 					mui("body").on("tap",".cnxh-ck", function(){
@@ -469,17 +470,21 @@
 						// headers:{'Content-Type':'application/json'},	              
 						success:function(ress){
 							plus.nativeUI.closeWaiting();
-							
+							console.log('加载更多：'+JSON.stringify(ress))
 							
 							if(ress.status == 1){
 							var moreGood = '';
 							for(var i = 0; i < ress.data.length;i++){
+								var like_html = '';
+								if(ress.data[i].is_like == 1){
+									like_html = '<p class="top">置顶</p>'
+								}
 								moreGood += '<li class="cnxh-ck" val="'+ress['data'][i]['id']+'">'+
 								'<div class="imgs_box"><img style="height:8rem" src="'+ress['data'][i]['fm_img']+'"/></div>'+
 								'<div class="detail">'+
 								'<h5 class="cnxh-title" >'+ress['data'][i]['title']+'</h5>'+
 								'<p class="room">'+ress['data'][i]['area']+'</p>'+
-								'<p class="introduce">'+ress['data'][i]['address']+'</p>'+ 
+								'<div class="is_like"><p class="introduce">'+datas['cnxh'][i]['address']+'</p>'+like_html+'</div>' +
 								'</div>'+
 								'</li>'; 
 							}
