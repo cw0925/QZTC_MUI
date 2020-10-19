@@ -37,7 +37,7 @@
 		</header>
 		<div class="mui-scroll-wrapper" style="margin-top: 2.2rem;">
     	<div class="mui-scroll">
-    	<div class="mui-slider">
+    	<div id="img" class="mui-slider">
 		  <div class="mui-slider-group mui-slider-loop">
 		    <!--支持循环，需要重复图片节点-->
 		    <div class="mui-slider-item mui-slider-item-duplicate">
@@ -60,9 +60,9 @@
 		</div>
 		<!--九宫格--> 
 	    <div id="Gallery" class="mui-slider">   
-				<div class="mui-slider-group  server">  
-					<div class="mui-slider-item ">  
-						<ul class="mui-table-view mui-grid-view mui-grid-9 oneserver">  
+				<div class="mui-slider-group mui-slider-loop  server">  
+					<!-- <div class="mui-slider-item ">  
+						<ul --> class="mui-table-view mui-grid-view mui-grid-9 oneserver">  
 								<!-- <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
 										<a href="#"> 
 											<img style="width: 2.5rem;" src="../../imgs/bmjz_icon1.png" alt="" />
@@ -104,8 +104,8 @@
 												<div class="mui-media-body">入驻发布</div>  
 								</a>  
 								</li>  -->
-						</ul> 
-					</div>
+						<!-- </ul> 
+					</div> -->
 				</div>
 				
 					<div class="mui-slider-indicator classify">
@@ -179,10 +179,15 @@
 		<script type="text/javascript">
 		
 			mui.init()
-			var gallery = mui('.mui-slider');
+			
+			var gallery = mui('#img');
 			gallery.slider({
 			interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
 			});
+			
+			// var scroll = mui('#Gallery');
+			// scroll.slider().gotoItem(2);
+			
 			document.addEventListener("plusready",function(){	
 
 			plus.nativeUI.showWaiting();
@@ -197,7 +202,7 @@
 				timeout:10000,//超时时间设置为10秒；
 				// headers:{'Content-Type':'application/json'},	              
 				success:function(data){
-					// console.log('二级分类页面：'+JSON.stringify(data));
+					console.log('二级分类页面：'+JSON.stringify(data));
 					var datas = data.data;
 					
 					$(".mui-title").html(datas.name);
@@ -231,9 +236,11 @@
 					});
 					})
 					
+					var first_server = ''; 
 					var one_server = '';
 					var two_server = ''; 
 					var three_server = ''; 
+					var last_server = '';
 					
 					// console.log('实体店铺:'+datas.sort.length);
 					if(datas.sort.length < 9){
@@ -285,12 +292,17 @@
 				
 					}else if(datas.sort.length < 25){
 						//三页
+						first_server += '<div class="mui-slider-item mui-slider-item-duplicate">';
+						
 						one_server += '<div class="mui-slider-item ">'+  
 						'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
 						two_server += '<div class="mui-slider-item ">'+  
 						'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
 						three_server += '<div class="mui-slider-item ">'+
 						'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
+						
+						last_server += '<div class="mui-slider-item mui-slider-item-duplicate">';
+						
 						for(i = 0; i< datas.sort.length;i++){
 						if(i < 8){
 						one_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+  
@@ -324,7 +336,12 @@
 						'</div>';
 						three_server += '</ul>'+
 						'</div>';
-						var sort = one_server + two_server + three_server;
+						
+						first_server += three_server + '</div>';
+						
+						last_server += one_server + '</div>';
+						
+						var sort =  first_server + one_server + two_server + three_server + last_server;
 						$(".server").html(sort);
 					
 					}
@@ -342,8 +359,9 @@
 						indicator += '<div class="mui-indicator "></div> ';
 						}
 					}
-				
 					$(".classify").html(indicator);
+					
+					mui("#Gallery").slider();
 					
 					
 					//新闻

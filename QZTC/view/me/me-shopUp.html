@@ -871,12 +871,12 @@
 									console.log('保存：'+JSON.stringify(data))
 									if(data.status == '1'){
 										mui.toast(data.msg);
-										setTimeout(function(){
-											var prePage1 = plus.webview.getWebviewById("./me-shopUp.html");
-											prePage1.reload(true);
-											var prePage2 = plus.webview.getWebviewById("./me-shop.html");
-											prePage2.reload(true);
-										},500);
+										// setTimeout(function(){
+										// 	var prePage1 = plus.webview.getWebviewById("./me-shopUp.html");
+										// 	prePage1.reload(true);
+										// 	var prePage2 = plus.webview.getWebviewById("./me-shop.html");
+										// 	prePage2.reload(true);
+										// },500);
 										
 										// 支付租金
 										var rent = document.getElementById("rent-money");
