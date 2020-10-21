@@ -60,7 +60,7 @@
 		</div>
 		<!--九宫格--> 
 	    <div id="Gallery" class="mui-slider">   
-				<div class="mui-slider-group mui-slider-loop  server">  
+				<div class="mui-slider-group mui-slider-loop server">  
 					<!-- <div class="mui-slider-item ">  
 						<ul --> class="mui-table-view mui-grid-view mui-grid-9 oneserver">  
 								<!-- <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">  
@@ -185,9 +185,6 @@
 			interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
 			});
 			
-			// var scroll = mui('#Gallery');
-			// scroll.slider().gotoItem(2);
-			
 			document.addEventListener("plusready",function(){	
 
 			plus.nativeUI.showWaiting();
@@ -236,15 +233,18 @@
 					});
 					})
 					
-					var first_server = ''; 
-					var one_server = '';
-					var two_server = ''; 
-					var three_server = ''; 
-					var last_server = '';
+					var first_server = '<div class="mui-slider-item mui-slider-item-duplicate">'; 
+					var one_server = '<div class="mui-slider-item ">'+
+					'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
+					var two_server = '<div class="mui-slider-item ">'+  
+					'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
+					var three_server = '<div class="mui-slider-item ">'+  
+					'<ul class="mui-table-view mui-grid-view mui-grid-9 ">'; 
+					var last_server = '<div class="mui-slider-item mui-slider-item-duplicate">';
 					
 					// console.log('实体店铺:'+datas.sort.length);
 					if(datas.sort.length < 9){
-					//一页
+						
 					for(i = 0; i< datas.sort.length;i++){
 					one_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+  
 					'<a onclick="jump(\''+datas.sort[i]['url_str']+'?id='+datas.sort[i]['id']+'\')">'+
@@ -253,16 +253,22 @@
 								'</a>'+  
 						'</li>';
 					}
+					one_server += '</ul>'+
+					'</div>';
+					
+					
+					first_server += one_server + '</div>';
+											
+					last_server += one_server + '</div>';
 				
-					$(".oneserver").html(one_server);
+					var sort =  first_server + one_server + last_server;
+					
+					$(".server").html(sort);
 
 					
 					}else if(datas.sort.length < 17){
 					//两页  
-					one_server += '<div class="mui-slider-item ">'+  
-					'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
-					two_server += '<div class="mui-slider-item ">'+  
-					'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
+					
 					for(i = 0; i< datas.sort.length;i++){
 					if(i < 8){
 					one_server += '<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">'+  
@@ -286,22 +292,19 @@
 					'</div>';
 					two_server += '</ul>'+ 
 					'</div>';
-					var sort = one_server + two_server;
+					
+					first_server += two_server + '</div>';
+											
+					last_server += one_server + '</div>';
+									
+					var sort =  first_server + one_server + two_server + last_server;
+					
 					$(".server").html(sort);
 					
 				
 					}else if(datas.sort.length < 25){
 						//三页
-						first_server += '<div class="mui-slider-item mui-slider-item-duplicate">';
 						
-						one_server += '<div class="mui-slider-item ">'+  
-						'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
-						two_server += '<div class="mui-slider-item ">'+  
-						'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
-						three_server += '<div class="mui-slider-item ">'+
-						'<ul class="mui-table-view mui-grid-view mui-grid-9 ">';
-						
-						last_server += '<div class="mui-slider-item mui-slider-item-duplicate">';
 						
 						for(i = 0; i< datas.sort.length;i++){
 						if(i < 8){
