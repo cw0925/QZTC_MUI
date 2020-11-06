@@ -23,7 +23,7 @@
 		   <img src="../../img/success.png"/>
 		   <span class="zfcg">支付成功</span>
 		   <span class="zf-price">实付:￥00.00</span>
-		   <a class="home" href="../../bottom_nav.html">返回</a>
+		   <a class="home" >返回</a>
 		   <!-- <a class="order" href="../me/me-dingdan.html">查看订单</a> -->
 		</div>	
 		<script src="../../js/jquery.min.js"></script>
@@ -48,7 +48,7 @@
 				});
 			});
 			
-			mui('body').on('tap','.home',function(){
+			mui('body').on('tap','home','.home',function(){
 				plus.webview.close(plus.webview.currentWebview());
 				
 				// window.location.href = "bottom_nav.html";
