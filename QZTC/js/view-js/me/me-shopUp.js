@@ -53,16 +53,34 @@ function dealImage(obj) {
 	{
 		case 'fm':
 		// 封面图
-		
-			$(".fm-ys").attr("src",img);
-			$(".fm-ts").attr("src",img); 
-			
+		$(".fm-ys").attr("src",img);
+		$(".fm-ts").attr("src",img); 
 		break;
 		
 		case 'xq':
 		// 详情图片
-			$(".xq-ys").attr("src",img);
-			$(".xq-ts").attr("src",img); 
+		// ob 是第几个的意思
+		var upxqTs = $(".xq-img .xq-ts").eq(ob);
+		upxqTs.attr("src",img);
+		
+		var upxqYs = $(".xq-img .xq-ys").eq(ob);
+		upxqYs.attr("src",img);
+		upxqYs.attr("class","xq-ys gh");
+		upxqYs.attr("gh",ob);
+		break;
+		case 'xqadd':
+		// 详情图
+		// ob 是第几个的意思
+		var upxqaddTs = $(".xq-img .xq-add-ts").eq(ob);
+		upxqaddTs.attr("src",img);
+		
+		var upxqaddYs = $(".xq-img .xq-add-ys").eq(ob);
+		upxqaddYs.attr("src",img);
+		
+		$(".xq-img .xq-add-ts").eq(ob).attr("class","xq-ts");
+		$(".xq-img .xq-add-ys").eq(ob).attr("class","xq-ys gh");
+		$(".xq-ys").attr("gh",ob);
+		
 		break;
 		
 		case 'lbt':
@@ -101,11 +119,9 @@ function dealImage(obj) {
 		}
 		break;
 	}
- 	
  }
- 
  // 从相册中选择图片 
-function galleryImgUP(num,cla,ob){
+function galleryImgUP(num,cla,ob){//1,xqadd,0
 	// 从相册中选择图片
 	plus.gallery.pick( function(e){
 		var fileSrc = [];
@@ -113,8 +129,6 @@ function galleryImgUP(num,cla,ob){
 			fileSrc[i] = e.files[i];
 		}
 		setHtml(fileSrc,cla,ob);
-		
-		// upload(fileSrc);
 	}, function (e) {
 		console.log( "取消选择图片" );
 	},{

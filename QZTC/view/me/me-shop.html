@@ -50,6 +50,21 @@
 			margin-bottom: 1%;
 			
 		}
+		.xq-img{
+			width: 100%;
+			margin-left: 5%;
+			margin-bottom: 15%;
+			border-bottom: 1px dashed #DDDDDD;
+			overflow: hidden;
+		}
+		.xq-img img{
+			width:42%;
+			height: 14rem;
+			margin-right: 3%;
+			margin-left: 1%;
+			margin-bottom: 1%;
+			
+		}
 		.btn-jinrushop{
 			width: 100%;
 			background: #F79C34;
@@ -130,9 +145,17 @@
 					<span style="margin-left: 7%;margin-right: 8%; line-height: 18rem;">封面图</span>
 					<img class="fm-img" style="width:15rem;height: 15rem;vertical-align: middle;" src="../../imgs/bm_image1.png">
 				</div>
-				<div class="info-div">
+				<!-- <div class="info-div">
 					<span style="margin-left: 7%;margin-right: 8%; line-height: 18rem;">详情图</span>
 					<img class="xq-img" style="width:15rem;height: 15rem;vertical-align: middle;" src="../../imgs/bm_image1.png">
+				</div> -->
+				<div style="border: 0;" class="info-div">
+					<div class="key-img">
+						详情图
+					</div>
+					<div class="xq-img">
+						
+					</div>
 				</div>
 				<div style="border: 0;" class="info-div">
 					<div class="key-img">
@@ -157,7 +180,7 @@
 				 var self = plus.webview.currentWebview();
 				 var shop_id = self.shop_id;
 				 var token = window.localStorage.getItem('qztc');
-			
+			console.log(token+'==='+shop_id)
 				mui.ajax(APIPATH+'user/get_serverShop',{
 					data:{token:token,shop_id:shop_id},
 					dataType:'json',//服务器返回json格式数据
@@ -165,6 +188,7 @@
 					timeout:10000,//超时时间设置为10秒；
 					// headers:{'Content-Type':'application/json'},	              
 					success:function(data){
+						// console.log('我的商铺'+JSON.stringify(data));
 					var datas = data.data;
 					$(".title").html(' - '+datas.title);//标题
 					$(".sort").html(' - '+datas.sort_name);//分类
@@ -173,7 +197,14 @@
 					$(".address").html(' - '+datas.address);//详细地址
 					$(".depict").html(' - '+datas.depict);//描述
 					$(".fm-img").attr("src",datas.fm_img_str);
-					$(".xq-img").attr("src",datas.xq_img_str);
+					// $(".xq-img").attr("src",datas.xq_img_str);
+					// 详情
+					var xqhh = '';
+					for(i=0;i<datas.xq_img_str.length;i++){
+						xqhh += '<img src="'+datas['xq_img_str'][i]+'">';
+					}
+					$(".xq-img").html(xqhh);
+					// 轮播
 					var lbthh = '';
 					for(i=0;i<datas.lbt_img.length;i++){
 						lbthh += '<img src="'+datas['lbt_img_str'][i]+'">';
@@ -193,8 +224,7 @@
 								"shop_id":shop_id
 							}
 						});	
-					})
-					
+					});
 					//进入编辑
 					mui("body").on("tap",".update",function(){
 						mui.openWindow({

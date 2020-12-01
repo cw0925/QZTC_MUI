@@ -13,11 +13,26 @@
 		
 	</style>
 	<body>
-		
-		<header class="mui-bar mui-bar-nav">
-			<a onclick="jump('me-setup.html')"><img style="margin-left:0.2rem;margin-top:0.5rem ;width: 1.3rem;height: 1.3rem;" src="../../img/setup.png"/></a>
-		    <h1 class="mui-title">我的</h1>
+		<header id="header" class="mui-bar mui-bar-nav">
+		             
+		<h1 class="mui-title">我的</h1>
+		 
+		<!-- <a onclick="jump('me-setup.html')"> -->
+			<img class="setting" style="margin-left:0.2rem;margin-top:0.5rem ;width: 1.3rem;height: 1.3rem;" src="../../img/setup.png"/>
+		<!-- </a> -->
+			<span class="btn  mui-pull-right">联系我们</span>
 		</header>
+		
+		<!-- <header class="mui-bar mui-bar-nav">
+			<a onclick="jump('me-setup.html')">
+				<img style="margin-left:0.2rem;margin-top:0.5rem ;width: 1.3rem;height: 1.3rem;" src="../../img/setup.png"/>
+			</a>
+		    <h1 class="mui-title">我的</h1>
+			
+			<a class="contact">
+				<img style="margin-left:0.2rem;margin-top:0.5rem ;width: 1.3rem;height: 1.3rem;" src="../../img/setup.png"/>
+			</a>
+		</header> -->
 		<div class="mui-scroll-wrapper">
 		<div class="mui-scroll">
 		<div class="header_box"  onclick="jump('gerenxinxi.html')">
@@ -86,9 +101,11 @@
 		                    <div class="mui-media-body">钱包</div>
 		            	</a>
 		            </li>
-		            <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"><a  onclick="jump('me-jifen.html')">
+		            <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+						<a  onclick="jump('me-jifen.html')">
 		                       <img src="../../imgs/my_icon8.png" alt="" />
-		                    <div class="mui-media-body">积分</div></a></li>
+		                    <div class="mui-media-body">积分</div>
+							</a></li>
 		        <!--    <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3"><a href="me-youhuiquan.html">
 		                        <img src="../../imgs/my_icon9.png" alt="" />
 		                    <div class="mui-media-body">我的优惠券</div></a></li> -->
@@ -264,6 +281,17 @@
 				mui.openWindow({
 				    url: 'me-server-order.html',
 				});
+			});
+			
+			mui('body').on('tap','.btn',function(){
+				mui.openWindow({
+					url: "me-lianxi.html"
+				});	
+			});
+			mui('body').on('tap','.setting',function(){
+				mui.openWindow({
+					url: "me-setup.html"
+				});	
 			});
 			
 		});

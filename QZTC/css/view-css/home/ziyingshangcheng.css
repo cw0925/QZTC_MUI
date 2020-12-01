@@ -248,3 +248,11 @@ header{
 	color: #7D7D7D;
 	padding-right: 0.35rem;
 }
+.more-rm{
+	margin: 20px ; 
+	line-height: 2.5; 
+	text-align: center;
+	border: 1px solid white;
+	margin-top: 1rem;
+	background-color: white;
+}

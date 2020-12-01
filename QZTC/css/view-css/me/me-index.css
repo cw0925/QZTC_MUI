@@ -7,6 +7,11 @@
 .mui-bar a{
 	color: #FFFFFF;
 }
+.btn{
+	margin-top: 0.5rem;
+	background-color: #E8192D;
+	color: white;
+}
 .header_box {
 	display: flex;
 	margin-top: 2.2rem;

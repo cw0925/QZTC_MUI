@@ -71,25 +71,32 @@
 			margin-left: 1rem;
 		}
 		/* 详情图 */
-		.xq-ts{
+		/* .xq-ts{
 			width:10rem;
 			height: 10rem;
 			vertical-align: middle;
 			margin-top: 1rem;
 			margin-bottom: 1rem;
 			margin-right: 2rem;
+		} */
+		.xq-img img{
+			width:42%;
+			height: 14rem;
+			margin-right: 3%;
+			margin-left: 1%;
+			margin-bottom: 1%;
 		}
 		.xq-ys{
 			display: none;
 		}
-		.xq-btn{
-			color:#ACACAC;
-			border-bottom: 1px solid #ACACAC;
+		.xq-add-ys{
+			display: none;
 		}
 		.xq-ck{
-			color:#ACACAC;
-			border-bottom: 1px solid #ACACAC;
-			margin-left: 1rem;
+			width: 100%;
+			text-align: center;
+			color: #CCCCCC;
+			line-height: 5rem;
 		}
 		/* 轮播图 */
 		.lbt-img img{
@@ -395,10 +402,13 @@
 					</div>
 				</div>
 				<div class="info-div">
-					<div style="line-height: 12rem;" class="key">
+					<div class="key-img">
 						详情图
 					</div>
-					<div class="val xq-img">
+					<div class="xq-ck">
+						确定
+					</div>
+					<div class="val-img xq-img">
 						
 					</div>
 				</div>
@@ -475,7 +485,7 @@
 					// headers:{'Content-Type':'application/json'},	              
 					success:function(data){
 					var datas = data.data;
-					console.log('编辑：'+JSON.stringify(datas));
+					// console.log('编辑：'+JSON.stringify(datas));
 						$(".title input[type=text]").attr("value",datas.title);
 						$(".sort").html(' - '+datas.sort_name+'<span style="color:#acacac;">（ 分类不可更改 ）</span>');
 						$(".zisort").html(' - '+datas.zisort_name+'<span style="color:#acacac;">（ 分类不可更改 ）</span>');
@@ -558,11 +568,22 @@
 						
 						
 						//详情图
-						$(".xq-img").html('<img class="xq-ts" src="'+datas.xq_img_str+'" ></img>'+
-						'<img class="xq-ys" val="'+datas.xq_img+'" src="'+datas.xq_img_str+'">'+
-						'<span class="xq-btn">更换</span> <span class="xq-ck">确定</span>');
+						var xq_html = '';
+						for(var i=0;i<datas.xq_img_str.length;i++){
+							xq_html += '<img class="xq-ts" src="'+datas.xq_img_str[i]+'" ></img>'+
+						'<img class="xq-ys" val="'+datas.xq_img[i]+'" src="'+datas.xq_img_str[i]+'">';
+						}
+						for(var i=0;i<3-datas.xq_img_str.length;i++){
+							xq_html += '<img class="xq-ts" src="../../img/addimg.png">'+
+									   '<img class="xq-ys" src="../../img/addimg.png">';
+						}
+						$(".xq-img").html(xq_html);
+						// $(".xq-img").html('<img class="xq-ts" src="'+datas.xq_img_str+'" ></img>'+
+						// '<img class="xq-ys" val="'+datas.xq_img+'" src="'+datas.xq_img_str+'">'+
+						// '<span class="xq-btn">更换</span> <span class="xq-ck">确定</span>');
 						//详情图 更换图片
-						mui("body").on("tap",".xq-btn",function(){
+						mui("body").on("tap",".xq-ts",function(){
+							var ob = $(".xq-img .xq-ts").index(this);
 							if (mui.os.plus) {
 							var buttonTit = [{ 
 								title: "拍照"
@@ -579,11 +600,11 @@
 									case 0:
 										break;
 									case 1:
-										getImageUP("xq"); /*拍照*/
+										getImageUP("xq",ob); /*拍照*/
 										
 										break;
 									case 2:
-										galleryImgUP(1,"xq");/*打开相册*/ 
+										galleryImgUP(1,"xq",ob);/*打开相册*/ 
 										
 										break;
 									default:
@@ -592,37 +613,77 @@
 							})
 							} 
 						})
-						
+						// //详情图 添加的
+						// mui("body").on("tap",".xq-add-ts",function(){
+						// 	var ob = $(".xq-img .xq-add-ts").index(this);
+						// 	if (mui.os.plus) {
+						// 	var buttonTit = [{ 
+						// 		title: "拍照"
+						// 	}, {
+						// 		title: "从手机相册选择"
+						// 	}]; 
+							
+						// 	plus.nativeUI.actionSheet({
+						// 		title: "上传图片",
+						// 		cancel: "取消",
+						// 		buttons: buttonTit
+						// 	}, function(b) { /*actionSheet 按钮点击事件*/
+						// 		switch (b.index) {
+						// 			case 0:
+						// 				break;
+						// 			case 1:
+										
+						// 				getImageUP("xqadd",ob); /*拍照*/
+						// 				break;
+						// 			case 2:
+						// 				galleryImgUP(1,"xqadd",ob);/*打开相册*/ 
+										
+						// 				break;
+						// 			default:
+						// 				break;
+						// 		}
+						// 	})
+						// 	} 
+						// });
 						mui("body").on("tap",".xq-ck",function(){
 								plus.nativeUI.showWaiting();
-								if(!$(".xq-ys").attr("src")){
+								var xqarr = $(".xq-ys"); 
+								var gh = $(".gh"); //谁更改过
+								
+								if(!gh.length){
 									plus.nativeUI.closeWaiting();
-									mui.toast('请上传图片后在点击确定');
-								}
-								var base_xq = getBase64Image($(".xq-ys")[0]);
-								dealImage({
-									base64:base_xq,
-									w:800,
-									callback:function(base64){
-										
-										mui.ajax(APIPATH+'Enter/xq_img',{
-											data:{xq_img:base64},
-											dataType:'json',//服务器返回json格式数据
-											type:'post',//HTTP请求类型
-											timeout:10000,//超时时间设置为10秒；
-											// headers:{'Content-Type':'application/json'},	              
-											success:function(data){
-											$(".xq-ys").attr("val",data.data);
-											plus.nativeUI.closeWaiting();
-											},
-											error:function(xhr,type,errorThrown){
-												//异常处理；
-												console.log(type);
-											}
+									mui.toast('请上传图片后再点击确定');
+								}else{
+									for(i=0;i<gh.length;i++){
+										var base_xq = getBase64Image(xqarr[gh.eq(i).attr("gh")]);
+										var ob = gh.eq(i).attr("gh");
+										dealImage({
+											base64:base_xq,
+											w:800,
+											ob:ob,
+											callback:function(base64,ob){
+												mui.ajax(APIPATH+'Enter/xq_img',{
+													data:{xq_img:base64},
+													dataType:'json',//服务器返回json格式数据
+													type:'post',//HTTP请求类型
+													timeout:10000,//超时时间设置为10秒；
+													// headers:{'Content-Type':'application/json'},	              
+													success:function(data){
+														// console.log('确定：'+JSON.stringify(data));
+													$(".xq-ys").eq(ob).attr("val",data.data);
+													
+													plus.nativeUI.closeWaiting(); 
+													},
+													error:function(xhr,type,errorThrown){
+														//异常处理；
+														console.log(type);
+													}
+												});
+											} 
 										});
 									}
-								}); 
-						})
+								}
+						}) 
 						
 						//轮播图
 						var lbt = '';
@@ -645,8 +706,8 @@
 							}
 							//可以上传的
 							for(i=0;i<quecount;i++){
-								lbt += '<img class="add-ts" src="../../img/addimg.png">'+
-									   '<img class="add-ys" src="../../img/addimg.png">';
+								lbt += '<img class="lbt-ts" src="../../img/addimg.png">'+
+									   '<img class="lbt-ys" src="../../img/addimg.png">';
 							}
 							$(".lbt-img").html(lbt);
 						}
@@ -761,7 +822,6 @@
 						for (i = 0; i < is_top.length; i++) {
 							is_top_html += '<option value ="' + is_top[i]['id']+'">' + is_top[i]['name']+ '</option>';
 						}
-						console.log('html:'+is_top_html);
 						$("#is-settle").html(is_top_html);
 						$("#is-top").html(is_top_html);
 						$("#is-like").html(is_top_html);
@@ -817,7 +877,17 @@
 							
 							var type = $("input[name=type]:checked ").attr("value");//类型 1 上架 2 下架
 							var base_fm_img = $(".fm-ys").attr("val");//封面图 base64
-							var base_xq_img = $(".xq-ys").attr("val");//详情图 base64
+							// var base_xq_img = $(".xq-ys").attr("val");//详情图 base64
+							// 详情图 base64
+							var xq = $(".xq-ys");
+							var xq_img = '';
+							
+							for(i=0;i<xq.length;i++){
+								xq_img += ','+xq.eq(i).attr("val");
+							}
+							var base_xq_img = xq_img.substring(1); //详情图 base64
+							
+							// 轮播图 base64
 							var lbt = $(".lbt-ys");
 							var lbt_img = '';
 							
@@ -826,6 +896,7 @@
 							}
 							var base_lbt_img = lbt_img.substring(1); //轮播图 base64
 							
+						
 							var month = $('#settle-month option:selected').val();
 							
 							var is_top = $('#is-top option:selected').val();
@@ -839,7 +910,6 @@
 							var rent = document.getElementById("rent-money");
 							var total = rent.innerHTML;
 							
-						
 							mui.ajax(APIPATH+'user/update_shop',{
 								data:{
 									token:token,
@@ -997,7 +1067,7 @@
 					settle_price = 0;
 				}
 				settle_money = parseFloat(settle_price) ;
-				console.log('入住月租金:'+settle_price+'月数'+settle_month);
+				// console.log('入住月租金:'+settle_price+'月数'+settle_month);
 				
 				var is_top = $('#is-top option:selected').val();//是否置顶
 				var is_like = $('#is-like option:selected').val();//是否猜你喜欢

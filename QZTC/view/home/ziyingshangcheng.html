@@ -206,6 +206,8 @@
 						</li>
 					</ul>
 					
+					<div class="more-rm" value='2'>更多</div> 
+					
 				</div>
 			 
 			
@@ -232,7 +234,7 @@
 					timeout:10000,//超时时间设置为10秒；
 					// headers:{'Content-Type':'application/json'},	              
 					success:function(data){
-						console.log('自营商城服务分类：'+JSON.stringify(data))
+						// console.log('自营商城服务分类：'+JSON.stringify(data))
 						var datas = data.data;
 						//头部轮播图
 						var outnum = datas.toplbt.length - 1;	
@@ -333,6 +335,52 @@
 					}
 				});
 			});
+			
+			//点击加载更多
+			$(".more-rm").on("tap",function (){
+				
+			
+				var pages = $(this).attr("value");
+				
+				plus.nativeUI.showWaiting();
+			
+				
+				mui.ajax(APIPATH+'index/ziying_remai',{
+					data:{pages:pages},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					// headers:{'Content-Type':'application/json'},	              
+					success:function(ress){
+						console.log('更多'+JSON.stringify(ress));
+						plus.nativeUI.closeWaiting();
+						if(ress.status == 1){
+						var moreGood = '';
+			
+						for(var i = 0; i < ress.data.length;i++){
+							moreGood += '<li onclick="jump(\'ziyingshangcheng-shangpingxiangqing.html?id='+ress.data[i]['id']+'\')">'+
+											'<div class="imgs_box"><img style="height:8rem" src="'+ress.data[i]['cover_img']+'"/></div>'+
+											'<p class="jieshao">'+ress.data[i]['title']+'</p>'+
+											'<p class="price"><span>￥'+ress.data[i]['minprice']+'</span></p>'+
+											'<p class="vip_box"><span>￥'+ress.data[i]['vipprice']+'</span><span class="btn">会员</span></p>'+
+										'</li>'; 
+						}
+						$(".hot_ul").append(moreGood);
+						$(".more-rm").attr("value",ress.msg);
+						}else{
+						$(".more-rm").hide();
+						mui.toast(ress.msg);
+						} 
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+				
+					
+			})
 		
 		</script>
 	</body>
